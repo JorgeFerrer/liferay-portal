@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
@@ -30,6 +31,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Jorge Ferrer
  */
 public class Version implements Comparable<Version>, Serializable {
+
+	public static final String SNAPSHOT = "SNAPSHOT";
 
 	public static final String UNKNOWN = "unknown";
 
@@ -139,7 +142,13 @@ public class Version implements Comparable<Version>, Serializable {
 			return result;
 		}
 
-		return _compareAsIntegers(getBuildNumber(), version.getBuildNumber());
+		result = _compareAsIntegers(getBuildNumber(), version.getBuildNumber());
+
+		if (result != 0) {
+			return result;
+		}
+
+		return _compareAsQualifiers(getQualifier(), version.getQualifier());
 	}
 
 	@Override
@@ -378,6 +387,29 @@ public class Version implements Comparable<Version>, Serializable {
 		else {
 			return 1;
 		}
+	}
+
+	private int _compareAsQualifiers(String first, String second) {
+		String firstString = GetterUtil.getString(first);
+		String secondString = GetterUtil.getString(second);
+
+		// If either one is "snapshot", consider it lower,
+		// even if the other one has a different qualifier.
+
+		if (StringUtil.equalsIgnoreCase(firstString, SNAPSHOT) &&
+			!StringUtil.equalsIgnoreCase(secondString, SNAPSHOT)) {
+
+			return -1;
+		}
+		else if (!StringUtil.equalsIgnoreCase(firstString, SNAPSHOT) &&
+				 StringUtil.equalsIgnoreCase(secondString, SNAPSHOT)) {
+
+			return 1;
+		}
+
+		// Either none or both are snapshots, so return 0;
+
+		return 0;
 	}
 
 	private static final String _SEPARATOR = StringPool.PERIOD;
