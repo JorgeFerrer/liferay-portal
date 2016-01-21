@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String redirect = renderRequest.getParameter("redirect");
+String redirect = ParamUtil.get(request, "redirect", currentURL);
 
 List<String> configurationCategories = (List<String>)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_CATEGORIES);
 String configurationCategory = (String)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_CATEGORY);
@@ -63,13 +63,15 @@ if (Validator.isNotNull(keywords)) {
 	</c:if>
 
 	<aui:nav-bar-search>
-		<portlet:renderURL var="searchURL">
-			<portlet:param name="mvcRenderCommandName" value="/search" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-		</portlet:renderURL>
 
-		<aui:form action="<%= searchURL %>" name="searchFm">
-			<liferay-ui:input-search autoFocus="<%= true %>" markupView="lexicon" />
+		<%
+		PortletURL searchURL = PortletURLUtil.clone(portletURL, renderResponse);
+
+		searchURL.setParameter("redirect", currentURL);
+		%>
+
+		<aui:form action="<%= searchURL.toString() %>" name="searchFm">
+			<liferay-ui:input-search autoFocus="<%= true %>" id="configurationSearch" markupView="lexicon" />
 		</aui:form>
 	</aui:nav-bar-search>
 </aui:nav-bar>
