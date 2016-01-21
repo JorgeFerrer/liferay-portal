@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.xml.QName;
 import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletApp;
 import com.liferay.portal.model.PortletConstants;
+import com.liferay.portal.model.PortletInstance;
 import com.liferay.portal.model.PublicRenderParameter;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.lang.DoPrivilegedBean;
@@ -301,14 +302,19 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		return _portletContext;
 	}
 
+	public PortletInstance getPortletInstance() {
+		return _portletInstance;
+	}
+
 	@Override
 	public PortletMode getPortletMode() {
 		return _portletMode;
 	}
 
+	@Deprecated
 	@Override
 	public String getPortletName() {
-		return _portletName;
+		return _portletInstance.getPortletInstanceKey();
 	}
 
 	@Override
@@ -668,6 +674,8 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 
 		_portlet = portlet;
 		_portletName = portlet.getPortletId();
+		_portletInstance = PortletInstance.fromPortletInstanceKey(
+			portlet.getPortletId());
 
 		PortletApp portletApp = portlet.getPortletApp();
 
@@ -743,7 +751,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		boolean windowStateRestoreCurrentView = ParamUtil.getBoolean(
 			request, "p_p_state_rcv");
 
-		if (_portletName.equals(ppid) &&
+		if (isSamePortletInstance(ppid) &&
 			!(windowStateRestoreCurrentView &&
 			  portlet.isRestoreCurrentView())) {
 
@@ -893,6 +901,34 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		_plid = plid;
 	}
 
+	protected boolean isSamePortletInstance(String ppid) {
+		PortletInstance currentPortletInstance =
+			PortletInstance.fromPortletInstanceKey(ppid);
+
+		String currentPortletInstancePortletName =
+			currentPortletInstance.getPortletName();
+
+		String currentPortletInstanceInstanceId =
+			currentPortletInstance.getInstanceId();
+
+		if (Validator.isNull(currentPortletInstanceInstanceId)) {
+			return Validator.equals(_portletName, ppid);
+		}
+		else {
+			if (Validator.equals(
+					currentPortletInstancePortletName,
+					_portletInstance.getPortletName()) &&
+				Validator.equals(
+					currentPortletInstanceInstanceId,
+					_portletInstance.getInstanceId())) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	protected void mergePublicRenderParameters(
 		DynamicServletRequest dynamicRequest, PortletPreferences preferences,
 		long plid) {
@@ -975,6 +1011,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 	private PortalContext _portalContext;
 	private Portlet _portlet;
 	private PortletContext _portletContext;
+	private PortletInstance _portletInstance;
 	private PortletMode _portletMode;
 	private String _portletName;
 	private HttpServletRequest _portletRequestDispatcherRequest;

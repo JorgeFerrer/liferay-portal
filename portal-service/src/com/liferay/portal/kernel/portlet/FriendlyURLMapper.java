@@ -106,6 +106,16 @@ public interface FriendlyURLMapper {
 	public boolean isCheckMappingWithPrefix();
 
 	/**
+	 * Returns <code>true</code> if this portlet instance is deployed in a
+	 * customizable region of a layout.
+	 *
+	 * @return <code>true</code> if the portlet instance is deployed in a
+	 *         customizable region of a layout;
+	 *         <code>false</code> otherwise
+	 */
+	public boolean isCustomizablePortletInstance();
+
+	/**
 	 * Returns <code>true</code> if this portlet is instanceable.
 	 *
 	 * <p>
@@ -140,6 +150,16 @@ public interface FriendlyURLMapper {
 	public void populateParams(
 		String friendlyURLPath, Map<String, String[]> parameterMap,
 		Map<String, Object> requestContext);
+
+	/**
+	 * Sets whether this portlet instance is deployed in a customizable region
+	 * of a layout.
+	 *
+	 * @param customizablePortletInstance whether this portlet is deployed
+	 *                                    in a customizable region of a layout
+	 */
+	public void setCustomizablePortletInstance(
+		boolean customizablePortletInstance);
 
 	/**
 	 * Sets the friendly URL mapping for this portlet.

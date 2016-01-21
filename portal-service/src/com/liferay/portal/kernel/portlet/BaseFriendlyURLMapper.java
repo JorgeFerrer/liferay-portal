@@ -58,8 +58,20 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	}
 
 	@Override
+	public boolean isCustomizablePortletInstance() {
+		return _customizablePortletInstance;
+	}
+
+	@Override
 	public boolean isPortletInstanceable() {
 		return _portletInstanceable;
+	}
+
+	@Override
+	public void setCustomizablePortletInstance(
+		boolean customizablePortletInstance) {
+
+		_customizablePortletInstance = customizablePortletInstance;
 	}
 
 	@Override
@@ -260,6 +272,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	private static final Log _log = LogFactoryUtil.getLog(
 		BaseFriendlyURLMapper.class);
 
+	private boolean _customizablePortletInstance;
 	private String _mapping;
 	private String _portletId;
 	private boolean _portletInstanceable;

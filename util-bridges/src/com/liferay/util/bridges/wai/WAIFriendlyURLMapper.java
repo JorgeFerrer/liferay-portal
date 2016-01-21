@@ -76,6 +76,11 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 	}
 
 	@Override
+	public boolean isCustomizablePortletInstance() {
+		return false;
+	}
+
+	@Override
 	public boolean isPortletInstanceable() {
 		return false;
 	}
@@ -118,6 +123,11 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 		String path = friendlyURLPath.substring(y);
 
 		parameterMap.put(namespace + "appURL", new String[] {path});
+	}
+
+	@Override
+	public void setCustomizablePortletInstance(
+		boolean customizablePortletInstance) {
 	}
 
 	@Override

@@ -60,6 +60,11 @@ public class TestFriendlyURLMapper implements FriendlyURLMapper {
 	}
 
 	@Override
+	public boolean isCustomizablePortletInstance() {
+		return false;
+	}
+
+	@Override
 	public boolean isPortletInstanceable() {
 		return false;
 	}
@@ -68,6 +73,13 @@ public class TestFriendlyURLMapper implements FriendlyURLMapper {
 	public void populateParams(
 		String friendlyURLPath, Map<String, String[]> parameterMap,
 		Map<String, Object> requestContext) {
+
+		return;
+	}
+
+	@Override
+	public void setCustomizablePortletInstance(
+		boolean customizablePortletInstance) {
 
 		return;
 	}
