@@ -77,13 +77,17 @@ public class ExportConfigurationMVCResourceCommand
 		}
 
 		String pid = ParamUtil.getString(resourceRequest, "pid");
+		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
 
 		try {
-			if (Validator.isNull(pid)) {
-				exportAll(resourceRequest, resourceResponse);
+			if (Validator.isNotNull(pid)) {
+				exportPid(resourceRequest, resourceResponse);
+			}
+			else if (Validator.isNotNull(factoryPid)) {
+				exportFactoryPid(resourceRequest, resourceResponse);
 			}
 			else {
-				exportPid(resourceRequest, resourceResponse);
+				exportAll(resourceRequest, resourceResponse);
 			}
 		}
 		catch (Exception e) {
@@ -139,6 +143,49 @@ public class ExportConfigurationMVCResourceCommand
 		}
 
 		String fileName = "liferay-system-settings.zip";
+
+		PortletResponseUtil.sendFile(
+			resourceRequest, resourceResponse, fileName,
+			new FileInputStream(zipWriter.getFile()),
+			ContentTypes.TEXT_XML_UTF8);
+	}
+
+	protected void exportFactoryPid(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		String languageId = themeDisplay.getLanguageId();
+
+		ZipWriter zipWriter = ZipWriterFactoryUtil.getZipWriter();
+
+		String factoryPid = ParamUtil.getString(resourceRequest, "factoryPid");
+
+		Map<String, ConfigurationModel> configurationModels =
+			_configurationModelRetriever.getConfigurationModels(
+				themeDisplay.getLanguageId());
+
+		ConfigurationModel factoryConfigurationModel = configurationModels.get(
+			factoryPid);
+
+		List<ConfigurationModel> factoryInstances =
+			_configurationModelRetriever.getFactoryInstances(
+				factoryConfigurationModel);
+
+		for (ConfigurationModel factoryInstance : factoryInstances) {
+			String curPid = factoryInstance.getID();
+			String curFileName = getFileName(null, curPid);
+
+			zipWriter.addEntry(
+				curFileName,
+				getPropertiesAsBytes(languageId, factoryPid, curPid));
+		}
+
+		String fileName =
+			"liferay-system-settings-" +
+				factoryConfigurationModel.getFactoryPid() + ".zip";
 
 		PortletResponseUtil.sendFile(
 			resourceRequest, resourceResponse, fileName,
