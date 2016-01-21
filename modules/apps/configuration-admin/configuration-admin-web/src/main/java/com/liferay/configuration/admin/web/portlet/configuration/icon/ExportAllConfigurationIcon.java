@@ -36,6 +36,11 @@ public class ExportAllConfigurationIcon extends BasePortletConfigurationIcon {
 	}
 
 	@Override
+	public String getMethod() {
+		return "GET";
+	}
+
+	@Override
 	public String getURL() {
 		LiferayPortletURL liferayPortletURL =
 			(LiferayPortletURL)PortalUtil.getControlPanelPortletURL(
