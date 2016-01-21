@@ -28,8 +28,12 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.zip.ZipWriter;
+import com.liferay.portal.kernel.zip.ZipWriterFactoryUtil;
 import com.liferay.portal.metatype.definitions.ExtendedAttributeDefinition;
 import com.liferay.portal.theme.ThemeDisplay;
+
+import java.io.FileInputStream;
 
 import java.util.Map;
 import java.util.Properties;
@@ -71,14 +75,59 @@ public class ExportConfigurationMVCResourceCommand
 			return false;
 		}
 
+		String pid = ParamUtil.getString(resourceRequest, "pid");
+
 		try {
-			exportPid(resourceRequest, resourceResponse);
+			if (Validator.isNull(pid)) {
+				exportAll(resourceRequest, resourceResponse);
+			}
+			else {
+				exportPid(resourceRequest, resourceResponse);
+			}
 		}
 		catch (Exception e) {
 			throw new PortletException(e);
 		}
 
 		return true;
+	}
+
+	protected void exportAll(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		String languageId = themeDisplay.getLanguageId();
+
+		ZipWriter zipWriter = ZipWriterFactoryUtil.getZipWriter();
+
+		Map<String, ConfigurationModel> configurationModels =
+			_configurationModelRetriever.getConfigurationModels(
+				themeDisplay.getLanguageId());
+
+		for (ConfigurationModel configurationModel :
+				configurationModels.values()) {
+
+			if (!configurationModel.isFactory() &&
+				(configurationModel.getConfiguration() != null)) {
+
+				String curPid = configurationModel.getID();
+				String curFileName = getFileName(null, curPid);
+
+				zipWriter.addEntry(
+					curFileName,
+					getPropertiesAsBytes(languageId, curPid, curPid));
+			}
+		}
+
+		String fileName = "liferay-system-settings.zip";
+
+		PortletResponseUtil.sendFile(
+			resourceRequest, resourceResponse, fileName,
+			new FileInputStream(zipWriter.getFile()),
+			ContentTypes.TEXT_XML_UTF8);
 	}
 
 	protected void exportPid(
@@ -101,7 +150,7 @@ public class ExportConfigurationMVCResourceCommand
 			ContentTypes.TEXT_XML_UTF8);
 	}
 
-	private String getFileName(String factoryPid, String pid) {
+	protected String getFileName(String factoryPid, String pid) {
 		String fileName = pid;
 
 		if (Validator.isNotNull(factoryPid) && !factoryPid.equals(pid)) {
