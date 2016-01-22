@@ -128,7 +128,8 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 
 	@Override
 	public Map<String, String[]> clearRenderParameters() {
-		return RenderParametersPool.clear(_request, _plid, _portletName);
+		return RenderParametersPool.clear(
+			_request, _plid, _portlet.getPortletId());
 	}
 
 	@Override
@@ -341,7 +342,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		else {
 			if (create) {
 				_session = new PortletSessionImpl(
-					_req.getSession(), _portletContext, _portletName, _plid);
+					_req.getSession(), _portletContext, _portlet.getPortletId(), _plid);
 			}
 
 			return _ses;
@@ -351,7 +352,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 			_req.getSession(create);
 
 			_session = new PortletSessionImpl(
-				_req.getSession(), _portletContext, _portletName, _plid);
+				_req.getSession(), _portletContext, _portlet.getPortletId(), _plid);
 		}*/
 
 		if (!create && _invalidSession) {
@@ -535,7 +536,9 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 
 	@Override
 	public String getWindowID() {
-		return _portletName.concat(
+		String portletName = _portlet.getPortletId();
+
+		return portletName.concat(
 			LiferayPortletSession.LAYOUT_SEPARATOR).concat(
 				String.valueOf(_plid));
 	}
@@ -677,7 +680,6 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 			WebKeys.THEME_DISPLAY);
 
 		_portlet = portlet;
-		_portletName = portlet.getPortletId();
 		_portletInstance = PortletInstance.fromPortletInstanceKey(
 			portlet.getPortletId());
 
@@ -694,7 +696,8 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 			}
 		}
 
-		String portletNamespace = PortalUtil.getPortletNamespace(_portletName);
+		String portletNamespace = PortalUtil.getPortletNamespace(
+			portlet.getPortletId());
 
 		boolean warFile = portletApp.isWARFile();
 
@@ -834,12 +837,12 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 				(renderParameters != null)) {
 
 				RenderParametersPool.put(
-					request, plid, _portletName, renderParameters);
+					request, plid, _portlet.getPortletId(), renderParameters);
 			}
 		}
 		else {
 			Map<String, String[]> renderParameters = RenderParametersPool.get(
-				request, plid, _portletName);
+				request, plid, _portlet.getPortletId());
 
 			if (renderParameters != null) {
 				for (Map.Entry<String, String[]> entry :
@@ -871,7 +874,8 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 		_portletMode = portletMode;
 		_preferences = preferences;
 		_session = new PortletSessionImpl(
-			_request.getSession(), _portletContext, _portletName, plid);
+			_request.getSession(), _portletContext, _portlet.getPortletId(),
+			plid);
 
 		String remoteUser = request.getRemoteUser();
 
@@ -923,7 +927,7 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 			currentPortletInstance.getInstanceId();
 
 		if (Validator.isNull(currentPortletInstanceInstanceId)) {
-			return Validator.equals(_portletName, ppid);
+			return Validator.equals(_portlet.getPortletId(), ppid);
 		}
 		else {
 			if (Validator.equals(
@@ -1024,7 +1028,6 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 	private PortletContext _portletContext;
 	private PortletInstance _portletInstance;
 	private PortletMode _portletMode;
-	private String _portletName;
 	private HttpServletRequest _portletRequestDispatcherRequest;
 	private PortletPreferences _preferences;
 	private Profile _profile;
