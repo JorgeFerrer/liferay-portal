@@ -44,8 +44,7 @@ public class ExportAllConfigurationIcon extends BasePortletConfigurationIcon {
 	public String getURL() {
 		LiferayPortletURL liferayPortletURL =
 			(LiferayPortletURL)PortalUtil.getControlPanelPortletURL(
-				portletRequest,
-				ConfigurationAdminPortletKeys.SYSTEM_SETTINGS,
+				portletRequest, ConfigurationAdminPortletKeys.SYSTEM_SETTINGS,
 				PortletRequest.RESOURCE_PHASE);
 
 		liferayPortletURL.setResourceID("export");
