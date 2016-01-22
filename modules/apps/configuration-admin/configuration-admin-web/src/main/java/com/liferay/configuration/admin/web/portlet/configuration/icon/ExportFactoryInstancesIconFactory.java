@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" +
-			ConfigurationAdminPortletKeys.CONFIGURATION_ADMIN,
+			ConfigurationAdminPortletKeys.SYSTEM_SETTINGS,
 		"path=/view_factory_instances"
 	},
 	service = PortletConfigurationIconFactory.class

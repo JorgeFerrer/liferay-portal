@@ -59,7 +59,7 @@ import org.osgi.service.metatype.AttributeDefinition;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" +
-			ConfigurationAdminPortletKeys.CONFIGURATION_ADMIN,
+			ConfigurationAdminPortletKeys.SYSTEM_SETTINGS,
 		"mvc.command.name=export"
 	},
 	service = MVCResourceCommand.class
