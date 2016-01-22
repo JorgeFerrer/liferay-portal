@@ -28,11 +28,11 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.css-class-wrapper=portlet-configuration-admin",
+		"com.liferay.portlet.css-class-wrapper=portlet-system-settings",
 		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.instanceable=false",
-		"javax.portlet.display-name=Configuration Admin",
-		"javax.portlet.info.keywords=osgi,configuration,admin",
+		"javax.portlet.display-name=System Settings",
+		"javax.portlet.info.keywords=osgi,system,settings",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + ConfigurationAdminPortletKeys.SYSTEM_SETTINGS,
@@ -41,5 +41,5 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = Portlet.class
 )
-public class ConfigurationAdminPortlet extends MVCPortlet {
+public class SystemSettingsPortlet extends MVCPortlet {
 }
