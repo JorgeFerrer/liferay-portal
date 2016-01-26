@@ -67,7 +67,7 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 
 	@Override
 	public String getPortletInstanceKey() {
-		return _portletId;
+		return _portletInstanceKey;
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 
 	@Override
 	public void setPortletInstanceKey(String portletInstanceKey) {
-		_portletId = portletInstanceKey;
+		_portletInstanceKey = portletInstanceKey;
 	}
 
 	@Override
@@ -171,6 +171,6 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 
 	private static final String _MAPPING = "waiapp";
 
-	private String _portletId;
+	private String _portletInstanceKey;
 
 }

@@ -49,7 +49,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 
 	@Override
 	public String getPortletInstanceKey() {
-		return _portletId;
+		return _portletInstanceKey;
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 
 	@Override
 	public void setPortletInstanceKey(String portletInstanceKey) {
-		_portletId = portletInstanceKey;
+		_portletInstanceKey = portletInstanceKey;
 	}
 
 	@Override
@@ -271,7 +271,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 		BaseFriendlyURLMapper.class);
 
 	private String _mapping;
-	private String _portletId;
 	private boolean _portletInstanceable;
+	private String _portletInstanceKey;
 
 }
