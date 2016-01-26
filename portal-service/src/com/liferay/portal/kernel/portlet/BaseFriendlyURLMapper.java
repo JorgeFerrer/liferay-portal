@@ -260,7 +260,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	 * @see    PortalUtil#getPortletNamespace(String)
 	 */
 	protected String getNamespace() {
-		return PortalUtil.getPortletNamespace(getPortletId());
+		return PortalUtil.getPortletNamespace(getPortletInstanceKey());
 	}
 
 	protected Router router;
