@@ -113,21 +113,13 @@ public class ConfigurationModel
 	}
 
 	public String getLabel() {
-		String factoryInstanceLabelAttribute = getLabelAttribute();
-
-		if (Validator.isNull(factoryInstanceLabelAttribute)) {
-			return getName();
-		}
-
-		Dictionary<String, Object> properties = _configuration.getProperties();
-
-		Object value = properties.get(factoryInstanceLabelAttribute);
+		String value = getLabelAttributeValue();
 
 		if (value == null) {
 			return getName();
 		}
 
-		return String.valueOf(value);
+		return value;
 	}
 
 	public String getLabelAttribute() {
@@ -155,6 +147,22 @@ public class ConfigurationModel
 
 	public boolean isFactory() {
 		return _factory;
+	}
+
+	protected String getLabelAttributeValue() {
+		String factoryInstanceLabelAttribute = getLabelAttribute();
+
+		String value = null;
+
+		if (Validator.isNotNull(factoryInstanceLabelAttribute)) {
+			Dictionary<String, Object> properties =
+				_configuration.getProperties();
+
+			value = String.valueOf(
+				properties.get(factoryInstanceLabelAttribute));
+		}
+
+		return value;
 	}
 
 	private final String _bundleLocation;
