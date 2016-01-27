@@ -73,8 +73,6 @@ public class VersionTest {
 		assertNotIncludes("1.1.1.10+", "1.1.1.9");
 	}
 
-	// Ignoring qualifiers
-
 	@Test
 	public void testQualifier() {
 		Version version = Version.getInstance("1-alpha-1");
