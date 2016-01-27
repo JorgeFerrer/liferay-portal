@@ -60,6 +60,10 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 		return _MAPPING;
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	@Override
 	public String getPortletId() {
 		return getPortletInstanceKey();
@@ -129,6 +133,10 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 	public void setMapping(String mapping) {
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	@Override
 	public void setPortletId(String portletId) {
 		setPortletInstanceKey(portletId);

@@ -42,6 +42,10 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 		return _mapping;
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	@Override
 	public String getPortletId() {
 		return getPortletInstanceKey();
