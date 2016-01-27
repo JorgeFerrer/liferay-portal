@@ -393,9 +393,6 @@ public class Version implements Comparable<Version>, Serializable {
 		String firstString = GetterUtil.getString(first);
 		String secondString = GetterUtil.getString(second);
 
-		// If either one is "snapshot", consider it lower,
-		// even if the other one has a different qualifier.
-
 		if (StringUtil.equalsIgnoreCase(firstString, SNAPSHOT) &&
 			!StringUtil.equalsIgnoreCase(secondString, SNAPSHOT)) {
 
@@ -406,8 +403,6 @@ public class Version implements Comparable<Version>, Serializable {
 
 			return 1;
 		}
-
-		// Either none or both are snapshots, so return 0;
 
 		return 0;
 	}
