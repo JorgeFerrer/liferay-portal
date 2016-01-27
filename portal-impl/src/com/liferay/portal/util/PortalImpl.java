@@ -5297,7 +5297,7 @@ public class PortalImpl implements Portal {
 
 		return new UploadPortletRequestImpl(
 			uploadServletRequest, portletRequestImpl,
-			getPortletNamespace(portletRequestImpl.getPortletName()));
+			getPortletNamespace(portletRequestImpl.getPortletInstanceKey()));
 	}
 
 	@Override
