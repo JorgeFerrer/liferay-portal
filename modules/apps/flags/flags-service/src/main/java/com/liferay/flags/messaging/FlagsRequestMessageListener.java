@@ -14,15 +14,21 @@
 
 package com.liferay.flags.messaging;
 
+import com.liferay.flags.configuration.FlagsGroupServiceConfiguration;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
+import com.liferay.portal.kernel.messaging.MessageListener;
+import com.liferay.portal.kernel.module.configuration.ConfigurationFactory;
+import com.liferay.portal.kernel.module.configuration.ConfigurationFactoryUtil;
 import com.liferay.portal.kernel.security.permission.ResourceActionsUtil;
+import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.util.LocaleUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
@@ -39,8 +45,8 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
-import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.SubscriptionSender;
+import com.liferay.util.ContentUtil;
 
 import java.io.IOException;
 
@@ -51,11 +57,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.osgi.service.component.annotations.Component;
+
 /**
  * @author Julio Camarero
  * @author Michael C. Han
  * @author Brian Wing Shun Chan
+ * @author Peter Fellwock
  */
+@Component(immediate = true, service = MessageListener.class)
 public class FlagsRequestMessageListener extends BaseMessageListener {
 
 	@Override
@@ -129,18 +139,23 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 		String reason = LanguageUtil.get(locale, flagsRequest.getReason());
 
 		// Email
+		
+		ConfigurationFactory configurationFactory =
+			ConfigurationFactoryUtil.getConfigurationFactory();
+		
+		FlagsGroupServiceConfiguration flagsGroupServiceConfiguration =
+			configurationFactory.getConfiguration(
+				FlagsGroupServiceConfiguration.class,
+				new CompanyServiceSettingsLocator(
+					company.getCompanyId(), "com.liferay.flags"));
 
-		String fromName = PrefsPropsUtil.getStringFromNames(
-			companyId, PropsKeys.FLAGS_EMAIL_FROM_NAME,
-			PropsKeys.ADMIN_EMAIL_FROM_NAME);
-		String fromAddress = PrefsPropsUtil.getStringFromNames(
-			companyId, PropsKeys.FLAGS_EMAIL_FROM_ADDRESS,
-			PropsKeys.ADMIN_EMAIL_FROM_ADDRESS);
+		String fromName = flagsGroupServiceConfiguration.emailFromName();
+		String fromAddress = flagsGroupServiceConfiguration.emailFromAddress();
+		
+		
 
-		String subject = PrefsPropsUtil.getContent(
-			companyId, PropsKeys.FLAGS_EMAIL_SUBJECT);
-		String body = PrefsPropsUtil.getContent(
-			companyId, PropsKeys.FLAGS_EMAIL_BODY);
+		String emailSubject = ContentUtil.get(flagsGroupServiceConfiguration.emailSubject());
+		String emailBody = ContentUtil.get(flagsGroupServiceConfiguration.emailBody());
 
 		// Recipients
 
@@ -156,7 +171,8 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 					flagsRequest.getClassPK(), flagsRequest.getContentTitle(),
 					contentType, flagsRequest.getContentURL(), reason, fromName,
 					fromAddress, recipient.getFullName(),
-					recipient.getEmailAddress(), subject, body, serviceContext);
+					recipient.getEmailAddress(), emailSubject, emailBody, 
+					serviceContext);
 			}
 			catch (IOException ioe) {
 				if (_log.isWarnEnabled()) {
@@ -218,15 +234,17 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 			String reportedUserURL, long contentId, String contentTitle,
 			String contentType, String contentURL, String reason,
 			String fromName, String fromAddress, String toName,
-			String toAddress, String subject, String body,
+			String toAddress, String emailSubject, String emailBody,
 			ServiceContext serviceContext)
 		throws Exception {
 
 		Date now = new Date();
 
 		SubscriptionSender subscriptionSender = new SubscriptionSender();
+		
+		subscriptionSender.setSubject(emailSubject);
+		subscriptionSender.setBody(emailBody);
 
-		subscriptionSender.setBody(body);
 		subscriptionSender.setCompanyId(company.getCompanyId());
 		subscriptionSender.setContextAttributes(
 			"[$CONTENT_ID$]", contentId, "[$CONTENT_TYPE$]", contentType,
@@ -246,7 +264,6 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 		subscriptionSender.setMailId("flags_request", contentId);
 		subscriptionSender.setPortletId(PortletKeys.FLAGS);
 		subscriptionSender.setServiceContext(serviceContext);
-		subscriptionSender.setSubject(subject);
 
 		subscriptionSender.addRuntimeSubscribers(toAddress, toName);
 
