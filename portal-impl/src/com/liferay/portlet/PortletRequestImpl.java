@@ -758,12 +758,12 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 
 		boolean portletFocus = false;
 
-		String ppid = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		boolean windowStateRestoreCurrentView = ParamUtil.getBoolean(
 			request, "p_p_state_rcv");
 
-		if (isSamePortletInstance(ppid) &&
+		if (isSamePortletInstance(portletInstanceKey) &&
 			!(windowStateRestoreCurrentView &&
 			  portlet.isRestoreCurrentView())) {
 

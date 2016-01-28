@@ -92,7 +92,7 @@ public class UpdateLayoutAction extends JSONAction {
 
 		String cmd = ParamUtil.getString(request, Constants.CMD);
 
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		boolean updateLayout = true;
 
@@ -100,11 +100,11 @@ public class UpdateLayoutAction extends JSONAction {
 			String columnId = ParamUtil.getString(request, "p_p_col_id", null);
 			int columnPos = ParamUtil.getInteger(request, "p_p_col_pos", -1);
 
-			portletId = layoutTypePortlet.addPortletId(
-				userId, portletId, columnId, columnPos);
+			portletInstanceKey = layoutTypePortlet.addPortletId(
+				userId, portletInstanceKey, columnId, columnPos);
 
 			storeAddContentPortletPreferences(
-				request, layout, portletId, themeDisplay);
+				request, layout, portletInstanceKey, themeDisplay);
 
 			if (layoutTypePortlet.isCustomizable() &&
 				layoutTypePortlet.isCustomizedView() &&
@@ -114,8 +114,8 @@ public class UpdateLayoutAction extends JSONAction {
 			}
 		}
 		else if (cmd.equals(Constants.DELETE)) {
-			if (layoutTypePortlet.hasPortletId(portletId)) {
-				layoutTypePortlet.removePortletId(userId, portletId);
+			if (layoutTypePortlet.hasPortletId(portletInstanceKey)) {
+				layoutTypePortlet.removePortletId(userId, portletInstanceKey);
 
 				if (layoutTypePortlet.isCustomizable() &&
 					layoutTypePortlet.isCustomizedView()) {
@@ -135,7 +135,7 @@ public class UpdateLayoutAction extends JSONAction {
 
 				PortletPreferences portletPreferences =
 					PortletPreferencesFactoryUtil.getLayoutPortletSetup(
-						layout, portletId);
+						layout, portletInstanceKey);
 
 				StringBundler sb = new StringBundler(12);
 
@@ -162,10 +162,10 @@ public class UpdateLayoutAction extends JSONAction {
 			boolean restore = ParamUtil.getBoolean(request, "p_p_restore");
 
 			if (restore) {
-				layoutTypePortlet.removeStateMinPortletId(portletId);
+				layoutTypePortlet.removeStateMinPortletId(portletInstanceKey);
 			}
 			else {
-				layoutTypePortlet.addStateMinPortletId(portletId);
+				layoutTypePortlet.addStateMinPortletId(portletInstanceKey);
 			}
 
 			updateLayout = false;
@@ -175,7 +175,7 @@ public class UpdateLayoutAction extends JSONAction {
 			int columnPos = ParamUtil.getInteger(request, "p_p_col_pos");
 
 			layoutTypePortlet.movePortletId(
-				userId, portletId, columnId, columnPos);
+				userId, portletInstanceKey, columnId, columnPos);
 
 			if (layoutTypePortlet.isCustomizable() &&
 				layoutTypePortlet.isCustomizedView() &&
@@ -267,8 +267,10 @@ public class UpdateLayoutAction extends JSONAction {
 			}
 		}
 
-		if (cmd.equals(Constants.ADD) && (portletId != null)) {
-			addPortlet(actionMapping, actionForm, request, response, portletId);
+		if (cmd.equals(Constants.ADD) && (portletInstanceKey != null)) {
+			addPortlet(
+				actionMapping, actionForm, request, response,
+				portletInstanceKey);
 		}
 
 		return StringPool.BLANK;
@@ -277,7 +279,7 @@ public class UpdateLayoutAction extends JSONAction {
 	protected void addPortlet(
 			ActionMapping actionMapping, ActionForm actionForm,
 			HttpServletRequest request, HttpServletResponse response,
-			String portletId)
+			String portletInstanceKey)
 		throws Exception {
 
 		// Run the render portlet action to add a portlet without refreshing.
@@ -291,7 +293,7 @@ public class UpdateLayoutAction extends JSONAction {
 		long companyId = PortalUtil.getCompanyId(request);
 
 		Portlet portlet = PortletLocalServiceUtil.getPortletById(
-			companyId, portletId);
+			companyId, portletInstanceKey);
 
 		DynamicServletRequest dynamicRequest = null;
 
@@ -306,7 +308,7 @@ public class UpdateLayoutAction extends JSONAction {
 			dynamicRequest = new DynamicServletRequest(request);
 		}
 
-		dynamicRequest.setParameter("p_p_id", portletId);
+		dynamicRequest.setParameter("p_p_id", portletInstanceKey);
 
 		String dataType = StringUtil.toLowerCase(
 			ParamUtil.getString(request, "dataType"));

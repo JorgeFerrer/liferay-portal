@@ -274,15 +274,16 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 		// Populate virtual parameters for instanceable portlets
 
 		if (isPortletInstanceable()) {
-			String portletId = liferayPortletURL.getPortletId();
+			String portletInstanceKey = liferayPortletURL.getPortletId();
 
-			routeParameters.put("p_p_id", portletId);
+			routeParameters.put("p_p_id", portletInstanceKey);
 
-			if (Validator.isNotNull(portletId) &&
-				PortletConstants.hasInstanceId(portletId)) {
+			if (Validator.isNotNull(portletInstanceKey) &&
+				PortletConstants.hasInstanceId(portletInstanceKey)) {
 
 				routeParameters.put(
-					"instanceId", PortletConstants.getInstanceId(portletId));
+					"instanceId",
+					PortletConstants.getInstanceId(portletInstanceKey));
 			}
 		}
 
@@ -317,21 +318,21 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 		}
 
 		String instanceId = routeParameters.remove("instanceId");
-		String portletId = routeParameters.remove("p_p_id");
+		String portletInstanceKey = routeParameters.remove("p_p_id");
 
 		if (hasUserCustomizedPreferences(instanceId)) {
 			String portletName = getPortletName();
 
-			if (Validator.isNotNull(portletId)) {
-				portletName = portletId;
+			if (Validator.isNotNull(portletInstanceKey)) {
+				portletName = portletInstanceKey;
 			}
 
 			return PortletConstants.assemblePortletId(
 				portletName, PrincipalThreadLocal.getUserId(), instanceId);
 		}
 
-		if (Validator.isNotNull(portletId)) {
-			return portletId;
+		if (Validator.isNotNull(portletInstanceKey)) {
+			return portletInstanceKey;
 		}
 
 		if (Validator.isNotNull(instanceId)) {

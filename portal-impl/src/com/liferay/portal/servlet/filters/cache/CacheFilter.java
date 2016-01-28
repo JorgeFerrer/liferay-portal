@@ -307,9 +307,9 @@ public class CacheFilter extends BasePortalFilter {
 	}
 
 	protected boolean isCacheableRequest(HttpServletRequest request) {
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		if (Validator.isNotNull(portletId)) {
+		if (Validator.isNotNull(portletInstanceKey)) {
 			return false;
 		}
 

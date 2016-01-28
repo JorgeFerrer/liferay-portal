@@ -78,11 +78,11 @@ public class WidgetServlet extends HttpServlet {
 			return null;
 		}
 
-		String ppid = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		int pos = path.indexOf(Portal.FRIENDLY_URL_SEPARATOR);
 
-		if (Validator.isNull(ppid) && (pos == -1)) {
+		if (Validator.isNull(portletInstanceKey) && (pos == -1)) {
 			return null;
 		}
 

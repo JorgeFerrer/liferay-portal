@@ -104,9 +104,10 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 
 		String prefix = friendlyURLPath.substring(x + _MAPPING.length() + 1, y);
 
-		String portletId = prefix + PortletConstants.WAR_SEPARATOR + prefix;
+		String portletInstanceKey =
+			prefix + PortletConstants.WAR_SEPARATOR + prefix;
 
-		parameterMap.put("p_p_id", new String[] {portletId});
+		parameterMap.put("p_p_id", new String[] {portletInstanceKey});
 		parameterMap.put("p_p_lifecycle", new String[] {"0"});
 
 		if (hasBinaryExtension(friendlyURLPath)) {
@@ -122,7 +123,7 @@ public class WAIFriendlyURLMapper implements FriendlyURLMapper {
 		parameterMap.put(
 			"p_p_mode", new String[] {PortletMode.VIEW.toString()});
 
-		String namespace = PortalUtil.getPortletNamespace(portletId);
+		String namespace = PortalUtil.getPortletNamespace(portletInstanceKey);
 
 		String path = friendlyURLPath.substring(y);
 

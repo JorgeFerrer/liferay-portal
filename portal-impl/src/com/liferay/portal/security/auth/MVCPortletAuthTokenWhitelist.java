@@ -110,9 +110,9 @@ public class MVCPortletAuthTokenWhitelist extends BaseAuthTokenWhitelist {
 		}
 
 		else if (themeDisplay.isLifecycleResource()) {
-			String ppid = ParamUtil.getString(request, "p_p_id");
+			String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-			if (!portletId.equals(ppid)) {
+			if (!portletId.equals(portletInstanceKey)) {
 				return false;
 			}
 

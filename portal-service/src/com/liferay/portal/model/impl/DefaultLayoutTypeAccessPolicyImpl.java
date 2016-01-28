@@ -127,10 +127,10 @@ public class DefaultLayoutTypeAccessPolicyImpl
 		PortletMode portletMode = PortletMode.VIEW;
 
 		String portletId = portlet.getPortletId();
-		String ppid = request.getParameter("p_p_id");
+		String portletInstanceKey = request.getParameter("p_p_id");
 		String ppmode = request.getParameter("p_p_mode");
 
-		if (portletId.equals(ppid) && (ppmode != null)) {
+		if (portletId.equals(portletInstanceKey) && (ppmode != null)) {
 			portletMode = PortletModeFactory.getPortletMode(ppmode);
 		}
 

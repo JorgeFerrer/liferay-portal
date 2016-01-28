@@ -153,10 +153,10 @@ public class SessionAuthToken implements AuthToken {
 		}
 
 		if (origin.equals(SecurityPortletContainerWrapper.class.getName())) {
-			String ppid = ParamUtil.getString(request, "p_p_id");
+			String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 			Portlet portlet = PortletLocalServiceUtil.getPortletById(
-				companyId, ppid);
+				companyId, portletInstanceKey);
 
 			if (AuthTokenWhitelistUtil.isPortletCSRFWhitelisted(
 					request, portlet)) {

@@ -57,10 +57,10 @@ public class RenderPortletAction extends Action {
 		long companyId = PortalUtil.getCompanyId(request);
 		User user = PortalUtil.getUser(request);
 		Layout layout = (Layout)request.getAttribute(WebKeys.LAYOUT);
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		Portlet portlet = PortletLocalServiceUtil.getPortletById(
-			companyId, portletId);
+			companyId, portletInstanceKey);
 
 		String columnId = ParamUtil.getString(request, "p_p_col_id");
 		int columnPos = ParamUtil.getInteger(request, "p_p_col_pos");
@@ -103,7 +103,7 @@ public class RenderPortletAction extends Action {
 			ParamUtil.getString(request, "p_p_state"));
 
 		PortalUtil.updateWindowState(
-			portletId, user, layout, windowState, request);
+			portletInstanceKey, user, layout, windowState, request);
 
 		request = PortletContainerUtil.setupOptionalRenderParameters(
 			request, null, columnId, columnPos, columnCount, boundary,
