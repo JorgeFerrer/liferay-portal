@@ -693,6 +693,14 @@ public class UserLocalServiceWrapper implements UserLocalService,
 		_userLocalService.completeUserRegistration(user, serviceContext);
 	}
 
+	@Override
+	public int countUsersByKeywords(long companyId, java.lang.String keywords,
+		int status,
+		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params) {
+		return _userLocalService.countUsersByKeywords(companyId, keywords,
+			status, params);
+	}
+
 	/**
 	* Creates a new user with the primary key. Does not add the user to the database.
 	*
@@ -1899,6 +1907,16 @@ public class UserLocalServiceWrapper implements UserLocalService,
 	public java.util.List<com.liferay.portal.model.User> getUsers(int start,
 		int end) {
 		return _userLocalService.getUsers(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.portal.model.User> getUsersByKeywords(
+		long companyId, java.lang.String keywords, int status,
+		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.User> obc) {
+		return _userLocalService.getUsersByKeywords(companyId, keywords,
+			status, params, start, end, obc);
 	}
 
 	/**
