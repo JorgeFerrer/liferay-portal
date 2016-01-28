@@ -36,6 +36,8 @@ public class ConfigurationModel
 	implements
 		com.liferay.portal.metatype.definitions.ExtendedObjectClassDefinition {
 
+	public static final String PROPERTY_COMPANY_ID = "companyId";
+
 	public ConfigurationModel(
 		com.liferay.portal.metatype.definitions.ExtendedObjectClassDefinition
 			extendedObjectClassDefinition,
@@ -143,6 +145,22 @@ public class ConfigurationModel
 				ExtendedObjectClassDefinition.XML_NAMESPACE);
 
 		return extensionAttributes.get("scope");
+	}
+
+	public boolean isCompanyFactory() {
+		if (!isFactory()) {
+			return false;
+		}
+
+		if (Validator.equals(
+				getScope(),
+				ExtendedObjectClassDefinition.Scope.COMPANY.toString()) &&
+			Validator.equals(getLabelAttribute(), PROPERTY_COMPANY_ID)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public boolean isFactory() {
