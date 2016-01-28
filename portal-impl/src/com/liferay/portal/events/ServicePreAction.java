@@ -375,7 +375,7 @@ public class ServicePreAction extends Action {
 			}
 		}
 
-		String ppid = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		Boolean redirectToDefaultLayout = (Boolean)request.getAttribute(
 			WebKeys.REDIRECT_TO_DEFAULT_LAYOUT);
@@ -804,7 +804,7 @@ public class ServicePreAction extends Action {
 		themeDisplay.setPathSound(contextPath.concat("/html/sound"));
 		themeDisplay.setPermissionChecker(permissionChecker);
 		themeDisplay.setPlid(plid);
-		themeDisplay.setPpid(ppid);
+		themeDisplay.setPpid(portletInstanceKey);
 		themeDisplay.setRealCompanyLogo(realCompanyLogo);
 		themeDisplay.setRealCompanyLogoHeight(realCompanyLogoHeight);
 		themeDisplay.setRealCompanyLogoWidth(realCompanyLogoWidth);

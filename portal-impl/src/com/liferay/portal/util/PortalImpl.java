@@ -1384,9 +1384,11 @@ public class PortalImpl implements Portal {
 		throws PortalException {
 
 		boolean cdnEnabled = ParamUtil.getBoolean(request, "cdn_enabled", true);
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		if (!cdnEnabled || portletId.equals(PortletKeys.PORTAL_SETTINGS)) {
+		if (!cdnEnabled ||
+			portletInstanceKey.equals(PortletKeys.PORTAL_SETTINGS)) {
+
 			return StringPool.BLANK;
 		}
 
@@ -4225,9 +4227,9 @@ public class PortalImpl implements Portal {
 					y = url.length();
 				}
 
-				String ppid = url.substring(x + 3, y);
+				String portletInstanceKey = url.substring(x + 3, y);
 
-				if (Validator.isNotNull(ppid)) {
+				if (Validator.isNotNull(portletInstanceKey)) {
 					friendlyURL = url.substring(0, x);
 
 					Map<String, String[]> actualParams = null;
@@ -4239,7 +4241,8 @@ public class PortalImpl implements Portal {
 						actualParams = new HashMap<>();
 					}
 
-					actualParams.put("p_p_id", new String[] {ppid});
+					actualParams.put(
+						"p_p_id", new String[] {portletInstanceKey});
 					actualParams.put("p_p_lifecycle", new String[] {"0"});
 					actualParams.put(
 						"p_p_state",
@@ -5297,7 +5300,7 @@ public class PortalImpl implements Portal {
 
 		return new UploadPortletRequestImpl(
 			uploadServletRequest, portletRequestImpl,
-			getPortletNamespace(portletRequestImpl.getPortletName()));
+			getPortletNamespace(portletRequestImpl.getPortletInstanceKey()));
 	}
 
 	@Override
@@ -7692,9 +7695,9 @@ public class PortalImpl implements Portal {
 	}
 
 	protected String getPortletParam(HttpServletRequest request, String name) {
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		if (Validator.isNull(portletId)) {
+		if (Validator.isNull(portletInstanceKey)) {
 			return StringPool.BLANK;
 		}
 
@@ -7733,9 +7736,9 @@ public class PortalImpl implements Portal {
 
 			// The Struts action must be for the correct portlet
 
-			String portletId1 = parameterName.substring(1, pos);
+			String portletInstanceKey1 = parameterName.substring(1, pos);
 
-			if (portletId.equals(portletId1)) {
+			if (portletInstanceKey.equals(portletInstanceKey1)) {
 				value = parameterValues[0];
 			}
 		}

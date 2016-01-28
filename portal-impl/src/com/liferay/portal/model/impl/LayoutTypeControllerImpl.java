@@ -155,9 +155,10 @@ public class LayoutTypeControllerImpl implements LayoutTypeController {
 		ServletContext servletContext = (ServletContext)request.getAttribute(
 			WebKeys.CTX);
 
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		String path = getViewPath(portletId, BrowserSnifferUtil.isWap(request));
+		String path = getViewPath(
+			portletInstanceKey, BrowserSnifferUtil.isWap(request));
 
 		RequestDispatcher requestDispatcher =
 			DirectRequestDispatcherFactoryUtil.getRequestDispatcher(

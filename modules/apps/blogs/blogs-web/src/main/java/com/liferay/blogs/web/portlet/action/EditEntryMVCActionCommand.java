@@ -217,11 +217,13 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 			String redirect = ParamUtil.getString(actionRequest, "redirect");
 			boolean updateRedirect = false;
 
-			String portletId = HttpUtil.getParameter(redirect, "p_p_id", false);
+			String portletInstanceKey = HttpUtil.getParameter(
+				redirect, "p_p_id", false);
 
 			if (Validator.isNotNull(oldUrlTitle)) {
 				String oldRedirectParam =
-					PortalUtil.getPortletNamespace(portletId) + "redirect";
+					PortalUtil.getPortletNamespace(portletInstanceKey) +
+						"redirect";
 
 				String oldRedirect = HttpUtil.getParameter(
 					redirect, oldRedirectParam, false);
@@ -317,7 +319,7 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 					if (Validator.isNotNull(redirect)) {
 						if (cmd.equals(Constants.ADD) && (entry != null)) {
 							String namespace = PortalUtil.getPortletNamespace(
-								portletId);
+								portletInstanceKey);
 
 							redirect = HttpUtil.addParameter(
 								redirect, namespace + "className",

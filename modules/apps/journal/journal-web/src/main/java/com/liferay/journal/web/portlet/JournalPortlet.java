@@ -1170,9 +1170,10 @@ public class JournalPortlet extends MVCPortlet {
 		int workflowAction = ParamUtil.getInteger(
 			actionRequest, "workflowAction", WorkflowConstants.ACTION_PUBLISH);
 
-		String portletId = HttpUtil.getParameter(redirect, "p_p_id", false);
+		String portletInstanceKey = HttpUtil.getParameter(
+			redirect, "p_p_id", false);
 
-		String namespace = PortalUtil.getPortletNamespace(portletId);
+		String namespace = PortalUtil.getPortletNamespace(portletInstanceKey);
 
 		if (Validator.isNotNull(oldUrlTitle)) {
 			String oldRedirectParam = namespace + "redirect";

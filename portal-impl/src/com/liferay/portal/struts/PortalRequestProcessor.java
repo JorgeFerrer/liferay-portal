@@ -303,16 +303,16 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 		String layoutFriendlyURL = PortalUtil.getLayoutFriendlyURL(
 			layout, themeDisplay);
 
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		if (Validator.isNull(portletId)) {
+		if (Validator.isNull(portletInstanceKey)) {
 			return layoutFriendlyURL;
 		}
 
 		long companyId = PortalUtil.getCompanyId(request);
 
 		Portlet portlet = PortletLocalServiceUtil.getPortletById(
-			companyId, portletId);
+			companyId, portletInstanceKey);
 
 		if (portlet == null) {
 			String strutsPath = path.substring(
@@ -327,7 +327,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 				request.getQueryString());
 		}
 
-		String namespace = PortalUtil.getPortletNamespace(portletId);
+		String namespace = PortalUtil.getPortletNamespace(portletInstanceKey);
 
 		FriendlyURLMapper friendlyURLMapper =
 			portlet.getFriendlyURLMapperInstance();
@@ -338,7 +338,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 		}
 
 		PortletURLImpl portletURL = new PortletURLImpl(
-			request, portletId, plid, PortletRequest.RENDER_PHASE);
+			request, portletInstanceKey, plid, PortletRequest.RENDER_PHASE);
 
 		Map<String, String[]> parameterMap = request.getParameterMap();
 
@@ -713,7 +713,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 		}
 
 		long companyId = PortalUtil.getCompanyId(request);
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		if (!path.equals(_PATH_PORTAL_JSON_SERVICE) &&
 			!path.equals(_PATH_PORTAL_RENDER_PORTLET) &&
@@ -721,7 +721,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 			!themeDisplay.isImpersonated() &&
 			!InterruptedPortletRequestWhitelistUtil.
 				isPortletInvocationWhitelisted(
-					companyId, portletId,
+					companyId, portletInstanceKey,
 					PortalUtil.getStrutsAction(request))) {
 
 			// Authenticated users should agree to Terms of Use
@@ -809,9 +809,9 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 			try {
 				Portlet portlet = null;
 
-				if (Validator.isNotNull(portletId)) {
+				if (Validator.isNotNull(portletInstanceKey)) {
 					portlet = PortletLocalServiceUtil.getPortletById(
-						companyId, portletId);
+						companyId, portletInstanceKey);
 				}
 
 				if (portlet == null) {
@@ -916,11 +916,12 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 
 				Portlet portlet = null;
 
-				String portletId = ParamUtil.getString(request, "p_p_id");
+				String portletInstanceKey = ParamUtil.getString(
+					request, "p_p_id");
 
-				if (Validator.isNotNull(portletId)) {
+				if (Validator.isNotNull(portletInstanceKey)) {
 					portlet = PortletLocalServiceUtil.getPortletById(
-						user.getCompanyId(), portletId);
+						user.getCompanyId(), portletInstanceKey);
 				}
 
 				String strutsPath = path.substring(
@@ -929,7 +930,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 				if (portlet != null) {
 					if (!strutsPath.equals(portlet.getStrutsPath())) {
 						throw new PrincipalException.MustBePortletStrutsPath(
-							strutsPath, portletId);
+							strutsPath, portletInstanceKey);
 					}
 				}
 				else {

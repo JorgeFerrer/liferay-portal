@@ -87,9 +87,9 @@ public class PortalResiliencyAction extends Action {
 		Portlet portlet = (Portlet)request.getAttribute(
 			WebKeys.SPI_AGENT_PORTLET);
 
-		String portletId = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		if (portletId.equals(portlet.getPortletId())) {
+		if (portletInstanceKey.equals(portlet.getPortletId())) {
 			portletContainer.preparePortlet(request, portlet);
 		}
 

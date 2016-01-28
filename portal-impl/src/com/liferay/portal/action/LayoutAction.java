@@ -285,10 +285,10 @@ public class LayoutAction extends Action {
 			boolean resetLayout = ParamUtil.getBoolean(
 				request, "p_l_reset", PropsValues.LAYOUT_DEFAULT_P_L_RESET);
 
-			String portletId = ParamUtil.getString(request, "p_p_id");
+			String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 			if (resetLayout &&
-				(Validator.isNull(portletId) ||
+				(Validator.isNull(portletInstanceKey) ||
 				 ((previousLayoutPlid != null) &&
 				  (layout.getPlid() != previousLayoutPlid.longValue())))) {
 
@@ -300,11 +300,11 @@ public class LayoutAction extends Action {
 
 			Portlet portlet = null;
 
-			if (Validator.isNotNull(portletId)) {
+			if (Validator.isNotNull(portletInstanceKey)) {
 				long companyId = PortalUtil.getCompanyId(request);
 
 				portlet = PortletLocalServiceUtil.getPortletById(
-					companyId, portletId);
+					companyId, portletInstanceKey);
 			}
 
 			if (portlet != null) {

@@ -268,9 +268,9 @@ public class PortletURLUtil {
 		sb.append("&currentURL=");
 		sb.append(HttpUtil.encodeURL(currentURL));
 
-		String ppid = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-		if (!ppid.equals(portletId)) {
+		if (!portletInstanceKey.equals(portletId)) {
 			return sb.toString();
 		}
 
@@ -308,11 +308,11 @@ public class PortletURLUtil {
 
 		Map<String, String[]> refreshURLParameters = new HashMap<>();
 
-		String ppid = ParamUtil.getString(request, "p_p_id");
+		String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
 		Portlet portlet = (Portlet)request.getAttribute(WebKeys.RENDER_PORTLET);
 
-		if (ppid.equals(portlet.getPortletId())) {
+		if (portletInstanceKey.equals(portlet.getPortletId())) {
 			String namespace = PortalUtil.getPortletNamespace(
 				portlet.getPortletId());
 

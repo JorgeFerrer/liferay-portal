@@ -55,13 +55,13 @@ public class UploadServletRequestFilter extends BasePortalFilter {
 		if ((contentType != null) &&
 			contentType.startsWith(ContentTypes.MULTIPART_FORM_DATA)) {
 
-			String portletId = ParamUtil.getString(request, "p_p_id");
+			String portletInstanceKey = ParamUtil.getString(request, "p_p_id");
 
-			if (Validator.isNotNull(portletId)) {
+			if (Validator.isNotNull(portletInstanceKey)) {
 				long companyId = PortalUtil.getCompanyId(request);
 
 				Portlet portlet = PortletLocalServiceUtil.getPortletById(
-					companyId, portletId);
+					companyId, portletInstanceKey);
 
 				if (portlet != null) {
 					ServletContext servletContext =
