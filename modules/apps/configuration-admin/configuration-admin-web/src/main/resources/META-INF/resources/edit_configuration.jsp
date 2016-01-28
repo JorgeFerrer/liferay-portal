@@ -20,7 +20,7 @@
 String redirect = ParamUtil.getString(request, "redirect");
 
 ConfigurationModel configurationModel = (ConfigurationModel)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL);
-String ddmFormHTML = (String)request.getAttribute(DDMWebKeys.DYNAMIC_DATA_MAPPING_FORM_HTML);
+String ddmFormHTML = (String)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL_FORM_HTML);
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(redirect);

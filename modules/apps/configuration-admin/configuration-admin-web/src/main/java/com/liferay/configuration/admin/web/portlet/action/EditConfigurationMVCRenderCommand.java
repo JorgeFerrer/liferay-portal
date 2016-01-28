@@ -19,7 +19,6 @@ import com.liferay.configuration.admin.web.constants.ConfigurationAdminWebKeys;
 import com.liferay.configuration.admin.web.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.util.ConfigurationModelRetriever;
 import com.liferay.configuration.admin.web.util.DDMFormRendererHelper;
-import com.liferay.dynamic.data.mapping.constants.DDMWebKeys;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderer;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -99,7 +98,7 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 			_ddmFormRenderer);
 
 		renderRequest.setAttribute(
-			DDMWebKeys.DYNAMIC_DATA_MAPPING_FORM_HTML,
+			ConfigurationAdminWebKeys.CONFIGURATION_MODEL_FORM_HTML,
 			ddmFormRendererHelper.getDDMFormHTML());
 
 		return "/edit_configuration.jsp";
