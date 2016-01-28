@@ -21,9 +21,12 @@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.flags.web.constants.PageFlagsPortletKeys" %><%@
+<%@ page import="com.liferay.flags.configuration.FlagsGroupServiceConfiguration" %><%@
+page import="com.liferay.flags.web.constants.PageFlagsPortletKeys" %><%@
 page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@
+page import="com.liferay.portal.kernel.module.configuration.ConfigurationFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
+page import="com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
@@ -34,5 +37,9 @@ page import="com.liferay.portal.util.PropsValues" %>
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
+
+<%
+FlagsGroupServiceConfiguration flagsGroupServiceConfiguration = ConfigurationFactoryUtil.getConfiguration(FlagsGroupServiceConfiguration.class, new CompanyServiceSettingsLocator(themeDisplay.getCompanyId(), "com.liferay.flags"));
+%>
 
 <%@ include file="/init-ext.jsp" %>
