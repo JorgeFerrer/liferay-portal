@@ -146,7 +146,7 @@ if (Validator.isNotNull(keywords)) {
 					<c:choose>
 						<c:when test="<%= configurationModel.isFactory() && !configurationModel.isCompanyFactory() %>">
 							<liferay-ui:icon
-								message="view"
+								message="edit"
 								method="post"
 								url="<%= viewFactoryInstancesURL %>"
 							/>
