@@ -423,7 +423,7 @@ public class SessionErrors {
 			PortalUtil.getLiferayPortletRequest(portletRequest);
 
 		sb.append(LiferayPortletSession.PORTLET_SCOPE_NAMESPACE);
-		sb.append(liferayPortletRequest.getPortletName());
+		sb.append(liferayPortletRequest.getPortletInstanceKey());
 		sb.append(LiferayPortletSession.LAYOUT_SEPARATOR);
 		sb.append(liferayPortletRequest.getPlid());
 		sb.append(StringPool.QUESTION);
