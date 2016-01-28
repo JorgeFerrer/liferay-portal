@@ -143,7 +143,7 @@ public class PortletRequestDispatcherImpl
 
 		if (portletRequestImpl.isPrivateRequestAttributes()) {
 			String portletNamespace = PortalUtil.getPortletNamespace(
-				portletRequestImpl.getPortletName());
+				portletRequestImpl.getPortletInstanceKey());
 
 			dynamicServletRequest = new NamespaceServletRequest(
 				httpServletRequest, portletNamespace, portletNamespace);
