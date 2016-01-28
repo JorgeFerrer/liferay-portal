@@ -33,6 +33,8 @@ public interface ConfigurationModelRetriever {
 	public Map<String, Set<ConfigurationModel>> categorizeConfigurationModels(
 		Map<String, ConfigurationModel> configurationModels);
 
+	public Configuration getCompanyDefaultConfiguration(String factoryPid);
+
 	public Configuration getConfiguration(String pid);
 
 	public List<String> getConfigurationCategories(

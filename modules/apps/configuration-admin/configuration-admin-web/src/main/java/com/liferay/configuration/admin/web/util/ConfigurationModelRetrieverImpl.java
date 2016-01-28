@@ -81,6 +81,28 @@ public class ConfigurationModelRetrieverImpl
 	}
 
 	@Override
+	public Configuration getCompanyDefaultConfiguration(String factoryPid) {
+		Configuration configuration = null;
+
+		try {
+			Configuration[] factoryConfigurations = getFactoryConfigurations(
+				factoryPid, ConfigurationModel.PROPERTY_COMPANY_ID,
+				ConfigurationModel.PROPERTY_COMPANY_ID_DEFAULT);
+
+			if ((factoryConfigurations != null) &&
+				(factoryConfigurations.length > 0)) {
+
+				configuration = factoryConfigurations[0];
+			}
+		}
+		catch (IOException ioe) {
+			ReflectionUtil.throwException(ioe);
+		}
+
+		return configuration;
+	}
+
+	@Override
 	public Configuration getConfiguration(String pid) {
 		try {
 			String pidFilter = getPidFilterString(pid, false);

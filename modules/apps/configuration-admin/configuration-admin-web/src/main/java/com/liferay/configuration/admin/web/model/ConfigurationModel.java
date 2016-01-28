@@ -38,6 +38,8 @@ public class ConfigurationModel
 
 	public static final String PROPERTY_COMPANY_ID = "companyId";
 
+	public static final String PROPERTY_COMPANY_ID_DEFAULT = "0";
+
 	public ConfigurationModel(
 		com.liferay.portal.metatype.definitions.ExtendedObjectClassDefinition
 			extendedObjectClassDefinition,
