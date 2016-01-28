@@ -43,7 +43,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 7.0.0
 	 */
 	@Deprecated
 	@Override
