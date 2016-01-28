@@ -116,6 +116,12 @@ public class PortletCategoryKeys {
 	@Deprecated
 	public static final String SITES = "sites";
 
+	public static final String SYSTEM_ADMINISTRATION_APPS =
+		"system_administration.apps";
+
+	public static final String SYSTEM_ADMINISTRATION_CONFIGURATION =
+		"system_administration.configuration";
+
 	public static final String USER_MY_ACCOUNT = "user.my_account";
 
 	/**
