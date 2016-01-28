@@ -18,6 +18,7 @@ import com.liferay.configuration.admin.web.model.ConfigurationModel;
 import com.liferay.portal.kernel.util.ReflectionUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.metatype.definitions.ExtendedMetaTypeInformation;
 import com.liferay.portal.metatype.definitions.ExtendedMetaTypeService;
 
@@ -234,13 +235,34 @@ public class ConfigurationModelRetrieverImpl
 	protected Configuration[] getFactoryConfigurations(String factoryPid)
 		throws IOException {
 
+		return getFactoryConfigurations(factoryPid, null, null);
+	}
+
+	protected Configuration[] getFactoryConfigurations(
+			String factoryPid, String property, String value)
+		throws IOException {
+
 		StringBundler filter = new StringBundler(5);
+
+		if (Validator.isNotNull(property) && Validator.isNotNull(value)) {
+			filter.append(StringPool.OPEN_PARENTHESIS);
+			filter.append(StringPool.AMPERSAND);
+		}
 
 		filter.append(StringPool.OPEN_PARENTHESIS);
 		filter.append(ConfigurationAdmin.SERVICE_FACTORYPID);
 		filter.append(StringPool.EQUAL);
 		filter.append(factoryPid);
 		filter.append(StringPool.CLOSE_PARENTHESIS);
+
+		if (Validator.isNotNull(property) && Validator.isNotNull(value)) {
+			filter.append(StringPool.OPEN_PARENTHESIS);
+			filter.append(property);
+			filter.append(StringPool.EQUAL);
+			filter.append(value);
+			filter.append(StringPool.CLOSE_PARENTHESIS);
+			filter.append(StringPool.CLOSE_PARENTHESIS);
+		}
 
 		Configuration[] configurations = null;
 
