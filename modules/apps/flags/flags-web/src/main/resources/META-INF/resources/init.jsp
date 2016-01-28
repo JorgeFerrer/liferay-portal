@@ -31,8 +31,7 @@ page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.LocaleUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.model.Group" %><%@
-page import="com.liferay.portal.model.Layout" %><%@
-page import="com.liferay.portal.util.PropsValues" %>
+page import="com.liferay.portal.model.Layout" %>
 
 <liferay-theme:defineObjects />
 
