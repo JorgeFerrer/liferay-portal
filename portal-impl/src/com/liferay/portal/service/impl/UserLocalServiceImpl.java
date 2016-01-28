@@ -1604,6 +1604,14 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 	}
 
+	@Override
+	public int countUsersByKeywords(
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params) {
+
+		return userFinder.countByKeywords(companyId, keywords, status, params);
+	}
+
 	/**
 	 * Decrypts the user's primary key and password from their encrypted forms.
 	 * Used for decrypting a user's credentials from the values stored in an
@@ -2718,6 +2726,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		User user = userPersistence.findByC_SN(companyId, screenName);
 
 		return user.getUserId();
+	}
+
+	@Override
+	public List<User> getUsersByKeywords(
+		long companyId, String keywords, int status,
+		LinkedHashMap<String, Object> params, int start, int end,
+		OrderByComparator<User> obc) {
+
+		return userFinder.findByKeywords(
+			companyId, keywords, status, params, start, end, obc);
 	}
 
 	/**
