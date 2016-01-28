@@ -29,19 +29,19 @@ import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 public interface FlagsGroupServiceConfiguration {
 
 	@Meta.AD(
-		deflt = "com/liferay/flags/dependencies/email_flag_subject.tmpl",
+		deflt = "${resource:com/liferay/flags/dependencies/email_flag_subject.tmpl}",
 		required = false
 	)
-	public String emailSubject();
+	public LocalizedValuesMap emailSubject();
 
 	@Meta.AD(deflt = "true", required = false)
 	public boolean emailEntryAddedEnabled();
 
 	@Meta.AD(
-		deflt = "com/liferay/flags/dependencies/email_flag_body.tmpl",
+		deflt = "${resource:com/liferay/flags/dependencies/email_flag_body.tmpl}",
 		required = false
 	)
-	public String emailBody();
+	public LocalizedValuesMap emailBody();
 	
 	@Meta.AD(
 		deflt = "${server-property://com.liferay.portal/admin.email.from.address}",

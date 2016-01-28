@@ -46,7 +46,6 @@ import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portal.util.SubscriptionSender;
-import com.liferay.util.ContentUtil;
 
 import java.io.IOException;
 
@@ -151,11 +150,9 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 
 		String fromName = flagsGroupServiceConfiguration.emailFromName();
 		String fromAddress = flagsGroupServiceConfiguration.emailFromAddress();
-		
-		
 
-		String emailSubject = ContentUtil.get(flagsGroupServiceConfiguration.emailSubject());
-		String emailBody = ContentUtil.get(flagsGroupServiceConfiguration.emailBody());
+		LocalizedValuesMap subjectLocalizedValuesMap = flagsGroupServiceConfiguration.emailSubject();
+		LocalizedValuesMap bodyLocalizedValuesMap = flagsGroupServiceConfiguration.emailBody();
 
 		// Recipients
 
@@ -171,8 +168,8 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 					flagsRequest.getClassPK(), flagsRequest.getContentTitle(),
 					contentType, flagsRequest.getContentURL(), reason, fromName,
 					fromAddress, recipient.getFullName(),
-					recipient.getEmailAddress(), emailSubject, emailBody, 
-					serviceContext);
+					recipient.getEmailAddress(), subjectLocalizedValuesMap,
+					bodyLocalizedValuesMap, serviceContext);
 			}
 			catch (IOException ioe) {
 				if (_log.isWarnEnabled()) {
@@ -234,7 +231,8 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 			String reportedUserURL, long contentId, String contentTitle,
 			String contentType, String contentURL, String reason,
 			String fromName, String fromAddress, String toName,
-			String toAddress, String emailSubject, String emailBody,
+			String toAddress, LocalizedValuesMap subjectLocalizedValuesMap,
+			LocalizedValuesMap bodyLocalizedValuesMap,
 			ServiceContext serviceContext)
 		throws Exception {
 
@@ -242,8 +240,15 @@ public class FlagsRequestMessageListener extends BaseMessageListener {
 
 		SubscriptionSender subscriptionSender = new SubscriptionSender();
 		
-		subscriptionSender.setSubject(emailSubject);
-		subscriptionSender.setBody(emailBody);
+		if (bodyLocalizedValuesMap != null) {
+			subscriptionSender.setLocalizedBodyMap(
+				LocalizationUtil.getMap(bodyLocalizedValuesMap));
+		}
+
+		if (subjectLocalizedValuesMap != null) {
+			subscriptionSender.setLocalizedSubjectMap(
+				LocalizationUtil.getMap(subjectLocalizedValuesMap));
+		}
 
 		subscriptionSender.setCompanyId(company.getCompanyId());
 		subscriptionSender.setContextAttributes(
