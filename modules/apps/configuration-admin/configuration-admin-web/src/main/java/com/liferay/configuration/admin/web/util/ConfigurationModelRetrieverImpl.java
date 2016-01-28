@@ -150,23 +150,8 @@ public class ConfigurationModelRetrieverImpl
 			ConfigurationModel factoryConfigurationModel)
 		throws IOException {
 
-		StringBundler filter = new StringBundler(5);
-
-		filter.append(StringPool.OPEN_PARENTHESIS);
-		filter.append(ConfigurationAdmin.SERVICE_FACTORYPID);
-		filter.append(StringPool.EQUAL);
-		filter.append(factoryConfigurationModel.getFactoryPid());
-		filter.append(StringPool.CLOSE_PARENTHESIS);
-
-		Configuration[] configurations = null;
-
-		try {
-			configurations = _configurationAdmin.listConfigurations(
-				filter.toString());
-		}
-		catch (InvalidSyntaxException ise) {
-			ReflectionUtil.throwException(ise);
-		}
+		Configuration[] configurations = getFactoryConfigurations(
+			factoryConfigurationModel.getFactoryPid());
 
 		if (configurations == null) {
 			return Collections.emptyList();
@@ -244,6 +229,30 @@ public class ConfigurationModelRetrieverImpl
 
 	protected Comparator<ConfigurationModel> getConfigurationModelComparator() {
 		return new ConfigurationModelComparator();
+	}
+
+	protected Configuration[] getFactoryConfigurations(String factoryPid)
+		throws IOException {
+
+		StringBundler filter = new StringBundler(5);
+
+		filter.append(StringPool.OPEN_PARENTHESIS);
+		filter.append(ConfigurationAdmin.SERVICE_FACTORYPID);
+		filter.append(StringPool.EQUAL);
+		filter.append(factoryPid);
+		filter.append(StringPool.CLOSE_PARENTHESIS);
+
+		Configuration[] configurations = null;
+
+		try {
+			configurations = _configurationAdmin.listConfigurations(
+				filter.toString());
+		}
+		catch (InvalidSyntaxException ise) {
+			ReflectionUtil.throwException(ise);
+		}
+
+		return configurations;
 	}
 
 	protected String getPidFilterString(String pid, boolean factory) {
