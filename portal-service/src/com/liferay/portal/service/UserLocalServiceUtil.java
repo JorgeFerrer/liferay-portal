@@ -672,6 +672,13 @@ public class UserLocalServiceUtil {
 		getService().completeUserRegistration(user, serviceContext);
 	}
 
+	public static int countUsersByKeywords(long companyId,
+		java.lang.String keywords, int status,
+		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params) {
+		return getService()
+				   .countUsersByKeywords(companyId, keywords, status, params);
+	}
+
 	/**
 	* Creates a new user with the primary key. Does not add the user to the database.
 	*
@@ -1775,6 +1782,16 @@ public class UserLocalServiceUtil {
 	public static java.util.List<com.liferay.portal.model.User> getUsers(
 		int start, int end) {
 		return getService().getUsers(start, end);
+	}
+
+	public static java.util.List<com.liferay.portal.model.User> getUsersByKeywords(
+		long companyId, java.lang.String keywords, int status,
+		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.model.User> obc) {
+		return getService()
+				   .getUsersByKeywords(companyId, keywords, status, params,
+			start, end, obc);
 	}
 
 	/**
