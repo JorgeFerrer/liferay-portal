@@ -33,6 +33,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.osgi.service.cm.Configuration;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -72,10 +73,21 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 		}
 
 		if (configurationModel != null) {
+			Configuration configuration = null;
+
+			if (configurationModel.isCompanyFactory()) {
+				configuration =
+					_configurationModelRetriever.getCompanyDefaultConfiguration(
+						configurationModel.getFactoryPid());
+			}
+			else {
+				configuration = _configurationModelRetriever.getConfiguration(
+					pid);
+			}
+
 			configurationModel = new ConfigurationModel(
 				configurationModel.getExtendedObjectClassDefinition(),
-				_configurationModelRetriever.getConfiguration(pid),
-				configurationModel.getBundleLocation(),
+				configuration, configurationModel.getBundleLocation(),
 				configurationModel.isFactory());
 		}
 

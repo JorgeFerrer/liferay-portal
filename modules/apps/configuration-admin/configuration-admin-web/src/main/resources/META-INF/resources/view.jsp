@@ -104,7 +104,7 @@ if (Validator.isNotNull(keywords)) {
 
 			<liferay-ui:search-container-column-text name="name">
 				<c:choose>
-					<c:when test="<%= configurationModel.isFactory() %>">
+					<c:when test="<%= configurationModel.isFactory() && !configurationModel.isCompanyFactory() %>">
 						<aui:a href="<%= viewFactoryInstancesURL %>"><strong><%= configurationModel.getName() %></strong></aui:a>
 					</c:when>
 					<c:otherwise>
@@ -144,7 +144,7 @@ if (Validator.isNotNull(keywords)) {
 					showWhenSingleIcon="<%= true %>"
 				>
 					<c:choose>
-						<c:when test="<%= configurationModel.isFactory() %>">
+						<c:when test="<%= configurationModel.isFactory() && !configurationModel.isCompanyFactory() %>">
 							<liferay-ui:icon
 								message="view"
 								method="post"
