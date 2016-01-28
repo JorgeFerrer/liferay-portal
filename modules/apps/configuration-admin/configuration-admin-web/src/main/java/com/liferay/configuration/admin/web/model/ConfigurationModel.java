@@ -23,7 +23,9 @@ import com.liferay.portal.metatype.definitions.ExtendedAttributeDefinition;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,7 +55,10 @@ public class ConfigurationModel
 
 	@Override
 	public ExtendedAttributeDefinition[] getAttributeDefinitions(int filter) {
-		return _extendedObjectClassDefinition.getAttributeDefinitions(filter);
+		ExtendedAttributeDefinition[] attributeDefinitions =
+			_extendedObjectClassDefinition.getAttributeDefinitions(filter);
+
+		return removeFactoryInstanceLabelAttribute(attributeDefinitions);
 	}
 
 	public String getBundleLocation() {
@@ -183,6 +188,31 @@ public class ConfigurationModel
 		}
 
 		return value;
+	}
+
+	protected ExtendedAttributeDefinition[] removeFactoryInstanceLabelAttribute(
+		ExtendedAttributeDefinition[] attributeDefinitions) {
+
+		if (!isCompanyFactory()) {
+			return attributeDefinitions;
+		}
+
+		List<ExtendedAttributeDefinition> filteredAttributeDefinitionsList =
+			new ArrayList<>();
+
+		for (ExtendedAttributeDefinition attributeDefinition :
+				attributeDefinitions) {
+
+			String attributeId = attributeDefinition.getID();
+
+			if (!attributeId.equals(getLabelAttribute())) {
+				filteredAttributeDefinitionsList.add(attributeDefinition);
+			}
+		}
+
+		return filteredAttributeDefinitionsList.toArray(
+			new ExtendedAttributeDefinition[
+				filteredAttributeDefinitionsList.size()]);
 	}
 
 	private final String _bundleLocation;
