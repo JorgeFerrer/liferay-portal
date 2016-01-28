@@ -255,12 +255,13 @@ public class LoginMVCActionCommand extends BaseMVCActionCommand {
 		LiferayPortletRequest liferayPortletRequest =
 			PortalUtil.getLiferayPortletRequest(actionRequest);
 
-		String portletName = liferayPortletRequest.getPortletName();
+		String portletInstanceKey =
+			liferayPortletRequest.getPortletInstanceKey();
 
 		Layout layout = (Layout)actionRequest.getAttribute(WebKeys.LAYOUT);
 
 		PortletURL portletURL = new PortletURLImpl(
-			actionRequest, portletName, layout.getPlid(),
+			actionRequest, portletInstanceKey, layout.getPlid(),
 			PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("saveLastPath", Boolean.FALSE.toString());
@@ -277,7 +278,7 @@ public class LoginMVCActionCommand extends BaseMVCActionCommand {
 			portletURL.setParameter("login", login);
 		}
 
-		if (portletName.equals(LoginPortletKeys.LOGIN)) {
+		if (portletInstanceKey.equals(LoginPortletKeys.LOGIN)) {
 			portletURL.setWindowState(WindowState.MAXIMIZED);
 		}
 		else {
