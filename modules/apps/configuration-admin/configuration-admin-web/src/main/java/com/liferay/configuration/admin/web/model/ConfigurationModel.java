@@ -154,6 +154,14 @@ public class ConfigurationModel
 		return extensionAttributes.get("scope");
 	}
 
+	public boolean hasConfiguration() {
+		if (getConfiguration() == null) {
+			return false;
+		}
+
+		return true;
+	}
+
 	public boolean isCompanyFactory() {
 		if (!isFactory()) {
 			return false;

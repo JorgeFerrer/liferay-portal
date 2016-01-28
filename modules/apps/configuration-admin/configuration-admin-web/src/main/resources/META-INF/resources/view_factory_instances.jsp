@@ -91,7 +91,7 @@ renderResponse.setTitle(factoryConfigurationModel.getName());
 						url="<%= editURL %>"
 					/>
 
-					<c:if test="<%= configurationModel.getConfiguration() != null %>">
+					<c:if test="<%= configurationModel.hasConfiguration() %>">
 						<portlet:actionURL name="deleteConfiguration" var="deleteConfigActionURL">
 							<portlet:param name="redirect" value="<%= currentURL %>" />
 							<portlet:param name="factoryPid" value="<%= configurationModel.getFactoryPid() %>" />
