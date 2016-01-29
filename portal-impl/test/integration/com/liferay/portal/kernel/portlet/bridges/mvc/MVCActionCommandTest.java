@@ -192,6 +192,11 @@ public class MVCActionCommandTest {
 		}
 
 		@Override
+		public String getPortletInstanceKey() {
+			return null;
+		}
+
+		@Override
 		public String getPortletName() {
 			return null;
 		}
