@@ -4362,8 +4362,8 @@ public class PortalImpl implements Portal {
 	}
 
 	@Override
-	public String getPortletNamespace(String portletId) {
-		return StringPool.UNDERLINE.concat(portletId).concat(
+	public String getPortletNamespace(String portletInstanceKey) {
+		return StringPool.UNDERLINE.concat(portletInstanceKey).concat(
 			StringPool.UNDERLINE);
 	}
 
