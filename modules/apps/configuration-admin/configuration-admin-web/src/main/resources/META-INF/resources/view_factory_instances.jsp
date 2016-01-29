@@ -111,7 +111,7 @@ renderResponse.setTitle(factoryConfigurationModel.getName());
 
 						<liferay-ui:icon
 							message="export"
-							method="post"
+							method="get"
 							url="<%= exportURL %>"
 						/>
 					</c:if>
