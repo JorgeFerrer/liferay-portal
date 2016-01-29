@@ -39,6 +39,8 @@ page import="com.liferay.portlet.PortletURLUtil" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 
+<%@ page import="org.osgi.service.metatype.AttributeDefinition" %>
+
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />

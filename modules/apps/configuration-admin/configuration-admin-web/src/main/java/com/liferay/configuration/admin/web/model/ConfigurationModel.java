@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.osgi.service.cm.Configuration;
+import org.osgi.service.metatype.ObjectClassDefinition;
 
 /**
  * @author Raymond Augé
@@ -51,6 +52,22 @@ public class ConfigurationModel
 		_configuration = configuration;
 		_bundleLocation = bundleLocation;
 		_factory = factory;
+	}
+
+	public ExtendedAttributeDefinition getAttributeDefinition(String id) {
+		ExtendedAttributeDefinition[] attributeDefinitions =
+			_extendedObjectClassDefinition.getAttributeDefinitions(
+				ObjectClassDefinition.ALL);
+
+		for (ExtendedAttributeDefinition attributeDefinition :
+				attributeDefinitions) {
+
+			if (id.equals(attributeDefinition.getID())) {
+				return attributeDefinition;
+			}
+		}
+
+		return null;
 	}
 
 	@Override

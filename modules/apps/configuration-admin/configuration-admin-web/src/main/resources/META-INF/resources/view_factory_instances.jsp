@@ -71,7 +71,21 @@ renderResponse.setTitle(factoryConfigurationModel.getName());
 				<portlet:param name="pid" value="<%= configurationModel.getID() %>" />
 			</portlet:renderURL>
 
-			<liferay-ui:search-container-column-text name="entry">
+			<%
+			String columnLabel = "entry";
+
+			String labelAttribute = configurationModel.getLabelAttribute();
+
+			if (labelAttribute != null) {
+				AttributeDefinition attributeDefinition = configurationModel.getAttributeDefinition(labelAttribute);
+
+				if (attributeDefinition != null) {
+					columnLabel = attributeDefinition.getName();
+				}
+			}
+			%>
+
+			<liferay-ui:search-container-column-text name="<%= columnLabel %>">
 				<aui:a href="<%= editURL %>"><strong><%= configurationModel.getLabel() %></strong></aui:a>
 			</liferay-ui:search-container-column-text>
 
