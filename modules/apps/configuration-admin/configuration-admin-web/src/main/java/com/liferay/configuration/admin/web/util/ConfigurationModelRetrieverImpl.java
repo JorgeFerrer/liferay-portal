@@ -245,9 +245,20 @@ public class ConfigurationModelRetrieverImpl
 			return null;
 		}
 
-		return new ConfigurationModel(
+		ConfigurationModel configurationModel = new ConfigurationModel(
 			metaTypeInformation.getObjectClassDefinition(pid, locale),
 			getConfiguration(pid), StringPool.QUESTION, factory);
+
+		if (configurationModel.isCompanyFactory()) {
+			Configuration configuration = getCompanyDefaultConfiguration(pid);
+
+			configurationModel = new ConfigurationModel(
+				configurationModel.getExtendedObjectClassDefinition(),
+				configuration, configurationModel.getBundleLocation(),
+				configurationModel.isFactory());
+		}
+
+		return configurationModel;
 	}
 
 	protected Comparator<ConfigurationModel> getConfigurationModelComparator() {

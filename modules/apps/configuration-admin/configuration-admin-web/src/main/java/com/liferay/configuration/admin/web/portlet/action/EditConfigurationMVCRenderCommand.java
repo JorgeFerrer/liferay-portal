@@ -71,18 +71,11 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 			configurationModel = configurationModels.get(factoryPid);
 		}
 
-		if (configurationModel != null) {
-			Configuration configuration = null;
+		if ((configurationModel != null) &&
+			!configurationModel.isCompanyFactory()) {
 
-			if (configurationModel.isCompanyFactory()) {
-				configuration =
-					_configurationModelRetriever.getCompanyDefaultConfiguration(
-						configurationModel.getFactoryPid());
-			}
-			else {
-				configuration = _configurationModelRetriever.getConfiguration(
-					pid);
-			}
+			Configuration configuration =
+				_configurationModelRetriever.getConfiguration(pid);
 
 			configurationModel = new ConfigurationModel(
 				configurationModel.getExtendedObjectClassDefinition(),
