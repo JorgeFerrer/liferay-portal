@@ -16,6 +16,7 @@ package com.liferay.configuration.admin.web.model;
 
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
 import com.liferay.portal.metatype.definitions.ExtendedAttributeDefinition;
@@ -208,8 +209,15 @@ public class ConfigurationModel
 			Dictionary<String, Object> properties =
 				_configuration.getProperties();
 
-			value = String.valueOf(
-				properties.get(factoryInstanceLabelAttribute));
+			Object valueObj = properties.get(factoryInstanceLabelAttribute);
+
+			if (valueObj instanceof Object[]) {
+				value = StringUtil.merge(
+					(Object[])valueObj, StringPool.COMMA_AND_SPACE);
+			}
+			else {
+				value = String.valueOf(valueObj);
+			}
 		}
 
 		return value;
