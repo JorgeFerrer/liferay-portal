@@ -32,7 +32,6 @@ import com.liferay.portal.model.impl.VirtualLayout;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.PortletLocalServiceUtil;
-import com.liferay.portal.service.ResourceLocalServiceUtil;
 import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.util.PortletCategoryKeys;
 import com.liferay.portlet.ControlPanelEntry;
@@ -339,6 +338,13 @@ public class PortletPermissionImpl implements PortletPermission {
 
 		primKey = getPrimaryKey(layout.getPlid(), portletId);
 
+		if (ResourcePermissionLocalServiceUtil.getResourcePermissionsCount(
+				permissionChecker.getCompanyId(), name,
+				ResourceConstants.SCOPE_INDIVIDUAL, primKey) == 0) {
+
+			primKey = name;
+		}
+
 		if (strict) {
 			return permissionChecker.hasPermission(
 				groupId, name, primKey, actionId);
@@ -350,12 +356,6 @@ public class PortletPermissionImpl implements PortletPermission {
 				permissionChecker, layout, portletId, actionId)) {
 
 			return true;
-		}
-
-		if (!hasIndividualResource(permissionChecker, name, primKey)) {
-			ResourceLocalServiceUtil.addResources(
-				permissionChecker.getCompanyId(), groupId,
-				permissionChecker.getUserId(), name, primKey, true, true, true);
 		}
 
 		return permissionChecker.hasPermission(
@@ -671,21 +671,6 @@ public class PortletPermissionImpl implements PortletPermission {
 		}
 
 		return false;
-	}
-
-	protected boolean hasIndividualResource(
-		PermissionChecker permissionChecker, String name, String primKey) {
-
-		int count =
-			ResourcePermissionLocalServiceUtil.getResourcePermissionsCount(
-				permissionChecker.getCompanyId(), name,
-				ResourceConstants.SCOPE_INDIVIDUAL, primKey);
-
-		if (count == 0) {
-			return false;
-		}
-
-		return true;
 	}
 
 	private static final boolean _CHECK_STAGING_PERMISSION_DEFAULT = true;
