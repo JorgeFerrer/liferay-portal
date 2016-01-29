@@ -166,7 +166,7 @@ if (Validator.isNotNull(keywords)) {
 								</portlet:actionURL>
 
 								<liferay-ui:icon
-									message='<%= configurationModel.isFactory() ? "delete" : "reset-default-values" %>'
+									message="reset-default-values"
 									method="post"
 									url="<%= deleteConfigActionURL %>"
 								/>
