@@ -76,6 +76,7 @@ import com.liferay.portal.model.impl.PortletImpl;
 import com.liferay.portal.model.impl.PortletURLListenerImpl;
 import com.liferay.portal.model.impl.PublicRenderParameterImpl;
 import com.liferay.portal.service.base.PortletLocalServiceBaseImpl;
+import com.liferay.portal.service.permission.ModelPermissions;
 import com.liferay.portal.service.permission.PortletPermissionUtil;
 import com.liferay.portal.servlet.ComboServlet;
 import com.liferay.portal.util.PortalUtil;
@@ -1116,46 +1117,37 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 		throws PortalException {
 
 		long companyId = portlet.getCompanyId();
-		String name = portlet.getRootPortletId();
+		String portletName = portlet.getRootPortletId();
 
 		if (resourcePermissionLocalService.getResourcePermissionsCount(
-				companyId, name, ResourceConstants.SCOPE_INDIVIDUAL,
-				name) >= 4) {
+				companyId, portletName, ResourceConstants.SCOPE_INDIVIDUAL,
+				portletName) >= 4) {
 
 			return;
 		}
 
-		List<String> groupActions =
-			ResourceActionsUtil.getPortletResourceGroupDefaultActions(name);
+		ModelPermissions modelPermissions = new ModelPermissions();
 
-		Role organizationUserRole = roleLocalService.getRole(
-			companyId, RoleConstants.ORGANIZATION_USER);
-		Role siteMemberRole = roleLocalService.getRole(
-			companyId, RoleConstants.SITE_MEMBER);
+		List<String> groupActionIds =
+			ResourceActionsUtil.getPortletResourceGroupDefaultActions(
+				portletName);
 
-		resourcePermissionLocalService.setResourcePermissions(
-			companyId, name, ResourceConstants.SCOPE_INDIVIDUAL, name,
-			organizationUserRole.getRoleId(),
-			groupActions.toArray(new String[0]));
-		resourcePermissionLocalService.setResourcePermissions(
-			companyId, name, ResourceConstants.SCOPE_INDIVIDUAL, name,
-			siteMemberRole.getRoleId(), groupActions.toArray(new String[0]));
+		modelPermissions.addRolePermissions(
+			RoleConstants.SITE_MEMBER, groupActionIds.toArray(new String[0]));
 
-		Role guestRole = roleLocalService.getRole(
-			companyId, RoleConstants.GUEST);
-		List<String> guestActions =
-			ResourceActionsUtil.getPortletResourceGuestDefaultActions(name);
-		resourcePermissionLocalService.setResourcePermissions(
-			companyId, name, ResourceConstants.SCOPE_INDIVIDUAL, name,
-			guestRole.getRoleId(), guestActions.toArray(new String[0]));
+		List<String> guestActionIds =
+			ResourceActionsUtil.getPortletResourceGuestDefaultActions(
+				portletName);
 
-		Role ownerRole = roleLocalService.getRole(
-			companyId, RoleConstants.OWNER);
-		List<String> ownerActions =
-			ResourceActionsUtil.getPortletResourceActions(name);
-		resourcePermissionLocalService.setOwnerResourcePermissions(
-			companyId, name, ResourceConstants.SCOPE_INDIVIDUAL, name,
-			ownerRole.getRoleId(), 0, ownerActions.toArray(new String[0]));
+		modelPermissions.addRolePermissions(
+			RoleConstants.GUEST, guestActionIds.toArray(new String[0]));
+
+		String primKey = portletName;
+		long userId = 0;
+		long groupId = 0;
+
+		resourceLocalService.addModelResources(
+			companyId, groupId, userId, portletName, primKey, modelPermissions);
 	}
 
 	private void _readLiferayDisplay(
