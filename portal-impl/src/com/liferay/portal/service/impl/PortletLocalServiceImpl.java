@@ -1113,6 +1113,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 			portlet.isActive());
 	}
 
+	// Move to ResourceLocalService
 	private void _initPortletDefaultPermissions(Portlet portlet)
 		throws PortalException {
 
@@ -1121,7 +1122,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 		if (resourcePermissionLocalService.getResourcePermissionsCount(
 				companyId, portletName, ResourceConstants.SCOPE_INDIVIDUAL,
-				portletName) >= 4) {
+				portletName) > 0) {
 
 			return;
 		}
