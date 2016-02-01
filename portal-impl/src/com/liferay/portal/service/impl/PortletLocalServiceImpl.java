@@ -149,7 +149,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 
 	@Override
 	public void checkPortlet(Portlet portlet) throws PortalException {
-		_initPortletResourcePermissions(portlet);
+		_initPortletDefaultPermissions(portlet);
 
 		_initPortletAddToPagePermissions(portlet);
 	}
@@ -1113,7 +1113,7 @@ public class PortletLocalServiceImpl extends PortletLocalServiceBaseImpl {
 			portlet.isActive());
 	}
 
-	private void _initPortletResourcePermissions(Portlet portlet)
+	private void _initPortletDefaultPermissions(Portlet portlet)
 		throws PortalException {
 
 		long companyId = portlet.getCompanyId();
