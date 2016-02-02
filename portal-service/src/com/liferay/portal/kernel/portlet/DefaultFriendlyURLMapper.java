@@ -271,9 +271,9 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 
 		String portletInstanceKey = liferayPortletURL.getPortletId();
 
-		routeParameters.put("p_p_id", portletInstanceKey);
-
 		if (Validator.isNotNull(portletInstanceKey)) {
+			routeParameters.put("p_p_id", portletInstanceKey);
+
 			PortletInstance portletInstance =
 				PortletInstance.fromPortletInstanceKey(portletInstanceKey);
 
