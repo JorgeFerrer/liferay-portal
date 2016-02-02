@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.PortletConstants;
+import com.liferay.portal.model.PortletInstance;
 import com.liferay.portal.util.PortalUtil;
 
 import java.util.HashMap;
@@ -272,12 +273,16 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 
 		routeParameters.put("p_p_id", portletInstanceKey);
 
-		if (Validator.isNotNull(portletInstanceKey) &&
-			PortletConstants.hasInstanceId(portletInstanceKey)) {
+		if (Validator.isNotNull(portletInstanceKey)) {
+			PortletInstance portletInstance =
+				PortletInstance.fromPortletInstanceKey(portletInstanceKey);
 
-			routeParameters.put(
-				"instanceId",
-				PortletConstants.getInstanceId(portletInstanceKey));
+			if (portletInstance.hasInstanceId() ||
+				portletInstance.hasUserId()) {
+
+				routeParameters.put(
+					"instanceId", portletInstance.getInstanceId());
+			}
 		}
 
 		// Copy reserved parameters
