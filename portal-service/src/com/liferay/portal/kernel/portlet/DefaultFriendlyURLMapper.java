@@ -159,12 +159,12 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 
 		String namespace = null;
 
-		String portletId = getPortletId(routeParameters);
+		String portletInstanceKey = getPortletId(routeParameters);
 
-		if (Validator.isNotNull(portletId)) {
-			namespace = PortalUtil.getPortletNamespace(portletId);
+		if (Validator.isNotNull(portletInstanceKey)) {
+			namespace = PortalUtil.getPortletNamespace(portletInstanceKey);
 
-			addParameter(namespace, parameterMap, "p_p_id", portletId);
+			addParameter(namespace, parameterMap, "p_p_id", portletInstanceKey);
 		}
 		else if (isAllPublicRenderParameters(routeParameters)) {
 
