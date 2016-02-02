@@ -312,14 +312,18 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 	protected String getPortletInstanceKey(
 		Map<String, String> routeParameters) {
 
-		if (!isPortletInstanceable()) {
+		String instanceId = routeParameters.remove("instanceId");
+
+		boolean hasUserCustomizedPreferences = hasUserCustomizedPreferences(
+			instanceId);
+
+		if (!isPortletInstanceable() && !hasUserCustomizedPreferences) {
 			return getPortletInstanceKey();
 		}
 
-		String instanceId = routeParameters.remove("instanceId");
 		String portletId = routeParameters.remove("p_p_id");
 
-		if (hasUserCustomizedPreferences(instanceId)) {
+		if (hasUserCustomizedPreferences) {
 			String portletInstanceKey = getPortletInstanceKey();
 
 			if (Validator.isNotNull(portletId)) {
