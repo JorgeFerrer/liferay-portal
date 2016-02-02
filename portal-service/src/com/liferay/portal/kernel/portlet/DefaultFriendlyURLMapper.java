@@ -301,10 +301,10 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 	 *         <code>null</code> if it cannot be determined
 	 */
 	protected String getPortletId(Map<String, String> routeParameters) {
-		String portletId = routeParameters.remove("p_p_id");
+		String portletInstanceKey = routeParameters.remove("p_p_id");
 
-		if (Validator.isNotNull(portletId)) {
-			return portletId;
+		if (Validator.isNotNull(portletInstanceKey)) {
+			return portletInstanceKey;
 		}
 
 		String instanceId = routeParameters.remove("instanceId");
