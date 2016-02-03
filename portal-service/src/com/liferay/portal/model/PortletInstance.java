@@ -81,7 +81,7 @@ public class PortletInstance {
 		return _instanceId;
 	}
 
-	public String getInstanceIdAndUserId() {
+	public String getInstanceIdWithUserId() {
 		StringBundler sb = new StringBundler(3);
 
 		if (_instanceId != null) {

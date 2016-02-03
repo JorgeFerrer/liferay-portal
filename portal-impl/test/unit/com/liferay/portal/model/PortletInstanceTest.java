@@ -194,7 +194,7 @@ public class PortletInstanceTest {
 			PortletInstance.fromPortletInstanceKey(
 				PortletKeys.TEST + "_USER_1234");
 
-		Assert.assertEquals("_1234", portletInstance.getInstanceIdAndUserId());
+		Assert.assertEquals("_1234", portletInstance.getInstanceIdWithUserId());
 	}
 
 	@Test
@@ -203,7 +203,7 @@ public class PortletInstanceTest {
 			PortletInstance.fromPortletInstanceKey(
 				PortletKeys.TEST + "_INSTANCE_xyz");
 
-		Assert.assertEquals("xyz", portletInstance.getInstanceIdAndUserId());
+		Assert.assertEquals("xyz", portletInstance.getInstanceIdWithUserId());
 	}
 
 	@Test
@@ -213,7 +213,7 @@ public class PortletInstanceTest {
 				PortletKeys.TEST + "_USER_1234_INSTANCE_xyz");
 
 		Assert.assertEquals(
-			"xyz_1234", portletInstance.getInstanceIdAndUserId());
+			"xyz_1234", portletInstance.getInstanceIdWithUserId());
 	}
 
 	@Test
@@ -221,7 +221,7 @@ public class PortletInstanceTest {
 		PortletInstance portletInstance =
 			PortletInstance.fromPortletInstanceKey(PortletKeys.TEST);
 
-		Assert.assertEquals("", portletInstance.getInstanceIdAndUserId());
+		Assert.assertEquals("", portletInstance.getInstanceIdWithUserId());
 	}
 
 	@Test(expected = InvalidParameterException.class)

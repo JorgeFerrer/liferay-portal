@@ -280,7 +280,7 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 				portletInstance.hasUserId()) {
 
 				routeParameters.put(
-					"instanceId", portletInstance.getInstanceIdAndUserId());
+					"instanceId", portletInstance.getInstanceIdWithUserId());
 			}
 		}
 
