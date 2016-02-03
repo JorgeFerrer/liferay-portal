@@ -89,7 +89,7 @@ public class PortletInstance {
 		}
 
 		if (_userId > 0) {
-			sb.append(CharPool.UNDERLINE);
+			sb.append(_USER_SEPARATOR);
 			sb.append(_userId);
 		}
 
@@ -197,7 +197,7 @@ public class PortletInstance {
 				"The instanceIdWithUserId must not be null.");
 		}
 
-		String[] tokens = instanceIdWithUser.split(StringPool.UNDERLINE);
+		String[] tokens = instanceIdWithUser.split(_USER_SEPARATOR);
 
 		if (tokens.length > 2) {
 			throw new InvalidParameterException(
@@ -205,13 +205,12 @@ public class PortletInstance {
 					"separating the instanceId from the userId.");
 		}
 
-		if (instanceIdWithUser.length() > 0) {
-			char lastChar = instanceIdWithUser.charAt(
-				instanceIdWithUser.length() - 1);
+		if (tokens.length == 2) {
+			long id = GetterUtil.getLong(tokens[1], -1);
 
-			if (lastChar == CharPool.UNDERLINE) {
+			if (id == -1) {
 				throw new InvalidParameterException(
-					"The instanceIdWithUserId must not end in underscore.");
+					"The instanceIdWithUserId must be a valid number.");
 			}
 		}
 
