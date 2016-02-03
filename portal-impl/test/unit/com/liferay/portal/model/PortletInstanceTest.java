@@ -38,6 +38,17 @@ public class PortletInstanceTest {
 	}
 
 	@Test
+	public void testFromPortletNameAndInstanceIdWithUserIdEmpty() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+				PortletKeys.TEST, "");
+
+		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
+		Assert.assertEquals("", portletInstance.getInstanceId());
+		Assert.assertEquals(0, portletInstance.getUserId());
+	}
+
+	@Test
 	public void
 		testFromPortletNameAndInstanceIdWithUserIdHavingOnlyInstanceId() {
 
@@ -59,17 +70,6 @@ public class PortletInstanceTest {
 		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
 		Assert.assertEquals("", portletInstance.getInstanceId());
 		Assert.assertEquals(1234, portletInstance.getUserId());
-	}
-
-	@Test
-	public void testFromPortletNameAndInstanceIdWithUserIdEmpty() {
-		PortletInstance portletInstance =
-			PortletInstance.fromPortletNameAndInstanceIdWithUserId(
-				PortletKeys.TEST, "");
-
-		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
-		Assert.assertEquals("", portletInstance.getInstanceId());
-		Assert.assertEquals(0, portletInstance.getUserId());
 	}
 
 	@Test(expected = InvalidParameterException.class)
@@ -167,6 +167,24 @@ public class PortletInstanceTest {
 	}
 
 	@Test
+	public void testGetInstanceIdWithUserId() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletInstanceKey(
+				PortletKeys.TEST + "_USER_1234_INSTANCE_xyz");
+
+		Assert.assertEquals(
+			"xyz_USER_1234", portletInstance.getInstanceIdWithUserId());
+	}
+
+	@Test
+	public void testGetInstanceIdWithUserIdEmpty() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletInstanceKey(PortletKeys.TEST);
+
+		Assert.assertEquals("", portletInstance.getInstanceIdWithUserId());
+	}
+
+	@Test
 	public void testGetInstanceIdWithUserIdHavingOnlyInstanceId() {
 		PortletInstance portletInstance =
 			PortletInstance.fromPortletInstanceKey(
@@ -183,24 +201,6 @@ public class PortletInstanceTest {
 
 		Assert.assertEquals(
 			"_USER_1234", portletInstance.getInstanceIdWithUserId());
-	}
-
-	@Test
-	public void testGetInstanceIdWithUserId() {
-		PortletInstance portletInstance =
-			PortletInstance.fromPortletInstanceKey(
-				PortletKeys.TEST + "_USER_1234_INSTANCE_xyz");
-
-		Assert.assertEquals(
-			"xyz_USER_1234", portletInstance.getInstanceIdWithUserId());
-	}
-
-	@Test
-	public void testGetInstanceIdWithUserIdEmpty() {
-		PortletInstance portletInstance =
-			PortletInstance.fromPortletInstanceKey(PortletKeys.TEST);
-
-		Assert.assertEquals("", portletInstance.getInstanceIdWithUserId());
 	}
 
 	@Test(expected = InvalidParameterException.class)
