@@ -14,8 +14,10 @@
 
 package com.liferay.portal.model;
 
+import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -37,6 +39,22 @@ public class PortletInstance {
 		return new PortletInstance(
 			_getPortletName(portletInstanceKey), _getUserId(portletInstanceKey),
 			_getInstanceId(portletInstanceKey));
+	}
+
+	public static PortletInstance fromPortletNameAndInstanceIdWithUserId(
+		String portletId, String instanceIdWithUser) {
+
+		String[] tokens = _parseInstanceIdWithUserId(instanceIdWithUser);
+
+		String instanceId = tokens[0];
+
+		long userId = 0L;
+
+		if (tokens.length == 2) {
+			userId = GetterUtil.getLong(tokens[1], 0);
+		}
+
+		return new PortletInstance(portletId, userId, instanceId);
 	}
 
 	public PortletInstance(String portletName) {
@@ -61,6 +79,21 @@ public class PortletInstance {
 
 	public String getInstanceId() {
 		return _instanceId;
+	}
+
+	public String getInstanceIdAndUserId() {
+		StringBundler sb = new StringBundler(3);
+
+		if (_instanceId != null) {
+			sb.append(_instanceId);
+		}
+
+		if (_userId > 0) {
+			sb.append(CharPool.UNDERLINE);
+			sb.append(_userId);
+		}
+
+		return sb.toString();
 	}
 
 	public String getPortletInstanceKey() {
@@ -154,6 +187,35 @@ public class PortletInstance {
 
 		return GetterUtil.getLong(
 			portletInstanceKey.substring(x + _USER_SEPARATOR.length()));
+	}
+
+	private static String[] _parseInstanceIdWithUserId(
+		String instanceIdWithUser) {
+
+		if (instanceIdWithUser == null) {
+			throw new InvalidParameterException(
+				"The instanceIdWithUserId must not be null.");
+		}
+
+		String[] tokens = instanceIdWithUser.split(StringPool.UNDERLINE);
+
+		if (tokens.length > 2) {
+			throw new InvalidParameterException(
+				"The instanceIdWithUserId must only contain one underscore " +
+					"separating the instanceId from the userId.");
+		}
+
+		if (instanceIdWithUser.length() > 0) {
+			char lastChar = instanceIdWithUser.charAt(
+				instanceIdWithUser.length() - 1);
+
+			if (lastChar == CharPool.UNDERLINE) {
+				throw new InvalidParameterException(
+					"The instanceIdWithUserId must not end in underscore.");
+			}
+		}
+
+		return tokens;
 	}
 
 	private void validatePortletName(String portletName) {
