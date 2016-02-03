@@ -36,9 +36,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class UsersPanelCategory extends BasePanelCategory {
 
+	public static final String KEY = PanelCategoryKeys.CONTROL_PANEL_USERS;
+
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.CONTROL_PANEL_USERS;
+		return KEY;
 	}
 
 	@Override
