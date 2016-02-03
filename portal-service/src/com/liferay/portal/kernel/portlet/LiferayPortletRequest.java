@@ -39,6 +39,12 @@ public interface LiferayPortletRequest extends PortletRequest {
 
 	public long getPlid();
 
+	public String getPortletInstanceKey();
+
+	/**
+	 * @deprecated As of 7.0.0, replaced by {@link #getPortletInstanceKey()}
+	 */
+	@Deprecated
 	public String getPortletName();
 
 }

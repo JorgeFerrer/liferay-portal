@@ -418,8 +418,9 @@ public class PortletContainerImpl implements PortletContainer {
 				portlet.isActionURLRedirect()) {
 
 				PortletURL portletURL = new PortletURLImpl(
-					actionRequestImpl, actionRequestImpl.getPortletName(),
-					layout.getPlid(), PortletRequest.RENDER_PHASE);
+					actionRequestImpl,
+					actionRequestImpl.getPortletInstanceKey(), layout.getPlid(),
+					PortletRequest.RENDER_PHASE);
 
 				Map<String, String[]> renderParameters =
 					actionResponseImpl.getRenderParameterMap();

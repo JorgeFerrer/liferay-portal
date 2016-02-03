@@ -63,7 +63,7 @@ public class AssetTagsCompilerFriendlyURLMapper extends BaseFriendlyURLMapper {
 		Map<String, Object> requestContext) {
 
 		if (AssetTagsCompilerWebConfigurationValues.ENABLED) {
-			addParameter(parameterMap, "p_p_id", getPortletId());
+			addParameter(parameterMap, "p_p_id", getPortletInstanceKey());
 			addParameter(parameterMap, "p_p_lifecycle", "0");
 			addParameter(parameterMap, "p_p_state", WindowState.NORMAL);
 			addParameter(parameterMap, "p_p_mode", PortletMode.VIEW);

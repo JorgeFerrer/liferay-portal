@@ -42,9 +42,18 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 		return _mapping;
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	@Override
 	public String getPortletId() {
-		return _portletId;
+		return getPortletInstanceKey();
+	}
+
+	@Override
+	public String getPortletInstanceKey() {
+		return _portletInstanceKey;
 	}
 
 	@Override
@@ -69,12 +78,17 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 
 	@Override
 	public void setPortletId(String portletId) {
-		_portletId = portletId;
+		setPortletInstanceKey(portletId);
 	}
 
 	@Override
 	public void setPortletInstanceable(boolean portletInstanceable) {
 		_portletInstanceable = portletInstanceable;
+	}
+
+	@Override
+	public void setPortletInstanceKey(String portletInstanceKey) {
+		_portletInstanceKey = portletInstanceKey;
 	}
 
 	@Override
@@ -191,7 +205,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	 *        portlets this must include the instance ID.
 	 * @param value the value of the parameter
 	 * @see   PortalUtil#getPortletNamespace(String)
-	 * @see   DefaultFriendlyURLMapper#getPortletId(Map)
+	 * @see   DefaultFriendlyURLMapper#getPortletInstanceKey(Map)
 	 */
 	protected void addParameter(
 		String namespace, Map<String, String[]> parameterMap, String name,
@@ -210,7 +224,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	 *        portlets this must include the instance ID.
 	 * @param values the values of the parameter
 	 * @see   PortalUtil#getPortletNamespace(String)
-	 * @see   DefaultFriendlyURLMapper#getPortletId(Map)
+	 * @see   DefaultFriendlyURLMapper#getPortletInstanceKey(Map)
 	 */
 	protected void addParameter(
 		String namespace, Map<String, String[]> parameterMap, String name,
@@ -250,7 +264,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 	 * @see    PortalUtil#getPortletNamespace(String)
 	 */
 	protected String getNamespace() {
-		return PortalUtil.getPortletNamespace(getPortletId());
+		return PortalUtil.getPortletNamespace(getPortletInstanceKey());
 	}
 
 	protected Router router;
@@ -261,7 +275,7 @@ public abstract class BaseFriendlyURLMapper implements FriendlyURLMapper {
 		BaseFriendlyURLMapper.class);
 
 	private String _mapping;
-	private String _portletId;
 	private boolean _portletInstanceable;
+	private String _portletInstanceKey;
 
 }

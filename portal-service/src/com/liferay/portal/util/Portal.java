@@ -940,7 +940,7 @@ public interface Portal {
 
 	public String getPortletLongTitle(String portletId, User user);
 
-	public String getPortletNamespace(String portletId);
+	public String getPortletNamespace(String portletInstanceKey);
 
 	public String getPortletTitle(Portlet portlet, Locale locale);
 

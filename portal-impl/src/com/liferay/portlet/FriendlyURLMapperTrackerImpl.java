@@ -129,7 +129,8 @@ public class FriendlyURLMapperTrackerImpl implements FriendlyURLMapperTracker {
 						_portlet.getFriendlyURLMapping());
 				}
 
-				friendlyURLMapper.setPortletId(_portlet.getPortletId());
+				friendlyURLMapper.setPortletInstanceKey(
+					_portlet.getPortletId());
 				friendlyURLMapper.setPortletInstanceable(
 					_portlet.isInstanceable());
 
