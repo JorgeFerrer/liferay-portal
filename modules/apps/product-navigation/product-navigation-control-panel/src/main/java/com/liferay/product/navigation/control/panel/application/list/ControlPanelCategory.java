@@ -20,12 +20,17 @@ import com.liferay.application.list.PanelCategory;
 import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.service.CompanyLocalService;
 import com.liferay.portal.service.permission.PortalPermissionUtil;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -37,7 +42,7 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"panel.category.key=" + PanelCategoryKeys.ROOT,
-		"service.ranking:Integer=100"
+		"service.ranking:Integer=200"
 	},
 	service = PanelCategory.class
 )
@@ -50,7 +55,21 @@ public class ControlPanelCategory extends BasePanelCategory {
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "control-panel");
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		try {
+			long companyId = CompanyThreadLocal.getCompanyId();
+
+			Company company = _companyLocalService.getCompanyById(companyId);
+
+			return LanguageUtil.format(
+				resourceBundle, "x-administration", company.getName());
+		}
+		catch (PortalException pe) {
+		}
+
+		return LanguageUtil.get(resourceBundle, "instance-administration");
 	}
 
 	@Override
@@ -67,10 +86,18 @@ public class ControlPanelCategory extends BasePanelCategory {
 	}
 
 	@Reference(unbind = "-")
+	protected void setCompanyLocalService(
+		CompanyLocalService companyLocalService) {
+
+		_companyLocalService = companyLocalService;
+	}
+
+	@Reference(unbind = "-")
 	protected void setPanelAppRegistry(PanelAppRegistry panelAppRegistry) {
 		_panelAppRegistry = panelAppRegistry;
 	}
 
+	private CompanyLocalService _companyLocalService;
 	private PanelAppRegistry _panelAppRegistry;
 
 }

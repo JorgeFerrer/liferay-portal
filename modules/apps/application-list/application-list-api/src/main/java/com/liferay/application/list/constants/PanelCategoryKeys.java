@@ -62,6 +62,14 @@ public interface PanelCategoryKeys {
 	public static final String SITES_ADMINISTRATION_MY_SITES =
 		"sites_administration.my_sites";
 
+	public static final String SYSTEM_ADMINISTRATION = "system_administration";
+
+	public static final String SYSTEM_ADMINISTRATION_APPS =
+		PortletCategoryKeys.SYSTEM_ADMINISTRATION_APPS;
+
+	public static final String SYSTEM_ADMINISTRATION_CONFIGURATION =
+		PortletCategoryKeys.SYSTEM_ADMINISTRATION_CONFIGURATION;
+
 	public static final String USER = "user";
 
 	public static final String USER_MY_ACCOUNT =
