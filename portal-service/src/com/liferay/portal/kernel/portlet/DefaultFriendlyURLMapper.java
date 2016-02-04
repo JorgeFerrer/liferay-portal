@@ -307,6 +307,16 @@ public class DefaultFriendlyURLMapper extends BaseFriendlyURLMapper {
 			return portletInstanceKey;
 		}
 
+		String fullInstanceId = routeParameters.remove("fullInstanceId");
+
+		if (Validator.isNotNull(fullInstanceId)) {
+			PortletInstance portletInstance =
+				PortletInstance.fromPortletNameAndFullInstanceId(
+					getPortletId(), fullInstanceId);
+
+			return portletInstance.getPortletInstanceKey();
+		}
+
 		String instanceId = routeParameters.remove("instanceId");
 
 		if (Validator.isNotNull(instanceId)) {
