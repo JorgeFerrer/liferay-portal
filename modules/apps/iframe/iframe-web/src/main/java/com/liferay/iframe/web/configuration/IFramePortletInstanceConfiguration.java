@@ -110,10 +110,4 @@ public interface IFramePortletInstanceConfiguration {
 	@Meta.AD(deflt = "0", required = false)
 	public String vspace();
 
-	@Meta.AD(required = false)
-	public String userName();
-
-	@Meta.AD(required = false)
-	public String password();
-
 }
