@@ -27,6 +27,76 @@ import org.junit.Test;
 public class PortletInstanceTest {
 
 	@Test
+	public void testFromPortletNameAndInstanceIdWithUserId() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+				PortletKeys.TEST, "xyz_USER_1234");
+
+		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
+		Assert.assertEquals("xyz", portletInstance.getInstanceId());
+		Assert.assertEquals(1234, portletInstance.getUserId());
+	}
+
+	@Test
+	public void testFromPortletNameAndInstanceIdWithUserIdEmpty() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+				PortletKeys.TEST, "");
+
+		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
+		Assert.assertEquals("", portletInstance.getInstanceId());
+		Assert.assertEquals(0, portletInstance.getUserId());
+	}
+
+	@Test
+	public void
+		testFromPortletNameAndInstanceIdWithUserIdHavingOnlyInstanceId() {
+
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+				PortletKeys.TEST, "xyz");
+
+		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
+		Assert.assertEquals("xyz", portletInstance.getInstanceId());
+		Assert.assertEquals(0, portletInstance.getUserId());
+	}
+
+	@Test
+	public void testFromPortletNameAndInstanceIdWithUserIdHavingOnlyUserId() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+				PortletKeys.TEST, "_USER_1234");
+
+		Assert.assertEquals(PortletKeys.TEST, portletInstance.getPortletName());
+		Assert.assertEquals("", portletInstance.getInstanceId());
+		Assert.assertEquals(1234, portletInstance.getUserId());
+	}
+
+	@Test(expected = InvalidParameterException.class)
+	public void testFromPortletNameAndInstanceIdWithUserIdNull() {
+		PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+			PortletKeys.TEST, null);
+
+		Assert.fail();
+	}
+
+	@Test(expected = InvalidParameterException.class)
+	public void testFromPortletNameAnInstanceIdWithUserIdNotANumber1() {
+		PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+			PortletKeys.TEST, "xyz_USER_123_4");
+
+		Assert.fail();
+	}
+
+	@Test(expected = InvalidParameterException.class)
+	public void testFromPortletNameAnInstanceIdWithUserIdNotANumber2() {
+		PortletInstance.fromPortletNameAndInstanceIdWithUserId(
+			PortletKeys.TEST, "xyz_USER_1234_");
+
+		Assert.fail();
+	}
+
+	@Test
 	public void testGetInstanceId1() {
 		PortletInstance portletInstance =
 			PortletInstance.fromPortletInstanceKey(PortletKeys.TEST);
@@ -94,6 +164,43 @@ public class PortletInstanceTest {
 				getPortletInstanceKey(getPortletInstanceKey(), 1234, "5678"));
 
 		Assert.assertEquals("5678", portletInstance.getInstanceId());
+	}
+
+	@Test
+	public void testGetInstanceIdWithUserId() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletInstanceKey(
+				PortletKeys.TEST + "_USER_1234_INSTANCE_xyz");
+
+		Assert.assertEquals(
+			"xyz_USER_1234", portletInstance.getInstanceIdWithUserId());
+	}
+
+	@Test
+	public void testGetInstanceIdWithUserIdEmpty() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletInstanceKey(PortletKeys.TEST);
+
+		Assert.assertEquals("", portletInstance.getInstanceIdWithUserId());
+	}
+
+	@Test
+	public void testGetInstanceIdWithUserIdHavingOnlyInstanceId() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletInstanceKey(
+				PortletKeys.TEST + "_INSTANCE_xyz");
+
+		Assert.assertEquals("xyz", portletInstance.getInstanceIdWithUserId());
+	}
+
+	@Test
+	public void testGetInstanceIdWithUserIdHavingOnlyUserId() {
+		PortletInstance portletInstance =
+			PortletInstance.fromPortletInstanceKey(
+				PortletKeys.TEST + "_USER_1234");
+
+		Assert.assertEquals(
+			"_USER_1234", portletInstance.getInstanceIdWithUserId());
 	}
 
 	@Test(expected = InvalidParameterException.class)

@@ -39,6 +39,22 @@ public class PortletInstance {
 			_getInstanceId(portletInstanceKey));
 	}
 
+	public static PortletInstance fromPortletNameAndInstanceIdWithUserId(
+		String portletId, String instanceIdWithUser) {
+
+		String[] tokens = _parseInstanceIdWithUserId(instanceIdWithUser);
+
+		String instanceId = tokens[0];
+
+		long userId = 0L;
+
+		if (tokens.length == 2) {
+			userId = GetterUtil.getLong(tokens[1], 0);
+		}
+
+		return new PortletInstance(portletId, userId, instanceId);
+	}
+
 	public PortletInstance(String portletName) {
 		this(portletName, StringUtil.randomString(12));
 	}
@@ -61,6 +77,21 @@ public class PortletInstance {
 
 	public String getInstanceId() {
 		return _instanceId;
+	}
+
+	public String getInstanceIdWithUserId() {
+		StringBundler sb = new StringBundler(3);
+
+		if (_instanceId != null) {
+			sb.append(_instanceId);
+		}
+
+		if (_userId > 0) {
+			sb.append(_USER_SEPARATOR);
+			sb.append(_userId);
+		}
+
+		return sb.toString();
 	}
 
 	public String getPortletInstanceKey() {
@@ -154,6 +185,34 @@ public class PortletInstance {
 
 		return GetterUtil.getLong(
 			portletInstanceKey.substring(x + _USER_SEPARATOR.length()));
+	}
+
+	private static String[] _parseInstanceIdWithUserId(
+		String instanceIdWithUser) {
+
+		if (instanceIdWithUser == null) {
+			throw new InvalidParameterException(
+				"The instanceIdWithUserId must not be null.");
+		}
+
+		String[] tokens = instanceIdWithUser.split(_USER_SEPARATOR);
+
+		if (tokens.length > 2) {
+			throw new InvalidParameterException(
+				"The instanceIdWithUserId must only contain one underscore " +
+					"separating the instanceId from the userId.");
+		}
+
+		if (tokens.length == 2) {
+			long id = GetterUtil.getLong(tokens[1], -1);
+
+			if (id == -1) {
+				throw new InvalidParameterException(
+					"The instanceIdWithUserId must be a valid number.");
+			}
+		}
+
+		return tokens;
 	}
 
 	private void validatePortletName(String portletName) {
