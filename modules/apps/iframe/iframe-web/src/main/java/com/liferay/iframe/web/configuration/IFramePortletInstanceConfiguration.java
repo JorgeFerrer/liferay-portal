@@ -33,7 +33,13 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface IFramePortletInstanceConfiguration {
 
 	@Meta.AD(required = false)
-	public String alt();
+	public String src();
+
+	@Meta.AD(required = false)
+	public boolean relative();
+
+	@Meta.AD(deflt = "true", required = false)
+	public boolean dynamicUrlEnabled();
 
 	@Meta.AD(deflt = "false", required = false)
 	public boolean auth();
@@ -42,31 +48,31 @@ public interface IFramePortletInstanceConfiguration {
 	public String authType();
 
 	@Meta.AD(required = false)
-	public String basicPassword();
-
-	@Meta.AD(required = false)
 	public String basicUserName();
 
-	@Meta.AD(deflt = "0", required = false)
-	public String border();
-
-	@Meta.AD(deflt = "#000000", required = false)
-	public String bordercolor();
-
-	@Meta.AD(deflt = "true", required = false)
-	public boolean dynamicUrlEnabled();
+	@Meta.AD(required = false)
+	public String basicPassword();
 
 	@Meta.AD(deflt = "post", required = false)
 	public String formMethod();
 
 	@Meta.AD(required = false)
-	public String formPassword();
+	public String userNameField();
 
 	@Meta.AD(required = false)
 	public String formUserName();
 
-	@Meta.AD(deflt = "0", required = false)
-	public String frameborder();
+	@Meta.AD(required = false)
+	public String passwordField();
+
+	@Meta.AD(required = false)
+	public String formPassword();
+
+	@Meta.AD(deflt = "var1=hello|var2=world", required = false)
+	public String[] hiddenVariables();
+
+	@Meta.AD(deflt = "true", required = false)
+	public boolean resizeAutomatically();
 
 	@Meta.AD(deflt = "600", required = false)
 	public String heightMaximized();
@@ -74,8 +80,20 @@ public interface IFramePortletInstanceConfiguration {
 	@Meta.AD(deflt = "600", required = false)
 	public String heightNormal();
 
-	@Meta.AD(deflt = "var1=hello|var2=world", required = false)
-	public String[] hiddenVariables();
+	@Meta.AD(deflt = "100%", required = false)
+	public String width();
+
+	@Meta.AD(required = false)
+	public String alt();
+
+	@Meta.AD(deflt = "0", required = false)
+	public String border();
+
+	@Meta.AD(deflt = "#000000", required = false)
+	public String bordercolor();
+
+	@Meta.AD(deflt = "0", required = false)
+	public String frameborder();
 
 	@Meta.AD(deflt = "0", required = false)
 	public String hspace();
@@ -83,37 +101,19 @@ public interface IFramePortletInstanceConfiguration {
 	@Meta.AD(required = false)
 	public String longdesc();
 
-	@Meta.AD(required = false)
-	public String password();
-
-	@Meta.AD(required = false)
-	public String passwordField();
-
-	@Meta.AD(required = false)
-	public boolean relative();
-
-	@Meta.AD(deflt = "true", required = false)
-	public boolean resizeAutomatically();
-
 	@Meta.AD(deflt = "auto", required = false)
 	public String scrolling();
 
 	@Meta.AD(required = false)
-	public String src();
-
-	@Meta.AD(required = false)
 	public String title();
+
+	@Meta.AD(deflt = "0", required = false)
+	public String vspace();
 
 	@Meta.AD(required = false)
 	public String userName();
 
 	@Meta.AD(required = false)
-	public String userNameField();
-
-	@Meta.AD(deflt = "0", required = false)
-	public String vspace();
-
-	@Meta.AD(deflt = "100%", required = false)
-	public String width();
+	public String password();
 
 }
