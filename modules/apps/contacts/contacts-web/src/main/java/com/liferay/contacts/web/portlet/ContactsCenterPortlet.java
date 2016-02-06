@@ -15,7 +15,7 @@
  * Liferay Social Office. If not, see http://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package com.liferay.contacts.contactscenter.portlet;
+package com.liferay.contacts.web.portlet;
 
 import com.liferay.announcements.kernel.model.AnnouncementsDelivery;
 import com.liferay.announcements.kernel.service.AnnouncementsDeliveryLocalServiceUtil;

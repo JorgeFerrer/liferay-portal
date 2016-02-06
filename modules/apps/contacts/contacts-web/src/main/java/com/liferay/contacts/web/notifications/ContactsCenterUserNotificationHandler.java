@@ -15,7 +15,7 @@
  * Liferay Social Office. If not, see http://www.gnu.org/licenses/agpl-3.0.html.
  */
 
-package com.liferay.contacts.contactscenter.notifications;
+package com.liferay.contacts.web.notifications;
 
 import com.liferay.contacts.util.PortletKeys;
 import com.liferay.contacts.util.SocialRelationConstants;
