@@ -17,7 +17,7 @@
 
 package com.liferay.contacts.web.notifications;
 
-import com.liferay.contacts.util.PortletKeys;
+import com.liferay.contacts.constants.PortletKeys;
 import com.liferay.contacts.util.SocialRelationConstants;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
