@@ -80,7 +80,6 @@ page import="com.liferay.portal.kernel.util.comparator.UserLastNameComparator" %
 page import="com.liferay.portal.kernel.portlet.PortletURLFactoryUtil" %><%@
 page import="com.liferay.asset.kernel.model.AssetTag" %><%@
 page import="com.liferay.asset.kernel.service.AssetTagLocalServiceUtil" %><%@
-page import="com.liferay.so.service.SocialOfficeServiceUtil" %><%@
 page import="com.liferay.social.kernel.model.SocialRequestConstants" %><%@
 page import="com.liferay.social.kernel.service.SocialActivityLocalServiceUtil" %><%@
 page import="com.liferay.social.kernel.service.SocialRelationLocalServiceUtil" %><%@
