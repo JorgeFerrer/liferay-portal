@@ -20,7 +20,7 @@ package com.liferay.contacts.constants;
 /**
  * @author Ryan Park
  */
-public class PortletKeys extends com.liferay.portal.util.PortletKeys {
+public class PortletKeys {
 
 	public static final String CONTACTS_CENTER = "1_WAR_contactsportlet";
 
