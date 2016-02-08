@@ -27,9 +27,11 @@ import com.liferay.portal.kernel.util.PortletKeys;
  */
 public class PortletInstanceSettingsLocator implements SettingsLocator {
 
-	public PortletInstanceSettingsLocator(Layout layout, String settingsId) {
+	public PortletInstanceSettingsLocator(
+		Layout layout, String portletInstanceKey) {
+
 		_layout = layout;
-		_settingsId = settingsId;
+		_portletInstanceKey = portletInstanceKey;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 
 		Settings configurationBeanSettings =
 			_settingsLocatorHelper.getConfigurationBeanSettings(
-				_settingsId, portalPropertiesSettings);
+				_portletInstanceKey, portalPropertiesSettings);
 
 		Settings portalPreferencesSettings =
 			_settingsLocatorHelper.getPortalPreferencesSettings(
@@ -49,23 +51,23 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 
 		Settings companyPortletPreferencesSettings =
 			_settingsLocatorHelper.getCompanyPortletPreferencesSettings(
-				companyId, _settingsId, portalPreferencesSettings);
+				companyId, _portletInstanceKey, portalPreferencesSettings);
 
 		Settings groupPortletPreferencesSettings =
 			_settingsLocatorHelper.getGroupPortletPreferencesSettings(
-				_layout.getGroupId(), _settingsId,
+				_layout.getGroupId(), _portletInstanceKey,
 				companyPortletPreferencesSettings);
 
 		return
 			_settingsLocatorHelper.getPortletInstancePortletPreferencesSettings(
 				_layout.getCompanyId(), getOwnerId(),
-				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, getPlid(), _settingsId,
-				groupPortletPreferencesSettings);
+				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, getPlid(),
+				_portletInstanceKey, groupPortletPreferencesSettings);
 	}
 
 	@Override
 	public String getSettingsId() {
-		return _settingsId;
+		return _portletInstanceKey;
 	}
 
 	protected long getCompanyId(long groupId) throws SettingsException {
@@ -106,7 +108,8 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 			LayoutTypePortlet layoutTypePortlet =
 				(LayoutTypePortlet)_layout.getLayoutType();
 
-			_embeddedPortlet = layoutTypePortlet.isPortletEmbedded(_settingsId);
+			_embeddedPortlet = layoutTypePortlet.isPortletEmbedded(
+				_portletInstanceKey);
 		}
 
 		return _embeddedPortlet;
@@ -114,7 +117,7 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 
 	private Boolean _embeddedPortlet = null;
 	private final Layout _layout;
-	private final String _settingsId;
+	private final String _portletInstanceKey;
 	private final SettingsLocatorHelper _settingsLocatorHelper =
 		SettingsLocatorHelperUtil.getSettingsLocatorHelper();
 
