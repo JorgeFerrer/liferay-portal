@@ -17,10 +17,12 @@
 
 package com.liferay.contacts.constants;
 
+import com.liferay.portal.kernel.util.PortletKeys;
+
 /**
  * @author Ryan Park
  */
-public class ContactsPortletKeys {
+public class ContactsPortletKeys extends PortletKeys {
 
 	public static final String CONTACTS_CENTER = "1_WAR_contactsportlet";
 
