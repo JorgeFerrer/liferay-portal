@@ -41,7 +41,7 @@ Group group = themeDisplay.getScopeGroup();
 
 			portletURL.setWindowState(WindowState.MAXIMIZED);
 
-			portletURL.setParameter("mvcPath", "/contacts_center/view.jsp");
+			portletURL.setParameter("mvcPath", "/view.jsp");
 		}
 		%>
 

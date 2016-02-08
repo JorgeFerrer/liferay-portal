@@ -40,7 +40,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 				%>
 
 				<div id="<portlet:namespace />contactSummary">
-					<liferay-util:include page="/contacts_center/view_entry.jsp" servletContext="<%= application %>" />
+					<liferay-util:include page="/view_entry.jsp" servletContext="<%= application %>" />
 				</div>
 
 				<span id="<portlet:namespace />contactsToolbar">
@@ -56,7 +56,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 						var contactsToolbarChildren = [];
 
 						<portlet:renderURL var="viewEntryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
-							<portlet:param name="mvcPath" value="/contacts_center/edit_entry.jsp" />
+							<portlet:param name="mvcPath" value="/edit_entry.jsp" />
 							<portlet:param name="redirect" value="<%= redirect %>" />
 							<portlet:param name="entryId" value="<%= String.valueOf(entryId) %>" />
 						</portlet:renderURL>
@@ -131,7 +131,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 
 			<c:if test="<%= user2 != null %>">
 				<div id="<portlet:namespace />contactSummary">
-					<liferay-util:include page="/contacts_center/view_user.jsp" servletContext="<%= application %>" />
+					<liferay-util:include page="/view_user.jsp" servletContext="<%= application %>" />
 				</div>
 			</c:if>
 
@@ -177,7 +177,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 						</aui:script>
 					</c:when>
 					<c:otherwise>
-						<liferay-util:include page="/contacts_center/contacts_center_toolbar.jsp" servletContext="<%= application %>" />
+						<liferay-util:include page="/contacts_center_toolbar.jsp" servletContext="<%= application %>" />
 					</c:otherwise>
 				</c:choose>
 			</span>
