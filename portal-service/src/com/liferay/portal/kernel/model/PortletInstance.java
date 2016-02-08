@@ -141,25 +141,29 @@ public class PortletInstance {
 			throw new InvalidParameterException(
 				"The userIdAndInstanceId must not be null.");
 		}
-		else if (userIdAndInstanceId.isEmpty()) {
+
+		if (userIdAndInstanceId.isEmpty()) {
 			return new UserIdAndInstanceIdEncoder(null, 0);
 		}
 
-		int count = StringUtil.count(userIdAndInstanceId, StringPool.SLASH);
+		int slashCount = StringUtil.count(
+			userIdAndInstanceId, StringPool.SLASH);
 
-		if (count > 0) {
+		if (slashCount > 0) {
 			throw new InvalidParameterException(
 				"The userIdAndInstanceId must not contain slashes.");
 		}
 
-		count = StringUtil.count(userIdAndInstanceId, StringPool.UNDERLINE);
+		int underlineCount = StringUtil.count(
+			userIdAndInstanceId, StringPool.UNDERLINE);
 
-		if (count > 1) {
+		if (underlineCount > 1) {
 			throw new InvalidParameterException(
 				"The userIdAndInstanceId must only contain one underscore " +
 					"separating the userId from the instanceId.");
 		}
-		else if (count == 1) {
+
+		if (underlineCount == 1) {
 			int index = userIdAndInstanceId.indexOf(CharPool.UNDERLINE);
 
 			long userId = GetterUtil.getLong(
