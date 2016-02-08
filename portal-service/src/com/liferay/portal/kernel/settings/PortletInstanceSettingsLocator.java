@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutTypePortlet;
+import com.liferay.portal.kernel.model.PortletConstants;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.util.PortletKeys;
 
@@ -32,6 +33,16 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 
 		_layout = layout;
 		_portletInstanceKey = portletInstanceKey;
+		_configurationPid = PortletConstants.getRootPortletId(
+			portletInstanceKey);
+	}
+
+	public PortletInstanceSettingsLocator(
+		Layout layout, String portletInstanceKey, String configurationPid) {
+
+		_layout = layout;
+		_portletInstanceKey = portletInstanceKey;
+		_configurationPid = configurationPid;
 	}
 
 	@Override
@@ -43,7 +54,7 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 
 		Settings configurationBeanSettings =
 			_settingsLocatorHelper.getConfigurationBeanSettings(
-				_portletInstanceKey, portalPropertiesSettings);
+				_configurationPid, portalPropertiesSettings);
 
 		Settings portalPreferencesSettings =
 			_settingsLocatorHelper.getPortalPreferencesSettings(
@@ -115,6 +126,7 @@ public class PortletInstanceSettingsLocator implements SettingsLocator {
 		return _embeddedPortlet;
 	}
 
+	private final String _configurationPid;
 	private Boolean _embeddedPortlet = null;
 	private final Layout _layout;
 	private final String _portletInstanceKey;
