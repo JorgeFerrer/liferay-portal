@@ -32,7 +32,7 @@ page import="com.liferay.contacts.service.EntryLocalServiceUtil" %><%@
 page import="com.liferay.contacts.util.ContactsConstants" %><%@
 page import="com.liferay.contacts.util.ContactsExtensionsUtil" %><%@
 page import="com.liferay.contacts.util.ContactsUtil" %><%@
-page import="com.liferay.contacts.constants.PortletKeys" %><%@
+page import="com.liferay.contacts.constants.ContactsPortletKeys" %><%@
 page import="com.liferay.contacts.util.SocialRelationConstants" %><%@
 page import="com.liferay.contacts.util.WebKeys" %><%@
 page import="com.liferay.portal.kernel.dao.orm.QueryUtil" %><%@
@@ -122,7 +122,7 @@ boolean showOnlySiteMembers = false;
 
 String portletId = portletDisplay.getId();
 
-if (portletId.equals(PortletKeys.MEMBERS)) {
+if (portletId.equals(ContactsPortletKeys.MEMBERS)) {
 	showOnlySiteMembers = true;
 }
 

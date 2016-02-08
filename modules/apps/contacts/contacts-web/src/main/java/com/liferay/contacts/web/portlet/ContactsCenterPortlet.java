@@ -19,7 +19,7 @@ package com.liferay.contacts.web.portlet;
 
 import com.liferay.announcements.kernel.model.AnnouncementsDelivery;
 import com.liferay.announcements.kernel.service.AnnouncementsDeliveryLocalServiceUtil;
-import com.liferay.contacts.constants.PortletKeys;
+import com.liferay.contacts.constants.ContactsPortletKeys;
 import com.liferay.contacts.exception.DuplicateEntryEmailAddressException;
 import com.liferay.contacts.exception.EntryEmailAddressException;
 import com.liferay.contacts.model.Entry;
@@ -742,7 +742,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		if (filterBy.equals(ContactsConstants.FILTER_BY_DEFAULT) &&
-			!portletId.equals(PortletKeys.MEMBERS)) {
+			!portletId.equals(ContactsPortletKeys.MEMBERS)) {
 
 			List<BaseModel<?>> contacts =
 				EntryLocalServiceUtil.searchUsersAndContacts(
@@ -774,7 +774,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 		}
 		else if (filterBy.equals(
 					ContactsConstants.FILTER_BY_FOLLOWERS) &&
-				 !portletId.equals(PortletKeys.MEMBERS)) {
+				 !portletId.equals(ContactsPortletKeys.MEMBERS)) {
 
 			List<SocialRelation> socialRelations =
 				SocialRelationLocalServiceUtil.getInverseRelations(
@@ -790,7 +790,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 		}
 		else if (filterBy.equals(
 					ContactsConstants.FILTER_BY_TYPE_MY_CONTACTS) &&
-				 !portletId.equals(PortletKeys.MEMBERS)) {
+				 !portletId.equals(ContactsPortletKeys.MEMBERS)) {
 
 			List<Entry> entries = EntryLocalServiceUtil.search(
 				themeDisplay.getUserId(), keywords, start, end);
@@ -832,7 +832,7 @@ public class ContactsCenterPortlet extends MVCPortlet {
 					});
 			}
 
-			if (portletId.equals(PortletKeys.MEMBERS)) {
+			if (portletId.equals(ContactsPortletKeys.MEMBERS)) {
 				params.put("usersGroups", group.getGroupId());
 			}
 			else if (filterBy.startsWith(ContactsConstants.FILTER_BY_GROUP)) {
@@ -1032,8 +1032,9 @@ public class ContactsCenterPortlet extends MVCPortlet {
 		throws Exception {
 
 		if (UserNotificationManagerUtil.isDeliver(
-				socialRequest.getReceiverUserId(), PortletKeys.CONTACTS_CENTER,
-				0, SocialRelationConstants.SOCIAL_RELATION_REQUEST,
+				socialRequest.getReceiverUserId(),
+				ContactsPortletKeys.CONTACTS_CENTER, 0,
+				SocialRelationConstants.SOCIAL_RELATION_REQUEST,
 				UserNotificationDeliveryConstants.TYPE_WEBSITE)) {
 
 			JSONObject notificationEventJSONObject =
@@ -1045,7 +1046,8 @@ public class ContactsCenterPortlet extends MVCPortlet {
 				"userId", socialRequest.getUserId());
 
 			UserNotificationEventLocalServiceUtil.sendUserNotificationEvents(
-				socialRequest.getReceiverUserId(), PortletKeys.CONTACTS_CENTER,
+				socialRequest.getReceiverUserId(),
+				ContactsPortletKeys.CONTACTS_CENTER,
 				UserNotificationDeliveryConstants.TYPE_WEBSITE, true,
 				notificationEventJSONObject);
 		}
