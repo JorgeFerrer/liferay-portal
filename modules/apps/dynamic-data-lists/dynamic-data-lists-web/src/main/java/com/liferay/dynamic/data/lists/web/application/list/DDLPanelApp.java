@@ -16,9 +16,9 @@ package com.liferay.dynamic.data.lists.web.application.list;
 
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
-import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.dynamic.data.lists.constants.DDLPortletKeys;
 import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.product.navigation.site.administration.application.list.ContentPanelCategory;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"panel.category.key=" + PanelCategoryKeys.SITE_ADMINISTRATION_CONTENT,
+		"panel.category.key=" + ContentPanelCategory.KEY,
 		"service.ranking:Integer=700"
 	},
 	service = PanelApp.class
