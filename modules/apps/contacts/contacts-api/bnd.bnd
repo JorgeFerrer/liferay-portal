@@ -4,7 +4,8 @@ Bundle-Version: 1.0.0
 Export-Package:\
     com.liferay.contacts.constants,\
     com.liferay.contacts.exception,\
-    com.liferay.contacts.model
+    com.liferay.contacts.model,\
+    com.liferay.contacts.service
 Import-Package: *
 Liferay-Releng-Module-Group-Description:
 Liferay-Releng-Module-Group-Title: Contacts
