@@ -30,17 +30,18 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserNotificationEvent;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
+import com.liferay.portal.service.UserLocalService;
+import com.liferay.portal.service.UserNotificationEventLocalService;
 import com.liferay.social.kernel.model.SocialRequest;
 import com.liferay.social.kernel.model.SocialRequestConstants;
-import com.liferay.social.kernel.service.SocialRequestLocalServiceUtil;
-
-import org.osgi.service.component.annotations.Component;
+import com.liferay.social.kernel.service.SocialRequestLocalService;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jonathan Lee
@@ -70,10 +71,10 @@ public class ContactsCenterUserNotificationHandler
 		long socialRequestId = jsonObject.getLong("classPK");
 
 		SocialRequest socialRequest =
-			SocialRequestLocalServiceUtil.fetchSocialRequest(socialRequestId);
+			_socialRequestLocalService.fetchSocialRequest(socialRequestId);
 
 		if (socialRequest == null) {
-			UserNotificationEventLocalServiceUtil.deleteUserNotificationEvent(
+			_userNotificationEventLocalService.deleteUserNotificationEvent(
 				userNotificationEvent.getUserNotificationEventId());
 
 			return null;
@@ -154,7 +155,7 @@ public class ContactsCenterUserNotificationHandler
 				return StringPool.BLANK;
 			}
 
-			User user = UserLocalServiceUtil.getUserById(userId);
+			User user = _userLocalService.getUserById(userId);
 
 			String userName = user.getFullName();
 
@@ -168,5 +169,29 @@ public class ContactsCenterUserNotificationHandler
 			return StringPool.BLANK;
 		}
 	}
+
+	@Reference(unbind = "-")
+	protected void setSocialRequestLocalService(
+		SocialRequestLocalService socialRequestLocalService) {
+
+		_socialRequestLocalService = socialRequestLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setUserLocalService(UserLocalService userLocalService) {
+		_userLocalService = userLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setUserNotificationEventLocalService(
+		UserNotificationEventLocalService userNotificationEventLocalService) {
+
+		_userNotificationEventLocalService = userNotificationEventLocalService;
+	}
+
+	private SocialRequestLocalService _socialRequestLocalService;
+	private UserLocalService _userLocalService;
+	private UserNotificationEventLocalService
+		_userNotificationEventLocalService;
 
 }
