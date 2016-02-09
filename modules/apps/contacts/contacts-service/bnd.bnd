@@ -1,7 +1,9 @@
 Bundle-Name: Liferay Contacts Service
 Bundle-SymbolicName: com.liferay.contacts.service
 Bundle-Version: 1.0.0
+Export-Package: com.liferay.contacts.util
 Import-Package:\
+	!com.liferay.util.dao.orm,\
 	*
 Include-Resource:\
 	WEB-INF=src/main/resources/WEB-INF,
