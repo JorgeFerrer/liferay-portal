@@ -47,11 +47,11 @@ public class ConfigurationProviderUtil {
 		PortalRuntimePermission.checkGetBeanProperty(
 			ConfigurationProviderUtil.class);
 
-		return _configurationFactories.get(0);
+		return _configurationProvider.get(0);
 	}
 
 	private static final ServiceTrackerList<ConfigurationProvider>
-		_configurationFactories = ServiceTrackerCollections.openList(
+		_configurationProvider = ServiceTrackerCollections.openList(
 			ConfigurationProvider.class);
 
 }
