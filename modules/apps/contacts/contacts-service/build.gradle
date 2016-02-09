@@ -1,3 +1,8 @@
+buildService {
+	apiDir = "../contacts-api/src/main/java"
+	autoNamespaceTables = false
+}
+
 dependencies {
 	compile group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 }
