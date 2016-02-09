@@ -16,9 +16,9 @@ package com.liferay.monitoring.web.application.list;
 
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
-import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.monitoring.web.constants.MonitoringPortletKeys;
 import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.product.navigation.control.panel.application.list.UsersPanelCategory;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"panel.category.key=" + PanelCategoryKeys.CONTROL_PANEL_USERS,
+		"panel.category.key=" + UsersPanelCategory.KEY,
 		"service.ranking:Integer=500"
 	},
 	service = PanelApp.class

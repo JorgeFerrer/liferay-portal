@@ -36,9 +36,12 @@ import org.osgi.service.component.annotations.Component;
 )
 public class PagesPanelCategory extends BasePanelCategory {
 
+	public static final String KEY =
+		PanelCategoryKeys.SITE_ADMINISTRATION_PAGES;
+
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.SITE_ADMINISTRATION_PAGES;
+		return KEY;
 	}
 
 	@Override

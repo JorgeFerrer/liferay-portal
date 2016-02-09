@@ -36,9 +36,12 @@ import org.osgi.service.component.annotations.Component;
 )
 public class PublishingToolsPanelCategory extends BasePanelCategory {
 
+	public static final String KEY =
+		PanelCategoryKeys.SITE_ADMINISTRATION_PUBLISHING_TOOLS;
+
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.SITE_ADMINISTRATION_PUBLISHING_TOOLS;
+		return KEY;
 	}
 
 	@Override

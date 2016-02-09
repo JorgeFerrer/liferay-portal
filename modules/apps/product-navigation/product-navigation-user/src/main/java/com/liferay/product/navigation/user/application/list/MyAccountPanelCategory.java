@@ -44,6 +44,8 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class MyAccountPanelCategory extends BaseJSPPanelCategory {
 
+	public static final String KEY = PanelCategoryKeys.USER_MY_ACCOUNT;
+
 	@Override
 	public String getJspPath() {
 		return "/my_account.jsp";
@@ -51,7 +53,7 @@ public class MyAccountPanelCategory extends BaseJSPPanelCategory {
 
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.USER_MY_ACCOUNT;
+		return KEY;
 	}
 
 	@Override

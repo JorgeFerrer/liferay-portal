@@ -43,9 +43,11 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ControlPanelCategory extends BasePanelCategory {
 
+	public static final String KEY = PanelCategoryKeys.CONTROL_PANEL;
+
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.CONTROL_PANEL;
+		return KEY;
 	}
 
 	@Override

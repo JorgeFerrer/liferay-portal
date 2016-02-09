@@ -41,9 +41,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class SitesPanelCategory extends BasePanelCategory {
 
+	public static final String KEY = PanelCategoryKeys.CONTROL_PANEL_SITES;
+
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.CONTROL_PANEL_SITES;
+		return KEY;
 	}
 
 	@Override

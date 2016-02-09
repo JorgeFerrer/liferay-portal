@@ -39,6 +39,9 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ContentPanelCategory extends BaseJSPPanelCategory {
 
+	public static final String KEY =
+		PanelCategoryKeys.SITE_ADMINISTRATION_CONTENT;
+
 	@Override
 	public String getJspPath() {
 		return "/content/content.jsp";
@@ -46,7 +49,7 @@ public class ContentPanelCategory extends BaseJSPPanelCategory {
 
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.SITE_ADMINISTRATION_CONTENT;
+		return KEY;
 	}
 
 	@Override

@@ -36,9 +36,11 @@ import org.osgi.service.component.annotations.Component;
 )
 public class AppsPanelCategory extends BasePanelCategory {
 
+	public static final String KEY = PanelCategoryKeys.CONTROL_PANEL_APPS;
+
 	@Override
 	public String getKey() {
-		return PanelCategoryKeys.CONTROL_PANEL_APPS;
+		return KEY;
 	}
 
 	@Override

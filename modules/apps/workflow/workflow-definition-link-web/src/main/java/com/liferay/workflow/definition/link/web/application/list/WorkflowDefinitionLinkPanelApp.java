@@ -16,8 +16,8 @@ package com.liferay.workflow.definition.link.web.application.list;
 
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
-import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.product.navigation.site.administration.application.list.ConfigurationPanelCategory;
 import com.liferay.workflow.definition.link.web.portlet.constants.WorkflowDefinitionLinkPortletKeys;
 
 import org.osgi.service.component.annotations.Component;
@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"panel.category.key=" + PanelCategoryKeys.SITE_ADMINISTRATION_CONFIGURATION,
+		"panel.category.key=" + ConfigurationPanelCategory.KEY,
 		"service.ranking:Integer=400"
 	},
 	service = PanelApp.class

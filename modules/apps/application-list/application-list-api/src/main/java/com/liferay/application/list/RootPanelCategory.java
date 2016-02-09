@@ -30,13 +30,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RootPanelCategory implements PanelCategory {
 
+	public static final String KEY = "root";
+
 	public static PanelCategory getInstance() {
 		return _instance;
 	}
 
 	@Override
 	public String getKey() {
-		return _ROOT_PANEL_CATEGORY_KEY;
+		return KEY;
 	}
 
 	@Override
@@ -85,8 +87,6 @@ public class RootPanelCategory implements PanelCategory {
 
 	private RootPanelCategory() {
 	}
-
-	private static final String _ROOT_PANEL_CATEGORY_KEY = "root";
 
 	private static final PanelCategory _instance = new RootPanelCategory();
 

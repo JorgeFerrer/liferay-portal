@@ -16,8 +16,8 @@ package com.liferay.staging.processes.web.application.list;
 
 import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
-import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.model.Portlet;
+import com.liferay.product.navigation.site.administration.application.list.PublishingToolsPanelCategory;
 import com.liferay.staging.constants.StagingProcessesPortletKeys;
 
 import org.osgi.service.component.annotations.Component;
@@ -29,7 +29,7 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"panel.category.key=" + PanelCategoryKeys.SITE_ADMINISTRATION_PUBLISHING_TOOLS,
+		"panel.category.key=" + PublishingToolsPanelCategory.KEY,
 		"service.ranking:Integer=100"
 	},
 	service = PanelApp.class
