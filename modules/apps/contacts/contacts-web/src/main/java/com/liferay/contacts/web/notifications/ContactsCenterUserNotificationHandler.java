@@ -22,6 +22,7 @@ import com.liferay.contacts.util.SocialRelationConstants;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.notifications.BaseUserNotificationHandler;
+import com.liferay.portal.kernel.notifications.UserNotificationHandler;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -35,6 +36,8 @@ import com.liferay.social.kernel.model.SocialRequest;
 import com.liferay.social.kernel.model.SocialRequestConstants;
 import com.liferay.social.kernel.service.SocialRequestLocalServiceUtil;
 
+import org.osgi.service.component.annotations.Component;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
@@ -42,6 +45,11 @@ import javax.portlet.WindowState;
 /**
  * @author Jonathan Lee
  */
+@Component(
+	immediate = true,
+	property = {"javax.portlet.name=" + ContactsPortletKeys.CONTACTS_CENTER},
+	service = UserNotificationHandler.class
+)
 public class ContactsCenterUserNotificationHandler
 	extends BaseUserNotificationHandler {
 
