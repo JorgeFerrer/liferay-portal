@@ -16,6 +16,7 @@ dependencies {
 	compile project(":apps:dynamic-data-mapping:dynamic-data-mapping-api")
 	compile project(":apps:export-import:export-import-api")
 	compile project(":apps:layout:layout-taglib")
+	compile project(":apps:product-navigation:product-navigation-site-administration")
 	compile project(":apps:staging:staging-lang")
 	compile project(":apps:trash:trash-taglib")
 	compile project(":frontend:frontend-taglib")
