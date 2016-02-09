@@ -17,6 +17,7 @@
 
 package com.liferay.contacts.web.social;
 
+import com.liferay.contacts.constants.ContactsPortletKeys;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -28,12 +29,19 @@ import com.liferay.social.kernel.model.BaseSocialRequestInterpreter;
 import com.liferay.social.kernel.model.SocialRelationConstants;
 import com.liferay.social.kernel.model.SocialRequest;
 import com.liferay.social.kernel.model.SocialRequestFeedEntry;
+import com.liferay.social.kernel.model.SocialRequestInterpreter;
 import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
 import com.liferay.social.kernel.service.SocialRelationLocalServiceUtil;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Hai Yu
  */
+@Component(
+	property = {"javax.portlet.name=" + ContactsPortletKeys.CONTACTS_CENTER},
+	service = SocialRequestInterpreter.class
+)
 public class ContactsCenterRequestInterpreter
 	extends BaseSocialRequestInterpreter {
 
@@ -102,7 +110,7 @@ public class ContactsCenterRequestInterpreter
 		User.class.getName()
 	};
 
-	private static Log _log = LogFactoryUtil.getLog(
+	private static final Log _log = LogFactoryUtil.getLog(
 		ContactsCenterRequestInterpreter.class);
 
 }
