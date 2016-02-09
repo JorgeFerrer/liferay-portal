@@ -1,5 +1,6 @@
 dependencies {
 	compile project(":apps:application-list:application-list-api")
+	compile project(":apps:product-navigation:product-navigation-control-panel")
 	compile project(":apps:user-groups-admin:user-groups-admin-api")
 	compile project(":frontend:frontend-taglib")
 	compile project(":portal:portal-upgrade")
