@@ -21,7 +21,7 @@ import com.liferay.contacts.constants.ContactsPortletKeys;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -30,10 +30,11 @@ import com.liferay.social.kernel.model.SocialRelationConstants;
 import com.liferay.social.kernel.model.SocialRequest;
 import com.liferay.social.kernel.model.SocialRequestFeedEntry;
 import com.liferay.social.kernel.model.SocialRequestInterpreter;
-import com.liferay.social.kernel.service.SocialActivityLocalServiceUtil;
-import com.liferay.social.kernel.service.SocialRelationLocalServiceUtil;
+import com.liferay.social.kernel.service.SocialActivityLocalService;
+import com.liferay.social.kernel.service.SocialRelationLocalService;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Hai Yu
@@ -67,8 +68,7 @@ public class ContactsCenterRequestInterpreter
 		sb.append(themeDisplay.getPathFriendlyURLPublic());
 		sb.append(StringPool.SLASH);
 
-		User creatorUser = UserLocalServiceUtil.getUserById(
-			request.getUserId());
+		User creatorUser = _userLocalService.getUserById(request.getUserId());
 
 		sb.append(creatorUser.getScreenName());
 
@@ -90,11 +90,11 @@ public class ContactsCenterRequestInterpreter
 		SocialRequest request, ThemeDisplay themeDisplay) {
 
 		try {
-			SocialRelationLocalServiceUtil.addRelation(
+			_socialRelationLocalService.addRelation(
 				request.getUserId(), request.getReceiverUserId(),
 				SocialRelationConstants.TYPE_BI_CONNECTION);
 
-			SocialActivityLocalServiceUtil.addActivity(
+			_socialActivityLocalService.addActivity(
 				request.getUserId(), 0, User.class.getName(),
 				request.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION,
 				StringPool.BLANK, request.getReceiverUserId());
@@ -106,11 +106,34 @@ public class ContactsCenterRequestInterpreter
 		return true;
 	}
 
+	@Reference(unbind = "-")
+	protected void setSocialActivityLocalService(
+		SocialActivityLocalService socialActivityLocalService) {
+
+		_socialActivityLocalService = socialActivityLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setSocialRelationLocalService(
+		SocialRelationLocalService socialRelationLocalService) {
+
+		_socialRelationLocalService = socialRelationLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setUserLocalService(UserLocalService userLocalService) {
+		_userLocalService = userLocalService;
+	}
+
 	private static final String[] _CLASS_NAMES = new String[] {
 		User.class.getName()
 	};
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ContactsCenterRequestInterpreter.class);
+
+	private SocialActivityLocalService _socialActivityLocalService;
+	private SocialRelationLocalService _socialRelationLocalService;
+	private UserLocalService _userLocalService;
 
 }
