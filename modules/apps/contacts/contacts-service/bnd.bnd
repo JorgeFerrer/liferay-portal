@@ -5,8 +5,5 @@ Export-Package: com.liferay.contacts.util
 Import-Package:\
 	!com.liferay.util.dao.orm,\
 	*
-Include-Resource:\
-	WEB-INF=src/main/resources/WEB-INF,
 Liferay-Releng-Module-Group-Description:
-Liferay-Releng-Module-Group-Title: Contacts
-Private-Package: com.liferay.contacts.service.*
+Liferay-Releng-Module-Group-Title:
