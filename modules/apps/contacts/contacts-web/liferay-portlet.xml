@@ -3,14 +3,6 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>2</portlet-name>
-		<icon>/icon.png</icon>
-		<configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction</configuration-action-class>
-		<instanceable>true</instanceable>
-		<header-portlet-css>/css/main.css</header-portlet-css>
-		<css-class-wrapper>contacts-portlet</css-class-wrapper>
-	</portlet>
-	<portlet>
 		<portlet-name>3</portlet-name>
 		<icon>/icon.png</icon>
 		<header-portlet-css>/css/main.css</header-portlet-css>
