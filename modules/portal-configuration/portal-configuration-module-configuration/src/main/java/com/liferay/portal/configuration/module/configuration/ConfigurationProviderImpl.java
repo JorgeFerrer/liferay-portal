@@ -47,7 +47,7 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 	public <T> T getCompanyConfiguration(Class<T> clazz, long companyId)
 		throws ConfigurationException {
 
-		String configurationPid = getConfigurationPid(clazz);
+		String configurationPid = _getConfigurationPid(clazz);
 		String settingsId = _getConfigurationSettingsId(clazz);
 
 		return getConfiguration(
@@ -96,20 +96,10 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 		}
 	}
 
-	public String getConfigurationPid(Class<?> clazz) {
-		Meta.OCD ocd = clazz.getAnnotation(Meta.OCD.class);
-
-		if (ocd == null) {
-			return null;
-		}
-
-		return ocd.id();
-	}
-
 	public <T> T getGroupConfiguration(Class<T> clazz, long groupId)
 		throws ConfigurationException {
 
-		String configurationPid = getConfigurationPid(clazz);
+		String configurationPid = _getConfigurationPid(clazz);
 		String settingsId = _getConfigurationSettingsId(clazz);
 
 		return getConfiguration(
@@ -122,7 +112,7 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			Class<T> clazz, Layout layout, PortletInstance portletInstance)
 		throws ConfigurationException {
 
-		String configurationPid = getConfigurationPid(clazz);
+		String configurationPid = _getConfigurationPid(clazz);
 
 		String portletInstanceKey = portletInstance.getPortletInstanceKey();
 
@@ -154,6 +144,16 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 		return overrideClass.value();
 	}
 
+	private String _getConfigurationPid(Class<?> clazz) {
+		Meta.OCD ocd = clazz.getAnnotation(Meta.OCD.class);
+
+		if (ocd == null) {
+			return null;
+		}
+
+		return ocd.id();
+	}
+
 	private <T> String _getConfigurationSettingsId(Class<T> clazz) {
 		ExtendedObjectClassDefinition eocd = clazz.getAnnotation(
 			ExtendedObjectClassDefinition.class);
@@ -165,7 +165,7 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 		}
 
 		if (Validator.isNull(settingsId)) {
-			settingsId = getConfigurationPid(clazz);
+			settingsId = _getConfigurationPid(clazz);
 		}
 
 		return settingsId;

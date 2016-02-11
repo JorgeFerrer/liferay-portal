@@ -45,13 +45,6 @@ public class ConfigurationProviderUtil {
 		return configurationProvider.getConfiguration(clazz, settingsLocator);
 	}
 
-	public static String getConfigurationPid(Class<?> clazz) {
-		ConfigurationProvider configurationProvider =
-			getConfigurationProvider();
-
-		return configurationProvider.getConfigurationPid(clazz);
-	}
-
 	public static ConfigurationProvider getConfigurationProvider() {
 		PortalRuntimePermission.checkGetBeanProperty(
 			ConfigurationProviderUtil.class);

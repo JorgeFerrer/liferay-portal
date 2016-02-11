@@ -30,8 +30,6 @@ public interface ConfigurationProvider {
 			Class<T> clazz, SettingsLocator settingsLocator)
 		throws ConfigurationException;
 
-	public String getConfigurationPid(Class<?> clazz);
-
 	public <T> T getGroupConfiguration(Class<T> clazz, long groupId)
 		throws ConfigurationException;
 
