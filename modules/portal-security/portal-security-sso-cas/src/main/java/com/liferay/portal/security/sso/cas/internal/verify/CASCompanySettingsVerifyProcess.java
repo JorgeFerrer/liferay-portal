@@ -121,7 +121,7 @@ public class CASCompanySettingsVerifyProcess
 
 	@Override
 	protected String getSettingsId() {
-		return CASConstants.SERVICE_NAME;
+		return "com.liferay.portal.security.sso.cas.configuration.CASConfiguration";
 	}
 
 	@Reference(unbind = "-")
