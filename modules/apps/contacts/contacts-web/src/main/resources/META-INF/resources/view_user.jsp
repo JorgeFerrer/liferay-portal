@@ -42,98 +42,94 @@ request.setAttribute("view_user.jsp-user", user2);
 	<div class="contacts-profile <%= (user.getUserId() == user2.getUserId()) ? "my-profile" : StringPool.BLANK %>" id="<portlet:namespace />contactsProfile">
 		<c:if test="<%= (displayStyle == ContactsConstants.DISPLAY_STYLE_BASIC) || (displayStyle == ContactsConstants.DISPLAY_STYLE_FULL) %>">
 			<aui:row cssClass="social-relations">
-				<div class="social-relations-content">
 
-					<%
-					boolean connection = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION);
-					boolean follower = SocialRelationLocalServiceUtil.hasRelation(user2.getUserId(), themeDisplay.getUserId(), SocialRelationConstants.TYPE_UNI_FOLLOWER);
-					boolean following = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_FOLLOWER);
-					%>
+				<%
+				boolean connection = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION);
+				boolean follower = SocialRelationLocalServiceUtil.hasRelation(user2.getUserId(), themeDisplay.getUserId(), SocialRelationConstants.TYPE_UNI_FOLLOWER);
+				boolean following = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_FOLLOWER);
+				%>
 
-					<c:if test="<%= connection || follower || following %>">
-						<div class="lfr-asset-metadata">
-							<c:if test="<%= connection %>">
-								<span class="lfr-asset-icon lfr-asset-connection<%= (following || follower) ? StringPool.BLANK : " last" %>">
-									<i class="icon-user"></i>
+				<c:if test="<%= connection || follower || following %>">
+					<div class="lfr-asset-metadata">
+						<c:if test="<%= connection %>">
+							<span class="lfr-asset-icon lfr-asset-connection<%= (following || follower) ? StringPool.BLANK : " last" %>">
+								<i class="icon-user"></i>
 
-									<liferay-ui:message key="connection" />
-								</span>
-							</c:if>
+								<liferay-ui:message key="connection" />
+							</span>
+						</c:if>
 
-							<c:if test="<%= following %>">
-								<span class="lfr-asset-icon lfr-asset-following<%= follower ? StringPool.BLANK : " last" %>">
-									<i class="icon-user"></i>
+						<c:if test="<%= following %>">
+							<span class="lfr-asset-icon lfr-asset-following<%= follower ? StringPool.BLANK : " last" %>">
+								<i class="icon-user"></i>
 
-									<liferay-ui:message key="following" />
-								</span>
-							</c:if>
+								<liferay-ui:message key="following" />
+							</span>
+						</c:if>
 
-							<c:if test="<%= follower %>">
-								<span class="last lfr-asset-follower lfr-asset-icon">
-									<i class="icon-user"></i>
+						<c:if test="<%= follower %>">
+							<span class="last lfr-asset-follower lfr-asset-icon">
+								<i class="icon-user"></i>
 
-									<liferay-ui:message key="follower" />
-								</span>
-							</c:if>
-						</div>
-					</c:if>
+								<liferay-ui:message key="follower" />
+							</span>
+						</c:if>
+					</div>
+				</c:if>
 
-					<aui:row cssClass="contacts-action">
-						<div class="contacts-action-content">
-							<c:choose>
-								<c:when test="<%= portletId.equals(ContactsPortletKeys.CONTACTS_CENTER) || portletId.equals(ContactsPortletKeys.MEMBERS) %>">
+				<aui:row cssClass="contacts-action">
+					<c:choose>
+						<c:when test="<%= portletId.equals(ContactsPortletKeys.CONTACTS_CENTER) || portletId.equals(ContactsPortletKeys.MEMBERS) %>">
 
-									<%
-									boolean blocked = false;
+							<%
+							boolean blocked = false;
 
-									if (SocialRelationLocalServiceUtil.hasRelation(user2.getUserId(), themeDisplay.getUserId(), SocialRelationConstants.TYPE_UNI_ENEMY)) {
-										blocked = true;
-									}
-									else if (SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_ENEMY)) {
-										blocked = true;
-									}
+							if (SocialRelationLocalServiceUtil.hasRelation(user2.getUserId(), themeDisplay.getUserId(), SocialRelationConstants.TYPE_UNI_ENEMY)) {
+								blocked = true;
+							}
+							else if (SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_ENEMY)) {
+								blocked = true;
+							}
 
-									boolean showConnectedRequestedIcon = !blocked && SocialRequestLocalServiceUtil.hasRequest(themeDisplay.getUserId(), User.class.getName(), themeDisplay.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION, user2.getUserId(), SocialRequestConstants.STATUS_PENDING);
-									boolean showConnectedIcon = !blocked && SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION);
-									boolean showFollowingIcon = !blocked && SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_FOLLOWER);
-									boolean showBlockIcon = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_ENEMY);
-									%>
+							boolean showConnectedRequestedIcon = !blocked && SocialRequestLocalServiceUtil.hasRequest(themeDisplay.getUserId(), User.class.getName(), themeDisplay.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION, user2.getUserId(), SocialRequestConstants.STATUS_PENDING);
+							boolean showConnectedIcon = !blocked && SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_BI_CONNECTION);
+							boolean showFollowingIcon = !blocked && SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_FOLLOWER);
+							boolean showBlockIcon = SocialRelationLocalServiceUtil.hasRelation(themeDisplay.getUserId(), user2.getUserId(), SocialRelationConstants.TYPE_UNI_ENEMY);
+							%>
 
-									<liferay-ui:icon
-										cssClass='<%= showConnectedRequestedIcon ? "action disabled" : "action disabled hide" %>'
-										image="../aui/user"
-										label="<%= true %>"
-										message="connection-requested"
-									/>
+							<liferay-ui:icon
+								cssClass='<%= showConnectedRequestedIcon ? "action disabled" : "action disabled hide" %>'
+								image="../aui/user"
+								label="<%= true %>"
+								message="connection-requested"
+							/>
 
-									<liferay-ui:icon
-										cssClass='<%= showConnectedIcon ? "action connected" : "action connected hide" %>'
-										image="../aui/user"
-										label="<%= true %>"
-										message="connected"
-									/>
+							<liferay-ui:icon
+								cssClass='<%= showConnectedIcon ? "action connected" : "action connected hide" %>'
+								image="../aui/user"
+								label="<%= true %>"
+								message="connected"
+							/>
 
-									<liferay-ui:icon
-										cssClass='<%= showFollowingIcon ? "action following" : "action following hide" %>'
-										image="../aui/user"
-										label="<%= true %>"
-										message="following"
-									/>
+							<liferay-ui:icon
+								cssClass='<%= showFollowingIcon ? "action following" : "action following hide" %>'
+								image="../aui/user"
+								label="<%= true %>"
+								message="following"
+							/>
 
-									<liferay-ui:icon
-										cssClass='<%= showBlockIcon ? "action block" : "action block hide" %>'
-										image="../aui/ban-circle"
-										label="<%= true %>"
-										message="blocked"
-									/>
-								</c:when>
-								<c:otherwise>
-									<liferay-util:include page="/user_toolbar.jsp" servletContext="<%= application %>" />
-								</c:otherwise>
-							</c:choose>
-						</div>
-					</aui:row>
-				</div>
+							<liferay-ui:icon
+								cssClass='<%= showBlockIcon ? "action block" : "action block hide" %>'
+								image="../aui/ban-circle"
+								label="<%= true %>"
+								message="blocked"
+							/>
+						</c:when>
+						<c:otherwise>
+							<liferay-util:include page="/user_toolbar.jsp" servletContext="<%= application %>" />
+						</c:otherwise>
+					</c:choose>
+				</aui:row>
 			</aui:row>
 
 			<div class="field-group lfr-detail-info" data-sectionId="details" data-title="<%= LanguageUtil.get(request, "details") %>">

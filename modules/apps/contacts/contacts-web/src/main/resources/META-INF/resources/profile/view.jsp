@@ -33,9 +33,7 @@ Group group = themeDisplay.getScopeGroup();
 		%>
 
 		<aui:row cssClass="contacts-container">
-			<div class="contacts-container-content">
-				<liferay-util:include page="/view_user.jsp" servletContext="<%= application %>" />
-			</div>
+			<liferay-util:include page="/view_user.jsp" servletContext="<%= application %>" />
 		</aui:row>
 	</c:when>
 	<c:otherwise>
