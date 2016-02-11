@@ -25,12 +25,10 @@ import com.liferay.portal.kernel.security.auto.login.AutoLogin;
 import com.liferay.portal.kernel.security.auto.login.BaseAutoLogin;
 import com.liferay.portal.kernel.security.pwd.PasswordEncryptorUtil;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.security.auto.login.request.parameter.constants.RequestParameterAutoLoginConstants;
 import com.liferay.portal.security.auto.login.request.parameter.module.configuration.RequestParameterAutoLoginConfiguration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -157,11 +155,9 @@ public class RequestParameterAutoLogin extends BaseAutoLogin {
 		try {
 			RequestParameterAutoLoginConfiguration
 				requestParameterAutoLoginConfiguration =
-					_configurationProvider.getConfiguration(
+					_configurationProvider.getCompanyConfiguration(
 						RequestParameterAutoLoginConfiguration.class,
-						new CompanyServiceSettingsLocator(
-							companyId,
-							RequestParameterAutoLoginConstants.SERVICE_NAME));
+						companyId);
 
 			return requestParameterAutoLoginConfiguration;
 		}

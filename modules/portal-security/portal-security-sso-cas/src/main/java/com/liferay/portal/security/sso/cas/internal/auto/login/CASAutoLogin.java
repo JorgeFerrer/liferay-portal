@@ -108,10 +108,8 @@ public class CASAutoLogin extends BaseAutoLogin {
 		long companyId = PortalUtil.getCompanyId(request);
 
 		CASConfiguration casConfiguration =
-			_configurationProvider.getConfiguration(
-				CASConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, CASConstants.SERVICE_NAME));
+			_configurationProvider.getCompanyConfiguration(
+				CASConfiguration.class, companyId);
 
 		if (!casConfiguration.enabled()) {
 			return null;

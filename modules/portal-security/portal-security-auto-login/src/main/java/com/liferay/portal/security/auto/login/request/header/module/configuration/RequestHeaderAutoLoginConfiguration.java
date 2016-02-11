@@ -17,11 +17,15 @@ package com.liferay.portal.security.auto.login.request.header.module.configurati
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
+import com.liferay.portal.security.auto.login.request.header.constants.RequestHeaderAutoLoginConstants;
 
 /**
  * @author Tomas Polesovsky
  */
-@ExtendedObjectClassDefinition(category = "platform")
+@ExtendedObjectClassDefinition(
+	category = "platform", scope = ExtendedObjectClassDefinition.Scope.COMPANY,
+	settingsId = RequestHeaderAutoLoginConstants.SERVICE_NAME
+)
 @Meta.OCD(
 	id = "com.liferay.portal.security.auto.login.request.header.module.configuration.RequestHeaderAutoLoginConfiguration",
 	localization = "content/Language",

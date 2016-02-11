@@ -21,9 +21,7 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.service.access.policy.ServiceAccessPolicy;
 import com.liferay.portal.kernel.security.service.access.policy.ServiceAccessPolicyManager;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.service.access.policy.configuration.SAPConfiguration;
-import com.liferay.service.access.policy.constants.SAPConstants;
 import com.liferay.service.access.policy.model.SAPEntry;
 import com.liferay.service.access.policy.service.SAPEntryService;
 
@@ -90,10 +88,8 @@ public class ServiceAccessPolicyManagerImpl
 
 	protected SAPConfiguration getSAPConfiguration(long companyId) {
 		try {
-			return _configurationProvider.getConfiguration(
-				SAPConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, SAPConstants.SERVICE_NAME));
+			return _configurationProvider.getCompanyConfiguration(
+				SAPConfiguration.class, companyId);
 		}
 		catch (ConfigurationException ce) {
 			if (_log.isWarnEnabled()) {

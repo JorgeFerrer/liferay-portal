@@ -17,11 +17,15 @@ package com.liferay.portal.security.sso.google.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
+import com.liferay.portal.security.sso.google.constants.GoogleConstants;
 
 /**
  * @author Stian Sigvartsen
  */
-@ExtendedObjectClassDefinition(category = "platform")
+@ExtendedObjectClassDefinition(
+	category = "platform", scope = ExtendedObjectClassDefinition.Scope.COMPANY,
+	settingsId = GoogleConstants.SERVICE_NAME
+)
 @Meta.OCD(
 	id = "com.liferay.portal.security.sso.google.configuration.GoogleAuthorizationConfiguration",
 	localization = "content/Language",

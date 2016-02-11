@@ -19,9 +19,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.sso.SSO;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.security.sso.ntlm.configuration.NtlmConfiguration;
-import com.liferay.portal.security.sso.ntlm.constants.NtlmConstants;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -52,10 +50,8 @@ public class SSOImpl implements SSO {
 	public boolean isLoginRedirectRequired(long companyId) {
 		try {
 			NtlmConfiguration ntlmConfiguration =
-				_configurationProvider.getConfiguration(
-					NtlmConfiguration.class,
-					new CompanyServiceSettingsLocator(
-						companyId, NtlmConstants.SERVICE_NAME));
+				_configurationProvider.getCompanyConfiguration(
+					NtlmConfiguration.class, companyId);
 
 			return ntlmConfiguration.enabled();
 		}

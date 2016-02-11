@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.auto.login.AutoLogin;
 import com.liferay.portal.kernel.security.auto.login.BaseAutoLogin;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -32,7 +31,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.exportimport.UserImporter;
 import com.liferay.portal.security.sso.token.configuration.TokenConfiguration;
-import com.liferay.portal.security.sso.token.constants.TokenConstants;
 import com.liferay.portal.security.sso.token.security.auth.TokenLocation;
 import com.liferay.portal.security.sso.token.security.auth.TokenRetriever;
 import com.liferay.portal.util.PropsValues;
@@ -76,10 +74,8 @@ public class TokenAutoLogin extends BaseAutoLogin {
 		long companyId = PortalUtil.getCompanyId(request);
 
 		TokenConfiguration tokenCompanyServiceSettings =
-			_configurationProvider.getConfiguration(
-				TokenConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, TokenConstants.SERVICE_NAME));
+			_configurationProvider.getCompanyConfiguration(
+				TokenConfiguration.class, companyId);
 
 		if (!tokenCompanyServiceSettings.enabled()) {
 			return null;

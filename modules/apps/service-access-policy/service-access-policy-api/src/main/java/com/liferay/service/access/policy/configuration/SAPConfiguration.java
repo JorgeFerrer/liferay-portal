@@ -17,11 +17,15 @@ package com.liferay.service.access.policy.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
+import com.liferay.service.access.policy.constants.SAPConstants;
 
 /**
  * @author Mika Koivisto
  */
-@ExtendedObjectClassDefinition(category = "platform")
+@ExtendedObjectClassDefinition(
+	category = "platform", scope = ExtendedObjectClassDefinition.Scope.COMPANY,
+	settingsId = SAPConstants.SERVICE_NAME
+)
 @Meta.OCD(
 	id = "com.liferay.service.access.policy.configuration.SAPConfiguration",
 	localization = "content/Language", name = "%sap.configuration.name"

@@ -21,10 +21,8 @@ import com.liferay.portal.kernel.servlet.BaseFilter;
 import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.HttpMethods;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.security.sso.ntlm.configuration.NtlmConfiguration;
-import com.liferay.portal.security.sso.ntlm.constants.NtlmConstants;
 import com.liferay.portal.util.PortalInstances;
 
 import javax.servlet.Filter;
@@ -71,10 +69,8 @@ public class NtlmPostFilter extends BaseFilter {
 		long companyId = PortalInstances.getCompanyId(request);
 
 		NtlmConfiguration ntlmConfiguration =
-			_configurationProvider.getConfiguration(
-				NtlmConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, NtlmConstants.SERVICE_NAME));
+			_configurationProvider.getCompanyConfiguration(
+				NtlmConfiguration.class, companyId);
 
 		if (ntlmConfiguration.enabled() && BrowserSnifferUtil.isIe(request) &&
 			request.getMethod().equals(HttpMethods.POST)) {

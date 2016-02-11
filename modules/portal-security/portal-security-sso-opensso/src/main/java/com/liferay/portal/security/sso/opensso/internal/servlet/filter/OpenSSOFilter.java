@@ -19,14 +19,12 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.sso.OpenSSO;
 import com.liferay.portal.kernel.servlet.BaseFilter;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.sso.opensso.configuration.OpenSSOConfiguration;
-import com.liferay.portal.security.sso.opensso.constants.OpenSSOConstants;
 import com.liferay.portal.util.PropsValues;
 
 import javax.servlet.Filter;
@@ -112,10 +110,8 @@ public class OpenSSOFilter extends BaseFilter {
 	protected OpenSSOConfiguration getOpenSSOConfiguration(long companyId)
 		throws Exception {
 
-		return _configurationProvider.getConfiguration(
-			OpenSSOConfiguration.class,
-			new CompanyServiceSettingsLocator(
-				companyId, OpenSSOConstants.SERVICE_NAME));
+		return _configurationProvider.getCompanyConfiguration(
+			OpenSSOConfiguration.class, companyId);
 	}
 
 	@Override

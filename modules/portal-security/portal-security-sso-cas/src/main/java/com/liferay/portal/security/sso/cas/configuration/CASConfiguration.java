@@ -17,6 +17,7 @@ package com.liferay.portal.security.sso.cas.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
+import com.liferay.portal.security.sso.cas.constants.CASConstants;
 
 /**
  * Defines the configuration property keys and sensible default values.

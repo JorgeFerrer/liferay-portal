@@ -18,13 +18,11 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.service.access.policy.configuration.SAPConfiguration;
-import com.liferay.service.access.policy.constants.SAPConstants;
 
 import java.util.List;
 
@@ -45,10 +43,8 @@ public class SAPEntryImpl extends SAPEntryBaseImpl {
 	@Override
 	public boolean isSystem() throws ConfigurationException {
 		SAPConfiguration sapConfiguration =
-			ConfigurationProviderUtil.getConfiguration(
-				SAPConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					getCompanyId(), SAPConstants.SERVICE_NAME));
+			ConfigurationProviderUtil.getCompanyConfiguration(
+				SAPConfiguration.class, getCompanyId());
 
 		if (Validator.equals(
 				getName(), sapConfiguration.systemDefaultSAPEntryName())) {

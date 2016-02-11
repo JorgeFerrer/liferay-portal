@@ -17,6 +17,7 @@ package com.liferay.portal.security.sso.openid.configuration;
 import aQute.bnd.annotation.metatype.Meta;
 
 import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
+import com.liferay.portal.security.sso.openid.constants.OpenIdConstants;
 
 /**
  * Defines the configuration property keys and sensible default values.
@@ -29,7 +30,10 @@ import com.liferay.portal.metatype.annotations.ExtendedObjectClassDefinition;
  *
  * @author Michael C. Han
  */
-@ExtendedObjectClassDefinition(category = "platform")
+@ExtendedObjectClassDefinition(
+	category = "platform", scope = ExtendedObjectClassDefinition.Scope.COMPANY,
+	settingsId = OpenIdConstants.SERVICE_NAME
+)
 @Meta.OCD(
 	id = "com.liferay.portal.security.sso.openid.configuration.OpenIdConfiguration",
 	localization = "content/Language", name = "%open.id.configuration.name"

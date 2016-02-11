@@ -25,12 +25,10 @@ import com.liferay.portal.kernel.security.auth.AccessControlContext;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.auth.verifier.AuthVerifierResult;
 import com.liferay.portal.kernel.security.service.access.policy.ServiceAccessPolicyThreadLocal;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.service.access.policy.configuration.SAPConfiguration;
-import com.liferay.service.access.policy.constants.SAPConstants;
 import com.liferay.service.access.policy.model.SAPEntry;
 import com.liferay.service.access.policy.service.SAPEntryLocalService;
 
@@ -143,10 +141,8 @@ public class SAPAccessControlPolicy extends BaseAccessControlPolicy {
 		SAPConfiguration sapConfiguration = null;
 
 		try {
-			sapConfiguration = _configurationProvider.getConfiguration(
-				SAPConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, SAPConstants.SERVICE_NAME));
+			sapConfiguration = _configurationProvider.getCompanyConfiguration(
+				SAPConfiguration.class, companyId);
 		}
 		catch (ConfigurationException ce) {
 			throw new SecurityException(

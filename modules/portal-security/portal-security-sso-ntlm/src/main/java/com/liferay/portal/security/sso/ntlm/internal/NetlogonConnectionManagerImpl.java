@@ -21,12 +21,10 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.SecureRandomUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.security.sso.ntlm.NetlogonConnectionManager;
 import com.liferay.portal.security.sso.ntlm.NtlmLogonException;
 import com.liferay.portal.security.sso.ntlm.NtlmServiceAccount;
 import com.liferay.portal.security.sso.ntlm.configuration.NtlmConfiguration;
-import com.liferay.portal.security.sso.ntlm.constants.NtlmConstants;
 import com.liferay.portal.security.sso.ntlm.internal.msrpc.NetrServerAuthenticate3;
 import com.liferay.portal.security.sso.ntlm.internal.msrpc.NetrServerReqChallenge;
 
@@ -149,11 +147,8 @@ public class NetlogonConnectionManagerImpl
 
 		try {
 			NtlmConfiguration ntlmConfiguration =
-				_configurationProvider.getConfiguration(
-					NtlmConfiguration.class,
-					new CompanyServiceSettingsLocator(
-						CompanyThreadLocal.getCompanyId(),
-						NtlmConstants.SERVICE_NAME));
+				_configurationProvider.getCompanyConfiguration(
+					NtlmConfiguration.class, CompanyThreadLocal.getCompanyId());
 
 			String negotiateFlagsString = ntlmConfiguration.negotiateFlags();
 

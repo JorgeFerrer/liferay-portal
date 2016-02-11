@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.security.auto.login.BaseAutoLogin;
 import com.liferay.portal.kernel.security.sso.OpenSSO;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -39,7 +38,6 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.security.exportimport.UserImporter;
 import com.liferay.portal.security.sso.opensso.configuration.OpenSSOConfiguration;
-import com.liferay.portal.security.sso.opensso.constants.OpenSSOConstants;
 import com.liferay.portal.util.PropsValues;
 
 import java.util.Calendar;
@@ -245,10 +243,8 @@ public class OpenSSOAutoLogin extends BaseAutoLogin {
 	protected OpenSSOConfiguration getOpenSSOConfiguration(long companyId)
 		throws Exception {
 
-		return _configurationProvider.getConfiguration(
-			OpenSSOConfiguration.class,
-			new CompanyServiceSettingsLocator(
-				companyId, OpenSSOConstants.SERVICE_NAME));
+		return _configurationProvider.getCompanyConfiguration(
+			OpenSSOConfiguration.class, companyId);
 	}
 
 	@Reference(unbind = "-")

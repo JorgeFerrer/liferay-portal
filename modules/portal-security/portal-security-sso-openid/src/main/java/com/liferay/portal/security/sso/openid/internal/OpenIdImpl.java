@@ -19,9 +19,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.openid.OpenId;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.security.sso.openid.configuration.OpenIdConfiguration;
-import com.liferay.portal.security.sso.openid.constants.OpenIdConstants;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -47,10 +45,8 @@ public class OpenIdImpl implements OpenId {
 	public boolean isEnabled(long companyId) {
 		try {
 			OpenIdConfiguration openIdConfiguration =
-				_configurationProvider.getConfiguration(
-					OpenIdConfiguration.class,
-					new CompanyServiceSettingsLocator(
-						companyId, OpenIdConstants.SERVICE_NAME));
+				_configurationProvider.getCompanyConfiguration(
+					OpenIdConfiguration.class, companyId);
 
 			return openIdConfiguration.enabled();
 		}

@@ -24,12 +24,10 @@ import com.liferay.portal.kernel.security.SecureRandomUtil;
 import com.liferay.portal.kernel.servlet.BaseFilter;
 import com.liferay.portal.kernel.servlet.BrowserSnifferUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.sso.ntlm.NetlogonConnectionManager;
 import com.liferay.portal.security.sso.ntlm.configuration.NtlmConfiguration;
-import com.liferay.portal.security.sso.ntlm.constants.NtlmConstants;
 import com.liferay.portal.security.sso.ntlm.constants.NtlmWebKeys;
 import com.liferay.portal.security.sso.ntlm.internal.NtlmManager;
 import com.liferay.portal.security.sso.ntlm.internal.NtlmUserAccount;
@@ -119,10 +117,8 @@ public class NtlmFilter extends BaseFilter {
 			long companyId = PortalInstances.getCompanyId(request);
 
 			NtlmConfiguration ntlmConfiguration =
-				_configurationProvider.getConfiguration(
-					NtlmConfiguration.class,
-					new CompanyServiceSettingsLocator(
-						companyId, NtlmConstants.SERVICE_NAME));
+				_configurationProvider.getCompanyConfiguration(
+					NtlmConfiguration.class, companyId);
 
 			if (BrowserSnifferUtil.isIe(request) &&
 				ntlmConfiguration.enabled()) {
@@ -173,10 +169,8 @@ public class NtlmFilter extends BaseFilter {
 
 	protected NtlmManager getNtlmManager(long companyId) throws Exception {
 		NtlmConfiguration ntlmConfiguration =
-			_configurationProvider.getConfiguration(
-				NtlmConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, NtlmConstants.SERVICE_NAME));
+			_configurationProvider.getCompanyConfiguration(
+				NtlmConfiguration.class, companyId);
 
 		String domain = ntlmConfiguration.domain();
 		String domainController = ntlmConfiguration.domainController();

@@ -25,7 +25,6 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -34,7 +33,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.service.access.policy.configuration.SAPConfiguration;
-import com.liferay.service.access.policy.constants.SAPConstants;
 import com.liferay.service.access.policy.exception.DuplicateSAPEntryNameException;
 import com.liferay.service.access.policy.exception.RequiredSAPEntryException;
 import com.liferay.service.access.policy.exception.SAPEntryNameException;
@@ -104,10 +102,8 @@ public class SAPEntryLocalServiceImpl extends SAPEntryLocalServiceBaseImpl {
 	@Override
 	public void checkSystemSAPEntries(long companyId) throws PortalException {
 		SAPConfiguration sapConfiguration =
-			configurationProvider.getConfiguration(
-				SAPConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, SAPConstants.SERVICE_NAME));
+			configurationProvider.getCompanyConfiguration(
+				SAPConfiguration.class, companyId);
 
 		SAPEntry systemDefaultSAPEntry = sapEntryPersistence.fetchByC_N(
 			companyId, sapConfiguration.systemDefaultSAPEntryName());

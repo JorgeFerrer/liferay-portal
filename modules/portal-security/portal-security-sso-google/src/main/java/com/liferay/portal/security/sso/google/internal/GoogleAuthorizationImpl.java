@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ServiceBeanMethodInvocationFactoryUtil;
@@ -45,7 +44,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.sso.google.GoogleAuthorization;
 import com.liferay.portal.security.sso.google.configuration.GoogleAuthorizationConfiguration;
-import com.liferay.portal.security.sso.google.constants.GoogleConstants;
 import com.liferay.portal.security.sso.google.constants.GoogleWebKeys;
 
 import java.lang.reflect.Method;
@@ -288,10 +286,8 @@ public class GoogleAuthorizationImpl implements GoogleAuthorization {
 		long companyId) {
 
 		try {
-			return _configurationProvider.getConfiguration(
-				GoogleAuthorizationConfiguration.class,
-				new CompanyServiceSettingsLocator(
-					companyId, GoogleConstants.SERVICE_NAME));
+			return _configurationProvider.getCompanyConfiguration(
+				GoogleAuthorizationConfiguration.class, companyId);
 		}
 		catch (ConfigurationException ce) {
 			throw new SystemException(ce);

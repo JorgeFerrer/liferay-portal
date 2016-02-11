@@ -19,12 +19,10 @@ import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
-import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.sso.token.configuration.TokenConfiguration;
-import com.liferay.portal.security.sso.token.constants.TokenConstants;
 import com.liferay.portal.security.sso.token.events.LogoutProcessor;
 import com.liferay.portal.security.sso.token.events.LogoutProcessorType;
 
@@ -77,10 +75,8 @@ public class TokenLogoutAction extends Action {
 			long companyId = PortalUtil.getCompanyId(request);
 
 			TokenConfiguration tokenCompanyServiceSettings =
-				_configurationProvider.getConfiguration(
-					TokenConfiguration.class,
-					new CompanyServiceSettingsLocator(
-						companyId, TokenConstants.SERVICE_NAME));
+				_configurationProvider.getCompanyConfiguration(
+					TokenConfiguration.class, companyId);
 
 			if (!tokenCompanyServiceSettings.enabled()) {
 				return;
