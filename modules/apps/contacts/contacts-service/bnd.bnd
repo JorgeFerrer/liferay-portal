@@ -2,9 +2,9 @@ Bundle-Name: Liferay Contacts Service
 Bundle-SymbolicName: com.liferay.contacts.service
 Bundle-Version: 1.0.0
 Export-Package: com.liferay.contacts.util
-Import-Package:\
-	!com.liferay.util.dao.orm,\
-	*
+Include-Resource:\
+	@${app.server.lib.portal.dir}/util-java.jar!/com/liferay/util/dao/orm/CustomSQL.class,\
+	@${app.server.lib.portal.dir}/util-java.jar!/com/liferay/util/dao/orm/CustomSQLUtil.class
 Liferay-Releng-Module-Group-Description:
 Liferay-Releng-Module-Group-Title:
 Liferay-Service: true
