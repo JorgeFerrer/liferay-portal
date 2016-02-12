@@ -148,7 +148,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 		</aui:form>
 
 		<aui:row cssClass="contacts-result-container lfr-app-column-view">
-			<aui:col columnWidth="30" cssClass="contacts-list" first="<%= true %>">
+			<aui:col width="30" cssClass="contacts-list" first="<%= true %>">
 				<div class="toggle-user">
 					<i class="icon-chevron-left"></i>
 				</div>
@@ -301,7 +301,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 				</aui:row>
 			</aui:col>
 
-			<aui:col columnWidth="70" cssClass="contacts-container">
+			<aui:col width="70" cssClass="contacts-container">
 				<div id="<portlet:namespace />userToolbarButtons"><!-- --></div>
 
 				<div class="hide" id="<portlet:namespace />contactCenterToolbarButtons">
