@@ -33,6 +33,11 @@
 		boolean include = portletConfigurationIcon.include(request, new PipingServletResponse(pageContext));
 
 		if (!include) {
+			resourceBundle = (ResourceBundle)pageContext.getAttribute("resourceBundle");
+			ResourceBundleLoader resourceBundleLoader = (ResourceBundleLoader)request.getAttribute("RESOURCE_BUNDLE_LOADER");
+
+			pageContext.removeAttribute("resourceBundle");
+			request.setAttribute("RESOURCE_BUNDLE_LOADER", portletConfigurationIcon.getResourceBundleLoader());
 		%>
 
 			<liferay-ui:icon
@@ -60,6 +65,15 @@
 			/>
 
 		<%
+			if (resourceBundle != null) {
+				pageContext.setAttribute("resourceBundle", resourceBundle);
+			}
+			if (resourceBundleLoader != null) {
+				request.setAttribute("RESOURCE_BUNDLE_LOADER", resourceBundleLoader);
+			}
+			else {
+				request.removeAttribute("RESOURCE_BUNDLE_LOADER");
+			}
 		}
 	}
 	%>

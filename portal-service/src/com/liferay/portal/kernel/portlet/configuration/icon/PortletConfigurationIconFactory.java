@@ -14,6 +14,8 @@
 
 package com.liferay.portal.kernel.portlet.configuration.icon;
 
+import com.liferay.portal.kernel.util.ResourceBundleLoader;
+
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
@@ -24,6 +26,8 @@ public interface PortletConfigurationIconFactory {
 
 	public PortletConfigurationIcon create(
 		PortletRequest portletRequest, PortletResponse portletResponse);
+
+	public ResourceBundleLoader getResourceBundleLoader();
 
 	public double getWeight();
 

@@ -16,6 +16,7 @@ package com.liferay.portal.kernel.portlet.configuration.icon;
 
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
@@ -108,6 +109,11 @@ public abstract class BasePortletConfigurationIcon
 	}
 
 	@Override
+	public ResourceBundleLoader getResourceBundleLoader() {
+		return _resourceBundleLoader;
+	}
+
+	@Override
 	public String getSrc() {
 		return null;
 	}
@@ -158,8 +164,17 @@ public abstract class BasePortletConfigurationIcon
 		return false;
 	}
 
+	@Override
+	public void setResourceBundleLoader(
+		ResourceBundleLoader resourceBundleLoader) {
+
+		_resourceBundleLoader = resourceBundleLoader;
+	}
+
 	protected PortletDisplay portletDisplay;
 	protected PortletRequest portletRequest;
 	protected ThemeDisplay themeDisplay;
+
+	private ResourceBundleLoader _resourceBundleLoader;
 
 }

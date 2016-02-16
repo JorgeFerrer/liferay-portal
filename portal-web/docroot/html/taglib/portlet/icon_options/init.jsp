@@ -17,6 +17,7 @@
 <%@ include file="/html/taglib/init.jsp" %>
 
 <%@ page import="com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIcon" %><%@
+page import="com.liferay.portal.kernel.util.ResourceBundleLoader" %><%@
 page import="com.liferay.taglib.servlet.PipingServletResponse" %>
 
 <liferay-theme:defineObjects />

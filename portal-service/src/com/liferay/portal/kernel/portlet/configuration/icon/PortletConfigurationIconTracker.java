@@ -90,6 +90,9 @@ public class PortletConfigurationIconTracker {
 			if ((portletConfigurationIcon != null) &&
 				portletConfigurationIcon.isShow()) {
 
+				portletConfigurationIcon.setResourceBundleLoader(
+					portletConfigurationIconFactory.getResourceBundleLoader());
+
 				portletConfigurationIcons.add(portletConfigurationIcon);
 			}
 		}

@@ -14,6 +14,9 @@
 
 package com.liferay.portal.kernel.portlet.configuration.icon;
 
+import com.liferay.portal.kernel.util.ResourceBundleLoader;
+import com.liferay.portal.kernel.util.ResourceBundleLoaderUtil;
+
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
@@ -28,6 +31,11 @@ public class BasePortletConfigurationIconFactory
 		PortletRequest portletRequest, PortletResponse portletResponse) {
 
 		return null;
+	}
+
+	@Override
+	public ResourceBundleLoader getResourceBundleLoader() {
+		return ResourceBundleLoaderUtil.getPortalResourceBundleLoader();
 	}
 
 	@Override

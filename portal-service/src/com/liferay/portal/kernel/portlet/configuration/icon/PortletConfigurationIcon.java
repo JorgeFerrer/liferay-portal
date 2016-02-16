@@ -14,6 +14,8 @@
 
 package com.liferay.portal.kernel.portlet.configuration.icon;
 
+import com.liferay.portal.kernel.util.ResourceBundleLoader;
+
 import java.io.IOException;
 
 import java.util.Map;
@@ -52,6 +54,8 @@ public interface PortletConfigurationIcon {
 
 	public String getOnClick();
 
+	public ResourceBundleLoader getResourceBundleLoader();
+
 	public String getSrc();
 
 	public String getSrcHover();
@@ -73,5 +77,8 @@ public interface PortletConfigurationIcon {
 	public boolean isToolTip();
 
 	public boolean isUseDialog();
+
+	public void setResourceBundleLoader(
+		ResourceBundleLoader resourceBundleLoader);
 
 }

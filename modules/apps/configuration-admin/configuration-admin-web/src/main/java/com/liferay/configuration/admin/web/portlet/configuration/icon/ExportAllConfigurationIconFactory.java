@@ -18,11 +18,13 @@ import com.liferay.configuration.admin.web.constants.ConfigurationAdminPortletKe
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIconFactory;
 import com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIcon;
 import com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIconFactory;
+import com.liferay.portal.kernel.util.ResourceBundleLoader;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jorge Ferrer
@@ -46,8 +48,25 @@ public class ExportAllConfigurationIconFactory
 	}
 
 	@Override
+	public ResourceBundleLoader getResourceBundleLoader() {
+		return _resourceBundleLoader;
+	}
+
+	@Override
 	public double getWeight() {
 		return 1;
 	}
+
+	@Reference(
+		target = "(bundle.symbolic.name=com.liferay.configuration.admin.web)",
+		unbind = "-"
+	)
+	protected void setResourceBundleLoader(
+		ResourceBundleLoader resourceBundleLoader) {
+
+		_resourceBundleLoader = resourceBundleLoader;
+	}
+
+	private ResourceBundleLoader _resourceBundleLoader;
 
 }
