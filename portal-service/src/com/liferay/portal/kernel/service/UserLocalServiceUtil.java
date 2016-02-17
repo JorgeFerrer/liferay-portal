@@ -1281,6 +1281,23 @@ public class UserLocalServiceUtil {
 		return getService().getOrganizationUsersCount(organizationId, status);
 	}
 
+	/**
+	* Returns the number of users with the status belonging to the
+	* organization.
+	*
+	* @param organizationId the primary key of the organization
+	* @param status the workflow status
+	* @param forceDatabase whether or not to force searching the database
+	* @return the number of users with the status belonging to the organization
+	*/
+	public static int getOrganizationUsersCount(long organizationId,
+		int status, boolean forceDatabase)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .getOrganizationUsersCount(organizationId, status,
+			forceDatabase);
+	}
+
 	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException {

@@ -1371,6 +1371,23 @@ public class UserLocalServiceWrapper implements UserLocalService,
 			status);
 	}
 
+	/**
+	* Returns the number of users with the status belonging to the
+	* organization.
+	*
+	* @param organizationId the primary key of the organization
+	* @param status the workflow status
+	* @param forceDatabase whether or not to force searching the database
+	* @return the number of users with the status belonging to the organization
+	*/
+	@Override
+	public int getOrganizationUsersCount(long organizationId, int status,
+		boolean forceDatabase)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _userLocalService.getOrganizationUsersCount(organizationId,
+			status, forceDatabase);
+	}
+
 	@Override
 	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
