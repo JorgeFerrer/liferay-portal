@@ -342,7 +342,7 @@ public class OrganizationLocalServiceImpl
 
 		if ((userLocalService.getOrganizationUsersCount(
 				organization.getOrganizationId(),
-				WorkflowConstants.STATUS_APPROVED) > 0) ||
+				WorkflowConstants.STATUS_APPROVED, true) > 0) ||
 			(organizationPersistence.countByC_P(
 				organization.getCompanyId(),
 				organization.getOrganizationId()) > 0)) {
