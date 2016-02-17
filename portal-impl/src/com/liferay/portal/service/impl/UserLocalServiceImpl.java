@@ -2166,12 +2166,33 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	public int getOrganizationUsersCount(long organizationId, int status)
 		throws PortalException {
 
+		return getOrganizationUsersCount(organizationId, status, false);
+	}
+
+	/**
+	 * Returns the number of users with the status belonging to the
+	 * organization.
+	 *
+	 * @param  organizationId the primary key of the organization
+	 * @param  status the workflow status
+	 * @param  forceDatabase whether or not to force searching the database
+	 * @return the number of users with the status belonging to the organization
+	 */
+	@Override
+	public int getOrganizationUsersCount(
+			long organizationId, int status, boolean forceDatabase)
+		throws PortalException {
+
 		Organization organization = organizationPersistence.findByPrimaryKey(
 			organizationId);
 
 		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		params.put("usersOrgs", Long.valueOf(organizationId));
+
+		if (forceDatabase) {
+			params.put("forceDatabase", Boolean.TRUE);
+		}
 
 		return searchCount(organization.getCompanyId(), null, status, params);
 	}
