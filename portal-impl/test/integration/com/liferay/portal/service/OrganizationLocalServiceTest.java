@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.OrganizationTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -312,17 +313,21 @@ public class OrganizationLocalServiceTest {
 		_organizations.add(organizationA);
 		_organizations.add(organizationB);
 
+		User user = UserTestUtil.addUser();
+
 		UserLocalServiceUtil.addOrganizationUser(
-			organizationA.getOrganizationId(), TestPropsValues.getUserId());
+			organizationA.getOrganizationId(), user.getUserId());
+
+		_users.add(user);
 
 		Assert.assertTrue(
 			OrganizationLocalServiceUtil.hasUserOrganization(
-				TestPropsValues.getUserId(), organizationA.getOrganizationId(),
-				false, false));
+				user.getUserId(), organizationA.getOrganizationId(), false,
+				false));
 		Assert.assertFalse(
 			OrganizationLocalServiceUtil.hasUserOrganization(
-				TestPropsValues.getUserId(), organizationB.getOrganizationId(),
-				false, false));
+				user.getUserId(), organizationB.getOrganizationId(), false,
+				false));
 	}
 
 	@Test
@@ -337,17 +342,25 @@ public class OrganizationLocalServiceTest {
 		_organizations.add(organizationAA);
 		_organizations.add(organizationA);
 
-		UserLocalServiceUtil.addOrganizationUser(
-			organizationAA.getOrganizationId(), TestPropsValues.getUserId());
+		User user = UserTestUtil.addUser();
 
+		UserLocalServiceUtil.addOrganizationUser(
+			organizationAA.getOrganizationId(), user.getUserId());
+
+		_users.add(user);
+
+		Assert.assertFalse(
+			OrganizationLocalServiceUtil.hasUserOrganization(
+				user.getUserId(), organizationA.getOrganizationId(), false,
+				false));
 		Assert.assertTrue(
 			OrganizationLocalServiceUtil.hasUserOrganization(
-				TestPropsValues.getUserId(), organizationA.getOrganizationId(),
-				true, false));
+				user.getUserId(), organizationA.getOrganizationId(), true,
+				false));
 		Assert.assertTrue(
 			OrganizationLocalServiceUtil.hasUserOrganization(
-				TestPropsValues.getUserId(), organizationA.getOrganizationId(),
-				true, true));
+				user.getUserId(), organizationA.getOrganizationId(), true,
+				true));
 	}
 
 	@Test
@@ -496,5 +509,8 @@ public class OrganizationLocalServiceTest {
 
 	@DeleteAfterTestRun
 	private final List<Organization> _organizations = new ArrayList<>();
+
+	@DeleteAfterTestRun
+	private final List<User> _users = new ArrayList<>();
 
 }
