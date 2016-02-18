@@ -8,6 +8,7 @@ dependencies {
 	compile group: "com.liferay.portal", name: "portal-service", version: liferay.portalVersion
 	compile project(":apps:contacts:contacts-api")
 
+	provided group: "com.liferay", name: "com.liferay.portal.spring.extender", version: "1.0.4"
 	provided group: "com.liferay.portal", name: "util-java", version: liferay.portalVersion
 }
 
