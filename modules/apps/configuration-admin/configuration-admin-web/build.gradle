@@ -15,6 +15,7 @@ dependencies {
 	provided project(":frontend:frontend-taglib")
 	provided project(":portal-configuration:portal-configuration-metatype")
 
+	testCompile group: "com.liferay.portal", name: "portal-impl", version: liferay.portalVersion
 	testCompile project(":apps:dynamic-data-mapping:dynamic-data-mapping-test-util")
 }
 

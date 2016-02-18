@@ -1,6 +1,7 @@
 apply plugin: "com.liferay.lang.merger"
 
 dependencies {
+	provided group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	provided group: "com.liferay.portal", name: "portal-impl", version: liferay.portalVersion
 	provided group: "com.liferay.portal", name: "portal-service", version: liferay.portalVersion
 	provided group: "com.liferay.portal", name: "util-taglib", version: liferay.portalVersion
@@ -18,6 +19,7 @@ dependencies {
 	provided project(":apps:journal:journal-lang")
 	provided project(":apps:journal:journal-service")
 	provided project(":apps:trash:trash-taglib")
+	provided project(":core:osgi-service-tracker-collections")
 	provided project(":frontend:frontend-taglib")
 	provided project(":portal-configuration:portal-configuration-metatype")
 	provided project(":portal:portal-upgrade")
