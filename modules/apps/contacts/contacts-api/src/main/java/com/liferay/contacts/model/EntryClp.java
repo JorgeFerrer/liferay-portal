@@ -18,7 +18,6 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.contacts.service.ClpSerializer;
 import com.liferay.contacts.service.EntryLocalServiceUtil;
-
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.BaseModel;
@@ -43,42 +42,109 @@ import java.util.Map;
  */
 @ProviderType
 public class EntryClp extends BaseModelImpl<Entry> implements Entry {
+
 	public EntryClp() {
 	}
 
 	@Override
-	public Class<?> getModelClass() {
-		return Entry.class;
+	public Object clone() {
+		EntryClp clone = new EntryClp();
+
+		clone.setEntryId(getEntryId());
+		clone.setGroupId(getGroupId());
+		clone.setCompanyId(getCompanyId());
+		clone.setUserId(getUserId());
+		clone.setUserName(getUserName());
+		clone.setCreateDate(getCreateDate());
+		clone.setModifiedDate(getModifiedDate());
+		clone.setFullName(getFullName());
+		clone.setEmailAddress(getEmailAddress());
+		clone.setComments(getComments());
+
+		return clone;
 	}
 
 	@Override
-	public String getModelClassName() {
-		return Entry.class.getName();
+	public int compareTo(Entry entry) {
+		int value = 0;
+
+		value = getFullName().compareToIgnoreCase(entry.getFullName());
+
+		if (value != 0) {
+			return value;
+		}
+
+		return 0;
 	}
 
 	@Override
-	public long getPrimaryKey() {
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof EntryClp)) {
+			return false;
+		}
+
+		EntryClp entry = (EntryClp)obj;
+
+		long primaryKey = entry.getPrimaryKey();
+
+		if (getPrimaryKey() == primaryKey) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
+	@Override
+	public String getComments() {
+		return _comments;
+	}
+
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public String getEmailAddress() {
+		return _emailAddress;
+	}
+
+	@Override
+	public long getEntryId() {
 		return _entryId;
 	}
 
-	@Override
-	public void setPrimaryKey(long primaryKey) {
-		setEntryId(primaryKey);
+	public BaseModel<?> getEntryRemoteModel() {
+		return _entryRemoteModel;
 	}
 
 	@Override
-	public Serializable getPrimaryKeyObj() {
-		return _entryId;
+	public String getFullName() {
+		return _fullName;
 	}
 
 	@Override
-	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
-		setPrimaryKey(((Long)primaryKeyObj).longValue());
+	public long getGroupId() {
+		return _groupId;
 	}
 
 	@Override
 	public Map<String, Object> getModelAttributes() {
-		Map<String, Object> attributes = new HashMap<String, Object>();
+		Map<String, Object> attributes = new HashMap<>();
 
 		attributes.put("entryId", getEntryId());
 		attributes.put("groupId", getGroupId());
@@ -95,6 +161,254 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
 
 		return attributes;
+	}
+
+	@Override
+	public Class<?> getModelClass() {
+		return Entry.class;
+	}
+
+	@Override
+	public String getModelClassName() {
+		return Entry.class.getName();
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	@Override
+	public long getPrimaryKey() {
+		return _entryId;
+	}
+
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _entryId;
+	}
+
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public String getUserName() {
+		return _userName;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException pe) {
+			return StringPool.BLANK;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return (int)getPrimaryKey();
+	}
+
+	public Object invokeOnRemoteModel(
+			String methodName, Class<?>[] parameterTypes,
+			Object[] parameterValues)
+		throws Exception {
+
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(
+					parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _entryRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(
+					parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(
+			methodName, remoteParameterTypes);
+
+		Object returnValue = method.invoke(
+			_entryRemoteModel, remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _entityCacheEnabled;
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _finderCacheEnabled;
+	}
+
+	@Override
+	public void persist() {
+		if (this.isNew()) {
+			EntryLocalServiceUtil.addEntry(this);
+		}
+		else {
+			EntryLocalServiceUtil.updateEntry(this);
+		}
+	}
+
+	@Override
+	public void setComments(String comments) {
+		_comments = comments;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setComments", String.class);
+
+				method.invoke(_entryRemoteModel, comments);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_entryRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_entryRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public void setEmailAddress(String emailAddress) {
+		_emailAddress = emailAddress;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod(
+					"setEmailAddress", String.class);
+
+				method.invoke(_entryRemoteModel, emailAddress);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public void setEntryId(long entryId) {
+		_entryId = entryId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEntryId", long.class);
+
+				method.invoke(_entryRemoteModel, entryId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	public void setEntryRemoteModel(BaseModel<?> entryRemoteModel) {
+		_entryRemoteModel = entryRemoteModel;
+	}
+
+	@Override
+	public void setFullName(String fullName) {
+		_fullName = fullName;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setFullName", String.class);
+
+				method.invoke(_entryRemoteModel, fullName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_entryRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	@Override
@@ -164,21 +478,16 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 	}
 
 	@Override
-	public long getEntryId() {
-		return _entryId;
-	}
-
-	@Override
-	public void setEntryId(long entryId) {
-		_entryId = entryId;
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 
 		if (_entryRemoteModel != null) {
 			try {
 				Class<?> clazz = _entryRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setEntryId", long.class);
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
 
-				method.invoke(_entryRemoteModel, entryId);
+				method.invoke(_entryRemoteModel, modifiedDate);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -187,54 +496,13 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 	}
 
 	@Override
-	public long getGroupId() {
-		return _groupId;
+	public void setPrimaryKey(long primaryKey) {
+		setEntryId(primaryKey);
 	}
 
 	@Override
-	public void setGroupId(long groupId) {
-		_groupId = groupId;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setGroupId", long.class);
-
-				method.invoke(_entryRemoteModel, groupId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getCompanyId() {
-		return _companyId;
-	}
-
-	@Override
-	public void setCompanyId(long companyId) {
-		_companyId = companyId;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setCompanyId", long.class);
-
-				method.invoke(_entryRemoteModel, companyId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getUserId() {
-		return _userId;
+	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
+		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
 	@Override
@@ -256,27 +524,6 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 	}
 
 	@Override
-	public String getUserUuid() {
-		try {
-			User user = UserLocalServiceUtil.getUserById(getUserId());
-
-			return user.getUuid();
-		}
-		catch (PortalException pe) {
-			return StringPool.BLANK;
-		}
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-	}
-
-	@Override
-	public String getUserName() {
-		return _userName;
-	}
-
-	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -295,255 +542,14 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 	}
 
 	@Override
-	public Date getCreateDate() {
-		return _createDate;
-	}
-
-	@Override
-	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setCreateDate", Date.class);
-
-				method.invoke(_entryRemoteModel, createDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public Date getModifiedDate() {
-		return _modifiedDate;
-	}
-
-	@Override
-	public void setModifiedDate(Date modifiedDate) {
-		_modifiedDate = modifiedDate;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setModifiedDate", Date.class);
-
-				method.invoke(_entryRemoteModel, modifiedDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getFullName() {
-		return _fullName;
-	}
-
-	@Override
-	public void setFullName(String fullName) {
-		_fullName = fullName;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setFullName", String.class);
-
-				method.invoke(_entryRemoteModel, fullName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getEmailAddress() {
-		return _emailAddress;
-	}
-
-	@Override
-	public void setEmailAddress(String emailAddress) {
-		_emailAddress = emailAddress;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setEmailAddress", String.class);
-
-				method.invoke(_entryRemoteModel, emailAddress);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getComments() {
-		return _comments;
-	}
-
-	@Override
-	public void setComments(String comments) {
-		_comments = comments;
-
-		if (_entryRemoteModel != null) {
-			try {
-				Class<?> clazz = _entryRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setComments", String.class);
-
-				method.invoke(_entryRemoteModel, comments);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	public BaseModel<?> getEntryRemoteModel() {
-		return _entryRemoteModel;
-	}
-
-	public void setEntryRemoteModel(BaseModel<?> entryRemoteModel) {
-		_entryRemoteModel = entryRemoteModel;
-	}
-
-	public Object invokeOnRemoteModel(String methodName,
-		Class<?>[] parameterTypes, Object[] parameterValues)
-		throws Exception {
-		Object[] remoteParameterValues = new Object[parameterValues.length];
-
-		for (int i = 0; i < parameterValues.length; i++) {
-			if (parameterValues[i] != null) {
-				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
-			}
-		}
-
-		Class<?> remoteModelClass = _entryRemoteModel.getClass();
-
-		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
-
-		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
-
-		for (int i = 0; i < parameterTypes.length; i++) {
-			if (parameterTypes[i].isPrimitive()) {
-				remoteParameterTypes[i] = parameterTypes[i];
-			}
-			else {
-				String parameterTypeName = parameterTypes[i].getName();
-
-				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
-			}
-		}
-
-		Method method = remoteModelClass.getMethod(methodName,
-				remoteParameterTypes);
-
-		Object returnValue = method.invoke(_entryRemoteModel,
-				remoteParameterValues);
-
-		if (returnValue != null) {
-			returnValue = ClpSerializer.translateOutput(returnValue);
-		}
-
-		return returnValue;
-	}
-
-	@Override
-	public void persist() {
-		if (this.isNew()) {
-			EntryLocalServiceUtil.addEntry(this);
-		}
-		else {
-			EntryLocalServiceUtil.updateEntry(this);
-		}
+	public void setUserUuid(String userUuid) {
 	}
 
 	@Override
 	public Entry toEscapedModel() {
-		return (Entry)ProxyUtil.newProxyInstance(Entry.class.getClassLoader(),
-			new Class[] { Entry.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public Object clone() {
-		EntryClp clone = new EntryClp();
-
-		clone.setEntryId(getEntryId());
-		clone.setGroupId(getGroupId());
-		clone.setCompanyId(getCompanyId());
-		clone.setUserId(getUserId());
-		clone.setUserName(getUserName());
-		clone.setCreateDate(getCreateDate());
-		clone.setModifiedDate(getModifiedDate());
-		clone.setFullName(getFullName());
-		clone.setEmailAddress(getEmailAddress());
-		clone.setComments(getComments());
-
-		return clone;
-	}
-
-	@Override
-	public int compareTo(Entry entry) {
-		int value = 0;
-
-		value = getFullName().compareToIgnoreCase(entry.getFullName());
-
-		if (value != 0) {
-			return value;
-		}
-
-		return 0;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof EntryClp)) {
-			return false;
-		}
-
-		EntryClp entry = (EntryClp)obj;
-
-		long primaryKey = entry.getPrimaryKey();
-
-		if (getPrimaryKey() == primaryKey) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public Class<?> getClpSerializerClass() {
-		return _clpSerializerClass;
-	}
-
-	@Override
-	public int hashCode() {
-		return (int)getPrimaryKey();
-	}
-
-	@Override
-	public boolean isEntityCacheEnabled() {
-		return _entityCacheEnabled;
-	}
-
-	@Override
-	public boolean isFinderCacheEnabled() {
-		return _finderCacheEnabled;
+		return (Entry)ProxyUtil.newProxyInstance(
+			Entry.class.getClassLoader(), new Class[] {Entry.class},
+			new AutoEscapeBeanHandler(this));
 	}
 
 	@Override
@@ -584,15 +590,18 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		sb.append("</model-name>");
 
 		sb.append(
-			"<column><column-name>entryId</column-name><column-value><![CDATA[");
+			"<column><column-name>entryId</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getEntryId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+			"<column><column-name>groupId</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getGroupId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+			"<column><column-name>companyId</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
@@ -600,27 +609,33 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
+			"<column><column-name>userName</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+			"<column><column-name>createDate</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+			"<column><column-name>modifiedDate</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>fullName</column-name><column-value><![CDATA[");
+			"<column><column-name>fullName</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getFullName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>emailAddress</column-name><column-value><![CDATA[");
+			"<column><column-name>emailAddress</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getEmailAddress());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>comments</column-name><column-value><![CDATA[");
+			"<column><column-name>comments</column-name><column-value>" +
+				"<![CDATA[");
 		sb.append(getComments());
 		sb.append("]]></column-value></column>");
 
@@ -629,18 +644,20 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		return sb.toString();
 	}
 
-	private long _entryId;
-	private long _groupId;
+	private final Class<?> _clpSerializerClass =
+		com.liferay.contacts.service.ClpSerializer.class;
+	private String _comments;
 	private long _companyId;
+	private Date _createDate;
+	private String _emailAddress;
+	private boolean _entityCacheEnabled;
+	private long _entryId;
+	private BaseModel<?> _entryRemoteModel;
+	private boolean _finderCacheEnabled;
+	private String _fullName;
+	private long _groupId;
+	private Date _modifiedDate;
 	private long _userId;
 	private String _userName;
-	private Date _createDate;
-	private Date _modifiedDate;
-	private String _fullName;
-	private String _emailAddress;
-	private String _comments;
-	private BaseModel<?> _entryRemoteModel;
-	private Class<?> _clpSerializerClass = com.liferay.contacts.service.ClpSerializer.class;
-	private boolean _entityCacheEnabled;
-	private boolean _finderCacheEnabled;
+
 }
