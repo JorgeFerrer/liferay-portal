@@ -21,15 +21,19 @@ import com.liferay.portal.kernel.util.PortletKeys;
  */
 public class ContactsPortletKeys extends PortletKeys {
 
-	public static final String CONTACTS_CENTER = "com_liferay_contacts_web_portlet_ContactsCenterPortlet";
+	public static final String CONTACTS_CENTER =
+		"com_liferay_contacts_web_portlet_ContactsCenterPortlet";
 
-	public static final String MEMBERS = "com_liferay_contacts_web_portlet_MembersPortlet";
+	public static final String MEMBERS =
+		"com_liferay_contacts_web_portlet_MembersPortlet";
 
-	public static final String MY_CONTACTS = "com_liferay_contacts_web_portlet_MyContactsPortlet";
+	public static final String MY_CONTACTS =
+		"com_liferay_contacts_web_portlet_MyContactsPortlet";
 
 	public static final String PRIVATE_MESSAGING =
 		"1_WAR_privatemessagingportlet";
 
-	public static final String PROFILE = "com_liferay_contacts_web_portlet_ProfilePortlet";
+	public static final String PROFILE =
+		"com_liferay_contacts_web_portlet_ProfilePortlet";
 
 }
