@@ -27,6 +27,10 @@ import java.io.IOException;
  */
 public class LocationVariableResolver {
 
+	public static final String FILE = "file";
+	public static final String RESOURCE = "resource";
+	public static final String SERVER_PROPERTY = "server-property";
+
 	public LocationVariableResolver(
 		ResourceManager resourceManager, SettingsFactory settingsFactory) {
 
@@ -53,13 +57,13 @@ public class LocationVariableResolver {
 		String protocol = _getProtocol(value);
 		String location = _getLocation(value);
 
-		if (protocol.equals("resource")) {
+		if (protocol.equals(RESOURCE)) {
 			return _resolveResource(location);
 		}
-		else if (protocol.equals("file")) {
+		else if (protocol.equals(FILE)) {
 			return _resolveFile(location);
 		}
-		else if (protocol.equals("server-property")) {
+		else if (protocol.equals(SERVER_PROPERTY)) {
 			return _resolveServerProperty(location);
 		}
 
