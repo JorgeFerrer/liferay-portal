@@ -50,9 +50,9 @@ public class ContactsExtensionsUtil {
 		_extensions.remove(servletContextName);
 	}
 
-	private static ContactsExtensionsUtil _instance =
+	private static final ContactsExtensionsUtil _instance =
 		new ContactsExtensionsUtil();
 
-	private Map<String, String> _extensions;
+	private final Map<String, String> _extensions;
 
 }
