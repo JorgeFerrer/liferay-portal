@@ -51,7 +51,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>targetContainer</name>
+			<name>targetNode</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
@@ -3253,6 +3253,13 @@
 		<tag-class>com.liferay.taglib.ui.OrganizationSearchContainerResultsTag</tag-class>
 		<body-content>JSP</body-content>
 		<attribute>
+			<description>Whether to force use the database for search. The default value is <![CDATA[<code>false</code>]]>.</description>
+			<name>forceDatabase</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
 			<name>organizationParams</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -3261,13 +3268,6 @@
 			<name>parentOrganizationId</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description>Whether to use the indexer for search. The default value is <![CDATA[<code>true</code>]]>.</description>
-			<name>useIndexer</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>boolean</type>
 		</attribute>
 	</tag>
 	<tag>
@@ -4904,6 +4904,11 @@
 			<description>Explicit message text or the name of a language key from which to derive the message text.</description>
 			<name>message</name>
 			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>targetNode</name>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>

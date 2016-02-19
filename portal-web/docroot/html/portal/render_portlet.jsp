@@ -221,7 +221,13 @@ if (group.isLayoutPrototype()) {
 	showExportImportIcon = false;
 }
 
-if ((group.isStaged() || group.isStagedRemotely()) && !group.hasLocalOrRemoteStagingGroup()) {
+Group checkingStagingGroup = group;
+
+if (checkingStagingGroup.isControlPanel()) {
+	checkingStagingGroup = GroupLocalServiceUtil.fetchGroup(themeDisplay.getSiteGroupId());
+}
+
+if ((checkingStagingGroup.isStaged() || checkingStagingGroup.isStagedRemotely()) && !checkingStagingGroup.hasLocalOrRemoteStagingGroup()) {
 	showStagingIcon = true;
 }
 
@@ -488,9 +494,10 @@ urlConfiguration.setParameter("resourcePrimKey", portletPrimaryKey);
 
 portletDisplay.setURLConfiguration(urlConfiguration.toString());
 
-StringBuilder urlConfigurationJSSB = new StringBuilder(14);
+StringBuilder urlConfigurationJSSB = new StringBuilder(15);
 
-urlConfigurationJSSB.append("Liferay.Portlet.openWindow({bodyCssClass: 'dialog-with-footer',");
+urlConfigurationJSSB.append("Liferay.Portlet.openWindow({bodyCssClass: 'dialog-with-footer', ");
+urlConfigurationJSSB.append("destroyOnHide: true, ");
 urlConfigurationJSSB.append("namespace: '");
 urlConfigurationJSSB.append(portletDisplay.getNamespace());
 urlConfigurationJSSB.append("', portlet: '#p_p_id_");
@@ -934,15 +941,12 @@ Boolean renderPortletBoundary = GetterUtil.getBoolean(request.getAttribute(WebKe
 		cssClasses += StringPool.SPACE + portletResourcePortlet.getCssClassWrapper();
 	}
 
-	String defaultScreenCssClasses = StringPool.BLANK;
-
 	if ((portletVisibility != null) && !layout.isTypeControlPanel()) {
-		defaultScreenCssClasses += " lfr-configurator-visibility";
+		cssClasses += " lfr-configurator-visibility";
 	}
 	%>
 
 	<div class="<%= cssClasses %>" id="p_p_id<%= HtmlUtil.escapeAttribute(renderResponseImpl.getNamespace()) %>" <%= freeformStyles %>>
-		<div class="<%= defaultScreenCssClasses %>" id="p_p_id<%= HtmlUtil.escapeAttribute(renderResponseImpl.getNamespace()) %>-defaultScreen">
 </c:if>
 
 <c:choose>
@@ -1094,7 +1098,6 @@ else {
 </aui:script>
 
 <c:if test="<%= renderPortletBoundary %>">
-		</div>
 	</div>
 </c:if>
 

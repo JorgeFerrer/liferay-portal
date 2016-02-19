@@ -1,4 +1,5 @@
 <definition component-name="portal-collaboration">
+	<property name="custom.properties" value="default.layout.template.id=1_column" />
 	<property name="testray.main.component.name" value="Message Boards" />
 
 	<var name="pageName" value="Message Boards Page" />
@@ -79,7 +80,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="Message Boards Subject" />
 			<var name="threadSubject" value="Message Boards Subject" />
 		</execute>
@@ -311,7 +311,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="2" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadSubject" value="MB Thread Message Subject" />
 		</execute>
 
@@ -463,7 +462,6 @@
 			<var name="categoryDescription" value="MB Category2 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Root Thread Message Body" />
 			<var name="threadSubject" value="MB Root Thread Message Subject" />
 		</execute>
@@ -537,7 +535,6 @@
 			<var name="categoryDescription" value="MB Category1 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread1 Message Body" />
 			<var name="threadSubject" value="MB Thread1 Message Subject" />
 		</execute>
@@ -561,7 +558,6 @@
 			<var name="categoryDescription" value="MB Category2 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread2 Message Body" />
 			<var name="threadSubject" value="MB Thread2 Message Subject" />
 		</execute>
@@ -608,7 +604,6 @@
 			<var name="categoryDescription" value="MB Category4 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Root Thread2 Message Body" />
 			<var name="threadSubject" value="MB Root Thread2 Message Subject" />
 		</execute>
@@ -682,7 +677,6 @@
 			<var name="categoryDescription" value="MB Category3 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread3 Message Body" />
 			<var name="threadSubject" value="MB Thread3 Message Subject" />
 		</execute>
@@ -706,7 +700,6 @@
 			<var name="categoryDescription" value="MB Category4 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread4 Message Body" />
 			<var name="threadSubject" value="MB Thread4 Message Subject" />
 		</execute>
@@ -723,7 +716,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Root Thread2 Message Body" />
 			<var name="threadSubject" value="MB Root Thread2 Message Subject" />
 		</execute>
@@ -770,7 +762,6 @@
 			<var name="categoryDescription" value="MB Category3 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread3 Message Body" />
 			<var name="threadSubject" value="MB Thread3 Message Subject" />
 		</execute>
@@ -794,7 +785,6 @@
 			<var name="categoryDescription" value="MB Category4 Description" />
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread4 Message Body" />
 			<var name="threadSubject" value="MB Thread4 Message Subject" />
 		</execute>
@@ -1185,7 +1175,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="userfn2 userln2" />
 			<var name="postCount" value="3" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread Message Body" />
 			<var name="threadSubject" value="MB Thread Message Subject" />
 		</execute>
@@ -1202,7 +1191,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="userfn2 userln2" />
 			<var name="postCount" value="3" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="MB Thread Message Body" />
 			<var name="threadSubject" value="MB Thread Message Subject" />
 		</execute>
@@ -1282,7 +1270,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="1" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadBody" value="${threadBody}" />
 			<var name="threadSubject" value="${threadSubject}" />
 		</execute>
@@ -1540,7 +1527,6 @@
 		<execute macro="MessageboardsThread#gotoPG">
 			<var name="lastPostUserName" value="Test Test" />
 			<var name="postCount" value="2" />
-			<var name="startedByUserName" value="Test Test" />
 			<var name="threadSubject" value="MB Thread Message Subject" />
 		</execute>
 

@@ -1,4 +1,5 @@
 <definition component-name="portal-collaboration">
+	<property name="custom.properties" value="default.layout.template.id=1_column" />
 	<property name="testray.main.component.name" value="Blogs" />
 
 	<var name="pageName" value="Blogs Page" />
@@ -496,16 +497,6 @@
 			<var name="entryContent2" value="Blogs Entry2 Content" />
 			<var name="entryTitle" value="Blogs Entry1 Title" />
 			<var name="entryTitle2" value="Blogs Entry2 Title" />
-		</execute>
-	</command>
-
-	<command name="AddBlogsPortletDuplicate" priority="4">
-		<execute macro="Page#gotoPG">
-			<var name="pageName" value="${pageName}" />
-		</execute>
-
-		<execute macro="Portlet#addDuplicatePG">
-			<var name="portletName" value="Blogs" />
 		</execute>
 	</command>
 
