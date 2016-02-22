@@ -160,6 +160,20 @@ long usedMemory = totalMemory - runtime.freeMemory();
 	</liferay-ui:panel>
 
 	<liferay-ui:panel collapsible="<%= true %>" cssClass="server-admin-actions-panel" extended="<%= true %>" id="adminServerAdministrationIndexActionsPanel" markupView="lexicon" persistState="<%= true %>" title="index-actions">
+
+		<div class="clearfix alert alert-info">
+			<div class="pull-left">
+				<liferay-ui:message key="view-reindexing-history" />
+			</div>
+			<div class="pull-right">
+				<liferay-portlet:renderURL var="reindexBackgroundTasksURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+					<portlet:param name="mvcRenderCommandName" value="/server_admin/renidex_background_tasks" />
+				</liferay-portlet:renderURL>
+
+				<aui:button name="reindexHistroy" href="<%= reindexBackgroundTasksURL %>" useDialog="<%= true %>" value="reindex-history" />
+			</div>
+		</div>
+
 		<ul class="list-group system-action-group">
 			<li class="clearfix list-group-item">
 				<div class="pull-left">

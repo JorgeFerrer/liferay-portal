@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.exportimport.kernel.background.task;
+package com.liferay.background.task.kernel;
 
 /**
  * @author Michael C. Han
@@ -46,5 +46,13 @@ public class BackgroundTaskExecutorNames {
 	public static final String PORTLET_STAGING_BACKGROUND_TASK_EXECUTOR =
 		"com.liferay.exportimport.background.task." +
 			"PortletStagingBackgroundTaskExecutor";
+
+	public static final String RIENDEX_PORTAL_BACKGROUND_TASK_EXECUTOR =
+		"com.liferay.portal.search.internal.background.task." +
+			"ReindexPortalBackgroundTaskExecutor";
+
+	public static final String RIENDEX_SINGLE_BACKGROUND_TASK_EXECUTOR =
+		"com.liferay.portal.search.internal.background.task." +
+			"ReindexSingleIndexerBackgroundTaskExecutor";
 
 }

@@ -15,7 +15,7 @@
 package com.liferay.portlet.exportimport.service.impl;
 
 import com.liferay.document.library.kernel.util.DLValidatorUtil;
-import com.liferay.exportimport.kernel.background.task.BackgroundTaskExecutorNames;
+import com.liferay.background.task.kernel.BackgroundTaskExecutorNames;
 import com.liferay.exportimport.kernel.controller.ExportController;
 import com.liferay.exportimport.kernel.controller.ExportImportControllerRegistryUtil;
 import com.liferay.exportimport.kernel.controller.ImportController;

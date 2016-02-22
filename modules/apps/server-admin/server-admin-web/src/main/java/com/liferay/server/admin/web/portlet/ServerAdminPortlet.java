@@ -14,9 +14,14 @@
 
 package com.liferay.server.admin.web.portlet;
 
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
+import com.liferay.portal.kernel.backgroundtask.BackgroundTaskManagerUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortletKeys;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 
 import org.osgi.service.component.annotations.Component;
@@ -48,4 +53,15 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class ServerAdminPortlet extends MVCPortlet {
+
+	public void deleteBackgroundTask(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		long backgroundTaskId = ParamUtil.getLong(
+			actionRequest, BackgroundTaskConstants.BACKGROUND_TASK_ID);
+
+		BackgroundTaskManagerUtil.deleteBackgroundTask(backgroundTaskId);
+	}
+
 }

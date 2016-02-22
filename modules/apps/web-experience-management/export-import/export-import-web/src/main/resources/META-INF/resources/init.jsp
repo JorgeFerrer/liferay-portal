@@ -30,7 +30,7 @@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.background.task.kernel.util.comparator.BackgroundTaskComparatorFactoryUtil" %><%@
 page import="com.liferay.dynamic.data.mapping.exception.StructureDuplicateStructureKeyException" %><%@
-page import="com.liferay.exportimport.kernel.background.task.BackgroundTaskExecutorNames" %><%@
+page import="com.liferay.background.task.kernel.BackgroundTaskExecutorNames" %><%@
 page import="com.liferay.exportimport.kernel.configuration.ExportImportConfigurationConstants" %><%@
 page import="com.liferay.exportimport.kernel.exception.LARFileException" %><%@
 page import="com.liferay.exportimport.kernel.exception.LARFileNameException" %><%@
