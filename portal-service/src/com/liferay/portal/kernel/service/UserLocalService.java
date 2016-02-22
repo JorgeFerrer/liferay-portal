@@ -1030,6 +1030,19 @@ public interface UserLocalService extends BaseLocalService,
 	public int getOrganizationUsersCount(long organizationId, int status)
 		throws PortalException;
 
+	/**
+	* Returns the number of users with the status belonging to the
+	* organization.
+	*
+	* @param organizationId the primary key of the organization
+	* @param status the workflow status
+	* @param forceDatabase whether or not to force searching the database
+	* @return the number of users with the status belonging to the organization
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getOrganizationUsersCount(long organizationId, int status,
+		boolean forceDatabase) throws PortalException;
+
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)

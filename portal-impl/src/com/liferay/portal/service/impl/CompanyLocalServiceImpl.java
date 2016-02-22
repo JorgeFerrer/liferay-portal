@@ -1292,16 +1292,6 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 		layoutSetPrototypeActionableDynamicQuery.performActions();
 
-		// Organizations
-
-		DeleteOrganizationActionableDynamicQuery
-			deleteOrganizationActionableDynamicQuery =
-				new DeleteOrganizationActionableDynamicQuery();
-
-		deleteOrganizationActionableDynamicQuery.setCompanyId(companyId);
-
-		deleteOrganizationActionableDynamicQuery.performActions();
-
 		// Roles
 
 		ActionableDynamicQuery roleActionableDynamicQuery =
@@ -1374,6 +1364,16 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 		User defaultUser = userLocalService.getDefaultUser(companyId);
 
 		userLocalService.deleteUser(defaultUser);
+
+		// Organizations
+
+		DeleteOrganizationActionableDynamicQuery
+			deleteOrganizationActionableDynamicQuery =
+				new DeleteOrganizationActionableDynamicQuery();
+
+		deleteOrganizationActionableDynamicQuery.setCompanyId(companyId);
+
+		deleteOrganizationActionableDynamicQuery.performActions();
 
 		// Virtual host
 
