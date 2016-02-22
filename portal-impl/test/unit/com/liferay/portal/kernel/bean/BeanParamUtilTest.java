@@ -14,8 +14,8 @@
 
 package com.liferay.portal.kernel.bean;
 
-import com.liferay.portal.kernel.bean.BeanParamUtil;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
+import com.liferay.portal.kernel.util.StringPool;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,37 +42,7 @@ public class BeanParamUtilTest {
 
 		@Before
 		public void setUp() throws ConfigurationException {
-			TestBeanInterface originalBean = new TestBeanInterface() {
-				@Override
-				public boolean testBoolean1() {
-					return true;
-				}
-
-				@Override
-				public boolean testBoolean2() {
-					return true;
-				}
-
-				@Override
-				public String testString1() {
-					return BEAN_STRING;
-				}
-
-				@Override
-				public String testString2() {
-					return BEAN_STRING;
-				}
-
-				@Override
-				public String[] testStringArray1() {
-					return BEAN_STRING_ARRAY;
-				}
-
-				@Override
-				public String[] testStringArray2() {
-					return BEAN_STRING_ARRAY;
-				}
-			};
+			TestBeanInterface originalBean = _getTestBeanInterface();
 
 			Map<String, String[]> parameterMap = new HashMap<>();
 
@@ -106,16 +76,93 @@ public class BeanParamUtilTest {
 
 		private TestBeanInterface _testBean;
 
-		private interface TestBeanInterface {
+	}
 
-			public boolean testBoolean1();
-			public boolean testBoolean2();
-			public String testString1();
-			public String testString2();
-			public String[] testStringArray1();
-			public String[] testStringArray2();
+	public static class WhenSettingAParameterMapWithPrefixes {
 
+		@Before
+		public void setUp() throws ConfigurationException {
+			TestBeanInterface originalBean = _getTestBeanInterface();
+
+			Map<String, String[]> parameterMap = new HashMap<>();
+
+			parameterMap.put("prefix--testBoolean1--", new String[]{"false"});
+			parameterMap.put(
+				"prefix--testString1--", new String[]{PARAM_STRING});
+			parameterMap.put(
+				"prefix--testStringArray1--", PARAM_STRING_ARRAY);
+
+			_testBean = BeanParamUtil.setParameterMap(
+				TestBeanInterface.class, originalBean, parameterMap,
+				"prefix--", StringPool.DOUBLE_DASH);
 		}
+
+		@Test
+		public void valuesInTheParameterMapAreReadFirst() throws Exception {
+			Assert.assertEquals(false, _testBean.testBoolean1());
+			Assert.assertEquals(
+				PARAM_STRING, _testBean.testString1());
+			Assert.assertArrayEquals(
+				PARAM_STRING_ARRAY, _testBean.testStringArray1());
+		}
+
+		@Test
+		public void valuesNotInTheParameterMapAreReadFromBean()
+			throws Exception {
+
+			Assert.assertEquals(true, _testBean.testBoolean2());
+			Assert.assertEquals(
+				BEAN_STRING, _testBean.testString2());
+			Assert.assertArrayEquals(
+				BEAN_STRING_ARRAY, _testBean.testStringArray2());
+		}
+
+		private TestBeanInterface _testBean;
+
+	}
+
+	private static TestBeanInterface _getTestBeanInterface() {
+		return new TestBeanInterface() {
+			@Override
+			public boolean testBoolean1() {
+				return true;
+			}
+
+			@Override
+			public boolean testBoolean2() {
+				return true;
+			}
+
+			@Override
+			public String testString1() {
+				return BEAN_STRING;
+			}
+
+			@Override
+			public String testString2() {
+				return BEAN_STRING;
+			}
+
+			@Override
+			public String[] testStringArray1() {
+				return BEAN_STRING_ARRAY;
+			}
+
+			@Override
+			public String[] testStringArray2() {
+				return BEAN_STRING_ARRAY;
+			}
+		};
+	}
+
+	private interface TestBeanInterface {
+
+		public boolean testBoolean1();
+		public boolean testBoolean2();
+		public String testString1();
+		public String testString2();
+		public String[] testStringArray1();
+		public String[] testStringArray2();
 
 	}
 

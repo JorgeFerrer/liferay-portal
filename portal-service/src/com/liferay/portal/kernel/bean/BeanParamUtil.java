@@ -432,4 +432,19 @@ public class BeanParamUtil {
 		return parameterOverrideInvocationHandler.createProxy();
 	}
 
+	public static <T> T setParameterMap(
+			Class<T> clazz, T configurationBean,
+			Map<String, String[]> parameterMap, String parameterPrefix,
+			String parameterSuffix)
+		throws ConfigurationException {
+
+		ParameterOverrideInvocationHandler<T>
+			parameterOverrideInvocationHandler =
+				new ParameterOverrideInvocationHandler<>(
+					clazz, configurationBean, parameterMap, parameterPrefix,
+					parameterSuffix);
+
+		return parameterOverrideInvocationHandler.createProxy();
+	}
+
 }

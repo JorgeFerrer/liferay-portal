@@ -16,6 +16,8 @@ package com.liferay.portal.kernel.bean;
 
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
@@ -32,9 +34,18 @@ public class ParameterOverrideInvocationHandler<S>
 	public ParameterOverrideInvocationHandler(
 		Class clazz, Object bean, Map<String, String[]> parameterMap) {
 
+		this(clazz, bean, parameterMap, StringPool.BLANK, StringPool.BLANK);
+	}
+
+	public ParameterOverrideInvocationHandler(
+		Class clazz, Object bean, Map<String, String[]> parameterMap,
+		String parameterPrefix, String parameterSuffix) {
+
 		_clazz = clazz;
 		_bean = bean;
 		_parameterMap = parameterMap;
+		_parameterPrefix = parameterPrefix;
+		_parameterSuffix = parameterSuffix;
 	}
 
 	public S createProxy() {
@@ -133,7 +144,7 @@ public class ParameterOverrideInvocationHandler<S>
 			return _getMapValue(method.getName());
 		}
 		else if (returnType.equals(String[].class)) {
-			return _parameterMap.get(method.getName());
+			return _getMapValueArray(method.getName());
 		}
 		else if (returnType.isEnum()) {
 			Method valueOfMethod = returnType.getDeclaredMethod(
@@ -150,7 +161,7 @@ public class ParameterOverrideInvocationHandler<S>
 	}
 
 	private String _getMapValue(String name) {
-		String[] values = _parameterMap.get(name);
+		String[] values = _getMapValueArray(name);
 
 		if (values == null) {
 			return null;
@@ -159,8 +170,22 @@ public class ParameterOverrideInvocationHandler<S>
 		return values[0];
 	}
 
+	private String[] _getMapValueArray(String name) {
+		String[] values = _parameterMap.get(
+			_parameterPrefix + name + _parameterSuffix);
+
+		if ((values == null) || (values.length == 0)) {
+			return null;
+		}
+
+		return values;
+	}
+
 	private final Object _bean;
 	private final Class _clazz;
 	private final Map<String, String[]> _parameterMap;
+	private final String _parameterPrefix;
+	private final String _parameterSuffix;
+
 
 }
