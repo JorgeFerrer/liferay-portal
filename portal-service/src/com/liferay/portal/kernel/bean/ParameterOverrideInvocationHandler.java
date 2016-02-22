@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -17,12 +17,12 @@ package com.liferay.portal.kernel.bean;
 import com.liferay.portal.kernel.settings.LocalizedValuesMap;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import java.util.Map;
 
 /**
@@ -61,7 +61,8 @@ public class ParameterOverrideInvocationHandler<S>
 
 		try {
 			result = _invokeMap(method);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 		}
 
 		if (result != null) {
@@ -70,9 +71,31 @@ public class ParameterOverrideInvocationHandler<S>
 
 		try {
 			return _invokeConfigurationInstance(method, args);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return null;
 		}
+	}
+
+	private String _getMapValue(String name) {
+		String[] values = _getMapValueArray(name);
+
+		if (values == null) {
+			return null;
+		}
+
+		return values[0];
+	}
+
+	private String[] _getMapValueArray(String name) {
+		String[] values = _parameterMap.get(
+			_parameterPrefix + name + _parameterSuffix);
+
+		if ((values == null) || (values.length == 0)) {
+			return null;
+		}
+
+		return values;
 	}
 
 	private Object _invokeConfigurationInstance(Method method, Object[] args)
@@ -156,29 +179,7 @@ public class ParameterOverrideInvocationHandler<S>
 
 		Constructor<?> constructor = returnType.getConstructor(String.class);
 
-		return constructor.newInstance(
-			_parameterMap.get(method.getName()));
-	}
-
-	private String _getMapValue(String name) {
-		String[] values = _getMapValueArray(name);
-
-		if (values == null) {
-			return null;
-		}
-
-		return values[0];
-	}
-
-	private String[] _getMapValueArray(String name) {
-		String[] values = _parameterMap.get(
-			_parameterPrefix + name + _parameterSuffix);
-
-		if ((values == null) || (values.length == 0)) {
-			return null;
-		}
-
-		return values;
+		return constructor.newInstance(_parameterMap.get(method.getName()));
 	}
 
 	private final Object _bean;
@@ -186,6 +187,5 @@ public class ParameterOverrideInvocationHandler<S>
 	private final Map<String, String[]> _parameterMap;
 	private final String _parameterPrefix;
 	private final String _parameterSuffix;
-
 
 }
