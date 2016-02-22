@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -16,14 +16,15 @@ package com.liferay.portal.kernel.bean;
 
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.util.StringPool;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Jorge Ferrer
@@ -31,12 +32,15 @@ import java.util.Map;
 @RunWith(Enclosed.class)
 public class BeanParamUtilTest {
 
-	public static final String BEAN_STRING = "TEST";
+	public static final String BEAN_STRING = "BEAN";
+
 	public static final String[] BEAN_STRING_ARRAY =
-		new String[]{"TEST1", "TEST2"};
+		new String[] {"BEAN1", "BEAN2"};
+
 	public static final String PARAM_STRING = "PARAM";
+
 	public static final String[] PARAM_STRING_ARRAY =
-		new String[]{"PARAM1", "PARAM2"};
+		new String[] {"PARAM1", "PARAM2"};
 
 	public static class WhenSettingAParameterMap {
 
@@ -46,8 +50,8 @@ public class BeanParamUtilTest {
 
 			Map<String, String[]> parameterMap = new HashMap<>();
 
-			parameterMap.put("testBoolean1", new String[]{"false"});
-			parameterMap.put("testString1", new String[]{PARAM_STRING});
+			parameterMap.put("testBoolean1", new String[] {"false"});
+			parameterMap.put("testString1", new String[] {PARAM_STRING});
 			parameterMap.put("testStringArray1", PARAM_STRING_ARRAY);
 
 			_testBean = BeanParamUtil.setParameterMap(
@@ -57,8 +61,7 @@ public class BeanParamUtilTest {
 		@Test
 		public void valuesInTheParameterMapAreReadFirst() throws Exception {
 			Assert.assertEquals(false, _testBean.testBoolean1());
-			Assert.assertEquals(
-				PARAM_STRING, _testBean.testString1());
+			Assert.assertEquals(PARAM_STRING, _testBean.testString1());
 			Assert.assertArrayEquals(
 				PARAM_STRING_ARRAY, _testBean.testStringArray1());
 		}
@@ -68,8 +71,7 @@ public class BeanParamUtilTest {
 			throws Exception {
 
 			Assert.assertEquals(true, _testBean.testBoolean2());
-			Assert.assertEquals(
-				BEAN_STRING, _testBean.testString2());
+			Assert.assertEquals(BEAN_STRING, _testBean.testString2());
 			Assert.assertArrayEquals(
 				BEAN_STRING_ARRAY, _testBean.testStringArray2());
 		}
@@ -86,22 +88,20 @@ public class BeanParamUtilTest {
 
 			Map<String, String[]> parameterMap = new HashMap<>();
 
-			parameterMap.put("prefix--testBoolean1--", new String[]{"false"});
+			parameterMap.put("prefix--testBoolean1--", new String[] {"false"});
 			parameterMap.put(
-				"prefix--testString1--", new String[]{PARAM_STRING});
-			parameterMap.put(
-				"prefix--testStringArray1--", PARAM_STRING_ARRAY);
+				"prefix--testString1--", new String[] {PARAM_STRING});
+			parameterMap.put("prefix--testStringArray1--", PARAM_STRING_ARRAY);
 
 			_testBean = BeanParamUtil.setParameterMap(
-				TestBeanInterface.class, originalBean, parameterMap,
-				"prefix--", StringPool.DOUBLE_DASH);
+				TestBeanInterface.class, originalBean, parameterMap, "prefix--",
+				StringPool.DOUBLE_DASH);
 		}
 
 		@Test
 		public void valuesInTheParameterMapAreReadFirst() throws Exception {
 			Assert.assertEquals(false, _testBean.testBoolean1());
-			Assert.assertEquals(
-				PARAM_STRING, _testBean.testString1());
+			Assert.assertEquals(PARAM_STRING, _testBean.testString1());
 			Assert.assertArrayEquals(
 				PARAM_STRING_ARRAY, _testBean.testStringArray1());
 		}
@@ -111,8 +111,7 @@ public class BeanParamUtilTest {
 			throws Exception {
 
 			Assert.assertEquals(true, _testBean.testBoolean2());
-			Assert.assertEquals(
-				BEAN_STRING, _testBean.testString2());
+			Assert.assertEquals(BEAN_STRING, _testBean.testString2());
 			Assert.assertArrayEquals(
 				BEAN_STRING_ARRAY, _testBean.testStringArray2());
 		}
@@ -123,6 +122,7 @@ public class BeanParamUtilTest {
 
 	private static TestBeanInterface _getTestBeanInterface() {
 		return new TestBeanInterface() {
+
 			@Override
 			public boolean testBoolean1() {
 				return true;
@@ -152,16 +152,22 @@ public class BeanParamUtilTest {
 			public String[] testStringArray2() {
 				return BEAN_STRING_ARRAY;
 			}
+
 		};
 	}
 
 	private interface TestBeanInterface {
 
 		public boolean testBoolean1();
+
 		public boolean testBoolean2();
+
 		public String testString1();
+
 		public String testString2();
+
 		public String[] testStringArray1();
+
 		public String[] testStringArray2();
 
 	}
