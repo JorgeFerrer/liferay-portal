@@ -67,7 +67,9 @@
 	</c:when>
 	<c:otherwise>
 		<div class="container-fluid-1280">
-			<liferay-util:include page="/html/portal/portlet_access_denied.jsp" />
+			<div class="alert alert-danger">
+				<liferay-ui:message key="you-do-not-have-the-roles-required-to-access-this-portlet" />
+			</div>
 		</div>
 	</c:otherwise>
 </c:choose>

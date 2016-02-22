@@ -63,6 +63,8 @@
 		</aui:script>
 	</c:when>
 	<c:otherwise>
-		<liferay-util:include page="/portlet_access_denied.jsp" servletContext="<%= application %>" />
+		<div class="alert alert-danger">
+			<liferay-ui:message key="you-do-not-have-the-roles-required-to-access-this-portlet" />
+		</div>
 	</c:otherwise>
 </c:choose>
