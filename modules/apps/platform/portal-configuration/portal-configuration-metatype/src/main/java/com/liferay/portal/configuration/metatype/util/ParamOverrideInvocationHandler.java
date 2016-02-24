@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -28,8 +28,7 @@ import java.util.Map;
 /**
  * @author Jorge Ferrer
  */
-public class ParamOverrideInvocationHandler<S>
-	implements InvocationHandler {
+public class ParamOverrideInvocationHandler<S> implements InvocationHandler {
 
 	public ParamOverrideInvocationHandler(
 		Class clazz, Object bean, Map<String, String[]> parameterMap) {
