@@ -71,7 +71,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -146,12 +145,6 @@ public class MediaWikiImporter implements WikiImporter {
 		catch (Exception e) {
 			throw new PortalException(e);
 		}
-	}
-
-	@Activate
-	protected void activate() {
-		_wikiPageTitlesRemovePattern = Pattern.compile(
-			_wikiGroupServiceConfiguration.pageTitlesRemoveRegexp());
 	}
 
 	protected String getCreoleRedirectContent(String redirectTitle) {
@@ -333,7 +326,7 @@ public class MediaWikiImporter implements WikiImporter {
 	}
 
 	protected String normalizeTitle(String title) {
-		Matcher matcher = _wikiPageTitlesRemovePattern.matcher(title);
+		Matcher matcher = _pageTitlePattern.matcher(title);
 
 		title = matcher.replaceAll(StringPool.BLANK);
 
@@ -747,6 +740,8 @@ public class MediaWikiImporter implements WikiImporter {
 		"\\[\\[[Cc]ategory:([^\\]]*)\\]\\][\\n]*");
 	private static final Pattern _imagesPattern = Pattern.compile(
 		"(\\[\\[Image|File)(:)([^\\]]*)(\\]\\])", Pattern.DOTALL);
+	private static Pattern _pageTitlePattern = Pattern.compile(
+		"[\\\\\\[\\]\\|:;%<>]+");
 	private static final Pattern _parentPattern = Pattern.compile(
 		"\\{{2}OtherTopics\\|([^\\}]*)\\}{2}");
 	private static final Pattern _redirectPattern = Pattern.compile(
@@ -760,6 +755,5 @@ public class MediaWikiImporter implements WikiImporter {
 	private UserLocalService _userLocalService;
 	private WikiGroupServiceConfiguration _wikiGroupServiceConfiguration;
 	private WikiPageLocalService _wikiPageLocalService;
-	private Pattern _wikiPageTitlesRemovePattern;
 
 }
