@@ -208,7 +208,7 @@ long usedMemory = totalMemory - runtime.freeMemory();
 
 						</c:when>
 						<c:otherwise>
-							<%= backgroundTaskDisplay.getStatusMessage() %>
+							<%= backgroundTaskDisplay.renderDisplayTemplate() %>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -243,7 +243,7 @@ long usedMemory = totalMemory - runtime.freeMemory();
 								<aui:button cssClass="save-server-button" data-classname="<%= indexer.getClassName() %>" data-cmd="reindex" disabled="<%= !indexer.isIndexerEnabled() %>" value="execute" />
 							</c:when>
 							<c:otherwise>
-								<%= backgroundTaskDisplay.getStatusMessage() %>
+								<%= backgroundTaskDisplay.renderDisplayTemplate() %>
 							</c:otherwise>
 						</c:choose>
 					</div>
