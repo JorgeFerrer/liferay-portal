@@ -97,7 +97,11 @@ public abstract class BaseBackgroundTaskDisplay
 		template.put(
 			"statusMessageJSONObject", getStatusMessageJSONObject(locale));
 
-		template.putAll(getTemplateVars());
+		Map<String, Object> templateVars = getTemplateVars();
+
+		if (templateVars != null) {
+			template.putAll(getTemplateVars());
+		}
 
 		Writer writer = new UnsyncStringWriter();
 
