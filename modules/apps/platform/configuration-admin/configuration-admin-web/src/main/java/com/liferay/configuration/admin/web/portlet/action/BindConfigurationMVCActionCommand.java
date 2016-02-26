@@ -30,6 +30,8 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -128,9 +130,52 @@ public class BindConfigurationMVCActionCommand implements MVCActionCommand {
 			properties.put(ConfigurationAdmin.SERVICE_FACTORYPID, factoryPid);
 		}
 
+		encodeVariables(configurationModel, properties);
 		configureTargetService(configurationModel, configuration, properties);
 
 		return true;
+	}
+
+	private void encodeVariables(
+		ConfigurationModel configurationModel, 
+		Dictionary<String, Object> properties) {
+
+		Enumeration<String> keys = properties.keys();
+
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			Object valueObj = properties.get(key);
+
+			if ((valueObj == null) || !(valueObj instanceof String)) {
+				continue;
+			}
+
+			String value = (String) valueObj;
+
+			String[] defaultValueArray = configurationModel.getDefaultValue(
+				key);
+
+			if ((defaultValueArray == null) ||
+				(defaultValueArray.length == 0)) {
+
+				continue;
+			}
+
+			String defaultValue = defaultValueArray[0];
+
+			if (defaultValue.startsWith("${resource:") &&
+				!value.startsWith("${resource:")) {
+
+				String prefix = defaultValue.substring(
+					0, "${resource:".length());
+
+				String newValue =
+					prefix + StringPool.COLON + value +
+						StringPool.CLOSE_CURLY_BRACE;
+
+				properties.put(key, newValue);
+			}
+		}
 	}
 
 	protected void configureTargetService(

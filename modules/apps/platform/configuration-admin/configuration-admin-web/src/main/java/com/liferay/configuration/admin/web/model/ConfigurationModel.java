@@ -86,6 +86,17 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 		return _configuration;
 	}
 
+	public String[] getDefaultValue(String id) {
+		ExtendedAttributeDefinition extendedAttributeDefinition =
+			getExtendedAttributeDefinition(id);
+
+		if (extendedAttributeDefinition == null) {
+			return null;
+		}
+
+		return extendedAttributeDefinition.getDefaultValue();
+	}
+
 	@Override
 	public String getDescription() {
 		return _extendedObjectClassDefinition.getDescription();
