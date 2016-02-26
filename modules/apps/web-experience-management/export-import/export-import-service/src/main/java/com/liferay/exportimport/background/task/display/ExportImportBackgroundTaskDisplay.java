@@ -154,7 +154,6 @@ public class ExportImportBackgroundTaskDisplay
 		return sb.toString();
 	}
 
-	@Override
 	protected String getStatusMessageKey() {
 		if (Validator.isNotNull(_messageKey)) {
 			return _messageKey;

@@ -156,8 +156,6 @@ public abstract class BaseBackgroundTaskDisplay
 		return translateJSON(jsonObject, locale);
 	}
 
-	protected abstract String getStatusMessageKey();
-
 	protected abstract TemplateResource getTemplateResource();
 
 	protected abstract Map<String, Object> getTemplateVars();
