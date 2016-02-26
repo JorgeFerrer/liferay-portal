@@ -39,11 +39,6 @@ public class ReindexBackgroundTaskDisplay extends BaseBackgroundTaskDisplay {
 	}
 
 	@Override
-	protected String getStatusMessageKey() {
-		return null;
-	}
-
-	@Override
 	protected TemplateResource getTemplateResource() {
 		Class<?> clazz = getClass();
 
