@@ -73,12 +73,21 @@ public abstract class BaseBackgroundTaskDisplay
 	}
 
 	@Override
-	public String getStatusMessage() {
-		return getStatusMessage(Locale.getDefault());
+	public boolean hasPercentage() {
+		if (getPercentage() >= PERCENTAGE_MIN) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
-	public String getStatusMessage(Locale locale) {
+	public String renderDisplayTemplate() {
+		return renderDisplayTemplate(Locale.getDefault());
+	}
+
+	@Override
+	public String renderDisplayTemplate(Locale locale) {
 		TemplateResource templateResource = getTemplateResource();
 
 		if (templateResource == null) {
@@ -117,15 +126,6 @@ public abstract class BaseBackgroundTaskDisplay
 		}
 
 		return writer.toString();
-	}
-
-	@Override
-	public boolean hasPercentage() {
-		if (getPercentage() >= PERCENTAGE_MIN) {
-			return true;
-		}
-
-		return false;
 	}
 
 	protected long getBackgroundTaskStatusAttributeLong(String attributeKey) {
