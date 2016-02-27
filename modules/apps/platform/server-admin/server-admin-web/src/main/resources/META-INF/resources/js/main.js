@@ -189,7 +189,7 @@ AUI.add(
 										currentAdminIndexNodeList.each(function(node, index) {
 											var currentIsInProgress = !!node.one('.progress');
 
-											var responseAdminIndexNode = responseAdminIndexNodeList.item(index); 
+											var responseAdminIndexNode = responseAdminIndexNodeList.item(index);
 											var responseIsInProgress = !!responseAdminIndexNode.one('.progress');
 
 											if (currentIsInProgress || responseIsInProgress) {
