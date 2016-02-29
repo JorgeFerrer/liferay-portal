@@ -186,16 +186,21 @@ AUI.add(
 										var currentAdminIndexPanel = A.one(instance.get(STR_INDEX_ACTIONS_PANEL));
 										var currentAdminIndexNodeList = currentAdminIndexPanel.all('.index-action-wrapper');
 
-										currentAdminIndexNodeList.each(function(node, index) {
-											var currentIsInProgress = !!node.one('.progress');
+										currentAdminIndexNodeList.each(
+											function(item, index) {
+												var inProgress = item.one('.progress');
 
-											var responseAdminIndexNode = responseAdminIndexNodeList.item(index);
-											var responseIsInProgress = !!responseAdminIndexNode.one('.progress');
+												var responseAdminIndexNode = responseAdminIndexNodeList.item(index);
 
-											if (currentIsInProgress || responseIsInProgress) {
-												node.replace(responseAdminIndexNode);
+												if (!inProgress) {
+													inProgress = responseAdminIndexNode.one('.progress');
+												}
+
+												if (inProgress) {
+													item.replace(responseAdminIndexNode);
+												}
 											}
-										});
+										);
 									}
 								}
 							}
