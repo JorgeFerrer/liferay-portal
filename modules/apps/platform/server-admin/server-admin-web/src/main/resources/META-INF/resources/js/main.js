@@ -104,14 +104,6 @@ AUI.add(
 						form.append(inputsArray.join(''));
 					},
 
-					_isBackgroundTaskInProgress: function() {
-						var instance = this;
-
-						var indexActionsNode = A.one(instance.get(STR_INDEX_ACTIONS_PANEL));
-
-						return !!indexActionsNode.one('.background-task-status-in-progress');
-					},
-
 					_installXuggler: function(event) {
 						var instance = this;
 
@@ -128,6 +120,14 @@ AUI.add(
 								where: 'outer'
 							}
 						);
+					},
+
+					_isBackgroundTaskInProgress: function() {
+						var instance = this;
+
+						var indexActionsNode = A.one(instance.get(STR_INDEX_ACTIONS_PANEL));
+
+						return !!indexActionsNode.one('.background-task-status-in-progress');
 					},
 
 					_onSubmit: function(event) {
@@ -181,9 +181,11 @@ AUI.add(
 										var responseDataNode = A.Node.create(this.get('responseData'));
 
 										var responseAdminIndexPanel = responseDataNode.one(instance.get(STR_INDEX_ACTIONS_PANEL));
+
 										var responseAdminIndexNodeList = responseAdminIndexPanel.all('.index-action-wrapper');
 
 										var currentAdminIndexPanel = A.one(instance.get(STR_INDEX_ACTIONS_PANEL));
+
 										var currentAdminIndexNodeList = currentAdminIndexPanel.all('.index-action-wrapper');
 
 										currentAdminIndexNodeList.each(
