@@ -3,13 +3,13 @@ AUI.add(
 	function(A) {
 		var Lang = A.Lang;
 
+		var INTERVAL_RENDER_IDLE = 60000;
+
+		var INTERVAL_RENDER_IN_PROGRESS = 2000;
+
 		var MAP_DATA_PARAMS = {
 			classname: 'className'
 		};
-
-		var RENDER_INTERVAL_IDLE = 60000;
-
-		var RENDER_INTERVAL_IN_PROGRESS = 2000;
 
 		var STR_CLICK = 'click';
 
@@ -60,7 +60,7 @@ AUI.add(
 
 						instance.bindUI();
 
-						instance._laterTimeout = A.later(RENDER_INTERVAL_IN_PROGRESS, instance, instance._updateIndexActions);
+						instance._laterTimeout = A.later(INTERVAL_RENDER_IN_PROGRESS, instance, '_updateIndexActions');
 					},
 
 					bindUI: function() {
@@ -167,10 +167,10 @@ AUI.add(
 					_updateIndexActions: function() {
 						var instance = this;
 
-						var renderInterval = RENDER_INTERVAL_IDLE;
+						var renderInterval = INTERVAL_RENDER_IDLE;
 
 						if (instance._isBackgroundTaskInProgress()) {
-							renderInterval = RENDER_INTERVAL_IN_PROGRESS;
+							renderInterval = INTERVAL_RENDER_IN_PROGRESS;
 						}
 
 						A.io.request(
@@ -201,7 +201,7 @@ AUI.add(
 							}
 						);
 
-						instance._laterTimeout = A.later(renderInterval, instance, instance._updateIndexActions);
+						instance._laterTimeout = A.later(renderInterval, instance, '_updateIndexActions');
 					}
 				}
 			}
