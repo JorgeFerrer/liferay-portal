@@ -15,18 +15,24 @@
 package com.liferay.portal.verify;
 
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.ContactConstants;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.util.PortalInstances;
 
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +45,32 @@ public class VerifyUser extends VerifyProcess {
 
 	@Override
 	protected void doVerify() throws Exception {
+		verifyInactive();
+		verifyNoContacts();
+	}
+
+	protected void verifyInactive() throws Exception {
+		long[] companyIds = PortalInstances.getCompanyIdsBySQL();
+
+		for (long companyId : companyIds) {
+			List<User> users = UserLocalServiceUtil.search(
+				companyId, null, WorkflowConstants.STATUS_INACTIVE, null,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				(OrderByComparator<User>)null);
+
+			for (User user : users) {
+				Group group = user.getGroup();
+
+				if (group.isActive()) {
+					group.setActive(false);
+
+					GroupLocalServiceUtil.updateGroup(group);
+				}
+			}
+		}
+	}
+
+	protected void verifyNoContacts() throws PortalException {
 		List<User> users = UserLocalServiceUtil.getNoContacts();
 
 		if (_log.isDebugEnabled()) {
