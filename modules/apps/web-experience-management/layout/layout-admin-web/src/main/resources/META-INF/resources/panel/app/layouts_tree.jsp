@@ -190,6 +190,7 @@ LayoutsTreeDisplayContext layoutsTreeDisplayContext = new LayoutsTreeDisplayCont
 	</liferay-util:buffer>
 
 	<liferay-ui:success key="layoutAdded" message='<%= LanguageUtil.get(resourceBundle, "the-page-has-been-created-succesfully") %>' targetNode="#controlMenuAlertsContainer" />
+	<liferay-ui:success key="layoutDeleted" message='<%= LanguageUtil.get(resourceBundle, "the-page-has-been-deleted-succesfully") %>' targetNode="#controlMenuAlertsContainer" />
 
 	<c:if test="<%= layoutsTreeDisplayContext.isShowStagingProcessMessage() %>">
 		<div class="alert alert-default alert-dismissible" data-dismiss="alert" role="alert">
@@ -263,7 +264,8 @@ LayoutsTreeDisplayContext layoutsTreeDisplayContext = new LayoutsTreeDisplayCont
 					expandedTreeDialog = new Liferay.UrlPreview(
 						{
 							title: '<%= LanguageUtil.get(request, "pages") %>',
-							url: '<%= treeURL.toString() %>'
+							url: '<%= treeURL.toString() %>',
+							width: Liferay.Util.isPhone() ? '100%' : '900px'
 						}
 					);
 				}

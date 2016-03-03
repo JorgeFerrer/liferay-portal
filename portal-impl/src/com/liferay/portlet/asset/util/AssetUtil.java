@@ -407,7 +407,7 @@ public class AssetUtil {
 					themeDisplay.getScopeGroupId()),
 				themeDisplay.getLocale());
 
-			if ((classTypeIds.length == 0) || classTypes.isEmpty()) {
+			if (classTypes.isEmpty()) {
 				PortletURL addPortletURL = getAddPortletURL(
 					liferayPortletRequest, liferayPortletResponse, groupId,
 					className, 0, allAssetCategoryIds, allAssetTagNames,
