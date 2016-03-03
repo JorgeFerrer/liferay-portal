@@ -341,13 +341,13 @@ public class OrganizationLocalServiceImpl
 	public Organization deleteOrganization(Organization organization)
 		throws PortalException {
 
-		if (((userLocalService.getOrganizationUsersCount(
+		if (!CompanyThreadLocal.isDeleteInProcess() &&
+			((userLocalService.getOrganizationUsersCount(
 				organization.getOrganizationId(),
 				WorkflowConstants.STATUS_APPROVED) > 0) ||
 			 (organizationPersistence.countByC_P(
 				 organization.getCompanyId(),
-				 organization.getOrganizationId()) > 0)) &&
-			!CompanyThreadLocal.isDeleteInProcess()) {
+				 organization.getOrganizationId()) > 0))) {
 
 			throw new RequiredOrganizationException();
 		}
