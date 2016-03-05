@@ -285,7 +285,22 @@ PanelCategoryRegistry panelCategoryRegistry = (PanelCategoryRegistry)request.get
 				</div>
 			</div>
 
-			<c:if test="<%= role.getType() == RoleConstants.TYPE_REGULAR %>">
+			<%
+			List<PanelCategory> userPanelCategories = panelCategoryRegistry.getChildPanelCategories(PanelCategoryKeys.USER);
+
+			userPanelCategories = ListUtil.filter(
+				userPanelCategories,
+				new PredicateFilter<PanelCategory>() {
+
+					@Override
+					public boolean filter(PanelCategory panelCategory) {
+						return !PanelCategoryKeys.USER_MY_ACCOUNT.equals(panelCategory.getKey());
+					}
+
+				});
+			%>
+
+			<c:if test="<%= (role.getType() == RoleConstants.TYPE_REGULAR) && !userPanelCategories.isEmpty() %>">
 				<div class="permission-navigation-section">
 					<div class="permission-navigation-item-header toggler-header toggler-header-collapsed">
 						<span class="permission-navigation-item-header-icon">
@@ -299,7 +314,7 @@ PanelCategoryRegistry panelCategoryRegistry = (PanelCategoryRegistry)request.get
 					<div class="permission-navigation-item-content toggler-content toggler-content-collapsed">
 
 						<%
-						for (PanelCategory panelCategory : panelCategoryRegistry.getChildPanelCategories(PanelCategoryKeys.USER)) {
+						for (PanelCategory panelCategory : userPanelCategories) {
 							List<PanelApp> panelApps = panelAppRegistry.getPanelApps(panelCategory);
 						%>
 
