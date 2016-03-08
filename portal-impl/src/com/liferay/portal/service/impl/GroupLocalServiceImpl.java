@@ -800,8 +800,9 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			// Resources
 
 			List<ResourcePermission> resourcePermissions =
-				resourcePermissionPersistence.findByC_LikeP(
-					group.getCompanyId(), String.valueOf(group.getGroupId()));
+				resourcePermissionPersistence.findByC_S_P(
+					group.getCompanyId(), ResourceConstants.SCOPE_GROUP,
+					String.valueOf(group.getGroupId()));
 
 			for (ResourcePermission resourcePermission : resourcePermissions) {
 				resourcePermissionLocalService.deleteResourcePermission(
