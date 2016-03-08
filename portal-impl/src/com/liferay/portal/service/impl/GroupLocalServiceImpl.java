@@ -809,14 +809,6 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 					resourcePermission);
 			}
 
-			if (!group.isStagingGroup() &&
-				(group.isOrganization() || group.isRegularSite())) {
-
-				resourceLocalService.deleteResource(
-					group.getCompanyId(), Group.class.getName(),
-					ResourceConstants.SCOPE_INDIVIDUAL, group.getGroupId());
-			}
-
 			// Trash
 
 			trashEntryLocalService.deleteEntries(group.getGroupId());
@@ -879,6 +871,14 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 					userGroupGroupRoleLocalService.
 						deleteUserGroupGroupRolesByGroupId(group.getGroupId());
+				}
+
+				if (!group.isStagingGroup() &&
+					(group.isOrganization() || group.isRegularSite())) {
+
+					resourceLocalService.deleteResource(
+						group.getCompanyId(), Group.class.getName(),
+						ResourceConstants.SCOPE_INDIVIDUAL, group.getGroupId());
 				}
 
 				groupPersistence.remove(group);
