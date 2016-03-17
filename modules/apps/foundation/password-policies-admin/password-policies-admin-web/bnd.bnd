@@ -1,5 +1,7 @@
 Bundle-Name: Liferay Password Policies Admin Web
 Bundle-SymbolicName: com.liferay.password.policies.admin.web
 Bundle-Version: 1.0.0
+Include-Resource: @com.liferay.portal.impl-*.jar!/com/liferay/portal/model/PasswordPolicyImpl.class,\
+
 Liferay-Releng-Module-Group-Description:
 Liferay-Releng-Module-Group-Title:
