@@ -36,6 +36,10 @@ if (Validator.isNotNull(keywords)) {
 
 	renderResponse.setTitle(LanguageUtil.get(request, "search-results"));
 }
+
+String languageId = LanguageUtil.getLanguageId(request);
+
+ConfigurationModelNameComparator configurationModelNameComparator = new ConfigurationModelNameComparator(languageId, resourceBundleLoaderProvider);
 %>
 
 <aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
@@ -82,7 +86,7 @@ if (Validator.isNotNull(keywords)) {
 		total="<%= configurationModelIterator.getTotal() %>"
 	>
 		<liferay-ui:search-container-results
-			results="<%= configurationModelIterator.getResults(searchContainer.getStart(), searchContainer.getEnd()) %>"
+			results="<%= configurationModelIterator.getResults(searchContainer.getStart(), searchContainer.getEnd(), configurationModelNameComparator) %>"
 		/>
 
 		<liferay-ui:search-container-row
@@ -108,7 +112,7 @@ if (Validator.isNotNull(keywords)) {
 				<%
 				ResourceBundleLoader resourceBundleLoader = resourceBundleLoaderProvider.getResourceBundleLoader(configurationModel.getBundleSymbolicName());
 
-				ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle(LanguageUtil.getLanguageId(request));
+				ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle(languageId);
 
 				String configurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 				%>
