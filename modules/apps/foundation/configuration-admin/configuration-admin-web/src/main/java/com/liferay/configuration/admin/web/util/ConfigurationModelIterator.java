@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -45,22 +44,7 @@ public class ConfigurationModelIterator {
 	}
 
 	public List<ConfigurationModel> getResults(int start, int end) {
-		return getResults(start, end, null);
-	}
-
-	public List<ConfigurationModel> getResults(
-		int start, int end, Comparator<ConfigurationModel> comparator) {
-
-		if (comparator == null) {
-			return ListUtil.subList(_configurationModels, start, end);
-		}
-
-		List<ConfigurationModel> configurationModels = new ArrayList<>(
-			_configurationModels);
-
-		configurationModels = ListUtil.sort(configurationModels, comparator);
-
-		return ListUtil.subList(configurationModels, start, end);
+		return ListUtil.subList(_configurationModels, start, end);
 	}
 
 	public int getTotal() {
