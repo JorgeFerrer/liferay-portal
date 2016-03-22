@@ -33,6 +33,7 @@ page import="com.liferay.configuration.admin.web.util.ConfigurationModelNameComp
 page import="com.liferay.configuration.admin.web.util.ResourceBundleLoaderProvider" %><%@
 page import="com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.ResourceBundleLoader" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %>

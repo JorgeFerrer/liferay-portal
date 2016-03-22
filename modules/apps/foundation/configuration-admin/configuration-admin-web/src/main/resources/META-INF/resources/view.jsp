@@ -40,6 +40,8 @@ if (Validator.isNotNull(keywords)) {
 String languageId = LanguageUtil.getLanguageId(request);
 
 ConfigurationModelNameComparator configurationModelNameComparator = new ConfigurationModelNameComparator(languageId, resourceBundleLoaderProvider);
+
+List<ConfigurationModel> configurationModels = ListUtil.sort(configurationModelIterator.getResults(), configurationModelNameComparator);
 %>
 
 <aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
@@ -85,8 +87,9 @@ ConfigurationModelNameComparator configurationModelNameComparator = new Configur
 		iteratorURL="<%= portletURL %>"
 		total="<%= configurationModelIterator.getTotal() %>"
 	>
+
 		<liferay-ui:search-container-results
-			results="<%= configurationModelIterator.getResults(searchContainer.getStart(), searchContainer.getEnd(), configurationModelNameComparator) %>"
+			results="<%= ListUtil.subList(configurationModels, searchContainer.getStart(), searchContainer.getEnd()) %>"
 		/>
 
 		<liferay-ui:search-container-row
