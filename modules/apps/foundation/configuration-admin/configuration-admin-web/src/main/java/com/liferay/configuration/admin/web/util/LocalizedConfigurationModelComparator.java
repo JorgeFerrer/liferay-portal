@@ -24,10 +24,10 @@ import java.util.ResourceBundle;
 /**
  * @author Andrew Betts
  */
-public class ConfigurationModelNameComparator
+public class LocalizedConfigurationModelComparator
 	implements Comparator<ConfigurationModel> {
 
-	public ConfigurationModelNameComparator(
+	public LocalizedConfigurationModelComparator(
 		String languageId,
 		ResourceBundleLoaderProvider resourceBundleLoaderProvider) {
 

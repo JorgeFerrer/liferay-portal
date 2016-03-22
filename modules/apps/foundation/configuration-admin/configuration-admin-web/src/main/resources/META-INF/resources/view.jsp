@@ -39,9 +39,9 @@ if (Validator.isNotNull(keywords)) {
 
 String languageId = LanguageUtil.getLanguageId(request);
 
-ConfigurationModelNameComparator configurationModelNameComparator = new ConfigurationModelNameComparator(languageId, resourceBundleLoaderProvider);
+LocalizedConfigurationModelComparator localizedConfigurationModelComparator = new LocalizedConfigurationModelComparator(languageId, resourceBundleLoaderProvider);
 
-List<ConfigurationModel> configurationModels = ListUtil.sort(configurationModelIterator.getResults(), configurationModelNameComparator);
+List<ConfigurationModel> configurationModels = ListUtil.sort(configurationModelIterator.getResults(), localizedConfigurationModelComparator);
 %>
 
 <aui:nav-bar cssClass="collapse-basic-search" markupView="lexicon">
