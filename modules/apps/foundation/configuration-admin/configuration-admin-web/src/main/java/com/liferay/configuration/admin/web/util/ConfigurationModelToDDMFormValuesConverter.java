@@ -143,7 +143,7 @@ public class ConfigurationModelToDDMFormValuesConverter {
 	}
 
 	protected String translate(String key) {
-		if ((_resourceBundle == null) || (key == null)) {
+		if ((_resourceBundle == null) || (key == null) || key.equals("false")) {
 			return key;
 		}
 
