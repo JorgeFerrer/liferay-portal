@@ -16,6 +16,7 @@ package com.liferay.portal.remote.rest.extender.internal;
 
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.remote.dependency.manager.tccl.TCCLDependencyManager;
 import com.liferay.portal.remote.rest.extender.configuration.RestExtenderConfiguration;
 
@@ -84,7 +85,7 @@ public class RestExtender {
 		}
 
 		for (String contextPath : contextPaths) {
-			if (!contextPath.equals(StringPool.BLANK)) {
+			if (Validator.isNotNull(contextPath)) {
 				addTCCLServiceDependency(
 					true, Bus.class,
 					"(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH +
@@ -108,7 +109,7 @@ public class RestExtender {
 		for (String jaxRsApplicationFilterString :
 				jaxRsApplicationFilterStrings) {
 
-			if (!jaxRsApplicationFilterString.equals(StringPool.BLANK)) {
+			if (Validator.isNotNull(jaxRsApplicationFilterString)) {
 				addTCCLServiceDependency(
 					false, Application.class, jaxRsApplicationFilterString,
 					"addApplication", "removeApplication");
@@ -128,7 +129,7 @@ public class RestExtender {
 		}
 
 		for (String jaxRsProviderFilterString : jaxRsProviderFilterStrings) {
-			if (!jaxRsProviderFilterString.equals(StringPool.BLANK)) {
+			if (Validator.isNotNull(jaxRsProviderFilterString)) {
 				addTCCLServiceDependency(
 					false, null, jaxRsProviderFilterString, "addProvider",
 					"removeProvider");
@@ -148,7 +149,7 @@ public class RestExtender {
 		}
 
 		for (String jaxRsServiceFilterString : jaxRsServiceFilterStrings) {
-			if (!jaxRsServiceFilterString.equals(StringPool.BLANK)) {
+			if (Validator.isNotNull(jaxRsServiceFilterString)) {
 				addTCCLServiceDependency(
 					false, null, jaxRsServiceFilterString, "addService",
 					"removeService");
