@@ -174,7 +174,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 						</aui:script>
 					</c:when>
 					<c:otherwise>
-						<liferay-util:include page="/contacts_center_toolbar.jsp" servletContext="<%= application %>" />
+						<liferay-util:include page="/contacts_center/contacts_center_toolbar.jsp" servletContext="<%= application %>" />
 					</c:otherwise>
 				</c:choose>
 			</span>
