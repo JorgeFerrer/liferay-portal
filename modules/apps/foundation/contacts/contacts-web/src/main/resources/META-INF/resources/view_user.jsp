@@ -171,7 +171,7 @@ request.setAttribute("view_user.jsp-user", user2);
 								</div>
 
 								<div class="lfr-user-info-container">
-									<liferay-util:include page="/view_user_information.jsp" servletContext="<%= application %>" />
+									<liferay-util:include page="/user/view_user_information.jsp" servletContext="<%= application %>" />
 								</div>
 
 								<%
