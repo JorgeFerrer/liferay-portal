@@ -53,7 +53,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 						var contactsToolbarChildren = [];
 
 						<portlet:renderURL var="viewEntryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
-							<portlet:param name="mvcPath" value="/edit_entry.jsp" />
+							<portlet:param name="mvcPath" value="/contacts_center/edit_entry.jsp" />
 							<portlet:param name="redirect" value="<%= redirect %>" />
 							<portlet:param name="entryId" value="<%= String.valueOf(entryId) %>" />
 						</portlet:renderURL>
