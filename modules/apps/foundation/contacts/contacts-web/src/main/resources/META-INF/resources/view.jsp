@@ -197,7 +197,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 										</div>
 
 										<liferay-portlet:renderURL var="viewUserSummaryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
-											<portlet:param name="mvcPath" value="/view_resources.jsp" />
+											<portlet:param name="mvcPath" value="/contacts_center/view_resources.jsp" />
 											<portlet:param name="userId" value="<%= String.valueOf(user2.getUserId()) %>" />
 											<portlet:param name="portalUser" value="<%= Boolean.TRUE.toString() %>" />
 										</liferay-portlet:renderURL>
@@ -258,7 +258,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 										</div>
 
 										<liferay-portlet:renderURL var="viewContactSummaryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
-											<portlet:param name="mvcPath" value="/view_resources.jsp" />
+											<portlet:param name="mvcPath" value="/contacts_center/view_resources.jsp" />
 											<portlet:param name="redirect" value="<%= currentURL %>" />
 											<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 											<portlet:param name="portalUser" value="<%= Boolean.FALSE.toString() %>" />
