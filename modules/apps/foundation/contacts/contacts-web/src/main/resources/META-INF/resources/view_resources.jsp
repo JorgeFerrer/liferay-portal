@@ -37,7 +37,7 @@ boolean portalUser = ParamUtil.getBoolean(request, "portalUser");
 				%>
 
 				<div id="<portlet:namespace />contactSummary">
-					<liferay-util:include page="/view_entry.jsp" servletContext="<%= application %>" />
+					<liferay-util:include page="/contacts_center/view_entry.jsp" servletContext="<%= application %>" />
 				</div>
 
 				<span id="<portlet:namespace />contactsToolbar">
