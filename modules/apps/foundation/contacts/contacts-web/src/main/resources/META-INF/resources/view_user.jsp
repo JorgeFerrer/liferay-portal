@@ -125,7 +125,7 @@ request.setAttribute("view_user.jsp-user", user2);
 									/>
 								</c:when>
 								<c:otherwise>
-									<liferay-util:include page="/user_toolbar.jsp" servletContext="<%= application %>" />
+									<liferay-util:include page="/user/user_toolbar.jsp" servletContext="<%= application %>" />
 								</c:otherwise>
 							</c:choose>
 						</aui:col>
