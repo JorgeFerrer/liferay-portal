@@ -302,7 +302,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 				<div id="<portlet:namespace />userToolbarButtons"><!-- --></div>
 
 				<div class="hide" id="<portlet:namespace />contactCenterToolbarButtons">
-					<liferay-util:include page="/contacts_center_toolbar.jsp" servletContext="<%= application %>" />
+					<liferay-util:include page="/contacts_center/contacts_center_toolbar.jsp" servletContext="<%= application %>" />
 				</div>
 
 				<div id="<portlet:namespace />messageContainer"></div>
