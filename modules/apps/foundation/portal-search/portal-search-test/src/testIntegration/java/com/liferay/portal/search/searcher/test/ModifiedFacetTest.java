@@ -157,7 +157,7 @@ public class ModifiedFacetTest {
 	protected static JSONObject createDataJSONObject(String... ranges)
 		throws Exception {
 
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+		JSONObject dataJSONObject = JSONFactoryUtil.createJSONObject();
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
@@ -169,9 +169,9 @@ public class ModifiedFacetTest {
 			jsonArray.put(jsonObject);
 		}
 
-		jsonObject.put("ranges", jsonArray);
+		dataJSONObject.put("ranges", jsonArray);
 
-		return jsonObject;
+		return dataJSONObject;
 	}
 
 	protected static SearchContext getSearchContext(String keywords)
