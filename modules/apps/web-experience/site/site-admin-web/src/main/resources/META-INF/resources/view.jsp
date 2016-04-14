@@ -37,6 +37,15 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites")
 if (group != null) {
 	SitesUtil.addPortletBreadcrumbEntries(group, request, mainURL);
 
+	portletDisplay.setShowBackIcon(true);
+
+	PortletURL backURL = renderResponse.createRenderURL();
+
+	backURL.setParameter("mvcPath", "/view.jsp");
+	backURL.setParameter("groupId", String.valueOf(group.getParentGroupId()));
+
+	portletDisplay.setURLBack(backURL.toString());
+
 	renderResponse.setTitle(HtmlUtil.escape(group.getDescriptiveName(locale)));
 }
 %>
@@ -108,6 +117,8 @@ if (group != null) {
 		</div>
 	</div>
 </div>
+
+<liferay-util:include page="/add_button.jsp" servletContext="<%= application %>" />
 
 <%!
 private static Log _log = LogFactoryUtil.getLog("com_liferay_site_admin_web.view_jsp");
