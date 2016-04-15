@@ -16,16 +16,8 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-ui:icon
-	message="export-users"
-	onClick='<%= renderResponse.getNamespace() + "exportUsers()" %>'
-	url="javascript:;"
-/>
+<liferay-portlet:resourceURL var="exportURL">
+	<portlet:param name="p_p_resource_id" value="/users_admin/export_users" />
+</liferay-portlet:resourceURL>
 
-<aui:script>
-	function <portlet:namespace />exportUsers() {
-		document.<portlet:namespace />fm.method = 'post';
-
-		submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="/users_admin/export_users" />&compress=0&etag=0&strip=0', false);
-	}
-</aui:script>
+<liferay-ui:icon message="export-users" url='<%= exportURL + "&compress=0&etag=0&strip=0" %>' />
