@@ -74,6 +74,7 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = MVCActionCommand.class
 )
+@Deprecated
 public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
