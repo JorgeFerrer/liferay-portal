@@ -331,6 +331,10 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			groupIdsSet.toArray(new Long[groupIdsSet.size()]));
 
 		groupLocalService.addUserGroups(userId, groupIds);
+
+		for (long groupId : groupIds) {
+			addDefaultRolesAndTeams(groupId, new long[] {userId});
+		}
 	}
 
 	/**
