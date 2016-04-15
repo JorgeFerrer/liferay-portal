@@ -81,14 +81,14 @@ public class ExportUsersMVCResourceCommand extends BaseMVCResourceCommand {
 
 	@Override
 	protected void doServeResource(
-		ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
 		try {
 			SessionMessages.add(
 				resourceRequest,
 				PortalUtil.getPortletId(resourceRequest) +
-				SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
+					SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
 			String keywords = ParamUtil.getString(resourceRequest, "keywords");
 
@@ -156,7 +156,7 @@ public class ExportUsersMVCResourceCommand extends BaseMVCResourceCommand {
 	}
 
 	protected List<User> getUsers(
-		ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
@@ -239,7 +239,7 @@ public class ExportUsersMVCResourceCommand extends BaseMVCResourceCommand {
 	}
 
 	protected String getUsersCSV(
-		ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
 		List<User> users = getUsers(resourceRequest, resourceResponse);

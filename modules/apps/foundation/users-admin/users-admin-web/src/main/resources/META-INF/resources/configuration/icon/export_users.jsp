@@ -20,4 +20,7 @@
 	<portlet:param name="p_p_resource_id" value="/users_admin/export_users" />
 </liferay-portlet:resourceURL>
 
-<liferay-ui:icon message="export-users" url='<%= exportURL + "&compress=0&etag=0&strip=0" %>' />
+<liferay-ui:icon
+	message="export-users"
+	url='<%= exportURL + "&compress=0&etag=0&strip=0" %>'
+/>
