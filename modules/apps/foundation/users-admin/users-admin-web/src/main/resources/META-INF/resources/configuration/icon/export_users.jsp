@@ -16,9 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-portlet:resourceURL var="exportURL">
-	<portlet:param name="p_p_resource_id" value="/users_admin/export_users" />
-</liferay-portlet:resourceURL>
+<liferay-portlet:resourceURL id="/users_admin/export_users" var="exportURL" />
 
 <liferay-ui:icon
 	message="export-users"
