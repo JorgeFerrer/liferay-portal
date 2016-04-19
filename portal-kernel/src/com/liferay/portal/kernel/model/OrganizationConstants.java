@@ -31,6 +31,8 @@ public class OrganizationConstants {
 
 	public static final String NAME_RESERVED_WORDS = StringPool.NULL;
 
+	public static final int NO_ORGANIZATION_ID = 0;
+
 	/**
 	 * @deprecated As of 7.0.0, with no direct replacement
 	 */
