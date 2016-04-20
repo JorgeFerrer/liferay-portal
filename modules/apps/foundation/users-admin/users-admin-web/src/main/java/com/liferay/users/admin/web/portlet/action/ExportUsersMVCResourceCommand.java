@@ -17,10 +17,14 @@ package com.liferay.users.admin.web.portlet.action;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.portlet.DynamicActionRequest;
-import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.portlet.DynamicResourceRequest;
+import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+import com.liferay.portal.kernel.portlet.PortletResponseUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
@@ -28,8 +32,8 @@ import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
-import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CSVUtil;
@@ -43,7 +47,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.portlet.ActionResponseImpl;
 import com.liferay.portlet.usersadmin.search.UserSearch;
 import com.liferay.portlet.usersadmin.search.UserSearchTerms;
 import com.liferay.users.admin.constants.UsersAdminPortletKeys;
@@ -52,12 +55,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.PortletURL;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -72,48 +72,43 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.name=" + UsersAdminPortletKeys.USERS_ADMIN,
 		"mvc.command.name=/users_admin/export_users"
 	},
-	service = MVCActionCommand.class
+	service = MVCResourceCommand.class
 )
-public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
+public class ExportUsersMVCResourceCommand extends BaseMVCResourceCommand {
 
 	@Override
-	protected void doProcessAction(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+	protected void doServeResource(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
 		try {
-			hideDefaultSuccessMessage(actionRequest);
+			SessionMessages.add(
+				resourceRequest,
+				PortalUtil.getPortletId(resourceRequest) +
+					SessionMessages.KEY_SUFFIX_HIDE_DEFAULT_ERROR_MESSAGE);
 
-			String keywords = ParamUtil.getString(actionRequest, "keywords");
+			String keywords = ParamUtil.getString(resourceRequest, "keywords");
 
 			if (Validator.isNotNull(keywords)) {
-				DynamicActionRequest dynamicActionRequest =
-					new DynamicActionRequest(actionRequest);
+				DynamicResourceRequest dynamicResourceRequest =
+					new DynamicResourceRequest(resourceRequest);
 
-				dynamicActionRequest.setParameter("keywords", StringPool.BLANK);
+				dynamicResourceRequest.setParameter(
+					"keywords", StringPool.BLANK);
 
-				actionRequest = dynamicActionRequest;
+				resourceRequest = dynamicResourceRequest;
 			}
 
-			String csv = getUsersCSV(actionRequest, actionResponse);
+			String csv = getUsersCSV(resourceRequest, resourceResponse);
 
-			String fileName = "users.csv";
-			byte[] bytes = csv.getBytes();
-
-			HttpServletRequest request = PortalUtil.getHttpServletRequest(
-				actionRequest);
-			HttpServletResponse response = PortalUtil.getHttpServletResponse(
-				actionResponse);
-
-			ServletResponseUtil.sendFile(
-				request, response, fileName, bytes, ContentTypes.TEXT_CSV_UTF8);
-
-			actionResponse.setRenderParameter("mvcPath", "/null.jsp");
+			PortletResponseUtil.sendFile(
+				resourceRequest, resourceResponse, "users.csv", csv.getBytes(),
+				ContentTypes.TEXT_CSV_UTF8);
 		}
 		catch (Exception e) {
-			SessionErrors.add(actionRequest, e.getClass());
+			SessionErrors.add(resourceRequest, e.getClass());
 
-			actionResponse.setRenderParameter("mvcPath", "/error.jsp");
+			_log.error(e, e);
 		}
 	}
 
@@ -151,10 +146,10 @@ public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	protected List<User> getUsers(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
 		PermissionChecker permissionChecker =
@@ -171,11 +166,13 @@ public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
 			return Collections.emptyList();
 		}
 
-		PortletURL portletURL =
-			((ActionResponseImpl)actionResponse).createRenderURL(
-				UsersAdminPortletKeys.USERS_ADMIN);
+		LiferayPortletResponse liferayPortletResponse =
+			(LiferayPortletResponse)resourceResponse;
 
-		UserSearch userSearch = new UserSearch(actionRequest, portletURL);
+		PortletURL portletURL = liferayPortletResponse.createRenderURL(
+			UsersAdminPortletKeys.USERS_ADMIN);
+
+		UserSearch userSearch = new UserSearch(resourceRequest, portletURL);
 
 		UserSearchTerms searchTerms =
 			(UserSearchTerms)userSearch.getSearchTerms();
@@ -234,21 +231,21 @@ public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
 	}
 
 	protected String getUsersCSV(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
-		List<User> users = getUsers(actionRequest, actionResponse);
+		List<User> users = getUsers(resourceRequest, resourceResponse);
 
 		if (users.isEmpty()) {
 			return StringPool.BLANK;
 		}
 
 		String exportProgressId = ParamUtil.getString(
-			actionRequest, "exportProgressId");
+			resourceRequest, "exportProgressId");
 
 		ProgressTracker progressTracker = new ProgressTracker(exportProgressId);
 
-		progressTracker.start(actionRequest);
+		progressTracker.start(resourceRequest);
 
 		int percentage = 10;
 		int total = users.size();
@@ -267,7 +264,7 @@ public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
 			progressTracker.setPercent(percentage);
 		}
 
-		progressTracker.finish(actionRequest);
+		progressTracker.finish(resourceRequest);
 
 		return sb.toString();
 	}
@@ -276,6 +273,9 @@ public class ExportUsersMVCActionCommand extends BaseMVCActionCommand {
 	protected void setUserLocalService(UserLocalService userLocalService) {
 		_userLocalService = userLocalService;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ExportUsersMVCResourceCommand.class);
 
 	private UserLocalService _userLocalService;
 

@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Deactivate;
  * @author Shuyang Zhou
  */
 @Component(immediate = true)
-public class WeblogicSupport {
+public class WebLogicSupport {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
