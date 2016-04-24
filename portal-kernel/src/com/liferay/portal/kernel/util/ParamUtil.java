@@ -30,6 +30,8 @@ import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * The request parameters utility class.
+ * 
  * @author Brian Wing Shun Chan
  * @author Raymond Augé
  */
