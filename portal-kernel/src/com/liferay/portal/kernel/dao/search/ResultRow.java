@@ -52,7 +52,9 @@ public interface ResultRow {
 	public void addDate(int index, Date date, String href);
 
 	/**
-	 * @deprecated As of 7.0.0
+	 * @deprecated As of 7.0.0, replaced by {@link #addJSP(String, String,
+	 *             int, String, ServletContext, HttpServletRequest ,
+	 *             HttpServletResponse)}
 	 */
 	@Deprecated
 	public void addJSP(int index, String path);
@@ -62,7 +64,7 @@ public interface ResultRow {
 		HttpServletRequest request, HttpServletResponse response);
 
 	/**
-	 * @deprecated As of 7.0.0
+	 * @deprecated As of 7.0.0, with no direct replacement
 	 */
 	@Deprecated
 	public void addJSP(
@@ -74,7 +76,8 @@ public interface ResultRow {
 		HttpServletResponse response);
 
 	/**
-	 * @deprecated As of 7.0.0
+	 * @deprecated As of 7.0.0, replaced by {@link #addJSP(String, String,
+	 *             ServletContext, HttpServletRequest , HttpServletResponse)}
 	 */
 	@Deprecated
 	public void addJSP(String path);
@@ -84,13 +87,16 @@ public interface ResultRow {
 		HttpServletResponse response);
 
 	/**
-	 * @deprecated As of 7.0.0
+	 * @deprecated As of 7.0.0, replaced by {@link #addJSP(String, String,
+	 *             ServletContext, HttpServletRequest , HttpServletResponse)}
 	 */
 	@Deprecated
 	public void addJSP(String path, String cssClass);
 
 	/**
-	 * @deprecated As of 7.0.0
+	 * @deprecated As of 7.0.0, replaced by {@link #addJSP(String, String,
+	 *             int, String, ServletContext, HttpServletRequest ,
+	 *             HttpServletResponse)}
 	 */
 	@Deprecated
 	public void addJSP(String align, String valign, int colspan, String path);
@@ -105,7 +111,8 @@ public interface ResultRow {
 		HttpServletRequest request, HttpServletResponse response);
 
 	/**
-	 * @deprecated As of 7.0.0
+	 * @deprecated As of 7.0.0, replaced by {@link #addJSP(String, String,
+	 *             ServletContext, HttpServletRequest , HttpServletResponse)}
 	 */
 	@Deprecated
 	public void addJSP(String align, String valign, String path);
