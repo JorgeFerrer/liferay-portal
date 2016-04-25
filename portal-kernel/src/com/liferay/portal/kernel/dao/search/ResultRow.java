@@ -51,12 +51,20 @@ public interface ResultRow {
 
 	public void addDate(int index, Date date, String href);
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	public void addJSP(int index, String path);
 
 	public void addJSP(
 		int index, String path, ServletContext servletContext,
 		HttpServletRequest request, HttpServletResponse response);
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	public void addJSP(
 		int index, String align, String valign, int colspan, String path);
 
@@ -65,14 +73,26 @@ public interface ResultRow {
 		ServletContext servletContext, HttpServletRequest request,
 		HttpServletResponse response);
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	public void addJSP(String path);
 
 	public void addJSP(
 		String path, ServletContext servletContext, HttpServletRequest request,
 		HttpServletResponse response);
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	public void addJSP(String path, String cssClass);
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	public void addJSP(String align, String valign, int colspan, String path);
 
 	public void addJSP(
@@ -84,6 +104,10 @@ public interface ResultRow {
 		String path, String cssClass, ServletContext servletContext,
 		HttpServletRequest request, HttpServletResponse response);
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	public void addJSP(String align, String valign, String path);
 
 	public void addJSP(
