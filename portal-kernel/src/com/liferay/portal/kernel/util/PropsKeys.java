@@ -2201,7 +2201,7 @@ public interface PropsKeys {
 
 	public static final String USERS_ADMIN_USER_GROUP_COLUMN_LIMIT = "users.admin.user.group.column.limit";
 
-	public static final String USERS_CREATION_ALWAYS_APPLY_WORKFLOW = "users.creation.always.apply.workflow";
+	public static final String USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED = "users.creation.always.use.workflow.enabled";
 
 	public static final String USERS_DELETE = "users.delete";
 
