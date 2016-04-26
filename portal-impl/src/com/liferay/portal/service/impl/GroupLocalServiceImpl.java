@@ -872,12 +872,17 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				userGroupGroupRoleLocalService.
 					deleteUserGroupGroupRolesByGroupId(group.getGroupId());
 
-				if (!group.isStagingGroup() &&
-					(group.isOrganization() || group.isRegularSite())) {
+				// Resource permissions
 
+				try {
 					resourceLocalService.deleteResource(
 						group.getCompanyId(), Group.class.getName(),
 						ResourceConstants.SCOPE_INDIVIDUAL, group.getGroupId());
+				}
+				catch (Exception e) {
+					_log.error(
+						"No resource permissions found for group " +
+							group.getGroupId());
 				}
 
 				groupPersistence.remove(group);
