@@ -861,18 +861,16 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 					group.getGroupId(), RoleConstants.TYPE_SITE);
 			}
 			else {
-				if (!group.isStagingGroup() || group.isStagedRemotely()) {
 
-					// Group roles
+				// Group roles
 
-					userGroupRoleLocalService.deleteUserGroupRolesByGroupId(
-						group.getGroupId());
+				userGroupRoleLocalService.deleteUserGroupRolesByGroupId(
+					group.getGroupId());
 
-					// User group roles
+				// User group roles
 
-					userGroupGroupRoleLocalService.
-						deleteUserGroupGroupRolesByGroupId(group.getGroupId());
-				}
+				userGroupGroupRoleLocalService.
+					deleteUserGroupGroupRolesByGroupId(group.getGroupId());
 
 				if (!group.isStagingGroup() &&
 					(group.isOrganization() || group.isRegularSite())) {
