@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
@@ -190,6 +191,37 @@ public class GroupServiceTest {
 		testGroup(
 			user, group1, group11, null, true, false, false, true, false, true,
 			true);
+	}
+
+	@Test
+	public void testDeleteGroupWithStagingGroupRemovesStagingUserGroupRoles()
+		throws Exception {
+
+		Group group = GroupTestUtil.addGroup();
+
+		GroupTestUtil.enableLocalStaging(group);
+
+		Assert.assertTrue(group.hasStagingGroup());
+
+		Group stagingGroup = group.getStagingGroup();
+
+		List<UserGroupRole> stagingUserGroupRoles =
+			UserGroupRoleLocalServiceUtil.getUserGroupRolesByGroup(
+				stagingGroup.getGroupId());
+
+		int stagingUserGroupRolesCount = stagingUserGroupRoles.size();
+
+		Assert.assertEquals(1, stagingUserGroupRolesCount);
+
+		GroupServiceUtil.deleteGroup(group.getGroupId());
+
+		stagingUserGroupRoles =
+			UserGroupRoleLocalServiceUtil.getUserGroupRolesByGroup(
+				stagingGroup.getGroupId());
+
+		stagingUserGroupRolesCount = stagingUserGroupRoles.size();
+
+		Assert.assertEquals(0, stagingUserGroupRolesCount);
 	}
 
 	@Test
