@@ -299,9 +299,8 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		boolean workflowEnabled = WorkflowThreadLocal.isEnabled();
 
 		try {
-			if (!PropsValues.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED) {
-				WorkflowThreadLocal.setEnabled(false);
-			}
+			WorkflowThreadLocal.setEnabled(
+				PropsValues.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED);
 
 			return addUserWithWorkflow(
 				companyId, autoPassword, password1, password2, autoScreenName,
@@ -383,9 +382,8 @@ public class UserServiceImpl extends UserServiceBaseImpl {
 		boolean workflowEnabled = WorkflowThreadLocal.isEnabled();
 
 		try {
-			if (!PropsValues.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED) {
-				WorkflowThreadLocal.setEnabled(false);
-			}
+			WorkflowThreadLocal.setEnabled(
+				PropsValues.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED);
 
 			return addUserWithWorkflow(
 				companyId, autoPassword, password1, password2, autoScreenName,

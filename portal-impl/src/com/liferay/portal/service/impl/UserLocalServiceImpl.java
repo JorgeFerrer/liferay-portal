@@ -554,9 +554,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		boolean workflowEnabled = WorkflowThreadLocal.isEnabled();
 
 		try {
-			if (!PropsValues.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED) {
-				WorkflowThreadLocal.setEnabled(false);
-			}
+			WorkflowThreadLocal.setEnabled(
+				PropsValues.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED);
 
 			if (serviceContext == null) {
 				serviceContext = new ServiceContext();
