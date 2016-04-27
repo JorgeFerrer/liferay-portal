@@ -1,0 +1,25 @@
+{namespace ImageEditorFilterComponent}
+
+/**
+ * Image Editor Filter Component
+ *
+ * @param filters
+ * @param key
+ * @param thumbnailSize
+ */
+{template .render}
+	<div id="{$key}">
+		<ul class="list-unstyled list-table">
+			{foreach $filter in $filters}
+				<li>
+					<a data-onclick="previewFilter" data-filter="{$filter}">
+						<div id="{$key}{$filter}" style="position: relative;">
+							<canvas width="{$thumbnailSize}" height="{$thumbnailSize}" style="border: solid 1px #777;"></canvas>
+						</div>
+						<span>{$filter}</span>
+					</a>
+				</li>
+			{/foreach}
+		</ul>
+	</div>
+{/template}
