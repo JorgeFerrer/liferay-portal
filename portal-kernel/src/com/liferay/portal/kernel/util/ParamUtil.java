@@ -38,15 +38,13 @@ import javax.servlet.http.HttpServletRequest;
 public class ParamUtil {
 
 	/**
-	 * Read parameter as boolean from the request, or return the default value 
-	 * if parameter is missing.
+	 * Returns the boolean parameter from the request. If the parameter is
+	 * missing, the default value is returned.
 	 *
 	 * @param  request the servlet request from which to read the parameter
-	 * @param  param the name of the parameter to read
-	 * @param  defaultValue the default value 
-	 * @return the parameter value as boolean for the given parameter name and 
-	 *         for the given servlet request, or the default value if parameter
-	 *         is missing
+	 * @param  param the name of the parameter to return
+	 * @param  defaultValue the default value
+	 * @return the boolean parameter from the request
 	 */
 	public static boolean get(
 		HttpServletRequest request, String param, boolean defaultValue) {
@@ -112,16 +110,14 @@ public class ParamUtil {
 	}
 
 	/**
-	 * Read parameter as boolean from the portlet request, or return the 
-	 * default value if parameter is missing.
+	 * Returns the boolean parameter from the portlet request. If the parameter
+	 * is missing, the default value is returned.
 	 *
-	 * @param  portletRequest the portlet request from which to read the 
+	 * @param  portletRequest the portlet request from which to read the
 	 *         parameter
-	 * @param  param the name of the parameter to read
-	 * @param  defaultValue the default value 
-	 * @return the parameter value as boolean for the given parameter name and 
-	 *         for the given portlet request, or the default value if parameter
-	 *         is missing
+	 * @param  param the name of the parameter to return
+	 * @param  defaultValue the default value
+	 * @return the boolean parameter from the portlet request
 	 */
 	public static boolean get(
 		PortletRequest portletRequest, String param, boolean defaultValue) {
@@ -250,14 +246,12 @@ public class ParamUtil {
 	}
 
 	/**
-	 * Read parameter as boolean from the request, or return <code>false</code> 
-	 * if parameter is missing.
+	 * Returns the boolean parameter from the request. If the parameter is
+	 * missing, <code>false</code> is returned.
 	 *
 	 * @param  request the servlet request from which to read the parameter
-	 * @param  param the name of the parameter to read 
-	 * @return the parameter value as boolean for the given parameter name and 
-	 *         for the given servlet request, or <code>false</code> if parameter
-	 *         is missing
+	 * @param  param the name of the parameter to return
+	 * @return the boolean parameter from the request
 	 */
 	public static boolean getBoolean(HttpServletRequest request, String param) {
 		return GetterUtil.getBoolean(request.getParameter(param));
@@ -300,15 +294,13 @@ public class ParamUtil {
 	}
 
 	/**
-	 * Read parameter values as boolean array from the request, or return the default value 
-	 * if parameter is missing.
+	 * Returns the boolean array parameter from the request. If the parameter is
+	 * missing, the default value is returned.
 	 *
 	 * @param  request the servlet request from which to read the parameter
-	 * @param  param the name of the parameter to read
-	 * @param  defaultValue the default value 
-	 * @return the parameter values as boolean array for the given parameter name and 
-	 *         for the given servlet request, or the default value if parameter
-	 *         is missing
+	 * @param  param the name of the parameter to return
+	 * @param  defaultValue the default value
+	 * @return the boolean array parameter from the request
 	 */
 	public static boolean[] getBooleanValues(
 		HttpServletRequest request, String param, boolean[] defaultValue) {
