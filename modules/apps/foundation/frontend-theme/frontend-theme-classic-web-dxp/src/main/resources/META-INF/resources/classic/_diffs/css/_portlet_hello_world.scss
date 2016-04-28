@@ -1,16 +1,16 @@
 .portlet-hello-world .portlet-content {
 	background: url(../images/portlet-hello-world/welcome-bg.jpg) top;
 	background-size: cover;
-	min-height: 390px;
-	padding-top: 40px;
-	text-align: center;
+	color: #FFF;
+	min-height: 450px;
+	padding: 40px;
 
-	.portlet-title-text {
-		color: $bright-color;
-		font-size: 300%;
+	@include md {
+		padding: 60px;
 	}
 
-	.portlet-body {
-		padding: 0 20%;
+	.portlet-title-text {
+		color: #FFF;
+		font-size: 300%;
 	}
 }
