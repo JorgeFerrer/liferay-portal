@@ -1732,28 +1732,6 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 	}
 
-	private void _clearCompanyCache(long companyId) {
-		final Company company = companyPersistence.fetchByPrimaryKey(companyId);
-
-		if (company != null) {
-			TransactionCommitCallbackUtil.registerCallback(
-				new Callable<Void>() {
-
-					@Override
-					public Void call() throws Exception {
-						EntityCacheUtil.removeResult(
-							company.isEntityCacheEnabled(), company.getClass(),
-							company.getPrimaryKeyObj());
-
-						return null;
-					}
-
-				});
-
-			companyPersistence.clearCache(company);
-		}
-	}
-
 	protected class DeleteUserGroupActionableDynamicQuery {
 
 		protected DeleteUserGroupActionableDynamicQuery(long companyId) {
@@ -1780,6 +1758,28 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 		private ActionableDynamicQuery _actionableDynamicQuery;
 
+	}
+
+	private void _clearCompanyCache(long companyId) {
+		final Company company = companyPersistence.fetchByPrimaryKey(companyId);
+
+		if (company != null) {
+			TransactionCommitCallbackUtil.registerCallback(
+				new Callable<Void>() {
+
+					@Override
+					public Void call() throws Exception {
+						EntityCacheUtil.removeResult(
+							company.isEntityCacheEnabled(), company.getClass(),
+							company.getPrimaryKeyObj());
+
+						return null;
+					}
+
+				});
+
+			companyPersistence.clearCache(company);
+		}
 	}
 
 	private static final String _DEFAULT_VIRTUAL_HOST = "localhost";
