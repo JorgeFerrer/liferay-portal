@@ -37,6 +37,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ParamUtil {
 
+	/**
+	 * Returns the boolean parameter from the request. If the parameter is
+	 * missing, the default value is returned.
+	 *
+	 * @param  request the servlet request from which to read the parameter
+	 * @param  param the name of the parameter to return
+	 * @param  defaultValue the default value
+	 * @return the boolean parameter from the request
+	 */
 	public static boolean get(
 		HttpServletRequest request, String param, boolean defaultValue) {
 
@@ -100,6 +109,16 @@ public class ParamUtil {
 		return null;
 	}
 
+	/**
+	 * Returns the boolean parameter from the portlet request. If the parameter
+	 * is missing, the default value is returned.
+	 *
+	 * @param  portletRequest the portlet request from which to read the
+	 *         parameter
+	 * @param  param the name of the parameter to return
+	 * @param  defaultValue the default value
+	 * @return the boolean parameter from the portlet request
+	 */
 	public static boolean get(
 		PortletRequest portletRequest, String param, boolean defaultValue) {
 
@@ -226,6 +245,14 @@ public class ParamUtil {
 		return null;
 	}
 
+	/**
+	 * Returns the boolean parameter from the request. If the parameter is
+	 * missing, <code>false</code> is returned.
+	 *
+	 * @param  request the servlet request from which to read the parameter
+	 * @param  param the name of the parameter to return
+	 * @return the boolean parameter from the request
+	 */
 	public static boolean getBoolean(HttpServletRequest request, String param) {
 		return GetterUtil.getBoolean(request.getParameter(param));
 	}
@@ -266,6 +293,15 @@ public class ParamUtil {
 		return getBooleanValues(request, param, new boolean[0]);
 	}
 
+	/**
+	 * Returns the boolean array parameter from the request. If the parameter is
+	 * missing, the default value is returned.
+	 *
+	 * @param  request the servlet request from which to read the parameter
+	 * @param  param the name of the parameter to return
+	 * @param  defaultValue the default value
+	 * @return the boolean array parameter from the request
+	 */
 	public static boolean[] getBooleanValues(
 		HttpServletRequest request, String param, boolean[] defaultValue) {
 
