@@ -964,11 +964,6 @@ public class AdvancedPermissionChecker extends BasePermissionChecker {
 				return hasGuestPermission(groupId, name, primKey, actionId);
 			}
 
-			if (ResourceBlockLocalServiceUtil.isSupported(name)) {
-				return hasUserPermissionImpl(
-					groupId, name, primKey, roleIds, actionId);
-			}
-
 			return hasUserPermissionImpl(
 				groupId, name, primKey, roleIds, actionId);
 		}
