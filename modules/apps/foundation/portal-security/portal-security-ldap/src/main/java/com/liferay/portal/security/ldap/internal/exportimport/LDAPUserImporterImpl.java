@@ -1565,8 +1565,10 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 			}
 		}
 
-		_userLocalService.updatePassword(
-			userId, password, password, passwordReset, true);
+		if ((password != null) && !password.equals(StringPool.BLANK)) {
+			_userLocalService.updatePassword(
+				userId, password, password, passwordReset, true);
+		}
 
 		return password;
 	}
