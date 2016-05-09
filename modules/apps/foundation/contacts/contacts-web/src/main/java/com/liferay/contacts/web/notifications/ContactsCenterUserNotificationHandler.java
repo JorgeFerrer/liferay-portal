@@ -108,10 +108,13 @@ public class ContactsCenterUserNotificationHandler
 				new Object[] {creatorUserName});
 		}
 
-		if ((socialRequest.getStatus() !=
-				SocialRequestConstants.STATUS_PENDING) ||
+		boolean isOutdatedNotification =
 			(socialRequest.getModifiedDate() >
-				userNotificationEvent.getTimestamp())) {
+			 	userNotificationEvent.getTimestamp());
+
+		if ((socialRequest.getStatus() !=
+			 	SocialRequestConstants.STATUS_PENDING) ||
+			isOutdatedNotification) {
 
 			return StringUtil.replace(
 				_BODY_TEMPLATE_DEFAULT, new String[] {"[$BODY$]", "[$TITLE$]"},
