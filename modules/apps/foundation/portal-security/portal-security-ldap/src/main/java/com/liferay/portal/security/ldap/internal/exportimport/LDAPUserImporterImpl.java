@@ -1527,13 +1527,14 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 			ldapUser.getUserGroupRoles(), ldapUser.getUserGroupIds(),
 			ldapUser.getServiceContext());
 
+		ServiceContext serviceContext = new ServiceContext();
+
 		if (modifiedDate != null) {
-			user = _userLocalService.updateModifiedDate(
-				user.getUserId(), modifiedDate);
+			serviceContext.setModifiedDate(modifiedDate);
 		}
 
 		user = _userLocalService.updateStatus(
-			user.getUserId(), ldapUser.getStatus(), new ServiceContext());
+			user.getUserId(), ldapUser.getStatus(), serviceContext);
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
@@ -1564,8 +1565,10 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 			}
 		}
 
-		_userLocalService.updatePassword(
-			userId, password, password, passwordReset, true);
+		if ((password != null) && !password.equals(StringPool.BLANK)) {
+			_userLocalService.updatePassword(
+				userId, password, password, passwordReset, true);
+		}
 
 		return password;
 	}
