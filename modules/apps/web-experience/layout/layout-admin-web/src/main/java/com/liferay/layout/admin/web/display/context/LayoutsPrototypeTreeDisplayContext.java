@@ -58,7 +58,6 @@ public class LayoutsPrototypeTreeDisplayContext
 		editLayoutURL.setParameter("selPlid", String.valueOf(layout.getPlid()));
 
 		editLayoutURL.setParameter("privateLayout", Boolean.TRUE.toString());
-		editLayoutURL.setParameter("viewLayout", Boolean.TRUE.toString());
 
 		return editLayoutURL.toString();
 	}
