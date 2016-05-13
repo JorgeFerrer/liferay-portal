@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.frontend.theme.admin.web;
+package com.liferay.frontend.theme.admin;
 
 import com.liferay.portal.kernel.servlet.PortalWebResourceConstants;
 import com.liferay.portal.kernel.servlet.PortalWebResources;
@@ -57,7 +57,7 @@ public class ThemeAdminPortalWebResources implements PortalWebResources {
 	}
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.frontend.theme.admin.web)",
+		target = "(osgi.web.symbolicname=com.liferay.frontend.theme.admin)",
 		unbind = "-"
 	)
 	protected void setServletContext(ServletContext servletContext) {
