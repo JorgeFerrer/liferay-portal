@@ -274,11 +274,7 @@ public class SecureFilter extends BasePortalFilter {
 				_log.debug("Not securing " + completeURL);
 			}
 
-			User user = PortalUtil.getUser(request);
-
-			if (user == null) {
-				user = PortalUtil.initUser(request);
-			}
+			User user = PortalUtil.initUser(request);
 
 			initThreadLocals(user);
 
