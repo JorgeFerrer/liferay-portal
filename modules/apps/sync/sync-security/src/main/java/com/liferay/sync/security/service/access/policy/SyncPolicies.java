@@ -49,35 +49,39 @@ public class SyncPolicies {
 	@Activate
 	public void activated() throws Exception {
 		for (Company company : _companyLocalService.getCompanies()) {
-			for (Object[] policy : POLICIES) {
-				String name = String.valueOf(policy[0]);
-				String allowedServiceSignatures = String.valueOf(policy[1]);
-				boolean defaultSAPEntry = GetterUtil.getBoolean(policy[2]);
+			addSyncPolicies(company);
+		}
+	}
 
-				SAPEntry sapEntry = _sapEntryLocalService.fetchSAPEntry(
-					company.getCompanyId(), name);
+	public void addSyncPolicies(Company company) throws Exception {
+		for (Object[] policy : POLICIES) {
+			String name = String.valueOf(policy[0]);
+			String allowedServiceSignatures = String.valueOf(policy[1]);
+			boolean defaultSAPEntry = GetterUtil.getBoolean(policy[2]);
 
-				if (sapEntry != null) {
-					continue;
-				}
+			SAPEntry sapEntry = _sapEntryLocalService.fetchSAPEntry(
+				company.getCompanyId(), name);
 
-				try {
-					Map<Locale, String> map = new HashMap<>();
+			if (sapEntry != null) {
+				continue;
+			}
 
-					map.put(LocaleUtil.getDefault(), name);
+			try {
+				Map<Locale, String> map = new HashMap<>();
 
-					_sapEntryLocalService.addSAPEntry(
-						_userLocalService.getDefaultUserId(
-							company.getCompanyId()),
-						allowedServiceSignatures, defaultSAPEntry, true, name,
-						map, new ServiceContext());
-				}
-				catch (PortalException pe) {
-					throw new Exception(
-						"Unable to add default SAP entry for company " +
-							company.getCompanyId(),
-						pe);
-				}
+				map.put(LocaleUtil.getDefault(), name);
+
+				_sapEntryLocalService.addSAPEntry(
+					_userLocalService.getDefaultUserId(
+						company.getCompanyId()),
+					allowedServiceSignatures, defaultSAPEntry, true, name,
+					map, new ServiceContext());
+			}
+			catch (PortalException pe) {
+				throw new Exception(
+					"Unable to add default SAP entry for company " +
+					company.getCompanyId(),
+					pe);
 			}
 		}
 	}
