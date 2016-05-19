@@ -73,10 +73,9 @@ public class SyncPolicies {
 				map.put(LocaleUtil.getDefault(), name);
 
 				_sapEntryLocalService.addSAPEntry(
-					_userLocalService.getDefaultUserId(
-						company.getCompanyId()),
-					allowedServiceSignatures, defaultSAPEntry, true, name,
-					map, new ServiceContext());
+					_userLocalService.getDefaultUserId(company.getCompanyId()),
+					allowedServiceSignatures, defaultSAPEntry, true, name, map,
+					new ServiceContext());
 			}
 			catch (PortalException pe) {
 				if (pe instanceof NoSuchUserException) {
@@ -85,8 +84,7 @@ public class SyncPolicies {
 
 				throw new Exception(
 					"Unable to add default SAP entry for company " +
-					company.getCompanyId(),
-					pe);
+					company.getCompanyId(), pe);
 			}
 		}
 	}
