@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Tomas Polesovsky
  */
-@Component(immediate = true)
+@Component(immediate = true, service = SyncPolicies.class)
 public class SyncPolicies {
 
 	public static final Object[][] POLICIES = new Object[][] {
