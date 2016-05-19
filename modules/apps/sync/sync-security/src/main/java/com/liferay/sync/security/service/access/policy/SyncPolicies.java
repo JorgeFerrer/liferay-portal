@@ -14,6 +14,7 @@
 
 package com.liferay.sync.security.service.access.policy;
 
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -78,6 +79,10 @@ public class SyncPolicies {
 					map, new ServiceContext());
 			}
 			catch (PortalException pe) {
+				if (pe instanceof NoSuchUserException) {
+					throw pe;
+				}
+
 				throw new Exception(
 					"Unable to add default SAP entry for company " +
 					company.getCompanyId(),
