@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.util.ReflectionUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.Serializable;
 
@@ -86,6 +87,25 @@ public class DDMFormValuesToPropertiesConverter {
 		return properties;
 	}
 
+	protected String getBasicValue(String dataType) {
+		if (dataType.equals(FieldConstants.BOOLEAN)) {
+			return "false";
+		}
+		else if (dataType.equals(FieldConstants.DOUBLE) ||
+				 dataType.equals(FieldConstants.FLOAT)) {
+
+			return "0.0";
+		}
+		else if (dataType.equals(FieldConstants.INTEGER) ||
+				 dataType.equals(FieldConstants.LONG) ||
+				 dataType.equals(FieldConstants.SHORT)) {
+
+			return "0";
+		}
+
+		return StringPool.BLANK;
+	}
+
 	protected String getDDMFormFieldDataType(String fieldName) {
 		DDMFormField ddmFormField = _ddmFormFieldsMap.get(fieldName);
 
@@ -139,6 +159,10 @@ public class DDMFormValuesToPropertiesConverter {
 		String dataType = getDDMFormFieldDataType(ddmFormFieldValue.getName());
 
 		String valueString = getDDMFormFieldValueString(ddmFormFieldValue);
+
+		if (valueString.equals(StringPool.BLANK)) {
+			valueString = getBasicValue(dataType);
+		}
 
 		return FieldConstants.getSerializable(dataType, valueString);
 	}
