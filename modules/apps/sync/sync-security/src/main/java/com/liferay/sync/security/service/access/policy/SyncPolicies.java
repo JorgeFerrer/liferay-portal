@@ -14,6 +14,7 @@
 
 package com.liferay.sync.security.service.access.policy;
 
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -35,7 +36,7 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Tomas Polesovsky
  */
-@Component(immediate = true)
+@Component(immediate = true, service = SyncPolicies.class)
 public class SyncPolicies {
 
 	public static final Object[][] POLICIES = new Object[][] {
@@ -49,35 +50,41 @@ public class SyncPolicies {
 	@Activate
 	public void activated() throws Exception {
 		for (Company company : _companyLocalService.getCompanies()) {
-			for (Object[] policy : POLICIES) {
-				String name = String.valueOf(policy[0]);
-				String allowedServiceSignatures = String.valueOf(policy[1]);
-				boolean defaultSAPEntry = GetterUtil.getBoolean(policy[2]);
+			addSyncPolicies(company);
+		}
+	}
 
-				SAPEntry sapEntry = _sapEntryLocalService.fetchSAPEntry(
-					company.getCompanyId(), name);
+	public void addSyncPolicies(Company company) throws Exception {
+		for (Object[] policy : POLICIES) {
+			String name = String.valueOf(policy[0]);
+			String allowedServiceSignatures = String.valueOf(policy[1]);
+			boolean defaultSAPEntry = GetterUtil.getBoolean(policy[2]);
 
-				if (sapEntry != null) {
-					continue;
+			SAPEntry sapEntry = _sapEntryLocalService.fetchSAPEntry(
+				company.getCompanyId(), name);
+
+			if (sapEntry != null) {
+				continue;
+			}
+
+			try {
+				Map<Locale, String> map = new HashMap<>();
+
+				map.put(LocaleUtil.getDefault(), name);
+
+				_sapEntryLocalService.addSAPEntry(
+					_userLocalService.getDefaultUserId(company.getCompanyId()),
+					allowedServiceSignatures, defaultSAPEntry, true, name, map,
+					new ServiceContext());
+			}
+			catch (PortalException pe) {
+				if (pe instanceof NoSuchUserException) {
+					throw pe;
 				}
 
-				try {
-					Map<Locale, String> map = new HashMap<>();
-
-					map.put(LocaleUtil.getDefault(), name);
-
-					_sapEntryLocalService.addSAPEntry(
-						_userLocalService.getDefaultUserId(
-							company.getCompanyId()),
-						allowedServiceSignatures, defaultSAPEntry, true, name,
-						map, new ServiceContext());
-				}
-				catch (PortalException pe) {
-					throw new Exception(
-						"Unable to add default SAP entry for company " +
-							company.getCompanyId(),
-						pe);
-				}
+				throw new Exception(
+					"Unable to add default SAP entry for company " +
+					company.getCompanyId(), pe);
 			}
 		}
 	}
