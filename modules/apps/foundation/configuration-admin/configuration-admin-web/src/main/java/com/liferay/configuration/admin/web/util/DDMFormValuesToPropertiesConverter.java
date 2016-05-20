@@ -140,6 +140,12 @@ public class DDMFormValuesToPropertiesConverter {
 			}
 		}
 
+		String dataType = getDDMFormFieldDataType(ddmFormFieldValue.getName());
+
+		if (valueString.equals(StringPool.BLANK)) {
+			valueString = getBasicValue(dataType);
+		}
+
 		return valueString;
 	}
 
@@ -159,10 +165,6 @@ public class DDMFormValuesToPropertiesConverter {
 		String dataType = getDDMFormFieldDataType(ddmFormFieldValue.getName());
 
 		String valueString = getDDMFormFieldValueString(ddmFormFieldValue);
-
-		if (valueString.equals(StringPool.BLANK)) {
-			valueString = getBasicValue(dataType);
-		}
 
 		return FieldConstants.getSerializable(dataType, valueString);
 	}
