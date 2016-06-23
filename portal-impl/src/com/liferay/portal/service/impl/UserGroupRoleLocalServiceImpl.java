@@ -239,6 +239,11 @@ public class UserGroupRoleLocalServiceImpl
 	}
 
 	@Override
+	public int getUserGroupRolesCount(long roleId) {
+		return userGroupRolePersistence.countByRoleId(roleId);
+	}
+
+	@Override
 	public int getUserGroupRolesCount(long userId, long groupId) {
 		return userGroupRolePersistence.countByU_G(userId, groupId);
 	}
