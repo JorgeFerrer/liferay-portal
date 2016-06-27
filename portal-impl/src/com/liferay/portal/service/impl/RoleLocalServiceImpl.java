@@ -682,6 +682,15 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 	}
 
 	@Override
+	public int getRegularRoleUsersGroupsCount(Role role) {
+		if (role.getType() != RoleConstants.TYPE_REGULAR) {
+			return 0;
+		}
+
+		return roleFinder.countUsersGroupsByRoleId(role.getRoleId());
+	}
+
+	@Override
 	public List<Role> getResourceBlockRoles(
 		long resourceBlockId, String className, String actionId) {
 
