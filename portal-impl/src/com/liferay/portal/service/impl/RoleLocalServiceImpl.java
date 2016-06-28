@@ -818,6 +818,15 @@ public class RoleLocalServiceImpl extends RoleLocalServiceBaseImpl {
 		return roles;
 	}
 
+	@Override
+	public int getSiteRoleUsersUserGroupsCount(Role role) {
+		if (role.getType() != RoleConstants.TYPE_SITE) {
+			return 0;
+		}
+
+		return roleFinder.countUsersUserGroupsByRoleId(role.getRoleId());
+	}
+
 	/**
 	 * Returns all the roles of the subtype.
 	 *
