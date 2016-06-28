@@ -381,6 +381,11 @@ public class RoleLocalServiceUtil {
 		return getService().getGroupRolesCount(groupId);
 	}
 
+	public static int getRegularRoleUsersGroupsCount(
+		com.liferay.portal.kernel.model.Role role) {
+		return getService().getRegularRoleUsersGroupsCount(role);
+	}
+
 	/**
 	* Returns the number of roles.
 	*
@@ -388,6 +393,11 @@ public class RoleLocalServiceUtil {
 	*/
 	public static int getRolesCount() {
 		return getService().getRolesCount();
+	}
+
+	public static int getSiteRoleUsersUserGroupsCount(
+		com.liferay.portal.kernel.model.Role role) {
+		return getService().getSiteRoleUsersUserGroupsCount(role);
 	}
 
 	/**
