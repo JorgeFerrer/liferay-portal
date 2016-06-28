@@ -1079,6 +1079,29 @@
 				)) TEMP_TABLE
 		]]>
 	</sql>
+	<sql id="com.liferay.portal.kernel.service.persistence.RoleFinder.countU_UGByRoleId">
+		<![CDATA[
+			SELECT SUM(TEMP_TABLE) AS COUNT_VALUE
+			FROM
+				((
+					SELECT
+						COUNT(DISTINCT UserGroupRole.userId) AS TEMP_TABLE
+					FROM
+						UserGroupRole
+					WHERE
+						UserGroupRole.roleId = ?
+				)
+				UNION ALL
+				(
+					SELECT
+						COUNT(DISTINCT UserGroupGroupRole.userGroupId) AS TEMP_TABLE
+					FROM
+						UserGroupGroupRole
+					WHERE
+						UserGroupGroupRole.roleId = ?
+				)) TEMP_TABLE
+		]]>
+	</sql>
 	<sql id="com.liferay.portal.kernel.service.persistence.RoleFinder.findBySystem">
 		<![CDATA[
 			(
