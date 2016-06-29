@@ -209,9 +209,7 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	}
 
 	protected void validateBirthday(Date birthday) {
-		Date now = new Date();
-
-		if (birthday != null && birthday.after(now)) {
+		if ((birthday != null) && birthday.after(new Date())) {
 			throw new SystemException(
 				"Birthday cannot be set to a date in future.");
 		}
