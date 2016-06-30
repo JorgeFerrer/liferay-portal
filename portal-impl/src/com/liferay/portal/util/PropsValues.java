@@ -1536,6 +1536,8 @@ public class PropsValues {
 
 	public static final int USERS_ADMIN_USER_GROUP_COLUMN_LIMIT = GetterUtil.getInteger(PropsUtil.get(PropsKeys.USERS_ADMIN_USER_GROUP_COLUMN_LIMIT), 50);
 
+	public static final boolean USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USERS_CREATION_ALWAYS_USE_WORKFLOW_ENABLED));
+
 	public static final boolean USERS_DELETE = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.USERS_DELETE));
 
 	public static final String USERS_EMAIL_ADDRESS_AUTO_SUFFIX = PropsUtil.get(PropsKeys.USERS_EMAIL_ADDRESS_AUTO_SUFFIX);
