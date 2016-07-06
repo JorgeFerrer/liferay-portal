@@ -279,7 +279,8 @@ public class GroupFinderImpl
 			params5 = new LinkedHashMap<>(params1);
 
 			_populateUnionParams(
-				userId, classNameIds, params1, params2, params3, params4, params5);
+				userId, classNameIds, params1, params2, params3, params4,
+				params5);
 		}
 		else if (classNameIds != null) {
 			params1.put("classNameIds", classNameIds);
@@ -780,7 +781,8 @@ public class GroupFinderImpl
 			params5 = new LinkedHashMap<>(params1);
 
 			_populateUnionParams(
-				userId, classNameIds, params1, params2, params3, params4, params5);
+				userId, classNameIds, params1, params2, params3, params4,
+				params5);
 		}
 		else if (classNameIds != null) {
 			params1.put("classNameIds", classNameIds);
@@ -794,7 +796,8 @@ public class GroupFinderImpl
 		String sqlKey = null;
 
 		if (_isCacheableSQL(classNameIds)) {
-			sqlKey = _buildSQLCacheKey(obc, params1, params2, params3, params4, params5);
+			sqlKey = _buildSQLCacheKey(
+				obc, params1, params2, params3, params4, params5);
 
 			sql = _findByC_C_PG_N_DSQLCache.get(sqlKey);
 		}
