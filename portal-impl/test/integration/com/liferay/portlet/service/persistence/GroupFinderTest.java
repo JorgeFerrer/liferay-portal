@@ -22,12 +22,15 @@ import com.liferay.portal.kernel.model.ResourceAction;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.ResourcePermission;
 import com.liferay.portal.kernel.model.ResourceTypePermission;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.RolePermissions;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.ResourceActionLocalServiceUtil;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.kernel.service.ResourceTypePermissionLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.service.persistence.GroupFinderUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.TransactionalTestRule;
@@ -36,6 +39,8 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ResourcePermissionTestUtil;
 import com.liferay.portal.kernel.test.util.ResourceTypePermissionTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
+import com.liferay.portal.kernel.test.util.UserGroupTestUtil;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.comparator.GroupNameComparator;
@@ -151,6 +156,42 @@ public class GroupFinderTest {
 		Assert.assertTrue(
 			"The method findByC_C_N_D should have returned the group " +
 				_group.getGroupId(),
+			exists);
+	}
+
+	@Test
+	public void testFindByC_C_PG_N_D() throws Exception {
+		UserGroup userGroup = UserGroupTestUtil.addUserGroup();
+
+		User user = UserTestUtil.addUser();
+
+		UserLocalServiceUtil.addUserGroupUsers(
+			userGroup.getUserGroupId(), new long[] {user.getUserId()});
+
+		LinkedHashMap<String, Object> groupParams = new LinkedHashMap<>();
+
+		groupParams.put("usersGroups", Long.valueOf(user.getUserId()));
+
+		List<Group> groups = GroupFinderUtil.findByC_C_PG_N_D(
+			user.getCompanyId(), null, GroupConstants.ANY_PARENT_GROUP_ID,
+			new String[] {null}, new String[] {null}, groupParams, true,
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		boolean exists = false;
+
+		long userGroupGroupId = userGroup.getGroup().getGroupId();
+
+		for (Group group : groups) {
+			if (group.getGroupId() == userGroupGroupId) {
+				exists = true;
+
+				break;
+			}
+		}
+
+		Assert.assertTrue(
+			"The method findByC_C_PG_N_D should have returned the group " +
+				userGroupGroupId,
 			exists);
 	}
 
