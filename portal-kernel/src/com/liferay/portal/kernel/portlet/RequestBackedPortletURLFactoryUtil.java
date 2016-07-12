@@ -136,7 +136,7 @@ public class RequestBackedPortletURLFactoryUtil {
 				WebKeys.THEME_DISPLAY);
 
 			if (group == null) {
-				group = themeDisplay.getScopeGroup();
+				group = themeDisplay.getSiteGroup();
 			}
 
 			LiferayPortletURL liferayPortletURL = PortletURLFactoryUtil.create(

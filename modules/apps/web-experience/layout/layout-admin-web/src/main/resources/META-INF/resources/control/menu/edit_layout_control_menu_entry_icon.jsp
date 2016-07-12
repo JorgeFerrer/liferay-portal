@@ -35,7 +35,7 @@
 <%
 String portletId = LayoutAdminPortletKeys.GROUP_PAGES;
 
-Group group = themeDisplay.getScopeGroup();
+Group group = themeDisplay.getSiteGroup();
 
 if (group.isLayoutPrototype()) {
 	portletId = LayoutAdminPortletKeys.LAYOUT_PROTOTYPE_PAGE;

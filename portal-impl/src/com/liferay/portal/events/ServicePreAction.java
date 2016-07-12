@@ -653,12 +653,7 @@ public class ServicePreAction extends Action {
 		long siteGroupId = 0;
 
 		if (layout != null) {
-			if (layout.isTypeControlPanel()) {
-				siteGroupId = PortalUtil.getSiteGroupId(scopeGroupId);
-			}
-			else {
-				siteGroupId = PortalUtil.getSiteGroupId(layout.getGroupId());
-			}
+			siteGroupId = PortalUtil.getSiteGroupId(layout.getGroupId());
 		}
 
 		// Theme and color scheme

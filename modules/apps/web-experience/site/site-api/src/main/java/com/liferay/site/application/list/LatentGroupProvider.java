@@ -39,7 +39,7 @@ public class LatentGroupProvider implements GroupProvider {
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		Group group = themeDisplay.getScopeGroup();
+		Group group = themeDisplay.getSiteGroup();
 
 		if (!group.isControlPanel()) {
 			return group;

@@ -104,7 +104,7 @@ data.put("qa-id", "info");
 				<span class="message-info">
 
 					<%
-					Group group = themeDisplay.getScopeGroup();
+					Group group = themeDisplay.getSiteGroup();
 					%>
 
 					<c:choose>
