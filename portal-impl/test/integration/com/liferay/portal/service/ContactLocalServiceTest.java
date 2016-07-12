@@ -14,6 +14,7 @@
 
 package com.liferay.portal.service;
 
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.User;
@@ -24,6 +25,7 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,34 +44,62 @@ public class ContactLocalServiceTest {
 		new LiferayIntegrationTestRule();
 
 	@Test(expected = SystemException.class)
-	public void testAddFutureBirthday() throws Exception {
+	public void testAddFutureBirthdayByContact() throws Exception {
+		Date future = new Date(System.currentTimeMillis() + 100000);
+
+		Contact contact = ContactLocalServiceUtil.createContact(
+			CounterLocalServiceUtil.increment());
+
+		contact.setBirthday(future);
+
+		ContactLocalServiceUtil.addContact(contact);
+	}
+
+	@Test(expected = SystemException.class)
+	public void testAddFutureBirthdayByProperties() throws Exception {
 		User user = UserTestUtil.addUser();
 
 		_users.add(user);
 
-		Date future = new Date(System.currentTimeMillis() + 100000);
+		Calendar future = Calendar.getInstance();
+
+		future.add(Calendar.DAY_OF_YEAR, 1);
 
 		ContactLocalServiceUtil.addContact(
 			user.getUserId(), Contact.class.getName(), user.getUserId(),
 			user.getEmailAddress(), user.getFirstName(), user.getMiddleName(),
 			user.getLastName(), 0, 0, user.getMale(),
-			future.getMonth(), future.getDay(), future.getYear(), "", "", "",
-			"", "", user.getJobTitle());
+			future.get(Calendar.MONTH), future.get(Calendar.DATE),
+			future.get(Calendar.YEAR), "", "", "", "", "", user.getJobTitle());
 	}
 
 	@Test(expected = SystemException.class)
-	public void testUpdateFutureBirthday() throws Exception {
+	public void testUpdateFutureBirthdayByContact() throws Exception {
+		Date future = new Date(System.currentTimeMillis() + 100000);
+
+		Contact contact = ContactLocalServiceUtil.createContact(
+			CounterLocalServiceUtil.increment());
+
+		contact.setBirthday(future);
+
+		ContactLocalServiceUtil.addContact(contact);
+	}
+
+	@Test(expected = SystemException.class)
+	public void testUpdateFutureBirthdayByProperties() throws Exception {
 		User user = UserTestUtil.addUser();
 
 		_users.add(user);
 
-		Date future = new Date(System.currentTimeMillis() + 100000);
+		Calendar future = Calendar.getInstance();
+
+		future.add(Calendar.DAY_OF_YEAR, 1);
 
 		ContactLocalServiceUtil.updateContact(
 			user.getContactId(), user.getEmailAddress(), user.getFirstName(),
 			user.getMiddleName(), user.getLastName(), 0, 0, user.getMale(),
-			future.getMonth(), future.getDay(),future.getYear(), "", "", "", "",
-			"", user.getJobTitle());
+			future.get(Calendar.MONTH), future.get(Calendar.DATE),
+			future.get(Calendar.YEAR), "", "", "", "", "", user.getJobTitle());
 	}
 
 	@DeleteAfterTestRun
