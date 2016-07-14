@@ -77,6 +77,7 @@ if (organization != null) {
 	<c:when test="<%= showList %>">
 		<liferay-frontend:management-bar
 			includeCheckBox="<%= true %>"
+			searchContainerId="organizationMembers"
 		>
 			<liferay-frontend:management-bar-filters>
 				<liferay-frontend:management-bar-navigation
@@ -257,7 +258,9 @@ if (organization != null) {
 				emptyResultsMessage="no-results-were-found"
 				emptyResultsMessageCssClass="taglib-empty-result-message-header-has-plus-btn"
 				headerNames="name,type"
+				id="organizationMembers"
 				iteratorURL="<%= currentURLObj %>"
+				rowChecker="<%= new OrganizationMemberChecker(renderResponse) %>"
 				total="<%= organizationSearch.getTotal() + userSearch.getTotal() %>"
 				var="membersSearchContainer"
 			>
