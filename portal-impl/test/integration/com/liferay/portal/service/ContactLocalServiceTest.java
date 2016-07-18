@@ -63,7 +63,7 @@ public class ContactLocalServiceTest {
 
 		Calendar future = Calendar.getInstance();
 
-		future.add(Calendar.DAY_OF_YEAR, 1);
+		future.add(Calendar.YEAR, 1000);
 
 		ContactLocalServiceUtil.addContact(
 			user.getUserId(), Contact.class.getName(), user.getUserId(),
@@ -93,7 +93,7 @@ public class ContactLocalServiceTest {
 
 		Calendar future = Calendar.getInstance();
 
-		future.add(Calendar.DAY_OF_YEAR, 1);
+		future.add(Calendar.YEAR, 1000);
 
 		ContactLocalServiceUtil.updateContact(
 			user.getContactId(), user.getEmailAddress(), user.getFirstName(),
