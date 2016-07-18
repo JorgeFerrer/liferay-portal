@@ -399,6 +399,12 @@ public class RoleLocalServiceWrapper implements RoleLocalService,
 		return _roleLocalService.getGroupRolesCount(groupId);
 	}
 
+	@Override
+	public int getRegularRoleUsersGroupsCount(
+		com.liferay.portal.kernel.model.Role role) {
+		return _roleLocalService.getRegularRoleUsersGroupsCount(role);
+	}
+
 	/**
 	* Returns the number of roles.
 	*
@@ -407,6 +413,12 @@ public class RoleLocalServiceWrapper implements RoleLocalService,
 	@Override
 	public int getRolesCount() {
 		return _roleLocalService.getRolesCount();
+	}
+
+	@Override
+	public int getSiteRoleUsersUserGroupsCount(
+		com.liferay.portal.kernel.model.Role role) {
+		return _roleLocalService.getSiteRoleUsersUserGroupsCount(role);
 	}
 
 	/**

@@ -356,6 +356,9 @@ public interface RoleLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getGroupRolesCount(long groupId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getRegularRoleUsersGroupsCount(Role role);
+
 	/**
 	* Returns the number of roles.
 	*
@@ -363,6 +366,9 @@ public interface RoleLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getRolesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getSiteRoleUsersUserGroupsCount(Role role);
 
 	/**
 	* Returns the number of roles of the subtype.
