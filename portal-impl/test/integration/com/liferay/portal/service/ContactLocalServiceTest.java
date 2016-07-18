@@ -82,7 +82,7 @@ public class ContactLocalServiceTest {
 
 		contact.setBirthday(future);
 
-		ContactLocalServiceUtil.addContact(contact);
+		ContactLocalServiceUtil.updateContact(contact);
 	}
 
 	@Test(expected = SystemException.class)
