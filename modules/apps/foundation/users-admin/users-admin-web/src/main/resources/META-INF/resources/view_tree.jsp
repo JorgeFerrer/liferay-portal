@@ -33,6 +33,8 @@ String displayStyle = ParamUtil.getString(request, "displayStyle", "list");
 String keywords = ParamUtil.getString(request, "keywords");
 String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 
+portletURL.setParameter("displayStyle", displayStyle);
+
 List<Organization> organizations = new ArrayList<Organization>();
 
 if (filterManageableOrganizations) {
@@ -86,7 +88,7 @@ if (organization != null) {
 
 			<liferay-frontend:management-bar-buttons>
 				<liferay-frontend:management-bar-display-buttons
-					displayViews='<%= new String[] {"list"} %>'
+					displayViews='<%= new String[] {"icon", "descriptive", "list"} %>'
 					portletURL="<%= PortletURLUtil.clone(portletURL, renderResponse) %>"
 					selectedDisplayStyle="<%= displayStyle %>"
 				/>
@@ -277,7 +279,7 @@ if (organization != null) {
 					<%@ include file="/organization/organization_member_search_columns.jspf" %>
 				</liferay-ui:search-container-row>
 
-				<liferay-ui:search-iterator markupView="lexicon" resultRowSplitter="<%= new OrganizationResultRowSplitter() %>" searchContainer="<%= membersSearchContainer %>" />
+				<liferay-ui:search-iterator displayStyle="<%= displayStyle %>" markupView="lexicon" resultRowSplitter="<%= new OrganizationResultRowSplitter() %>" searchContainer="<%= membersSearchContainer %>" />
 			</liferay-ui:search-container>
 		</aui:form>
 	</c:when>
