@@ -38,7 +38,12 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public Contact addContact(Contact contact) {
-		validateBirthday(contact.getBirthday());
+		try {
+			validateBirthday(contact.getBirthday());
+		}
+		catch (ContactBirthdayException cbe) {
+			throw new SystemException(cbe);
+		}
 
 		return super.addContact(contact);
 	}
@@ -155,7 +160,12 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public Contact updateContact(Contact contact) {
-		validateBirthday(contact.getBirthday());
+		try {
+			validateBirthday(contact.getBirthday());
+		}
+		catch (ContactBirthdayException cbe) {
+			throw new SystemException(cbe);
+		}
 
 		return super.updateContact(contact);
 	}
@@ -208,11 +218,12 @@ public class ContactLocalServiceImpl extends ContactLocalServiceBaseImpl {
 		}
 	}
 
-	protected void validateBirthday(Date birthday) {
+	protected void validateBirthday(Date birthday)
+		throws ContactBirthdayException {
+
 		if ((birthday != null) && birthday.after(new Date())) {
-			throw new SystemException(
-				new ContactBirthdayException(
-					"Birthday cannot be set to a date in future."));
+			throw new ContactBirthdayException(
+				"Birthday cannot be set to a date in future.");
 		}
 	}
 
