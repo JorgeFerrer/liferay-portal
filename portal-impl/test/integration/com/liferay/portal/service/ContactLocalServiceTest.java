@@ -15,6 +15,7 @@
 package com.liferay.portal.service;
 
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.exception.ContactBirthdayException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.User;
@@ -55,7 +56,7 @@ public class ContactLocalServiceTest {
 		ContactLocalServiceUtil.addContact(contact);
 	}
 
-	@Test(expected = SystemException.class)
+	@Test(expected = ContactBirthdayException.class)
 	public void testAddFutureBirthdayByProperties() throws Exception {
 		User user = UserTestUtil.addUser();
 
@@ -85,7 +86,7 @@ public class ContactLocalServiceTest {
 		ContactLocalServiceUtil.updateContact(contact);
 	}
 
-	@Test(expected = SystemException.class)
+	@Test(expected = ContactBirthdayException.class)
 	public void testUpdateFutureBirthdayByProperties() throws Exception {
 		User user = UserTestUtil.addUser();
 
