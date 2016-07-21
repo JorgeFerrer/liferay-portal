@@ -151,7 +151,7 @@ String[] tabs2Urls = {
 	</liferay-frontend:management-bar-action-buttons>
 </liferay-frontend:management-bar>
 
-<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid-1280" method="post" name="fm">
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
 	<aui:input name="tabs3" type="hidden" value="current" />
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
@@ -166,21 +166,7 @@ String[] tabs2Urls = {
 		showPortletBreadcrumb="<%= true %>"
 	/>
 
-	<liferay-ui:section>
-		<liferay-util:include page="/edit_role_assignments_users.jsp" servletContext="<%= application %>" />
-	</liferay-ui:section>
-
-	<liferay-ui:section>
-		<liferay-util:include page="/edit_role_assignments_sites.jsp" servletContext="<%= application %>" />
-	</liferay-ui:section>
-
-	<liferay-ui:section>
-		<liferay-util:include page="/edit_role_assignments_organizations.jsp" servletContext="<%= application %>" />
-	</liferay-ui:section>
-
-	<liferay-ui:section>
-		<liferay-util:include page="/edit_role_assignments_user_groups.jsp" servletContext="<%= application %>" />
-	</liferay-ui:section>
+	<liferay-util:include page='<%= "/edit_role_assignments_" + tabs2.replace(StringPool.DASH, StringPool.UNDERLINE) + ".jsp" %>' servletContext="<%= application %>" />
 </aui:form>
 
 <portlet:actionURL name="editRoleAssignments" var="editRoleAssignmentsURL">
