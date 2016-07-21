@@ -117,71 +117,71 @@ String[] tabs2Urls = {
 		type="tabs nav-tabs-default"
 		urls="<%= tabs2Urls %>"
 		value="<%= tabs2 %>"
-	>
-		<liferay-frontend:management-bar
-			includeCheckBox="<%= true %>"
-			searchContainerId="assigneesSearch"
-		>
-			<liferay-frontend:management-bar-filters>
-				<liferay-frontend:management-bar-navigation
-					navigationKeys='<%= new String[] {"all"} %>'
-					portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
-				/>
-
-				<liferay-frontend:management-bar-sort
-					orderByCol="<%= orderByCol %>"
-					orderByType="<%= orderByType %>"
-					orderColumns='<%= new String[] {"name"} %>'
-					portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
-				/>
-			</liferay-frontend:management-bar-filters>
-
-			<liferay-frontend:management-bar-buttons>
-				<liferay-frontend:management-bar-display-buttons
-					displayViews='<%= new String[] {"icon", "descriptive", "list"} %>'
-					portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
-					selectedDisplayStyle="<%= displayStyle %>"
-				/>
-			</liferay-frontend:management-bar-buttons>
-
-			<liferay-frontend:management-bar-action-buttons>
-				<liferay-frontend:management-bar-button href="javascript:;" icon="trash" id="unsetRoleAssignments" label="delete" />
-			</liferay-frontend:management-bar-action-buttons>
-		</liferay-frontend:management-bar>
-
-		<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
-			<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
-			<aui:input name="tabs3" type="hidden" value="current" />
-			<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-			<aui:input name="roleId" type="hidden" value="<%= role.getRoleId() %>" />
-			<aui:input name="addUserIds" type="hidden" />
-			<aui:input name="removeUserIds" type="hidden" />
-			<aui:input name="addGroupIds" type="hidden" />
-			<aui:input name="removeGroupIds" type="hidden" />
-
-			<liferay-ui:breadcrumb
-				showLayout="<%= false %>"
-				showPortletBreadcrumb="<%= true %>"
-			/>
-
-			<liferay-ui:section>
-				<liferay-util:include page="/edit_role_assignments_users.jsp" servletContext="<%= application %>" />
-			</liferay-ui:section>
-
-			<liferay-ui:section>
-				<liferay-util:include page="/edit_role_assignments_sites.jsp" servletContext="<%= application %>" />
-			</liferay-ui:section>
-
-			<liferay-ui:section>
-				<liferay-util:include page="/edit_role_assignments_organizations.jsp" servletContext="<%= application %>" />
-			</liferay-ui:section>
-
-			<liferay-ui:section>
-				<liferay-util:include page="/edit_role_assignments_user_groups.jsp" servletContext="<%= application %>" />
-			</liferay-ui:section>
-		</aui:form>
-	</liferay-ui:tabs>
+	/>
 </div>
+
+<liferay-frontend:management-bar
+	includeCheckBox="<%= true %>"
+	searchContainerId="assigneesSearch"
+>
+	<liferay-frontend:management-bar-filters>
+		<liferay-frontend:management-bar-navigation
+			navigationKeys='<%= new String[] {"all"} %>'
+			portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
+		/>
+
+		<liferay-frontend:management-bar-sort
+			orderByCol="<%= orderByCol %>"
+			orderByType="<%= orderByType %>"
+			orderColumns='<%= new String[] {"name"} %>'
+			portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
+		/>
+	</liferay-frontend:management-bar-filters>
+
+	<liferay-frontend:management-bar-buttons>
+		<liferay-frontend:management-bar-display-buttons
+			displayViews='<%= new String[] {"icon", "descriptive", "list"} %>'
+			portletURL="<%= PortletURLUtil.clone(portletURL, liferayPortletResponse) %>"
+			selectedDisplayStyle="<%= displayStyle %>"
+		/>
+	</liferay-frontend:management-bar-buttons>
+
+	<liferay-frontend:management-bar-action-buttons>
+		<liferay-frontend:management-bar-button href="javascript:;" icon="trash" id="unsetRoleAssignments" label="delete" />
+	</liferay-frontend:management-bar-action-buttons>
+</liferay-frontend:management-bar>
+
+<aui:form action="<%= portletURL.toString() %>" method="post" name="fm">
+	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
+	<aui:input name="tabs3" type="hidden" value="current" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+	<aui:input name="roleId" type="hidden" value="<%= role.getRoleId() %>" />
+	<aui:input name="addUserIds" type="hidden" />
+	<aui:input name="removeUserIds" type="hidden" />
+	<aui:input name="addGroupIds" type="hidden" />
+	<aui:input name="removeGroupIds" type="hidden" />
+
+	<liferay-ui:breadcrumb
+		showLayout="<%= false %>"
+		showPortletBreadcrumb="<%= true %>"
+	/>
+
+	<liferay-ui:section>
+		<liferay-util:include page="/edit_role_assignments_users.jsp" servletContext="<%= application %>" />
+	</liferay-ui:section>
+
+	<liferay-ui:section>
+		<liferay-util:include page="/edit_role_assignments_sites.jsp" servletContext="<%= application %>" />
+	</liferay-ui:section>
+
+	<liferay-ui:section>
+		<liferay-util:include page="/edit_role_assignments_organizations.jsp" servletContext="<%= application %>" />
+	</liferay-ui:section>
+
+	<liferay-ui:section>
+		<liferay-util:include page="/edit_role_assignments_user_groups.jsp" servletContext="<%= application %>" />
+	</liferay-ui:section>
+</aui:form>
 
 <portlet:actionURL name="editRoleAssignments" var="editRoleAssignmentsURL">
 	<portlet:param name="mvcPath" value="/edit_role_assignments.jsp" />
