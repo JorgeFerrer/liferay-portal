@@ -38,6 +38,19 @@
 		padding: 15px 0 5px;
 	}
 
+	.lfr-nav.nav-tabs {
+		margin-bottom: 0;
+		padding-left: 0;
+
+		li > a {
+			color: #869CAD;
+		}
+
+		li.active > a {
+			color: #65B6F0;
+		}
+	}
+
 	.org-labor-entry {
 		float: left;
 		margin-right: 2%;
