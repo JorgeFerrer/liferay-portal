@@ -110,6 +110,9 @@ public class GroupFinderImpl
 	public static final String JOIN_BY_GROUP_ORG =
 		GroupFinder.class.getName() + ".joinByGroupOrg";
 
+	public static final String JOIN_BY_GROUP_USER_GROUP =
+		GroupFinder.class.getName() + ".joinByGroupUserGroup";
+
 	public static final String JOIN_BY_GROUPS_ORGS =
 		GroupFinder.class.getName() + ".joinByGroupsOrgs";
 
@@ -208,6 +211,10 @@ public class GroupFinderImpl
 
 		params4.put("groupsUserGroups", userId);
 
+		LinkedHashMap<String, Object> params5 = new LinkedHashMap<>();
+
+		params5.put("groupUserGroup", userId);
+
 		Session session = null;
 
 		try {
@@ -219,6 +226,7 @@ public class GroupFinderImpl
 				count += countByGroupId(session, groupId, params2);
 				count += countByGroupId(session, groupId, params3);
 				count += countByGroupId(session, groupId, params4);
+				count += countByGroupId(session, groupId, params5);
 			}
 
 			return count;
@@ -258,6 +266,8 @@ public class GroupFinderImpl
 
 		LinkedHashMap<String, Object> params4 = null;
 
+		LinkedHashMap<String, Object> params5 = null;
+
 		Long userId = (Long)params.get("usersGroups");
 
 		boolean doUnion = Validator.isNotNull(userId);
@@ -266,9 +276,11 @@ public class GroupFinderImpl
 			params2 = new LinkedHashMap<>(params1);
 			params3 = new LinkedHashMap<>(params1);
 			params4 = new LinkedHashMap<>(params1);
+			params5 = new LinkedHashMap<>(params1);
 
 			_populateUnionParams(
-				userId, classNameIds, params1, params2, params3, params4);
+				userId, classNameIds, params1, params2, params3, params4,
+				params5);
 		}
 		else if (classNameIds != null) {
 			params1.put("classNameIds", classNameIds);
@@ -309,6 +321,14 @@ public class GroupFinderImpl
 							session, companyId, parentGroupId,
 							parentGroupIdComparator, names, descriptions,
 							params4, andOperator));
+				}
+
+				if (params5.containsKey("classNameIds")) {
+					groupIds.addAll(
+						countByC_PG_N_D(
+							session, companyId, parentGroupId,
+							parentGroupIdComparator, names, descriptions,
+							params5, andOperator));
 				}
 			}
 
@@ -743,6 +763,8 @@ public class GroupFinderImpl
 
 		LinkedHashMap<String, Object> params4 = null;
 
+		LinkedHashMap<String, Object> params5 = null;
+
 		Long userId = (Long)params.get("usersGroups");
 		boolean inherit = GetterUtil.getBoolean(params.get("inherit"), true);
 
@@ -756,9 +778,11 @@ public class GroupFinderImpl
 			params2 = new LinkedHashMap<>(params1);
 			params3 = new LinkedHashMap<>(params1);
 			params4 = new LinkedHashMap<>(params1);
+			params5 = new LinkedHashMap<>(params1);
 
 			_populateUnionParams(
-				userId, classNameIds, params1, params2, params3, params4);
+				userId, classNameIds, params1, params2, params3, params4,
+				params5);
 		}
 		else if (classNameIds != null) {
 			params1.put("classNameIds", classNameIds);
@@ -772,7 +796,8 @@ public class GroupFinderImpl
 		String sqlKey = null;
 
 		if (_isCacheableSQL(classNameIds)) {
-			sqlKey = _buildSQLCacheKey(obc, params1, params2, params3, params4);
+			sqlKey = _buildSQLCacheKey(
+				obc, params1, params2, params3, params4, params5);
 
 			sql = _findByC_C_PG_N_DSQLCache.get(sqlKey);
 		}
@@ -801,6 +826,11 @@ public class GroupFinderImpl
 				if (params4.containsKey("classNameIds")) {
 					sb.append(") UNION (");
 					sb.append(replaceJoinAndWhere(findByC_PG_N_D_SQL, params4));
+				}
+
+				if (params5.containsKey("classNameIds")) {
+					sb.append(") UNION (");
+					sb.append(replaceJoinAndWhere(findByC_PG_N_D_SQL, params5));
 				}
 			}
 
@@ -859,6 +889,13 @@ public class GroupFinderImpl
 				qPos.add(descriptions, 2);
 
 				setJoin(qPos, params4);
+
+				qPos.add(companyId);
+				qPos.add(parentGroupId);
+				qPos.add(names, 2);
+				qPos.add(descriptions, 2);
+
+				setJoin(qPos, params5);
 
 				qPos.add(companyId);
 				qPos.add(parentGroupId);
@@ -1371,6 +1408,9 @@ public class GroupFinderImpl
 			"groupsUserGroups",
 			_removeWhere(CustomSQLUtil.get(JOIN_BY_GROUPS_USER_GROUPS)));
 		joinMap.put(
+			"groupUserGroup",
+			_removeWhere(CustomSQLUtil.get(JOIN_BY_GROUP_USER_GROUP)));
+		joinMap.put(
 			"layoutSet", _removeWhere(CustomSQLUtil.get(JOIN_BY_LAYOUT_SET)));
 		joinMap.put(
 			"pageCount", _removeWhere(CustomSQLUtil.get(JOIN_BY_PAGE_COUNT)));
@@ -1430,6 +1470,9 @@ public class GroupFinderImpl
 		whereMap.put(
 			"groupsUserGroups",
 			_getCondition(CustomSQLUtil.get(JOIN_BY_GROUPS_USER_GROUPS)));
+		whereMap.put(
+			"groupUserGroup",
+			_getCondition(CustomSQLUtil.get(JOIN_BY_GROUP_USER_GROUP)));
 		whereMap.put(
 			"layoutSet", _getCondition(CustomSQLUtil.get(JOIN_BY_LAYOUT_SET)));
 		whereMap.put(
@@ -1494,7 +1537,7 @@ public class GroupFinderImpl
 	private void _populateUnionParams(
 		long userId, long[] classNameIds, Map<String, Object> params1,
 		Map<String, Object> params2, Map<String, Object> params3,
-		Map<String, Object> params4) {
+		Map<String, Object> params4, Map<String, Object> params5) {
 
 		params2.remove("usersGroups");
 		params2.put("groupOrg", userId);
@@ -1504,6 +1547,9 @@ public class GroupFinderImpl
 
 		params4.remove("usersGroups");
 		params4.put("groupsUserGroups", userId);
+
+		params5.remove("usersGroups");
+		params5.put("groupUserGroup", userId);
 
 		long[] groupOrganizationClassNameIds =
 			_getGroupOrganizationClassNameIds();
@@ -1516,7 +1562,8 @@ public class GroupFinderImpl
 			params1.put("classNameIds", groupOrganizationClassNameIds);
 			params2.put("classNameIds", organizationClassNameId);
 			params3.put("classNameIds", groupClassNameId);
-			params4.put("classNameIds", userGroupClassNameId);
+			params4.put("classNameIds", groupClassNameId);
+			params5.put("classNameIds", userGroupClassNameId);
 		}
 		else {
 			params1.put("classNameIds", classNameIds);
@@ -1527,10 +1574,11 @@ public class GroupFinderImpl
 
 			if (ArrayUtil.contains(classNameIds, groupClassNameId)) {
 				params3.put("classNameIds", groupClassNameId);
+				params4.put("classNameIds", groupClassNameId);
 			}
 
 			if (ArrayUtil.contains(classNameIds, userGroupClassNameId)) {
-				params4.put("classNameIds", userGroupClassNameId);
+				params5.put("classNameIds", userGroupClassNameId);
 			}
 		}
 	}

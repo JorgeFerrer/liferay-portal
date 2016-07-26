@@ -320,6 +320,15 @@
 				(Users_UserGroups.userId = ?)
 		]]>
 	</sql>
+	<sql id="com.liferay.portal.kernel.service.persistence.GroupFinder.joinByGroupUserGroup">
+		<![CDATA[
+			INNER JOIN
+				Users_UserGroups ON
+					(Users_UserGroups.userGroupId = Group_.classPK)
+			WHERE
+				(Users_UserGroups.userId = ?)
+		]]>
+	</sql>
 	<sql id="com.liferay.portal.kernel.service.persistence.GroupFinder.joinByLayoutSet">
 		<![CDATA[
 			INNER JOIN
