@@ -39,8 +39,21 @@ renderResponse.setTitle((role == null) ? LanguageUtil.get(request, "new-role") :
 	<portlet:param name="backURL" value="<%= backURL %>" />
 </portlet:actionURL>
 
+<c:if test="<%= role != null %>">
+	<liferay-util:include page="/edit_role_tabs.jsp" servletContext="<%= application %>" />
+
+	<c:choose>
+		<c:when test="<%= role.getType() == RoleConstants.TYPE_REGULAR %>">
+			<liferay-ui:success key="roleCreated" message='<%= LanguageUtil.format(request, "x-was-created-successfully.-you-can-now-define-its-permissions-and-assign-users", role.getName()) %>' />
+		</c:when>
+		<c:otherwise>
+			<liferay-ui:success key="roleCreated" message='<%= LanguageUtil.format(request, "x-was-created-successfully.-you-can-now-define-its-permissions", role.getName()) %>' />
+		</c:otherwise>
+	</c:choose>
+</c:if>
+
 <aui:form action="<%= editRoleURL %>" cssClass="container-fluid-1280" method="post" name="fm">
-	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="roleId" type="hidden" value="<%= roleId %>" />
 
 	<liferay-ui:error exception="<%= DuplicateRoleException.class %>" message="please-enter-a-unique-name" />

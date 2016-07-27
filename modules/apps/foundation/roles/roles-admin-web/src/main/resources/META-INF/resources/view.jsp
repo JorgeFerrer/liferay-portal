@@ -71,6 +71,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, breadcrumbTitle, currentURL);
 	<liferay-portlet:renderURL varImpl="addRoleURL">
 		<portlet:param name="mvcPath" value="/edit_role.jsp" />
 		<portlet:param name="redirect" value="<%= portletURLString %>" />
+		<portlet:param name="tabs1" value="edit" />
 		<portlet:param name="type" value="<%= String.valueOf(type) %>" />
 	</liferay-portlet:renderURL>
 
@@ -217,6 +218,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, breadcrumbTitle, currentURL);
 				rowURL.setParameter("mvcPath", "/edit_role_assignments.jsp");
 				rowURL.setParameter("redirect", searchContainer.getIteratorURL().toString());
 				rowURL.setParameter("roleId", String.valueOf(role.getRoleId()));
+				rowURL.setParameter("tabs1", "assign-members");
 			}
 			%>
 
