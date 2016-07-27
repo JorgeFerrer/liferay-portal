@@ -490,6 +490,20 @@ public interface OrganizationLocalService extends BaseLocalService,
 	public int getGroupOrganizationsCount(long groupId);
 
 	/**
+	* Returns the number of organizations and users belonging to the parent
+	* organization.
+	*
+	* @param companyId the primary key of the organization and user's company
+	* @param parentOrganizationId the primary key of the organization and user's
+	parent organization
+	* @param status the user's workflow status
+	* @return the number of organizations and users belonging to the parent organization
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getOrganizationsAndUsersCount(long companyId,
+		long parentOrganizationId, int status);
+
+	/**
 	* Returns the number of organizations.
 	*
 	* @return the number of organizations
@@ -714,6 +728,25 @@ public interface OrganizationLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Organization> getOrganizations(long[] organizationIds)
 		throws PortalException;
+
+	/**
+	* Returns all the organizations and users belonging to the parent organization.
+	*
+	* @param companyId the primary key of the organization and user's company
+	* @param parentOrganizationId the primary key of the organization and user's
+	parent organization
+	* @param status the user's workflow status
+	* @param start the lower bound of the range of organizations and users to return
+	* @param end the upper bound of the range of organizations and users to return
+	(not inclusive)
+	* @param obc the comparator to order the organizations and users (optionally
+	<code>null</code>)
+	* @return the organizations and users belonging to the parent organization
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<java.lang.Object> getOrganizationsAndUsers(long companyId,
+		long parentOrganizationId, int status, int start, int end,
+		OrderByComparator<?> obc);
 
 	/**
 	* Returns the parent organizations in order by closest ancestor. The list
