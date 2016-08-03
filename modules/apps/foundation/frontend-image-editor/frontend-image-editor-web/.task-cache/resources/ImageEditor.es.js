@@ -1,4 +1,4 @@
-define("frontend-image-editor-web@1.0.2/ImageEditor.es", ['exports', 'metal-component/src/Component', 'metal-soy/src/Soy', 'metal/src/async/async', 'metal/src/core', 'metal-dom/src/dom', 'metal-promise/src/promise/Promise', 'metal-dropdown/src/Dropdown', './ImageEditorHistoryEntry.es', './ImageEditorLoading.es', './ImageEditor.soy'], function (exports, _Component2, _Soy, _async, _core, _dom, _Promise, _Dropdown, _ImageEditorHistoryEntry, _ImageEditorLoading, _ImageEditor) {
+define("frontend-image-editor-web@1.0.3/ImageEditor.es", ['exports', 'metal-component/src/Component', 'metal-soy/src/Soy', 'metal/src/async/async', 'metal/src/core', 'metal-dom/src/dom', 'metal-promise/src/promise/Promise', 'metal-dropdown/src/Dropdown', './ImageEditorHistoryEntry.es', './ImageEditorLoading.es', './ImageEditor.soy'], function (exports, _Component2, _Soy, _async, _core, _dom, _Promise, _Dropdown, _ImageEditorHistoryEntry, _ImageEditorLoading, _ImageEditor) {
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -361,7 +361,15 @@ define("frontend-image-editor-web@1.0.2/ImageEditor.es", ['exports', 'metal-comp
 
 			var boundingBox = _dom2.default.closest(this.element, '.portlet-layout');
 			var availableWidth = boundingBox.offsetWidth;
-			var availableHeight = boundingBox.offsetHeight - 142 - 40;
+
+			var dialogFooterHeight = 0;
+			var dialogFooter = this.element.querySelector('.dialog-footer');
+
+			if (dialogFooter) {
+				dialogFooterHeight = dialogFooter.offsetHeight;
+			}
+
+			var availableHeight = boundingBox.offsetHeight - 142 - 40 - dialogFooterHeight;
 			var availableAspectRatio = availableWidth / availableHeight;
 
 			if (availableAspectRatio > 1) {

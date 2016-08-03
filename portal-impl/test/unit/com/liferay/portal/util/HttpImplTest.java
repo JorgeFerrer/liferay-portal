@@ -39,7 +39,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author Miguel Pastor
  */
 @PowerMockIgnore("javax.xml.datatype.*")
-@PrepareForTest({PortalUtil.class})
+@PrepareForTest(PortalUtil.class)
 @RunWith(PowerMockRunner.class)
 public class HttpImplTest extends PowerMockito {
 
@@ -240,6 +240,35 @@ public class HttpImplTest extends PowerMockito {
 				"/TestServlet/one;test=$one@two/two;jsessionid=ae01b0f2af" +
 					";test2=123,456"));
 		Assert.assertEquals("/", _httpImpl.removePathParameters("/;?"));
+	}
+
+	@Test
+	public void testRemoveProtocol() {
+		Assert.assertEquals(
+			"ftp.foo.com", _httpImpl.removeProtocol("ftp://ftp.foo.com"));
+		Assert.assertEquals(
+			"foo.com", _httpImpl.removeProtocol("http://///foo.com"));
+		Assert.assertEquals("foo.com", _httpImpl.removeProtocol("////foo.com"));
+		Assert.assertEquals(
+			"foo.com", _httpImpl.removeProtocol("http://http://foo.com"));
+		Assert.assertEquals(
+			"www.google.com", _httpImpl.removeProtocol("/\\www.google.com"));
+		Assert.assertEquals(
+			"www.google.com",
+			_httpImpl.removeProtocol("/\\//\\/www.google.com"));
+		Assert.assertEquals(
+			"/path/name", _httpImpl.removeProtocol("/path/name"));
+		Assert.assertEquals(
+			"./path/name", _httpImpl.removeProtocol("./path/name"));
+		Assert.assertEquals(
+			"../path/name", _httpImpl.removeProtocol("../path/name"));
+		Assert.assertEquals(
+			"foo.com?redirect=http%3A%2F%2Ffoo2.com",
+			_httpImpl.removeProtocol(
+				"http://foo.com?redirect=http%3A%2F%2Ffoo2.com"));
+		Assert.assertEquals(
+			"www.google.com/://localhost",
+			_httpImpl.removeProtocol("http://www.google.com/://localhost"));
 	}
 
 	protected void testDecodeURLWithInvalidURLEncoding(String url) {

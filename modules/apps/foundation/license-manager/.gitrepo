@@ -4,7 +4,7 @@
 ;
 [subrepo]
 	cmdver = liferay
-	commit = de5a4d0ec1ff1d393a370ad9737822f11dab6d73
+	commit = 51b6e54001ff76d9a3d3a00ed50667bc56d12476
 	mode = push
-	parent = 6087caa0f54941a73925b222d8d31c0209ae4a45
+	parent = 4bb239bb5dc9b0478494314f9cdae36df7d45ca8
 	remote = git@github.com:liferay/com-liferay-license-manager.git

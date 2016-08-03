@@ -89,7 +89,14 @@
 			<var name="fieldValue" value="${fieldValue}" />
 		</execute>
 
-		<var method="StringUtil#replace('${fieldValue}', ' ', '')" name="fieldName" />
+		<if>
+			<not>
+				<isset var="fieldName" />
+			</not>
+			<then>
+				<var method="StringUtil#replace('${fieldValue}', ' ', '')" name="fieldName" />
+			</then>
+		</if>
 
 		<execute macro="FormFields#viewFieldName">
 			<var name="fieldName" value="${fieldName}" />
@@ -116,6 +123,12 @@
 
 	<command name="editPageTitle">
 		<execute function="Type" locator1="Form#PAGE_TITLE_FIELD" value1="${formPageName}" />
+	</command>
+
+	<command name="getPublishedFormPublicURL" returns="publicURL">
+		<var locator="Form#PUBLISH_FORM_PUBLIC_URL" name="publicURL" />
+
+		<return name="publicURL" value="${publicURL}" />
 	</command>
 
 	<command name="gotoAddField">

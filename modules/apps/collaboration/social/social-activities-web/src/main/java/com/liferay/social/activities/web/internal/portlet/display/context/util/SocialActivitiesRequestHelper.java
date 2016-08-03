@@ -17,15 +17,16 @@ package com.liferay.social.activities.web.internal.portlet.display.context.util;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.display.context.util.BaseRequestHelper;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.RSSUtil;
 import com.liferay.portal.kernel.util.StringPool;
 
 import javax.portlet.PortletPreferences;
+import javax.portlet.PortletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,12 +54,9 @@ public class SocialActivitiesRequestHelper extends BaseRequestHelper {
 			return _max;
 		}
 
-		LiferayPortletRequest liferayPortletRequest =
-			getLiferayPortletRequest();
+		PortletPreferences portletPreferences = _getPortletPreferences();
 
-		PortletPreferences preferences = liferayPortletRequest.getPreferences();
-
-		_max = GetterUtil.getInteger(preferences.getValue("max", "10"));
+		_max = GetterUtil.getInteger(portletPreferences.getValue("max", "10"));
 
 		return _max;
 	}
@@ -68,13 +66,10 @@ public class SocialActivitiesRequestHelper extends BaseRequestHelper {
 			return _rssDelta;
 		}
 
-		LiferayPortletRequest liferayPortletRequest =
-			getLiferayPortletRequest();
-
-		PortletPreferences preferences = liferayPortletRequest.getPreferences();
+		PortletPreferences portletPreferences = _getPortletPreferences();
 
 		_rssDelta = GetterUtil.getInteger(
-			preferences.getValue("rssDelta", StringPool.BLANK),
+			portletPreferences.getValue("rssDelta", StringPool.BLANK),
 			SearchContainer.DEFAULT_DELTA);
 
 		return _rssDelta;
@@ -85,12 +80,9 @@ public class SocialActivitiesRequestHelper extends BaseRequestHelper {
 			return _rssDisplayStyle;
 		}
 
-		LiferayPortletRequest liferayPortletRequest =
-			getLiferayPortletRequest();
+		PortletPreferences portletPreferences = _getPortletPreferences();
 
-		PortletPreferences preferences = liferayPortletRequest.getPreferences();
-
-		_rssDisplayStyle = preferences.getValue(
+		_rssDisplayStyle = portletPreferences.getValue(
 			"rssDisplayStyle", RSSUtil.DISPLAY_STYLE_DEFAULT);
 
 		return _rssDisplayStyle;
@@ -101,12 +93,9 @@ public class SocialActivitiesRequestHelper extends BaseRequestHelper {
 			return _rssFeedType;
 		}
 
-		LiferayPortletRequest liferayPortletRequest =
-			getLiferayPortletRequest();
+		PortletPreferences portletPreferences = _getPortletPreferences();
 
-		PortletPreferences preferences = liferayPortletRequest.getPreferences();
-
-		_rssFeedType = preferences.getValue(
+		_rssFeedType = portletPreferences.getValue(
 			"rssFeedType", RSSUtil.FEED_TYPE_DEFAULT);
 
 		return _rssFeedType;
@@ -137,14 +126,11 @@ public class SocialActivitiesRequestHelper extends BaseRequestHelper {
 			return _rssEnabled;
 		}
 
-		LiferayPortletRequest liferayPortletRequest =
-			getLiferayPortletRequest();
-
-		PortletPreferences preferences = liferayPortletRequest.getPreferences();
+		PortletPreferences portletPreferences = _getPortletPreferences();
 
 		if (PortalUtil.isRSSFeedsEnabled()) {
 			_rssEnabled = GetterUtil.getBoolean(
-				preferences.getValue("enableRss", null), true);
+				portletPreferences.getValue("enableRss", null), true);
 		}
 		else {
 			_rssEnabled = false;
@@ -153,8 +139,28 @@ public class SocialActivitiesRequestHelper extends BaseRequestHelper {
 		return _rssEnabled;
 	}
 
+	private PortletPreferences _getPortletPreferences() {
+		PortletRequest portletRequest = _getPortletRequest();
+
+		return portletRequest.getPreferences();
+	}
+
+	private PortletRequest _getPortletRequest() {
+		if (_portletRequest != null) {
+			return _portletRequest;
+		}
+
+		HttpServletRequest request = getRequest();
+
+		_portletRequest = (PortletRequest)request.getAttribute(
+			JavaConstants.JAVAX_PORTLET_REQUEST);
+
+		return _portletRequest;
+	}
+
 	private Integer _end;
 	private Integer _max;
+	private PortletRequest _portletRequest;
 	private Integer _rssDelta;
 	private String _rssDisplayStyle;
 	private Boolean _rssEnabled;

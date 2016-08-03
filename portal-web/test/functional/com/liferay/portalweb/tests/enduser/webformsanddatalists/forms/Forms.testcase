@@ -1423,6 +1423,21 @@
 
 		<execute macro="Form#save" />
 
+		<execute macro="FormsAdminNavigator#gotoEdit" />
+
+		<execute macro="FormsAdminNavigator#gotoPublish" />
+
+		<execute macro="Form#clickPublishSwitcher" />
+
+		<execute macro="Form#getPublishedFormPublicURL">
+			<return from="publicURL" name="publishedFormPublicURL" />
+			<var name="publishedFormPublicURL" value="${publishedFormPublicURL}" />
+		</execute>
+
+		<execute macro="Button#clickConfirm" />
+
+		<execute macro="Form#save" />
+
 		<execute macro="Page#add">
 			<var name="pageName" value="Form Page" />
 		</execute>
@@ -1442,34 +1457,49 @@
 
 		<execute macro="PortletEntry#save" />
 
-		<execute macro="Navigator#gotoPage">
-			<var name="pageName" value="Form Page" />
-		</execute>
+		<for list="private,public" param="formAccessLevel" >
+			<if>
+				<equals arg1="${formAccessLevel}" arg2="private" />
+				<then>
+					<execute macro="Navigator#gotoPage">
+						<var name="pageName" value="Form Page" />
+					</execute>
+				</then>
+				<elseif>
+					<equals arg1="${formAccessLevel}" arg2="public" />
+					<then>
+						<execute macro="Navigator#openSpecificURL">
+							<var name="url" value="${publishedFormPublicURL}" />
+						</execute>
+					</then>
+				</elseif>
+			</if>
 
-		<execute macro="FormFields#viewTextField">
-			<var name="fieldLabel" value="Text Field" />
-			<var name="fieldName" value="TextField" />
-		</execute>
+			<execute macro="FormFields#viewTextField">
+				<var name="fieldLabel" value="Text Field" />
+				<var name="fieldName" value="TextField" />
+			</execute>
 
-		<execute macro="FormFields#editText">
-			<var name="fieldName" value="TextField" />
-			<var name="fieldValue" value="Text Field Value" />
-		</execute>
+			<execute macro="FormFields#editText">
+				<var name="fieldName" value="TextField" />
+				<var name="fieldValue" value="Text Field Value" />
+			</execute>
 
-		<execute macro="FormFields#viewCaptchaField" />
+			<execute macro="FormFields#viewCaptchaField" />
 
-		<execute macro="FormFields#editCaptchaTextVerification">
-			<var name="fieldValue" value="1" />
-		</execute>
+			<execute macro="FormFields#editCaptchaTextVerification">
+				<var name="fieldValue" value="1" />
+			</execute>
 
-		<execute macro="FormPortlet#submitWithError">
-			<var name="errorMessage" value="Text verification failed." />
-		</execute>
+			<execute macro="FormPortlet#submitWithError">
+				<var name="errorMessage" value="Text verification failed." />
+			</execute>
 
-		<execute macro="FormFields#viewTextValue">
-			<var name="fieldName" value="TextField" />
-			<var name="fieldValue" value="Text Field Value" />
-		</execute>
+			<execute macro="FormFields#viewTextValue">
+				<var name="fieldName" value="TextField" />
+				<var name="fieldValue" value="Text Field Value" />
+			</execute>
+		</for>
 	</command>
 
 	<command name="SubmitFormWithAllFieldTypesAfterEditingFields" priority="5">
@@ -1663,6 +1693,7 @@
 		</execute>
 
 		<execute macro="Form#editFieldLabel">
+			<var name="fieldName" value="Paragraph" />
 			<var name="fieldValue" value="New Paragraph" />
 		</execute>
 
@@ -1677,6 +1708,7 @@
 		</execute>
 
 		<execute macro="Form#editFieldLabel">
+			<var name="fieldName" value="Text" />
 			<var name="fieldValue" value="New Text" />
 		</execute>
 
@@ -1687,16 +1719,17 @@
 		</execute>
 
 		<execute macro="Form#editFieldLabel">
+			<var name="fieldName" value="Select" />
 			<var name="fieldValue" value="New Select" />
 		</execute>
 
 		<execute macro="FormFields#editOptionsRow">
-			<var name="optionName" value="NewSelect1" />
+			<var name="optionName" value="Select1" />
 			<var name="optionValue" value="New Select 1" />
 		</execute>
 
 		<execute macro="FormFields#editOptionsRow">
-			<var name="optionName" value="NewSelect2" />
+			<var name="optionName" value="Select2" />
 			<var name="optionValue" value="New Select 2" />
 			<var name="rowNumber" value="2" />
 		</execute>
@@ -1708,16 +1741,17 @@
 		</execute>
 
 		<execute macro="Form#editFieldLabel">
+			<var name="fieldName" value="Radio" />
 			<var name="fieldValue" value="New Radio" />
 		</execute>
 
 		<execute macro="FormFields#editOptionsRow">
-			<var name="optionName" value="NewOption1" />
+			<var name="optionName" value="Option1" />
 			<var name="optionValue" value="New Option 1" />
 		</execute>
 
 		<execute macro="FormFields#editOptionsRow">
-			<var name="optionName" value="NewOption2" />
+			<var name="optionName" value="Option2" />
 			<var name="optionValue" value="New Option 2" />
 			<var name="rowNumber" value="2" />
 		</execute>
@@ -1729,6 +1763,7 @@
 		</execute>
 
 		<execute macro="Form#editFieldLabel">
+			<var name="fieldName" value="Date" />
 			<var name="fieldValue" value="New Date" />
 		</execute>
 
@@ -1739,6 +1774,7 @@
 		</execute>
 
 		<execute macro="Form#editFieldLabel">
+			<var name="fieldName" value="Checkbox" />
 			<var name="fieldValue" value="New Checkbox" />
 		</execute>
 
@@ -1751,43 +1787,44 @@
 		</execute>
 
 		<execute macro="FormFields#viewParagraphField">
+			<var name="fieldName" value="Paragraph" />
 			<var name="fieldTitle" value="New Paragraph" />
 			<var name="fieldValue" value="New Paragraph body text." />
 		</execute>
 
 		<execute macro="FormFields#editText">
-			<var name="fieldName" value="NewText" />
+			<var name="fieldName" value="Text" />
 			<var name="fieldValue" value="Text" />
 		</execute>
 
 		<execute macro="FormFields#selectSelectOption">
-			<var name="fieldName" value="NewSelect" />
+			<var name="fieldName" value="Select" />
 			<var name="selectOption" value="New Select 1" />
 		</execute>
 
 		<execute macro="FormFields#selectSelectOption">
-			<var name="fieldName" value="NewSelect" />
+			<var name="fieldName" value="Select" />
 			<var name="selectOption" value="New Select 2" />
 		</execute>
 
 		<execute macro="FormFields#selectRadioOption">
-			<var name="fieldName" value="NewRadio" />
+			<var name="fieldName" value="Radio" />
 			<var name="radioOption" value="New Option 1" />
 		</execute>
 
 		<execute macro="FormFields#selectRadioOption">
-			<var name="fieldName" value="NewRadio" />
+			<var name="fieldName" value="Radio" />
 			<var name="radioOption" value="New Option 2" />
 		</execute>
 
 		<execute macro="FormFields#editDate">
 			<var name="fieldLabel" value="New Date" />
-			<var name="fieldName" value="NewDate" />
+			<var name="fieldName" value="Date" />
 			<var name="fieldValue" value="05/02/2016" />
 		</execute>
 
 		<execute macro="FormFields#enableCheckbox">
-			<var name="fieldName" value="NewCheckbox" />
+			<var name="fieldName" value="Checkbox" />
 		</execute>
 
 		<execute macro="FormPortlet#submit" />
@@ -1803,37 +1840,38 @@
 		<execute macro="FormsAdminNavigator#gotoView" />
 
 		<execute macro="FormFields#viewParagraphField">
+			<var name="fieldName" value="Paragraph" />
 			<var name="fieldTitle" value="New Paragraph" />
 			<var name="fieldValue" value="New Paragraph body text." />
 		</execute>
 
 		<execute macro="FormsAdmin#viewTextEntry">
 			<var name="fieldLabel" value="New Text" />
-			<var name="fieldName" value="NewText" />
+			<var name="fieldName" value="Text" />
 			<var name="fieldValue" value="Text" />
 		</execute>
 
 		<execute macro="FormsAdmin#viewSelectEntry">
 			<var name="fieldLabel" value="New Select" />
-			<var name="fieldName" value="NewSelect" />
+			<var name="fieldName" value="Select" />
 			<var name="selectOption" value="New Select 2" />
 		</execute>
 
 		<execute macro="FormsAdmin#viewRadioEntry">
 			<var name="fieldLabel" value="New Radio" />
-			<var name="fieldName" value="NewRadio" />
+			<var name="fieldName" value="Radio" />
 			<var name="fieldValue" value="New Option 1" />
 		</execute>
 
 		<execute macro="FormsAdmin#viewDateEntry">
 			<var name="fieldLabel" value="New Date" />
-			<var name="fieldName" value="NewDate" />
+			<var name="fieldName" value="Date" />
 			<var name="fieldValue" value="05/02/2016" />
 		</execute>
 
 		<execute macro="FormsAdmin#viewCheckboxEntry">
 			<var name="fieldLabel" value="New Checkbox" />
-			<var name="fieldName" value="NewCheckbox" />
+			<var name="fieldName" value="Checkbox" />
 		</execute>
 	</command>
 
