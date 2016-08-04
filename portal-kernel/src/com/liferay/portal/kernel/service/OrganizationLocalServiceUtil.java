@@ -668,6 +668,29 @@ public class OrganizationLocalServiceUtil {
 	}
 
 	/**
+	* Returns the number of organizations and users that match the keywords specified
+	* for them and belong to the parent organization.
+	*
+	* @param companyId the primary key of the organization and user's company
+	* @param parentOrganizationId the primary key of the organization and user's
+	parent organization
+	* @param keywords the keywords (space separated), which may occur in the
+	organization's name, type, or location fields or user's first name,
+	middle name, last name, screen name, email address, or address fields
+	* @param status user's workflow status
+	* @param params the finder parameters (optionally <code>null</code>).
+	* @return the number of matching organizations and users
+	*/
+	public static int searchOrganizationsAndUsersCount(long companyId,
+		long parentOrganizationId, java.lang.String keywords, int status,
+		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .searchOrganizationsAndUsersCount(companyId,
+			parentOrganizationId, keywords, status, params);
+	}
+
+	/**
 	* Returns the OSGi service identifier.
 	*
 	* @return the OSGi service identifier
@@ -1154,6 +1177,34 @@ public class OrganizationLocalServiceUtil {
 		return getService()
 				   .search(companyId, parentOrganizationId, name, type, street,
 			city, zip, regionId, countryId, params, andOperator, start, end, obc);
+	}
+
+	/**
+	* Returns the organizations and users that match the keywords specified for
+	* them and belong to the parent organization.
+	*
+	* @param companyId the primary key of the organization and user's company
+	* @param parentOrganizationId the primary key of the organization and user's
+	parent organization
+	* @param keywords the keywords (space separated), which may occur in the
+	organization's name, type, or location fields or user's first name,
+	middle name, last name, screen name, email address, or address fields
+	* @param status user's workflow status
+	* @param params the finder parameters (optionally <code>null</code>).
+	* @param start the lower bound of the range of organizations and users to return
+	* @param end the upper bound of the range of organizations and users to return
+	(not inclusive)
+	* @return the matching organizations and users
+	*/
+	public static java.util.List<java.lang.Object> searchOrganizationsAndUsers(
+		long companyId, long parentOrganizationId, java.lang.String keywords,
+		int status,
+		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
+		int start, int end, com.liferay.portal.kernel.search.Sort[] sorts)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .searchOrganizationsAndUsers(companyId,
+			parentOrganizationId, keywords, status, params, start, end, sorts);
 	}
 
 	/**

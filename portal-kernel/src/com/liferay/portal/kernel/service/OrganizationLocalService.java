@@ -599,6 +599,26 @@ public interface OrganizationLocalService extends BaseLocalService,
 		boolean andOperator);
 
 	/**
+	* Returns the number of organizations and users that match the keywords specified
+	* for them and belong to the parent organization.
+	*
+	* @param companyId the primary key of the organization and user's company
+	* @param parentOrganizationId the primary key of the organization and user's
+	parent organization
+	* @param keywords the keywords (space separated), which may occur in the
+	organization's name, type, or location fields or user's first name,
+	middle name, last name, screen name, email address, or address fields
+	* @param status user's workflow status
+	* @param params the finder parameters (optionally <code>null</code>).
+	* @return the number of matching organizations and users
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int searchOrganizationsAndUsersCount(long companyId,
+		long parentOrganizationId, java.lang.String keywords, int status,
+		LinkedHashMap<java.lang.String, java.lang.Object> params)
+		throws PortalException;
+
+	/**
 	* Returns the OSGi service identifier.
 	*
 	* @return the OSGi service identifier
@@ -1019,6 +1039,29 @@ public interface OrganizationLocalService extends BaseLocalService,
 		LinkedHashMap<java.lang.String, java.lang.Object> params,
 		boolean andOperator, int start, int end,
 		OrderByComparator<Organization> obc);
+
+	/**
+	* Returns the organizations and users that match the keywords specified for
+	* them and belong to the parent organization.
+	*
+	* @param companyId the primary key of the organization and user's company
+	* @param parentOrganizationId the primary key of the organization and user's
+	parent organization
+	* @param keywords the keywords (space separated), which may occur in the
+	organization's name, type, or location fields or user's first name,
+	middle name, last name, screen name, email address, or address fields
+	* @param status user's workflow status
+	* @param params the finder parameters (optionally <code>null</code>).
+	* @param start the lower bound of the range of organizations and users to return
+	* @param end the upper bound of the range of organizations and users to return
+	(not inclusive)
+	* @return the matching organizations and users
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<java.lang.Object> searchOrganizationsAndUsers(long companyId,
+		long parentOrganizationId, java.lang.String keywords, int status,
+		LinkedHashMap<java.lang.String, java.lang.Object> params, int start,
+		int end, Sort[] sorts) throws PortalException;
 
 	/**
 	* Returns the number of rows matching the dynamic query.
