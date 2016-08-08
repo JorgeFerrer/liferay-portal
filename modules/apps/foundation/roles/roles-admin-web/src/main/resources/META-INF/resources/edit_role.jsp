@@ -91,15 +91,6 @@ renderResponse.setTitle((role == null) ? LanguageUtil.get(request, "new-role") :
 				</c:otherwise>
 			</c:choose>
 
-			<c:choose>
-				<c:when test="<%= (role != null) && role.isSystem() %>">
-					<aui:input name="name" type="hidden" value="<%= role.getName() %>" />
-				</c:when>
-				<c:otherwise>
-					<aui:input autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" label='<%= (role != null) ? "new-name" : "name" %>' name="name" />
-				</c:otherwise>
-			</c:choose>
-
 			<aui:input name="title" />
 
 			<aui:input name="description" />

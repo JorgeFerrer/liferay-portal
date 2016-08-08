@@ -53,6 +53,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -196,7 +197,6 @@ public class RolesAdminPortlet extends MVCPortlet {
 
 		long roleId = ParamUtil.getLong(actionRequest, "roleId");
 
-		String name = ParamUtil.getString(actionRequest, "name");
 		Map<Locale, String> titleMap = LocalizationUtil.getLocalizationMap(
 			actionRequest, "title");
 		Map<Locale, String> descriptionMap =
@@ -206,6 +206,14 @@ public class RolesAdminPortlet extends MVCPortlet {
 		String subtype = ParamUtil.getString(actionRequest, "subtype");
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			Role.class.getName(), actionRequest);
+
+		Locale defaultLocale = LocaleUtil.getDefault();
+
+		String name = titleMap.get(defaultLocale);
+
+		if (name == null) {
+			throw new RoleNameException();
+		}
 
 		if (roleId <= 0) {
 
