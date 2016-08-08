@@ -300,6 +300,32 @@ public class OrganizationLocalServiceTest {
 	}
 
 	@Test
+	public void testGetOrganizationsAndUsers() throws Exception {
+		Organization organization = OrganizationTestUtil.addOrganization();
+
+		Organization subOrganization = OrganizationTestUtil.addOrganization(
+			organization.getOrganizationId(), RandomTestUtil.randomString(),
+			false);
+
+		UserLocalServiceUtil.addOrganizationUser(
+			organization.getOrganizationId(), TestPropsValues.getUserId());
+
+		int count = OrganizationLocalServiceUtil.getOrganizationsAndUsersCount(
+			organization.getCompanyId(), organization.getOrganizationId(), -1);
+
+		Assert.assertEquals(2, count);
+
+		List<Object> results =
+			OrganizationLocalServiceUtil.getOrganizationsAndUsers(
+				organization.getCompanyId(), organization.getOrganizationId(),
+				-1, -1, -1, null);
+
+		Assert.assertEquals(2, results.size());
+		Assert.assertTrue(results.contains(subOrganization));
+		Assert.assertTrue(results.contains(TestPropsValues.getUser()));
+	}
+
+	@Test
 	public void testHasUserOrganization1() throws Exception {
 		Organization organizationA = OrganizationTestUtil.addOrganization(
 			OrganizationConstants.DEFAULT_PARENT_ORGANIZATION_ID,
