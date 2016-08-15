@@ -408,7 +408,7 @@ ManifestSummary manifestSummary = ExportImportHelperUtil.getManifestSummary(user
 			ratingsNode: '#<%= PortletDataHandlerKeys.RATINGS %>',
 			setupNode: '#<%= PortletDataHandlerKeys.PORTLET_SETUP_ALL %>',
 			themeReferenceNode: '#<%= PortletDataHandlerKeys.THEME_REFERENCE %>',
-			timeZone: '<%= timeZone.getID() %>',
+			timeZoneOffset: <%= timeZoneOffset %>,
 			userPreferencesNode: '#<%= PortletDataHandlerKeys.PORTLET_USER_PREFERENCES_ALL %>'
 		}
 	);

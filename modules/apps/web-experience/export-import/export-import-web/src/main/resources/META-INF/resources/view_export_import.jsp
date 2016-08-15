@@ -37,7 +37,7 @@ long backgroundTaskId = ParamUtil.getLong(request, "backgroundTaskId");
 			namespace: '<portlet:namespace />',
 			processesNode: '#exportImportProcessContainer',
 			processesResourceURL: '<%= HtmlUtil.escapeJS(exportImportProcessURL) %>',
-			timeZone: '<%= timeZone.getID() %>'
+			timeZoneOffset: <%= timeZoneOffset %>
 		}
 	);
 </aui:script>

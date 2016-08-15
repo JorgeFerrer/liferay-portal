@@ -153,12 +153,11 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 			Parameters parameters = OSGiHeader.parseHeader(
 				bundleSymbolicNameAttributeValue);
 
-			Set<String> bundleSymbolicNameSet = parameters.keySet();
+			Set<String> set = parameters.keySet();
 
-			Iterator<String> bundleSymbolicNameIterator =
-				bundleSymbolicNameSet.iterator();
+			Iterator<String> iterator = set.iterator();
 
-			String bundleSymbolicName = bundleSymbolicNameIterator.next();
+			String bundleSymbolicName = iterator.next();
 
 			String bundleVersionAttributeValue = attributes.getValue(
 				Constants.BUNDLE_VERSION);
@@ -609,7 +608,15 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 
 			unsyncBufferedInputStream.mark(1024 * 1000);
 
-			Bundle bundle = getBundle(bundleContext, unsyncBufferedInputStream);
+			Bundle bundle = null;
+
+			if (location.startsWith("reference:")) {
+				bundle = _getStaticBundle(
+					bundleContext, unsyncBufferedInputStream);
+			}
+			else {
+				bundle = getBundle(bundleContext, unsyncBufferedInputStream);
+			}
 
 			try {
 				unsyncBufferedInputStream.reset();
@@ -767,6 +774,64 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 		properties.put(ServicePropsKeys.VENDOR, ReleaseInfo.getVendor());
 
 		return properties;
+	}
+
+	private Bundle _getStaticBundle(
+			BundleContext bundleContext, InputStream inputStream)
+		throws PortalException {
+
+		try {
+			JarInputStream jarInputStream = new JarInputStream(inputStream);
+
+			Manifest manifest = jarInputStream.getManifest();
+
+			Attributes attributes = manifest.getMainAttributes();
+
+			String bundleSymbolicNameAttributeValue = attributes.getValue(
+				Constants.BUNDLE_SYMBOLICNAME);
+
+			Parameters parameters = OSGiHeader.parseHeader(
+				bundleSymbolicNameAttributeValue);
+
+			Set<String> set = parameters.keySet();
+
+			Iterator<String> iterator = set.iterator();
+
+			String bundleSymbolicName = iterator.next();
+
+			String bundleVersionAttributeValue = attributes.getValue(
+				Constants.BUNDLE_VERSION);
+
+			Version bundleVersion = Version.parseVersion(
+				bundleVersionAttributeValue);
+
+			for (Bundle bundle : bundleContext.getBundles()) {
+				if (bundleSymbolicName.equals(bundle.getSymbolicName())) {
+					Version curBundleVersion = Version.parseVersion(
+						String.valueOf(bundle.getVersion()));
+
+					if (bundleVersion.equals(curBundleVersion)) {
+						return bundle;
+					}
+					else {
+						bundle.uninstall();
+
+						FrameworkWiring frameworkWiring = _framework.adapt(
+							FrameworkWiring.class);
+
+						frameworkWiring.refreshBundles(
+							Collections.singletonList(bundle));
+
+						return null;
+					}
+				}
+			}
+
+			return null;
+		}
+		catch (Exception e) {
+			throw new PortalException(e);
+		}
 	}
 
 	private String _getSystemPackagesExtra() {
@@ -1096,7 +1161,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
-					"Uninstalled orphan overwritten static JAR bundle " +
+					"Uninstalled orphan overriding static JAR bundle " +
 						location);
 			}
 		}
@@ -1108,7 +1173,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 
 		refreshBundles.clear();
 
-		Set<String> overwrittenFileNames = new HashSet<>();
+		Set<String> overrideFileNames = new HashSet<>();
 
 		for (Path jarPath : jarPaths) {
 			try (InputStream inputStream = Files.newInputStream(jarPath)) {
@@ -1120,7 +1185,7 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 				if (bundle != null) {
 					bundles.add(bundle);
 
-					overwrittenFileNames.add(
+					overrideFileNames.add(
 						path.substring(path.lastIndexOf(StringPool.SLASH) + 1));
 				}
 			}
@@ -1176,14 +1241,14 @@ public class ModuleFrameworkImpl implements ModuleFramework {
 							String fileName =
 								matcher.group(1) + matcher.group(4);
 
-							if (overwrittenFileNames.contains(fileName)) {
+							if (overrideFileNames.contains(fileName)) {
 								if (_log.isInfoEnabled()) {
 									StringBundler sb = new StringBundler(7);
 
 									sb.append(zipFile);
 									sb.append(":");
 									sb.append(zipEntry);
-									sb.append(" is overwritten by ");
+									sb.append(" is overridden by ");
 									sb.append(
 										PropsValues.MODULE_FRAMEWORK_BASE_DIR);
 									sb.append("/static/");

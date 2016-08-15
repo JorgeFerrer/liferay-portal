@@ -141,6 +141,7 @@ public class JavaTermDividers {
 	}
 
 	private JavaTermDividers(String s) {
+		String test = s;
 	}
 
 	private void _methodPrivate1() {
@@ -148,10 +149,6 @@ public class JavaTermDividers {
 
 	private void _methodPrivate2() {
 	}
-
-	private static final String _VAR_PRIVATE_STATIC_1;
-
-	private static final String _VAR_PRIVATE_STATIC_2;
 
 	private static final String _VAR_PRIVATE_STATIC_FINAL_1;
 

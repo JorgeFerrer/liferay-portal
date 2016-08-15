@@ -77,7 +77,15 @@
 			</else>
 		</if>
 
-		<execute function="Type#typeEditor" locator1="AlloyEditor#TITLE_FIELD" value1="${kbArticleTitle}" />
+		<if>
+			<isset var="specialCharacters" />
+			<then>
+				<execute function="Type#sendKeys" locator1="AlloyEditor#TITLE_FIELD" value1="${kbArticleTitle}" />
+			</then>
+			<else>
+				<execute function="Type#typeEditor" locator1="AlloyEditor#TITLE_FIELD" value1="${kbArticleTitle}" />
+			</else>
+		</if>
 
 		<execute macro="Panel#expandPanel">
 			<var name="panelHeading" value="Configuration" />
@@ -170,6 +178,12 @@
 			<then>
 				<execute function="AssertClick" locator1="Button#SUBMIT_FOR_PUBLICATION" value1="Submit for Publication" />
 			</then>
+			<elseif>
+				<equals arg1="${saveAsDraft}" arg2="true" />
+				<then>
+					<execute macro="Button#clickSaveAsDraft" />
+				</then>
+			</elseif>
 			<else>
 				<execute function="AssertClick" locator1="Button#PUBLISH" value1="Publish" />
 			</else>
@@ -251,6 +265,15 @@
 		</for>
 
 		<execute function="AssertClick" locator1="Button#SAVE" value1="Save" />
+	</command>
+
+	<command name="cancelAddKBArticle">
+		<execute macro="KBArticle#_gotoAddBasicArticle" />
+
+		<execute function="Type#typeEditor" locator1="AlloyEditor#TITLE_FIELD" value1="${kbArticleTitle}" />
+		<execute function="Type#typeEditor" locator1="AlloyEditor#CONTENT_FIELD" value1="${kbArticleContent}" />
+
+		<execute macro="Button#clickCancel" />
 	</command>
 
 	<command name="configureEmailCP">
@@ -590,7 +613,23 @@
 			</then>
 		</if>
 
-		<execute macro="PortletEntry#publish" />
+		<if>
+			<equals arg1="${cancel}" arg2="true" />
+			<then>
+				<execute macro="Button#clickCancel" />
+			</then>
+			<elseif>
+				<equals arg1="${saveAsDraft}" arg2="true" />
+				<then>
+					<execute macro="Button#clickSaveAsDraft" />
+
+					<execute macro="Alert#viewSuccessMessage" />
+				</then>
+			</elseif>
+			<else>
+				<execute macro="PortletEntry#publish" />
+			</else>
+		</if>
 	</command>
 
 	<command name="editKBArticlePriorityCP">
@@ -775,7 +814,17 @@
 		<var name="key_kbArticleTitle" value="${kbArticleTitle}" />
 		<var name="key_rowEntry" value="${kbArticleTitle}" />
 
-		<execute function="Click" locator1="Icon#ROW_VERTICAL_ELLIPSIS" />
+		<if>
+			<condition function="IsElementPresent" locator1="Icon#ROW_VERTICAL_ELLIPSIS" />
+			<then>
+				<execute function="Click" locator1="Icon#ROW_VERTICAL_ELLIPSIS" />
+			</then>
+			<else>
+				<execute function="Click" locator1="Icon#INFO" />
+
+				<execute function="Click" locator1="Icon#HISTORY_VERTICAL_ELLIPSIS" />
+			</else>
+		</if>
 
 		<execute function="AssertClick" locator1="MenuItem#MOVE" value1="Move" />
 
@@ -842,18 +891,6 @@
 		</if>
 
 		<execute function="AssertTextEquals" locator1="KnowledgeBase#DISPLAY_VOTES" value1="${articleVoteCount}" />
-	</command>
-
-	<command name="removeParentArticleCP">
-		<execute function="SelectFrame" locator1="KnowledgeBaseSelectParent#IFRAME" />
-
-		<execute function="Click" locator1="KnowledgeBaseSelectParent#REMOVE_BUTTON" />
-
-		<execute function="SelectFrame" value1="relative=top" />
-
-		<execute function="Click" locator1="Button#MOVE" />
-
-		<execute macro="Alert#viewSuccessMessage" />
 	</command>
 
 	<command name="searchPGViaKBSearch">
@@ -1195,6 +1232,13 @@
 			<equals arg1="${kbWorkflowStatus}" arg2="Pending" />
 			<then>
 				<execute function="AssertTextEquals" locator1="KnowledgeBase#ARTICLE_TABLE_ARTICLE_STATUS" value1="Pending" />
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${kbStatus}" arg2="Draft" />
+			<then>
+				<execute function="AssertTextEquals" locator1="KnowledgeBase#ARTICLE_TABLE_ARTICLE_STATUS" value1="Draft" />
 			</then>
 		</if>
 

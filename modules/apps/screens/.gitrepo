@@ -4,7 +4,7 @@
 ;
 [subrepo]
 	cmdver = liferay
-	commit = a4f36a1589a0da05644c18cbca923e130d7776d6
+	commit = e4a5ba7a45aeb39c5f98ae2e32749101a6cea7c1
 	mode = push
-	parent = d1434979dd1528a2d4cd8c4fcf9c547c59112867
+	parent = dc4233a7ef5f753793cdc4c0f4a3d324b015e97a
 	remote = git@github.com:liferay/com-liferay-screens.git

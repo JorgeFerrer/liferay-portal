@@ -226,7 +226,11 @@ AUI.add(
 								mvcPath: '/select_structure.jsp',
 								navigationStartsOn: 'SELECT_STRUCTURE',
 								refererPortletName: ddm.refererPortletName,
+								searchRestriction: ddm.searchRestriction,
+								searchRestrictionClassNameId: ddm.searchRestrictionClassNameId,
+								searchRestrictionClassPK: ddm.searchRestrictionClassPK,
 								showAncestorScopes: true,
+								showCacheableInput: true,
 								title: strings.structures
 							},
 							function(event) {
@@ -271,6 +275,7 @@ AUI.add(
 								refererPortletName: ddm.refererPortletName,
 								resourceClassNameId: ddm.resourceClassNameId,
 								showAncestorScopes: true,
+								showCacheableInput: true,
 								templateId: ddm.templateId,
 								title: strings.templates
 							},

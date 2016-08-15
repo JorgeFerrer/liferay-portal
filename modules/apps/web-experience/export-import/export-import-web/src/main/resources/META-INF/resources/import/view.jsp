@@ -92,7 +92,7 @@ GroupDisplayContextHelper groupDisplayContextHelper = new GroupDisplayContextHel
 			namespace: '<portlet:namespace />',
 			processesNode: '#importProcessesSearchContainer',
 			processesResourceURL: '<%= HtmlUtil.escapeJS(importProcessesURL.toString()) %>',
-			timeZone: '<%= timeZone.getID() %>'
+			timeZoneOffset: <%= timeZoneOffset %>
 		}
 	);
 </aui:script>

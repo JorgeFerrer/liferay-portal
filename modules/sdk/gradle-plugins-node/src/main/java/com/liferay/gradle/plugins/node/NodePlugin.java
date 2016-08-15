@@ -17,14 +17,13 @@ package com.liferay.gradle.plugins.node;
 import com.liferay.gradle.plugins.node.tasks.DownloadNodeTask;
 import com.liferay.gradle.plugins.node.tasks.ExecuteNodeTask;
 import com.liferay.gradle.plugins.node.tasks.ExecuteNpmTask;
+import com.liferay.gradle.plugins.node.tasks.NpmInstallTask;
 import com.liferay.gradle.plugins.node.tasks.PublishNodeModuleTask;
 import com.liferay.gradle.plugins.node.util.GradleUtil;
 
-import groovy.json.JsonSlurper;
-
 import java.io.File;
 
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.gradle.api.Action;
@@ -34,8 +33,6 @@ import org.gradle.api.Task;
 import org.gradle.api.internal.plugins.osgi.OsgiHelper;
 import org.gradle.api.specs.Spec;
 import org.gradle.api.tasks.TaskContainer;
-import org.gradle.api.tasks.TaskInputs;
-import org.gradle.api.tasks.TaskOutputs;
 
 /**
  * @author Andrea Di Giorgi
@@ -53,10 +50,11 @@ public class NodePlugin implements Plugin<Project> {
 		final NodeExtension nodeExtension = GradleUtil.addExtension(
 			project, EXTENSION_NAME, NodeExtension.class);
 
-		addTaskDownloadNode(project, nodeExtension);
-		addTaskNpmInstall(project);
+		final DownloadNodeTask downloadNodeTask = addTaskDownloadNode(
+			project, nodeExtension);
 
-		configureTasksDownloadNode(project, nodeExtension);
+		addTaskNpmInstall(project, nodeExtension);
+
 		configureTasksExecuteNode(project, nodeExtension);
 		configureTasksPublishNodeModule(project);
 
@@ -65,6 +63,8 @@ public class NodePlugin implements Plugin<Project> {
 
 				@Override
 				public void execute(Project project) {
+					configureTaskDownloadNodeGlobal(
+						downloadNodeTask, nodeExtension);
 					configureTasksExecuteNpm(project, nodeExtension);
 				}
 
@@ -74,93 +74,15 @@ public class NodePlugin implements Plugin<Project> {
 	protected DownloadNodeTask addTaskDownloadNode(
 		Project project, final NodeExtension nodeExtension) {
 
+		return addTaskDownloadNode(
+			project, DOWNLOAD_NODE_TASK_NAME, nodeExtension);
+	}
+
+	protected DownloadNodeTask addTaskDownloadNode(
+		Project project, String taskName, final NodeExtension nodeExtension) {
+
 		DownloadNodeTask downloadNodeTask = GradleUtil.addTask(
-			project, DOWNLOAD_NODE_TASK_NAME, DownloadNodeTask.class);
-
-		downloadNodeTask.onlyIf(
-			new Spec<Task>() {
-
-				@Override
-				public boolean isSatisfiedBy(Task task) {
-					return nodeExtension.isDownload();
-				}
-
-			});
-
-		downloadNodeTask.setDescription(
-			"Downloads Node.js in the project build directory.");
-
-		return downloadNodeTask;
-	}
-
-	protected ExecuteNpmTask addTaskNpmInstall(Project project) {
-		final ExecuteNpmTask executeNpmTask = GradleUtil.addTask(
-			project, NPM_INSTALL_TASK_NAME, ExecuteNpmTask.class);
-
-		executeNpmTask.onlyIf(
-			new Spec<Task>() {
-
-				@Override
-				public boolean isSatisfiedBy(Task task) {
-					Project project = task.getProject();
-
-					File packageJsonFile = project.file("package.json");
-
-					if (!packageJsonFile.exists()) {
-						return false;
-					}
-
-					JsonSlurper jsonSlurper = new JsonSlurper();
-
-					Map<String, Object> packageJson =
-						(Map<String, Object>)jsonSlurper.parse(packageJsonFile);
-
-					if (packageJson.containsKey("dependencies") ||
-						packageJson.containsKey("devDependencies")) {
-
-						return true;
-					}
-
-					return false;
-				}
-
-			});
-
-		executeNpmTask.setArgs("install");
-		executeNpmTask.setDescription(
-			"Install Node packages from package.json.");
-
-		TaskInputs taskInputs = executeNpmTask.getInputs();
-
-		taskInputs.file(
-			new Callable<File>() {
-
-				@Override
-				public File call() throws Exception {
-					return new File(
-						executeNpmTask.getWorkingDir(), "package.json");
-				}
-
-			});
-
-		TaskOutputs taskOutputs = executeNpmTask.getOutputs();
-
-		taskOutputs.dir(
-			new Callable<File>() {
-
-				@Override
-				public File call() throws Exception {
-					return new File(
-						executeNpmTask.getWorkingDir(), "node_modules");
-				}
-
-			});
-
-		return executeNpmTask;
-	}
-
-	protected void configureTaskDownloadNode(
-		DownloadNodeTask downloadNodeTask, final NodeExtension nodeExtension) {
+			project, taskName, DownloadNodeTask.class);
 
 		downloadNodeTask.setNodeDir(
 			new Callable<File>() {
@@ -191,6 +113,81 @@ public class NodePlugin implements Plugin<Project> {
 				}
 
 			});
+
+		downloadNodeTask.onlyIf(
+			new Spec<Task>() {
+
+				@Override
+				public boolean isSatisfiedBy(Task task) {
+					return nodeExtension.isDownload();
+				}
+
+			});
+
+		downloadNodeTask.setDescription(
+			"Downloads Node.js in the project build directory.");
+
+		return downloadNodeTask;
+	}
+
+	protected NpmInstallTask addTaskNpmInstall(
+		Project project, final NodeExtension nodeExtension) {
+
+		final NpmInstallTask npmInstallTask = GradleUtil.addTask(
+			project, NPM_INSTALL_TASK_NAME, NpmInstallTask.class);
+
+		npmInstallTask.setDescription(
+			"Install Node packages from package.json.");
+
+		return npmInstallTask;
+	}
+
+	protected void configureTaskDownloadNodeGlobal(
+		DownloadNodeTask downloadNodeTask, NodeExtension nodeExtension) {
+
+		if (!nodeExtension.isDownload() || !nodeExtension.isGlobal()) {
+			return;
+		}
+
+		Project project = downloadNodeTask.getProject();
+
+		Project rootProject = project.getRootProject();
+
+		DownloadNodeTask rootDownloadNodeTask = null;
+
+		TaskContainer taskContainer = rootProject.getTasks();
+
+		Set<DownloadNodeTask> rootDownloadNodeTasks = taskContainer.withType(
+			DownloadNodeTask.class);
+
+		File nodeDir = downloadNodeTask.getNodeDir();
+		String nodeExeUrl = downloadNodeTask.getNodeExeUrl();
+		String nodeUrl = downloadNodeTask.getNodeUrl();
+
+		for (DownloadNodeTask curRootDownloadNodeTask : rootDownloadNodeTasks) {
+			if (nodeDir.equals(curRootDownloadNodeTask.getNodeDir()) &&
+				nodeExeUrl.equals(curRootDownloadNodeTask.getNodeExeUrl()) &&
+				nodeUrl.equals(curRootDownloadNodeTask.getNodeUrl())) {
+
+				rootDownloadNodeTask = curRootDownloadNodeTask;
+
+				break;
+			}
+		}
+
+		if (rootDownloadNodeTask == null) {
+			String taskName = DOWNLOAD_NODE_TASK_NAME;
+
+			if (!rootDownloadNodeTasks.isEmpty()) {
+				taskName += rootDownloadNodeTasks.size();
+			}
+
+			rootDownloadNodeTask = addTaskDownloadNode(
+				rootProject, taskName, nodeExtension);
+		}
+
+		downloadNodeTask.deleteAllActions();
+		downloadNodeTask.dependsOn(rootDownloadNodeTask);
 	}
 
 	protected void configureTaskExecuteNode(
@@ -259,23 +256,6 @@ public class NodePlugin implements Plugin<Project> {
 				@Override
 				public Object call() throws Exception {
 					return project.getVersion();
-				}
-
-			});
-	}
-
-	protected void configureTasksDownloadNode(
-		Project project, final NodeExtension nodeExtension) {
-
-		TaskContainer taskContainer = project.getTasks();
-
-		taskContainer.withType(
-			DownloadNodeTask.class,
-			new Action<DownloadNodeTask>() {
-
-				@Override
-				public void execute(DownloadNodeTask downloadNodeTask) {
-					configureTaskDownloadNode(downloadNodeTask, nodeExtension);
 				}
 
 			});

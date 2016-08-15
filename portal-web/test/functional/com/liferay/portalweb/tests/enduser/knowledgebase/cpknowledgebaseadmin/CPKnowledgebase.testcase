@@ -68,6 +68,32 @@
 		</execute>
 	</command>
 
+	<command name="AddKBArticleAsDraft" priority="4">
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#addCP">
+			<var name="kbArticleContent" value="Knowledge Base Article Content" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+			<var name="saveAsDraft" value="true" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#viewCP">
+			<var name="kbArticleContent" value="Knowledge Base Article Content" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+			<var name="kbStatus" value="Draft" />
+		</execute>
+	</command>
+
 	<command name="AddKBArticlesViaKBAdmin" priority="4">
 		<var name="kbArticleCounterList" value="1,2,3" />
 
@@ -271,8 +297,6 @@
 			<var name="categoryName" value="Category Name" />
 			<var name="kbArticleContent" value="Knowledge Base Article Content" />
 			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
-			<var name="kbAuthor" value="Test Test" />
-			<var name="kbPriority" value="1.0" />
 			<var name="vocabularyName" value="Vocabulary Name" />
 		</execute>
 	</command>
@@ -438,6 +462,58 @@
 		<execute macro="KBTemplate#viewCP">
 			<var name="kbTemplateContent" value="Knowledge Base Template Content" />
 			<var name="kbTemplateTitle" value="Knowledge Base Template Title" />
+		</execute>
+	</command>
+
+	<command name="CancelAddKBArticle" priority="3">
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#cancelAddKBArticle">
+			<var name="kbArticleContent" value="Knowledge Base Article Content" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+		</execute>
+
+		<execute macro="KBArticle#viewDefaultCP" />
+	</command>
+
+	<command name="CancelEditKBArticle" priority="3">
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#addCP">
+			<var name="kbArticleContent" value="Knowledge Base Article Content" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#editCP">
+			<var name="cancel" value="true" />
+			<var name="kbArticleContentEdit" value="Knowledge Base Article Content Edit" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+			<var name="kbArticleTitleEdit" value="Knowledge Base Article Title Edit" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#viewCP">
+			<var name="kbArticleContent" value="Knowledge Base Article Content" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
 		</execute>
 	</command>
 
@@ -670,12 +746,19 @@
 			<var name="kbArticleTitle" value="Knowledge Base Article Title Parent" />
 		</execute>
 
+		<execute macro="KBArticle#viewChildArticleCP">
+			<var name="kbChildArticleContent" value="Knowledge Base Article Content Child" />
+			<var name="kbChildArticleTitle" value="Knowledge Base Article Title Child" />
+		</execute>
+
 		<execute macro="KBArticle#moveArticleCP">
 			<var name="kbArticleCurrentParent" value="Knowledge Base Article Title Parent" />
 			<var name="kbArticleTitle" value="Knowledge Base Article Title Child" />
 		</execute>
 
-		<execute macro="KBArticle#removeParentArticleCP" />
+		<execute macro="KBFolder#selectParentCP">
+			<var name="kbFolderName" value="Home" />
+		</execute>
 
 		<execute macro="Navigator#openURL" />
 
@@ -686,8 +769,44 @@
 		<execute macro="KBArticle#viewCP">
 			<var name="kbArticleContent" value="Knowledge Base Article Content Child" />
 			<var name="kbArticleTitle" value="Knowledge Base Article Title Child" />
-			<var name="kbAuthor" value="Test Test" />
-			<var name="kbPriority" value="1.0" />
+		</execute>
+	</command>
+
+	<command name="SaveEditedKBArticleAsDraft">
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#addCP">
+			<var name="kbArticleContent" value="Knowledge Base Article Content" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#editCP">
+			<var name="kbArticleContentEdit" value="Knowledge Base Article Content Edit" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title" />
+			<var name="kbArticleTitleEdit" value="Knowledge Base Article Title Edit" />
+			<var name="saveAsDraft" value="true" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesContent">
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBArticle#viewCP">
+			<var name="kbArticleContent" value="Knowledge Base Article Content Edit" />
+			<var name="kbArticleTitle" value="Knowledge Base Article Title Edit" />
+			<var name="kbStatus" value="Draft" />
 		</execute>
 	</command>
 
@@ -1071,8 +1190,6 @@
 		<execute macro="KBArticle#viewCP">
 			<var name="kbArticleContent" value="${kbArticleContent}" />
 			<var name="kbArticleTitle" value="${kbArticleTitle}" />
-			<var name="kbAuthor" value="Test Test" />
-			<var name="kbPriority" value="1.0" />
 			<var name="kbWorkflowStatus" value="Pending" />
 		</execute>
 	</command>

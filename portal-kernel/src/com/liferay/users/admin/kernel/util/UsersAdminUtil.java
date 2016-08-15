@@ -200,6 +200,10 @@ public class UsersAdminUtil {
 		return getUsersAdmin().getOrganizations(hits);
 	}
 
+	public static List<Object> getOrganizationsAndUsers(Hits hits) {
+		return getUsersAdmin().getOrganizationsAndUsers(hits);
+	}
+
 	public static List<OrgLabor> getOrgLabors(ActionRequest actionRequest) {
 		return getUsersAdmin().getOrgLabors(actionRequest);
 	}

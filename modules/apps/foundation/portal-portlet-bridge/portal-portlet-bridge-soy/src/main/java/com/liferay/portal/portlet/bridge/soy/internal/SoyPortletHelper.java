@@ -14,8 +14,10 @@
 
 package com.liferay.portal.portlet.bridge.soy.internal;
 
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONSerializer;
 import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateConstants;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -45,9 +47,16 @@ public class SoyPortletHelper {
 	public SoyPortletHelper(Bundle bundle) throws Exception {
 		_bundle = bundle;
 
-		_moduleName = getModuleName();
-
 		_javaScriptTPL = getJavaScriptTPL();
+		_jsonDeserializer = JSONFactoryUtil.createJSONDeserializer();
+		_jsonSerializer = JSONFactoryUtil.createJSONSerializer();
+		_moduleName = getModuleName();
+	}
+
+	public Object deserializeValue(Object value) {
+		String json = _jsonSerializer.serializeDeep(value);
+
+		return _jsonDeserializer.deserialize(json);
 	}
 
 	public String getPortletJavaScript(
@@ -191,6 +200,8 @@ public class SoyPortletHelper {
 	private final Bundle _bundle;
 	private final Map<String, String> _controllersMap = new HashMap<>();
 	private final String _javaScriptTPL;
+	private final JSONDeserializer<Object> _jsonDeserializer;
+	private final JSONSerializer _jsonSerializer;
 	private final String _moduleName;
 
 }

@@ -101,7 +101,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			namespace: '<portlet:namespace />',
 			processesNode: '#publishProcessesSearchContainer',
 			processesResourceURL: '<%= HtmlUtil.escapeJS(publishProcessesURL.toString()) %>',
-			timeZone: '<%= timeZone.getID() %>'
+			timeZoneOffset: <%= timeZoneOffset %>
 		}
 	);
 

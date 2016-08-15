@@ -108,22 +108,22 @@ public class UnmodifiableList<E> implements List<E>, Serializable {
 	public Iterator<E> iterator() {
 		return new Iterator<E>() {
 
-			Iterator<? extends E> itr = _list.iterator();
-
 			@Override
 			public boolean hasNext() {
-				return itr.hasNext();
+				return _itr.hasNext();
 			}
 
 			@Override
 			public E next() {
-				return itr.next();
+				return _itr.next();
 			}
 
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException(_MESSAGE);
 			}
+
+			private final Iterator<? extends E> _itr = _list.iterator();
 
 		};
 	}
@@ -142,8 +142,6 @@ public class UnmodifiableList<E> implements List<E>, Serializable {
 	public ListIterator<E> listIterator(final int index) {
 		return new ListIterator<E>() {
 
-			ListIterator<? extends E> itr = _list.listIterator(index);
-
 			@Override
 			public void add(E element) {
 				throw new UnsupportedOperationException(_MESSAGE);
@@ -151,32 +149,32 @@ public class UnmodifiableList<E> implements List<E>, Serializable {
 
 			@Override
 			public boolean hasNext() {
-				return itr.hasNext();
-			}
-
-			@Override
-			public E next() {
-				return itr.next();
+				return _itr.hasNext();
 			}
 
 			@Override
 			public boolean hasPrevious() {
-				return itr.hasPrevious();
+				return _itr.hasPrevious();
 			}
 
 			@Override
-			public E previous() {
-				return itr.previous();
+			public E next() {
+				return _itr.next();
 			}
 
 			@Override
 			public int nextIndex() {
-				return itr.nextIndex();
+				return _itr.nextIndex();
+			}
+
+			@Override
+			public E previous() {
+				return _itr.previous();
 			}
 
 			@Override
 			public int previousIndex() {
-				return itr.previousIndex();
+				return _itr.previousIndex();
 			}
 
 			@Override
@@ -188,6 +186,9 @@ public class UnmodifiableList<E> implements List<E>, Serializable {
 			public void set(E element) {
 				throw new UnsupportedOperationException(_MESSAGE);
 			}
+
+			private final ListIterator<? extends E> _itr = _list.listIterator(
+				index);
 
 		};
 	}

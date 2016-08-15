@@ -3,10 +3,10 @@
 		<execute macro="AssetPublisherPortlet#gotoConfigurationPG" />
 
 		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
+			<var name="panelHeading" value="Scope" />
 		</execute>
 
-		<execute function="AssertClick" locator1="Configuration#SOURCE_SCOPE_SELECT" value1="Select" />
+		<execute function="AssertClick" locator1="Configuration#SCOPE_SELECT" value1="Select" />
 
 		<execute function="AssertClick" locator1="MenuItem#OTHER_SITE" value1="Other Site..." />
 
@@ -28,13 +28,13 @@
 		<execute macro="AssetPublisherPortlet#gotoConfigurationPG" />
 
 		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
+			<var name="panelHeading" value="Scope" />
 		</execute>
 
 		<if>
 			<isset var="globalSite" />
 			<then>
-				<execute function="Click" locator1="Configuration#SOURCE_SCOPE_SELECT" />
+				<execute function="Click" locator1="Configuration#SCOPE_SELECT" />
 
 				<execute function="Click" locator1="MenuItem#GLOBAL" />
 			</then>
@@ -43,7 +43,7 @@
 		<if>
 			<isset var="otherSite" />
 			<then>
-				<execute function="Click" locator1="Configuration#SOURCE_SCOPE_SELECT" />
+				<execute function="Click" locator1="Configuration#SCOPE_SELECT" />
 
 				<execute function="Click" locator1="MenuItem#OTHER_SITE" />
 
@@ -60,7 +60,7 @@
 		<if>
 			<isset var="defaultSite" />
 			<then>
-				<execute function="Click" locator1="Configuration#SOURCE_SCOPE_SELECT" />
+				<execute function="Click" locator1="Configuration#SCOPE_SELECT" />
 
 				<execute function="Click" locator1="APConfiguration#SOURCE_CURRENT_SCOPE_NAME" />
 			</then>
@@ -422,10 +422,10 @@
 		<execute macro="AssetPublisherPortlet#gotoConfigurationPG" />
 
 		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
+			<var name="panelHeading" value="Scope" />
 		</execute>
 
-		<execute function="AssertClick" locator1="Configuration#SOURCE_SCOPE_SELECT" value1="Select" />
+		<execute function="AssertClick" locator1="Configuration#SCOPE_SELECT" value1="Select" />
 
 		<if>
 			<equals arg1="${siteName}" arg2="Global" />
@@ -452,24 +452,12 @@
 			</else>
 		</if>
 
-		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
-		</execute>
-
 		<execute function="AssertTextEquals#assertPartialText" locator1="APConfiguration#SOURCE_SCOPE_NAME" value1="${siteName}" />
 		<execute function="AssertTextEquals" locator1="APConfiguration#SOURCE_SCOPE_TYPE" value1="${siteScopeType}" />
 
 		<execute macro="Button#clickSave" />
 
-		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
-		</execute>
-
 		<execute macro="Alert#viewSuccessMessage" />
-
-		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
-		</execute>
 
 		<execute function="AssertTextEquals#assertPartialText" locator1="APConfiguration#SOURCE_SCOPE_NAME" value1="${siteName}" />
 		<execute function="AssertTextEquals" locator1="APConfiguration#SOURCE_SCOPE_TYPE" value1="${siteScopeType}" />
@@ -489,7 +477,7 @@
 		<execute function="SelectFrame" locator1="IFrame#DIALOG" />
 
 		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
+			<var name="panelHeading" value="Scope" />
 		</execute>
 
 		<var name="key_siteName" value="${siteName}" />
@@ -726,10 +714,10 @@
 		<execute macro="AssetPublisherPortlet#gotoConfigurationPG" />
 
 		<execute macro="Panel#expandPanel">
-			<var name="panelHeading" value="Source" />
+			<var name="panelHeading" value="Scope" />
 		</execute>
 
-		<execute function="AssertClick" locator1="Configuration#SOURCE_SCOPE_SELECT" value1="Select" />
+		<execute function="AssertClick" locator1="Configuration#SCOPE_SELECT" value1="Select" />
 
 		<if>
 			<equals arg1="${contentSharingAcrossSitesEnabled}" arg2="true" />
@@ -761,7 +749,16 @@
 				<equals arg1="${contentSharingAcrossSitesEnabled}" arg2="false" />
 				<then>
 					<execute function="AssertTextEquals" locator1="MenuItem#GLOBAL" value1="Global" />
-					<execute function="AssertElementNotPresent" locator1="MenuItem#OTHER_SITE" />
+
+					<if>
+						<equals arg1="${childSite}" arg2="true" />
+						<then>
+							<execute function="AssertTextEquals" locator1="MenuItem#OTHER_SITE" value1="Other Site..." />
+						</then>
+						<else>
+							<execute function="AssertElementNotPresent" locator1="MenuItem#OTHER_SITE" />
+						</else>
+					</if>
 				</then>
 			</elseif>
 		</if>

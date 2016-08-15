@@ -522,7 +522,7 @@ portletURL.setParameter("tabs3", "current-and-previous");
 						rangeLastNode: '#rangeLast',
 						rangeLastPublishNode: '#rangeLastPublish',
 						ratingsNode: '#<%= PortletDataHandlerKeys.RATINGS %>',
-						timeZone: '<%= timeZone.getID() %>'
+						timeZoneOffset: <%= timeZoneOffset %>
 					}
 				);
 

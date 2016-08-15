@@ -180,6 +180,10 @@ String portletResource = ParamUtil.getString(request, "portletResource");
 
 Portlet selPortlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), portletResource);
 
+Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+int timeZoneOffset = timeZone.getOffset(calendar.getTimeInMillis());
+
 Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZone);
 %>
 

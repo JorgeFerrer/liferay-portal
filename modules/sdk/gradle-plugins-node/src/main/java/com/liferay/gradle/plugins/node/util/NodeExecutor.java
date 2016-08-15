@@ -18,6 +18,7 @@ import com.liferay.gradle.util.OSDetector;
 import com.liferay.gradle.util.Validator;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.gradle.api.Project;
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.Logging;
 import org.gradle.util.GUtil;
 
 /**
@@ -50,14 +53,30 @@ public class NodeExecutor {
 	public void execute() throws Exception {
 		ProcessBuilder processBuilder = new ProcessBuilder(getCommandLine());
 
+		File workingDir = getWorkingDir();
+
+		processBuilder.directory(workingDir);
 		processBuilder.inheritIO();
-		processBuilder.directory(getWorkingDir());
 
 		updateEnvironment(processBuilder.environment());
 
+		if (_logger.isInfoEnabled()) {
+			_logger.info(
+				"Running {} from {}", processBuilder.command(),
+				processBuilder.directory());
+		}
+
+		workingDir.mkdirs();
+
 		Process process = processBuilder.start();
 
-		process.waitFor();
+		int exitValue = process.waitFor();
+
+		if (exitValue != 0) {
+			throw new IOException(
+				"Process '" + processBuilder.command() +
+					"' finished with non-zero exit value " + exitValue);
+		}
 	}
 
 	public List<String> getArgs() {
@@ -195,6 +214,8 @@ public class NodeExecutor {
 	}
 
 	private static final String[] _PATH_KEYS = {"Path", "PATH"};
+
+	private static final Logger _logger = Logging.getLogger(NodeExecutor.class);
 
 	private final List<Object> _args = new ArrayList<>();
 	private Object _command = "node";

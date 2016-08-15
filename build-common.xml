@@ -472,6 +472,7 @@ Error-Prone was automatically installed. Please rerun your task.
 
 	<macrodef name="execute">
 		<attribute default="." name="dir" />
+		<attribute default="true" name="failonerror" />
 
 		<text name="commands" />
 
@@ -527,12 +528,12 @@ Error-Prone was automatically installed. Please rerun your task.
 									<if>
 										<contains string="${command.executable}" substring=".sh" />
 										<then>
-											<exec dir="@{dir}" executable="/bin/bash" output="${command.output}">
+											<exec dir="@{dir}" executable="/bin/bash" failonerror="@{failonerror}" output="${command.output}">
 												<arg line="${command.executable} ${command.arg.line}" />
 											</exec>
 										</then>
 										<else>
-											<exec dir="@{dir}" executable="/bin/bash" output="${command.output}">
+											<exec dir="@{dir}" executable="/bin/bash" failonerror="@{failonerror}" output="${command.output}">
 												<arg value="-c" />
 												<arg value="${command.executable} ${command.arg.line}" />
 											</exec>
@@ -540,7 +541,7 @@ Error-Prone was automatically installed. Please rerun your task.
 									</if>
 								</then>
 								<else>
-									<exec dir="@{dir}" executable="cmd.exe" output="${command.output}">
+									<exec dir="@{dir}" executable="cmd.exe" failonerror="@{failonerror}" output="${command.output}">
 										<arg line="/c ${command.executable} ${command.arg.line}" />
 									</exec>
 								</else>
@@ -571,12 +572,12 @@ Error-Prone was automatically installed. Please rerun your task.
 										<if>
 											<contains string="${command.executable}" substring=".sh" />
 											<then>
-												<exec append="true" dir="@{dir}" executable="/bin/bash" output="${command.output}">
+												<exec append="true" dir="@{dir}" executable="/bin/bash" failonerror="@{failonerror}" output="${command.output}">
 													<arg line="${command.executable} ${command.arg.line}" />
 												</exec>
 											</then>
 											<else>
-												<exec append="true" dir="@{dir}" executable="/bin/bash" output="${command.output}">
+												<exec append="true" dir="@{dir}" executable="/bin/bash" failonerror="@{failonerror}" output="${command.output}">
 													<arg value="-c" />
 													<arg value="${command.executable} ${command.arg.line}" />
 												</exec>
@@ -584,7 +585,7 @@ Error-Prone was automatically installed. Please rerun your task.
 										</if>
 									</then>
 									<else>
-										<exec append="true" dir="@{dir}" executable="cmd.exe" output="${command.output}">
+										<exec append="true" dir="@{dir}" executable="cmd.exe" failonerror="@{failonerror}" output="${command.output}">
 											<arg line="/c ${command.executable} ${command.arg.line}" />
 										</exec>
 									</else>
@@ -598,12 +599,12 @@ Error-Prone was automatically installed. Please rerun your task.
 									<if>
 										<contains string="${command.executable}" substring=".sh" />
 										<then>
-											<exec dir="@{dir}" executable="/bin/bash">
+											<exec dir="@{dir}" executable="/bin/bash" failonerror="@{failonerror}">
 												<arg line="${command.executable} ${command.arg.line}" />
 											</exec>
 										</then>
 										<else>
-											<exec dir="@{dir}" executable="/bin/bash">
+											<exec dir="@{dir}" executable="/bin/bash" failonerror="@{failonerror}">
 												<arg value="-c" />
 												<arg value="${command.executable} ${command.arg.line}" />
 											</exec>
@@ -611,7 +612,7 @@ Error-Prone was automatically installed. Please rerun your task.
 									</if>
 								</then>
 								<else>
-									<exec dir="@{dir}" executable="cmd.exe">
+									<exec dir="@{dir}" executable="cmd.exe" failonerror="@{failonerror}">
 										<arg line="/c @{command}" />
 									</exec>
 								</else>
@@ -1262,9 +1263,6 @@ rerun your task.
 					<propertyref name="liferay.releng.supported" />
 					<propertyref name="microsoft.translator.client.id" />
 					<propertyref name="microsoft.translator.client.secret" />
-					<propertyref name="nodejs.npm.email" />
-					<propertyref name="nodejs.npm.password" />
-					<propertyref name="nodejs.npm.user" />
 					<propertyref name="sass.compiler.class.name" />
 					<propertyref name="sass.generate.source.map" />
 					<propertyref name="sass.precision" />
@@ -1272,6 +1270,7 @@ rerun your task.
 					<propertyref name="source.formatter.processor.thread.count" />
 					<propertyref name="timeout.app.server.wait" />
 					<propertyref prefix="ivy.pom." />
+					<propertyref prefix="nodejs.npm." />
 					<propertyref prefix="sonatype." />
 					<propertyref regex="^\s*app\.server\.(?:glassfish|jboss|jetty|jonas|resin|tcat|tcserver|tomcat|weblogic|websphere|wildfly).*" />
 				</propertyset>
@@ -1295,6 +1294,7 @@ rerun your task.
 				<entry key="database.jdbc.drivers.url" value="${test.jdbc.drivers.url}" />
 				<entry key="database.jdbc.oracle.driver" value="${jdbc.oracle.driver}" />
 				<entry key="database.oracle.version" value="${database.oracle.version}" />
+				<entry key="systemProp.build.bnd.print.enabled" value="${build.bnd.print.enabled}" />
 				<entry key="systemProp.build.performance.logger.enabled" value="${build.performance.logger.enabled}" />
 				<entry key="systemProp.repository.private.password" value="${build.repository.private.password}" />
 				<entry key="systemProp.repository.private.url" value="${build.repository.private.url}" />

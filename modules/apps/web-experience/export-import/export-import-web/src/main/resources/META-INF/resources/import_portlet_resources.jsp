@@ -329,7 +329,7 @@ ManifestSummary manifestSummary = ExportImportHelperUtil.getManifestSummary(them
 			locale: '<%= locale.toLanguageTag() %>',
 			namespace: '<portlet:namespace />',
 			ratingsNode: '#<%= PortletDataHandlerKeys.RATINGS %>',
-			timeZone: '<%= timeZone.getID() %>'
+			timeZoneOffset: <%= timeZoneOffset %>
 		}
 	);
 </aui:script>

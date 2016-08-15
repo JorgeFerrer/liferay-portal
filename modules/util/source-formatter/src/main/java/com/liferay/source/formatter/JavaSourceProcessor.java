@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.tools.ImportsFormatter;
 import com.liferay.portal.tools.JavaImportsFormatter;
 import com.liferay.portal.tools.ToolsUtil;
+import com.liferay.source.formatter.checkstyle.util.CheckStyleUtil;
 import com.liferay.source.formatter.util.FileUtil;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
@@ -35,6 +36,8 @@ import com.thoughtworks.qdox.model.JavaSource;
 import java.io.File;
 import java.io.IOException;
 
+import java.net.UnknownHostException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,8 +45,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.maven.artifact.versioning.ComparableVersion;
 
 /**
  * @author Hugo Huijser
@@ -438,37 +444,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 		}
 	}
 
-	protected void checkRegexPattern(
-		String regexPattern, String fileName, int lineCount) {
-
-		int i = regexPattern.indexOf("Pattern.compile(");
-
-		if (i == -1) {
-			return;
-		}
-
-		regexPattern = regexPattern.substring(i + 16);
-
-		regexPattern = stripQuotes(regexPattern, CharPool.QUOTE);
-
-		i = regexPattern.indexOf(CharPool.COMMA);
-
-		if (i != -1) {
-			regexPattern = regexPattern.substring(0, i);
-		}
-		else {
-			regexPattern = StringUtil.replaceLast(
-				regexPattern, ");", StringPool.BLANK);
-		}
-
-		regexPattern = StringUtil.replace(
-			regexPattern, StringPool.PLUS, StringPool.BLANK);
-
-		if (Validator.isNull(regexPattern)) {
-			processMessage(fileName, "create pattern as global var", lineCount);
-		}
-	}
-
 	protected void checkSystemEventAnnotations(String content, String fileName)
 		throws Exception {
 
@@ -725,6 +700,8 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			return content;
 		}
 
+		_ungeneratedFiles.add(file);
+
 		String className = file.getName();
 
 		int pos = className.lastIndexOf(CharPool.PERIOD);
@@ -835,7 +812,7 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 		}
 
 		if (portalSource && !_allowUseServiceUtilInServiceImpl &&
-			!fileName.contains("/wsrp/bind/") &&
+			!fileName.contains("/wsrp/internal/bind/") &&
 			!className.equals("BaseServiceImpl") &&
 			className.endsWith("ServiceImpl") &&
 			newContent.contains("ServiceUtil.")) {
@@ -1118,8 +1095,7 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				className, packagePath, file, fileName, absolutePath,
 				newContent, javaClassContent, javaClassLineCount,
 				StringPool.BLANK, _checkJavaFieldTypesExcludes,
-				_javaTermAccessLevelModifierExcludes, _javaTermSortExcludes,
-				_testAnnotationsExcludes);
+				_javaTermSortExcludes, _testAnnotationsExcludes);
 		}
 
 		matcher = _anonymousClassPattern.matcher(newContent);
@@ -1145,10 +1121,10 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 					newContent, matcher.start() + 1);
 
 				newContent = formatJavaTerms(
-					className, packagePath, file, fileName, absolutePath,
-					newContent, javaClassContent, javaClassLineCount,
-					matcher.group(1), _checkJavaFieldTypesExcludes,
-					_javaTermAccessLevelModifierExcludes, _javaTermSortExcludes,
+					StringPool.BLANK, StringPool.BLANK, file, fileName,
+					absolutePath, newContent, javaClassContent,
+					javaClassLineCount, matcher.group(1),
+					_checkJavaFieldTypesExcludes, _javaTermSortExcludes,
 					_testAnnotationsExcludes);
 
 				break;
@@ -2264,7 +2240,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 
 			String ifClause = StringPool.BLANK;
 			String packageName = StringPool.BLANK;
-			String regexPattern = StringPool.BLANK;
 
 			while ((line = unsyncBufferedReader.readLine()) != null) {
 				lineCount++;
@@ -2274,10 +2249,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				}
 
 				if (line.startsWith("import ")) {
-					if (line.endsWith(".*;")) {
-						processMessage(fileName, "import", lineCount);
-					}
-
 					int pos = line.lastIndexOf(CharPool.PERIOD);
 
 					if (pos != -1) {
@@ -2315,16 +2286,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 					line = formatIncorrectSyntax(line, ",}", "}", false);
 
 					line = formatWhitespace(line, trimmedLine, true);
-				}
-
-				// LPS-42924
-
-				if (line.contains("PortalUtil.getClassNameId(") &&
-					fileName.endsWith("ServiceImpl.java")) {
-
-					processMessage(
-						fileName, "Use classNameLocalService.getClassNameId",
-						lineCount);
 				}
 
 				// LPS-42599
@@ -2367,10 +2328,14 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				if (trimmedLine.startsWith("* @deprecated") &&
 					_addMissingDeprecationReleaseVersion) {
 
+					ComparableVersion mainReleaseComparableVersion =
+						getMainReleaseComparableVersion();
+
 					if (!trimmedLine.startsWith("* @deprecated As of ")) {
 						line = StringUtil.replace(
 							line, "* @deprecated",
-							"* @deprecated As of " + getMainReleaseVersion());
+							"* @deprecated As of " +
+								mainReleaseComparableVersion.toString());
 					}
 					else {
 						String version = trimmedLine.substring(20);
@@ -2381,7 +2346,19 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 						version = StringUtil.replace(
 							version, StringPool.COMMA, StringPool.BLANK);
 
-						if (StringUtil.count(version, CharPool.PERIOD) == 1) {
+						ComparableVersion comparableVersion =
+							new ComparableVersion(version);
+
+						if (comparableVersion.compareTo(
+								mainReleaseComparableVersion) > 0) {
+
+							line = StringUtil.replaceFirst(
+								line, version,
+								mainReleaseComparableVersion.toString());
+						}
+						else if (StringUtil.count(
+									version, CharPool.PERIOD) == 1) {
+
 							line = StringUtil.replaceFirst(
 								line, version, version + ".0");
 						}
@@ -2424,21 +2401,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 				}
 
 				line = sortExceptions(line);
-
-				if (trimmedLine.startsWith("Pattern ") ||
-					Validator.isNotNull(regexPattern)) {
-
-					regexPattern = regexPattern + trimmedLine;
-
-					if (trimmedLine.endsWith(");")) {
-
-						// LPS-41084
-
-						checkRegexPattern(regexPattern, fileName, lineCount);
-
-						regexPattern = StringPool.BLANK;
-					}
-				}
 
 				int lineLeadingTabCount = getLeadingTabCount(line);
 				int previousLineLeadingTabCount = getLeadingTabCount(
@@ -4322,7 +4284,7 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			else {
 				x = line.lastIndexOf(StringPool.SPACE);
 
-				if (x != -1) {
+				if ((x != -1) && !ToolsUtil.isInsideQuotes(line, x)) {
 					String firstLine = line.substring(0, x);
 					String secondLine =
 						indent + StringPool.TAB + line.substring(x + 1);
@@ -4430,6 +4392,15 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 	@Override
 	protected void postFormat() throws Exception {
 		checkBndInheritAnnotationOption();
+
+		try {
+			processCheckStyle();
+		}
+		catch (UnknownHostException uhe) {
+			System.out.println(
+				"Could not perform Checkstyle checks. Please check your " +
+					"network connection.");
+		}
 	}
 
 	@Override
@@ -4448,8 +4419,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			"fit.on.single.line.excludes");
 		_hibernateSQLQueryExcludes = getPropertyList(
 			"hibernate.sql.query.excludes");
-		_javaTermAccessLevelModifierExcludes = getPropertyList(
-			"javaterm.access.level.modifier.excludes");
 		_javaTermSortExcludes = getPropertyList("javaterm.sort.excludes");
 		_lineLengthExcludes = getPropertyList("line.length.excludes");
 		_proxyExcludes = getPropertyList("proxy.excludes");
@@ -4463,6 +4432,31 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			"upgrade.data.access.connection.excludes");
 		_upgradeServiceUtilExcludes = getPropertyList(
 			"upgrade.service.util.excludes");
+	}
+
+	protected void processCheckStyle() throws Exception {
+		if (!portalSource) {
+			return;
+		}
+
+		File baseDirFile = new File(sourceFormatterArgs.getBaseDirName());
+
+		List<SourceFormatterMessage> sourceFormatterMessages =
+			CheckStyleUtil.process(
+				_ungeneratedFiles, getAbsolutePath(baseDirFile));
+
+		for (SourceFormatterMessage sourceFormatterMessage :
+				sourceFormatterMessages) {
+
+			processMessage(
+				sourceFormatterMessage.getFileName(),
+				sourceFormatterMessage.getMessage(),
+				sourceFormatterMessage.getLineCount());
+
+			printError(
+				sourceFormatterMessage.getFileName(),
+				sourceFormatterMessage.toString());
+		}
 	}
 
 	protected void setBNDInheritRequiredValue(
@@ -4548,7 +4542,7 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 	private final Pattern _annotationMetaTypePattern = Pattern.compile(
 		"\\s(name|description) = \"%");
 	private final Pattern _anonymousClassPattern = Pattern.compile(
-		"\n(\t+)new .*\\) \\{\n\n");
+		"\n(\t+)(\\S.* )?new .*\\) \\{\n\n");
 	private final Pattern _arrayPattern = Pattern.compile(
 		"(\n\t*.* =) (new \\w*\\[\\] \\{)\n(\t*)(.+)\n\t*(\\};)\n");
 	private final Pattern _assertEqualsPattern = Pattern.compile(
@@ -4609,7 +4603,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			Pattern.compile(
 				".*(extends [a-z\\.\\s]*ObjectInputStream).*", Pattern.DOTALL)
 	};
-	private List<String> _javaTermAccessLevelModifierExcludes;
 	private List<String> _javaTermSortExcludes;
 	private List<String> _lineLengthExcludes;
 	private final Pattern _lineStartingWithOpenParenthesisPattern =
@@ -4659,6 +4652,7 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 	private List<String> _testAnnotationsExcludes;
 	private final Pattern _throwsSystemExceptionPattern = Pattern.compile(
 		"(\n\t+.*)throws(.*) SystemException(.*)( \\{|;\n)");
+	private final List<File> _ungeneratedFiles = new CopyOnWriteArrayList<>();
 	private final Pattern _upgradeClassNamePattern = Pattern.compile(
 		"new .*?(\\w+)\\(", Pattern.DOTALL);
 	private List<String> _upgradeDataAccessConnectionExcludes;

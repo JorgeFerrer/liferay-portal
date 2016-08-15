@@ -21,6 +21,7 @@ long groupId = ParamUtil.getLong(request, "groupId", scopeGroupId);
 long classPK = ParamUtil.getLong(request, "classPK");
 String displayStyle = ParamUtil.getString(request, "displayStyle", "list");
 String eventName = ParamUtil.getString(request, "eventName", "selectStructure");
+boolean searchRestriction = ParamUtil.getBoolean(request, "searchRestriction");
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -94,7 +95,7 @@ request.setAttribute(WebKeys.SEARCH_CONTAINER, structureSearch);
 				name="name"
 			>
 				<c:choose>
-					<c:when test="<%= (structure.getStructureId() != classPK) && ((classPK == 0) || (structure.getParentStructureId() == 0) || (structure.getParentStructureId() != classPK)) %>">
+					<c:when test="<%= ddmDisplay.isEnableSelectStructureLink(structure, classPK) %>">
 
 						<%
 						Map<String, Object> data = new HashMap<String, Object>();
@@ -135,7 +136,7 @@ request.setAttribute(WebKeys.SEARCH_CONTAINER, structureSearch);
 	</liferay-ui:search-container>
 </aui:form>
 
-<c:if test="<%= ddmDisplay.isShowAddStructureButton() && DDMStructurePermission.containsAddStruturePermission(permissionChecker, groupId, scopeClassNameId) %>">
+<c:if test="<%= ddmDisplay.isShowAddStructureButton() && DDMStructurePermission.containsAddStruturePermission(permissionChecker, groupId, scopeClassNameId) && !searchRestriction %>">
 	<portlet:renderURL var="viewStructureURL">
 		<portlet:param name="mvcPath" value="/select_structure.jsp" />
 		<portlet:param name="classPK" value="<%= String.valueOf(classPK) %>" />

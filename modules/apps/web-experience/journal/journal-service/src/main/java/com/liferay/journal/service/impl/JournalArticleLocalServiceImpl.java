@@ -36,8 +36,7 @@ import com.liferay.dynamic.data.mapping.service.DDMTemplateLinkLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.expando.kernel.util.ExpandoBridgeUtil;
-import com.liferay.exportimport.content.processor.ExportImportContentProcessor;
-import com.liferay.exportimport.content.processor.ExportImportContentProcessorRegistryUtil;
+import com.liferay.exportimport.content.processor.ExportImportContentProcessorController;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.journal.configuration.JournalGroupServiceConfiguration;
 import com.liferay.journal.configuration.JournalServiceConfigurationValues;
@@ -57,6 +56,7 @@ import com.liferay.journal.exception.NoSuchArticleException;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.model.JournalArticleConstants;
 import com.liferay.journal.model.JournalArticleDisplay;
+import com.liferay.journal.model.JournalArticleLocalization;
 import com.liferay.journal.model.JournalArticleResource;
 import com.liferay.journal.model.JournalFolder;
 import com.liferay.journal.model.impl.JournalArticleDisplayImpl;
@@ -179,6 +179,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -401,11 +402,9 @@ public class JournalArticleLocalServiceImpl
 		article.setTreePath(article.buildTreePath());
 		article.setArticleId(articleId);
 		article.setVersion(version);
-		article.setTitleMap(titleMap, locale);
 		article.setUrlTitle(
 			getUniqueUrlTitle(
 				id, groupId, articleId, title, null, serviceContext));
-		article.setDescriptionMap(descriptionMap, locale);
 
 		content = format(user, groupId, article, content);
 
@@ -413,6 +412,7 @@ public class JournalArticleLocalServiceImpl
 
 		article.setDDMStructureKey(ddmStructureKey);
 		article.setDDMTemplateKey(ddmTemplateKey);
+		article.setDefaultLanguageId(LocaleUtil.toLanguageId(locale));
 		article.setLayoutUuid(layoutUuid);
 		article.setDisplayDate(displayDate);
 		article.setExpirationDate(expirationDate);
@@ -434,6 +434,11 @@ public class JournalArticleLocalServiceImpl
 		article.setExpandoBridgeAttributes(serviceContext);
 
 		journalArticlePersistence.update(article);
+
+		// Article localization
+
+		_addArticleLocalizedFields(
+			user.getCompanyId(), article.getId(), titleMap, descriptionMap);
 
 		// Resources
 
@@ -463,16 +468,6 @@ public class JournalArticleLocalServiceImpl
 			serviceContext.getAssetTagNames(),
 			serviceContext.getAssetLinkEntryIds(),
 			serviceContext.getAssetPriority());
-
-		// Comment
-
-		if (JournalServiceConfigurationValues.
-				JOURNAL_ARTICLE_COMMENTS_ENABLED) {
-
-			CommentManagerUtil.addDiscussion(
-				userId, groupId, JournalArticle.class.getName(),
-				resourcePrimKey, article.getUserName());
-		}
 
 		// Dynamic data mapping
 
@@ -810,11 +805,9 @@ public class JournalArticleLocalServiceImpl
 		newArticle.setTreePath(oldArticle.getTreePath());
 		newArticle.setArticleId(newArticleId);
 		newArticle.setVersion(JournalArticleConstants.VERSION_DEFAULT);
-		newArticle.setTitle(oldArticle.getTitle());
 		newArticle.setUrlTitle(
 			getUniqueUrlTitle(
 				id, groupId, newArticleId, oldArticle.getTitleCurrentValue()));
-		newArticle.setDescription(oldArticle.getDescription());
 
 		try {
 			copyArticleImages(oldArticle, newArticle);
@@ -825,6 +818,7 @@ public class JournalArticleLocalServiceImpl
 
 		newArticle.setDDMStructureKey(oldArticle.getDDMStructureKey());
 		newArticle.setDDMTemplateKey(oldArticle.getDDMTemplateKey());
+		newArticle.setDefaultLanguageId(oldArticle.getDefaultLanguageId());
 		newArticle.setLayoutUuid(oldArticle.getLayoutUuid());
 		newArticle.setDisplayDate(oldArticle.getDisplayDate());
 		newArticle.setExpirationDate(oldArticle.getExpirationDate());
@@ -848,6 +842,12 @@ public class JournalArticleLocalServiceImpl
 			oldArticle.getExpandoBridge(), newArticle.getExpandoBridge());
 
 		journalArticlePersistence.update(newArticle);
+
+		// Article localization
+
+		_addArticleLocalizedFields(
+			newArticle.getCompanyId(), newArticle.getId(),
+			oldArticle.getTitleMap(), oldArticle.getDescriptionMap());
 
 		// Resources
 
@@ -949,6 +949,11 @@ public class JournalArticleLocalServiceImpl
 
 			updatePreviousApprovedArticle(article);
 		}
+
+		// Article localization
+
+		journalArticleLocalizationPersistence.removeByArticlePK(
+			article.getId());
 
 		// Email
 
@@ -1984,6 +1989,46 @@ public class JournalArticleLocalServiceImpl
 			groupId, articleId, viewMode, null, languageId, null, themeDisplay);
 	}
 
+	@Override
+	public String getArticleDescription(long articlePK, Locale locale) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getArticleDescription(articlePK, languageId);
+	}
+
+	@Override
+	public String getArticleDescription(long articlePK, String languageId) {
+		JournalArticleLocalization journalArticleLocalization =
+			journalArticleLocalizationPersistence.fetchByA_L(
+				articlePK, languageId);
+
+		if (journalArticleLocalization == null) {
+			return null;
+		}
+
+		return journalArticleLocalization.getDescription();
+	}
+
+	@Override
+	public Map<Locale, String> getArticleDescriptionMap(long articlePK) {
+		Map<Locale, String> journalArticleLocalizationDescriptionMap =
+			new HashMap<>();
+
+		List<JournalArticleLocalization> journalArticleLocalizationList =
+			journalArticleLocalizationPersistence.findByArticlePK(articlePK);
+
+		for (JournalArticleLocalization journalArticleLocalization :
+				journalArticleLocalizationList) {
+
+			journalArticleLocalizationDescriptionMap.put(
+				LocaleUtil.fromLanguageId(
+					journalArticleLocalization.getLanguageId()),
+				journalArticleLocalization.getDescription());
+		}
+
+		return journalArticleLocalizationDescriptionMap;
+	}
+
 	/**
 	 * Returns a web content article display for the specified page of the
 	 * latest version of the web content article, based on the DDM template. Web
@@ -2210,6 +2255,23 @@ public class JournalArticleLocalServiceImpl
 
 		return getArticleDisplay(
 			groupId, articleId, null, viewMode, languageId, themeDisplay);
+	}
+
+	@Override
+	public List<String> getArticleLocalizationLanguageIds(long articlePK) {
+		List<JournalArticleLocalization> journalArticleLocalizationList =
+			journalArticleLocalizationPersistence.findByArticlePK(articlePK);
+
+		List<String> availableLanguageIds = new ArrayList<>();
+
+		for (JournalArticleLocalization journalArticleLocalization :
+				journalArticleLocalizationList) {
+
+			availableLanguageIds.add(
+				journalArticleLocalization.getLanguageId());
+		}
+
+		return availableLanguageIds;
 	}
 
 	/**
@@ -2518,6 +2580,46 @@ public class JournalArticleLocalServiceImpl
 	@Override
 	public int getArticlesCount(long groupId, String articleId) {
 		return journalArticlePersistence.countByG_A(groupId, articleId);
+	}
+
+	@Override
+	public String getArticleTitle(long articlePK, Locale locale) {
+		String languageId = LocaleUtil.toLanguageId(locale);
+
+		return getArticleTitle(articlePK, languageId);
+	}
+
+	@Override
+	public String getArticleTitle(long articlePK, String languageId) {
+		JournalArticleLocalization journalArticleLocalization =
+			journalArticleLocalizationPersistence.fetchByA_L(
+				articlePK, languageId);
+
+		if (journalArticleLocalization == null) {
+			return null;
+		}
+
+		return journalArticleLocalization.getTitle();
+	}
+
+	@Override
+	public Map<Locale, String> getArticleTitleMap(long articlePK) {
+		Map<Locale, String> journalArticleLocalizationTitleMap =
+			new HashMap<>();
+
+		List<JournalArticleLocalization> journalArticleLocalizationList =
+			journalArticleLocalizationPersistence.findByArticlePK(articlePK);
+
+		for (JournalArticleLocalization journalArticleLocalization :
+				journalArticleLocalizationList) {
+
+			journalArticleLocalizationTitleMap.put(
+				LocaleUtil.fromLanguageId(
+					journalArticleLocalization.getLanguageId()),
+				journalArticleLocalization.getTitle());
+		}
+
+		return journalArticleLocalizationTitleMap;
 	}
 
 	/**
@@ -3623,7 +3725,7 @@ public class JournalArticleLocalServiceImpl
 
 		JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject();
 
-		extraDataJSONObject.put("title", article.getTitle());
+		extraDataJSONObject.put("title", article.getTitleMapAsXML());
 
 		SocialActivityManagerUtil.addActivity(
 			userId, article, SocialActivityConstants.TYPE_MOVE_TO_TRASH,
@@ -3707,19 +3809,8 @@ public class JournalArticleLocalServiceImpl
 		JournalArticle article = journalArticlePersistence.findByG_A_V(
 			groupId, articleId, version);
 
-		String title = article.getTitle();
-
-		title = LocalizationUtil.removeLocalization(
-			title, "static-content", languageId, true);
-
-		article.setTitle(title);
-
-		String description = article.getDescription();
-
-		description = LocalizationUtil.removeLocalization(
-			description, "static-content", languageId, true);
-
-		article.setDescription(description);
+		journalArticleLocalizationPersistence.removeByA_L(
+			article.getId(), languageId);
 
 		String content = article.getContent();
 
@@ -3837,7 +3928,7 @@ public class JournalArticleLocalServiceImpl
 
 		JSONObject extraDataJSONObject = JSONFactoryUtil.createJSONObject();
 
-		extraDataJSONObject.put("title", article.getTitle());
+		extraDataJSONObject.put("title", article.getTitleMapAsXML());
 
 		SocialActivityManagerUtil.addActivity(
 			userId, article, SocialActivityConstants.TYPE_RESTORE_FROM_TRASH,
@@ -5265,6 +5356,15 @@ public class JournalArticleLocalServiceImpl
 			article.setArticleId(articleId);
 			article.setVersion(version);
 			article.setSmallImageId(latestArticle.getSmallImageId());
+
+			_addArticleLocalizedFields(
+				article.getCompanyId(), article.getId(), titleMap,
+				descriptionMap);
+		}
+		else {
+			_updateArticleLocalizedFields(
+				article.getCompanyId(), article.getId(), titleMap,
+				descriptionMap);
 		}
 
 		Locale locale = getArticleDefaultLocale(content);
@@ -5275,15 +5375,14 @@ public class JournalArticleLocalServiceImpl
 
 		article.setFolderId(folderId);
 		article.setTreePath(article.buildTreePath());
-		article.setTitleMap(titleMap, locale);
 		article.setUrlTitle(
 			getUniqueUrlTitle(
 				article.getId(), groupId, article.getArticleId(), title,
 				latestArticle.getUrlTitle(), serviceContext));
-		article.setDescriptionMap(descriptionMap, locale);
 		article.setContent(content);
 		article.setDDMStructureKey(ddmStructureKey);
 		article.setDDMTemplateKey(ddmTemplateKey);
+		article.setDefaultLanguageId(LocaleUtil.toLanguageId(locale));
 		article.setLayoutUuid(layoutUuid);
 		article.setDisplayDate(displayDate);
 		article.setExpirationDate(expirationDate);
@@ -5506,14 +5605,14 @@ public class JournalArticleLocalServiceImpl
 			article.setClassPK(oldArticle.getClassPK());
 			article.setArticleId(articleId);
 			article.setVersion(newVersion);
-			article.setTitleMap(oldArticle.getTitleMap(), defaultLocale);
 			article.setUrlTitle(
 				getUniqueUrlTitle(
 					id, groupId, articleId, title, oldArticle.getUrlTitle(),
 					serviceContext));
-			article.setDescriptionMap(oldArticle.getDescriptionMap());
 			article.setDDMStructureKey(oldArticle.getDDMStructureKey());
 			article.setDDMTemplateKey(oldArticle.getDDMTemplateKey());
+			article.setDefaultLanguageId(
+				LocaleUtil.toLanguageId(defaultLocale));
 			article.setLayoutUuid(oldArticle.getLayoutUuid());
 			article.setDisplayDate(oldArticle.getDisplayDate());
 			article.setExpirationDate(oldArticle.getExpirationDate());
@@ -5534,6 +5633,12 @@ public class JournalArticleLocalServiceImpl
 			ExpandoBridgeUtil.copyExpandoBridgeAttributes(
 				oldArticle.getExpandoBridge(), article.getExpandoBridge());
 
+			// Article localization
+
+			_addArticleLocalizedFields(
+				article.getCompanyId(), article.getId(),
+				oldArticle.getTitleMap(), oldArticle.getDescriptionMap());
+
 			// Dynamic data mapping
 
 			updateDDMLinks(
@@ -5544,17 +5649,9 @@ public class JournalArticleLocalServiceImpl
 			article = oldArticle;
 		}
 
-		Map<Locale, String> titleMap = article.getTitleMap();
-
-		titleMap.put(locale, title);
-
-		article.setTitleMap(titleMap, defaultLocale);
-
-		Map<Locale, String> descriptionMap = article.getDescriptionMap();
-
-		descriptionMap.put(locale, description);
-
-		article.setDescriptionMap(descriptionMap);
+		_updateArticleLocalizedFields(
+			article.getCompanyId(), article.getId(), title, description,
+			LocaleUtil.toLanguageId(locale));
 
 		content = format(user, groupId, article, content);
 
@@ -5633,6 +5730,9 @@ public class JournalArticleLocalServiceImpl
 
 		AssetEntry assetEntry = null;
 
+		String title = article.getTitleMapAsXML();
+		String description = article.getDescriptionMapAsXML();
+
 		if (addDraftAssetEntry) {
 			assetEntry = assetEntryLocalService.updateEntry(
 				userId, article.getGroupId(), article.getCreateDate(),
@@ -5640,8 +5740,7 @@ public class JournalArticleLocalServiceImpl
 				article.getPrimaryKey(), article.getUuid(),
 				getClassTypeId(article), assetCategoryIds, assetTagNames,
 				isListable(article), false, null, null, null, null,
-				ContentTypes.TEXT_HTML, article.getTitle(),
-				article.getDescription(), article.getDescription(), null,
+				ContentTypes.TEXT_HTML, title, description, description, null,
 				article.getLayoutUuid(), 0, 0, priority);
 		}
 		else {
@@ -5655,9 +5754,8 @@ public class JournalArticleLocalServiceImpl
 				journalArticleResource.getResourcePrimKey(),
 				journalArticleResource.getUuid(), getClassTypeId(article),
 				assetCategoryIds, assetTagNames, isListable(article), visible,
-				null, null, null, null, ContentTypes.TEXT_HTML,
-				article.getTitle(), article.getDescription(),
-				article.getDescription(), null, article.getLayoutUuid(), 0, 0,
+				null, null, null, null, ContentTypes.TEXT_HTML, title,
+				description, description, null, article.getLayoutUuid(), 0, 0,
 				priority);
 		}
 
@@ -5812,6 +5910,9 @@ public class JournalArticleLocalServiceImpl
 
 				// Asset
 
+				String title = article.getTitleMapAsXML();
+				String description = article.getDescriptionMapAsXML();
+
 				if ((oldStatus != WorkflowConstants.STATUS_APPROVED) &&
 					(article.getVersion() !=
 						JournalArticleConstants.VERSION_DEFAULT)) {
@@ -5843,9 +5944,8 @@ public class JournalArticleLocalServiceImpl
 								article.getResourcePrimKey(), article.getUuid(),
 								getClassTypeId(article), assetCategoryIds,
 								assetTagNames, isListable(article), false, null,
-								null, null, null, ContentTypes.TEXT_HTML,
-								article.getTitle(), article.getDescription(),
-								article.getDescription(), null,
+								null, null, null, ContentTypes.TEXT_HTML, title,
+								description, description, null,
 								article.getLayoutUuid(), 0, 0,
 								draftAssetEntry.getPriority());
 
@@ -5871,7 +5971,7 @@ public class JournalArticleLocalServiceImpl
 				JSONObject extraDataJSONObject =
 					JSONFactoryUtil.createJSONObject();
 
-				extraDataJSONObject.put("title", article.getTitle());
+				extraDataJSONObject.put("title", title);
 
 				if (serviceContext.isCommandUpdate()) {
 					SocialActivityManagerUtil.addActivity(
@@ -7251,7 +7351,7 @@ public class JournalArticleLocalServiceImpl
 	}
 
 	/**
-	 * @deprecated As of 7.0.1, replaced by {@link #notifySubscribers(long,
+	 * @deprecated As of 7.0.0, replaced by {@link #notifySubscribers(long,
 	 *             JournalArticle, String, ServiceContext)}
 	 */
 	@Deprecated
@@ -7603,7 +7703,7 @@ public class JournalArticleLocalServiceImpl
 
 			assetEntry.setModifiedDate(
 				previousApprovedArticle.getModifiedDate());
-			assetEntry.setTitle(previousApprovedArticle.getTitle());
+			assetEntry.setTitle(previousApprovedArticle.getTitleMapAsXML());
 
 			assetEntryPersistence.update(assetEntry);
 		}
@@ -7716,9 +7816,9 @@ public class JournalArticleLocalServiceImpl
 
 		boolean validSmallImageExtension = false;
 
-		for (String _imageExtension : imageExtensions) {
-			if (StringPool.STAR.equals(_imageExtension) ||
-				StringUtil.endsWith(smallImageName, _imageExtension)) {
+		for (String imageExtension : imageExtensions) {
+			if (StringPool.STAR.equals(imageExtension) ||
+				StringUtil.endsWith(smallImageName, imageExtension)) {
 
 				validSmallImageExtension = true;
 
@@ -7914,12 +8014,8 @@ public class JournalArticleLocalServiceImpl
 			}
 		}
 
-		ExportImportContentProcessor exportImportContentProcessor =
-			ExportImportContentProcessorRegistryUtil.
-				getExportImportContentProcessor(JournalArticle.class.getName());
-
-		exportImportContentProcessor.validateContentReferences(
-			groupId, content);
+		exportImportContentProcessorController.validateContentReferences(
+			JournalArticle.class, groupId, content);
 	}
 
 	/**
@@ -7954,8 +8050,104 @@ public class JournalArticleLocalServiceImpl
 	@ServiceReference(type = DDMTemplateLocalService.class)
 	protected DDMTemplateLocalService ddmTemplateLocalService;
 
+	@ServiceReference(type = ExportImportContentProcessorController.class)
+	protected ExportImportContentProcessorController
+		exportImportContentProcessorController;
+
 	@ServiceReference(type = JournalConverter.class)
 	protected JournalConverter journalConverter;
+
+	private List<JournalArticleLocalization> _addArticleLocalizedFields(
+			long companyId, long articlePK, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap)
+		throws PortalException {
+
+		Set<Locale> localeSet = new HashSet<>();
+
+		localeSet.addAll(titleMap.keySet());
+
+		if (descriptionMap != null) {
+			localeSet.addAll(descriptionMap.keySet());
+		}
+
+		List<JournalArticleLocalization> journalArticleLocalizations =
+			new ArrayList<>();
+
+		for (Locale locale : localeSet) {
+			String title = titleMap.get(locale);
+			String description = null;
+
+			if (descriptionMap != null) {
+				description = descriptionMap.get(locale);
+			}
+
+			if (Validator.isNull(title) && Validator.isNull(description)) {
+				continue;
+			}
+
+			JournalArticleLocalization journalArticleLocalization =
+				_addArticleLocalizedFields(
+					companyId, articlePK, title, description,
+					LocaleUtil.toLanguageId(locale));
+
+			journalArticleLocalizations.add(journalArticleLocalization);
+		}
+
+		return journalArticleLocalizations;
+	}
+
+	private JournalArticleLocalization _addArticleLocalizedFields(
+			long companyId, long articlePK, String title, String description,
+			String languageId)
+		throws PortalException {
+
+		long journalArticleLocalizationId = counterLocalService.increment();
+
+		JournalArticleLocalization journalArticleLocalization =
+			journalArticleLocalizationPersistence.create(
+				journalArticleLocalizationId);
+
+		journalArticleLocalization.setCompanyId(companyId);
+		journalArticleLocalization.setArticlePK(articlePK);
+		journalArticleLocalization.setTitle(title);
+		journalArticleLocalization.setDescription(description);
+		journalArticleLocalization.setLanguageId(languageId);
+
+		return journalArticleLocalizationPersistence.update(
+			journalArticleLocalization);
+	}
+
+	private List<JournalArticleLocalization> _updateArticleLocalizedFields(
+			long companyId, long articleId, Map<Locale, String> titleMap,
+			Map<Locale, String> descriptionMap)
+		throws PortalException {
+
+		journalArticleLocalizationPersistence.removeByArticlePK(articleId);
+
+		return _addArticleLocalizedFields(
+			companyId, articleId, titleMap, descriptionMap);
+	}
+
+	private JournalArticleLocalization _updateArticleLocalizedFields(
+			long companyId, long articleId, String title, String description,
+			String languageId)
+		throws PortalException {
+
+		JournalArticleLocalization journalArticleLocalization =
+			journalArticleLocalizationPersistence.fetchByA_L(
+				articleId, languageId);
+
+		if (journalArticleLocalization == null) {
+			return _addArticleLocalizedFields(
+				companyId, articleId, title, description, languageId);
+		}
+
+		journalArticleLocalization.setTitle(title);
+		journalArticleLocalization.setDescription(description);
+
+		return journalArticleLocalizationPersistence.update(
+			journalArticleLocalization);
+	}
 
 	private static final long _JOURNAL_ARTICLE_CHECK_INTERVAL =
 		JournalServiceConfigurationValues.JOURNAL_ARTICLE_CHECK_INTERVAL

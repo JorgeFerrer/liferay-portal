@@ -20,13 +20,20 @@ import com.liferay.dynamic.data.mapping.annotations.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.annotations.DDMFormLayoutColumn;
 import com.liferay.dynamic.data.mapping.annotations.DDMFormLayoutPage;
 import com.liferay.dynamic.data.mapping.annotations.DDMFormLayoutRow;
+import com.liferay.dynamic.data.mapping.annotations.DDMFormRule;
 import com.liferay.dynamic.data.mapping.form.field.type.DefaultDDMFormFieldTypeSettings;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 
 /**
  * @author Lino Alves
  */
-@DDMForm
+@DDMForm(
+	rules = {
+		@DDMFormRule(
+			actions = {"set(fieldAt(\"tooltip\", 0), \"visible\", false)"}
+		)
+	}
+)
 @DDMFormLayout(
 	paginationMode = com.liferay.dynamic.data.mapping.model.DDMFormLayout.SETTINGS_MODE,
 	value = {
@@ -71,7 +78,8 @@ public interface TextDDMFormFieldTypeSettings
 		label = "%my-text-field-has",
 		optionLabels = {"%a-single-line", "%multiple-lines"},
 		optionValues = {"singleline", "multiline"},
-		properties = {"inline=true"}, type = "radio"
+		predefinedValue = "singleline", properties = {"inline=true"},
+		type = "radio"
 	)
 	public String displayStyle();
 

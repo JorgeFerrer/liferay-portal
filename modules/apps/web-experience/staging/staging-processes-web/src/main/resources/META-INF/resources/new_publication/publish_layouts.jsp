@@ -359,7 +359,7 @@ renderResponse.setTitle(!configuredPublish ? LanguageUtil.get(request, "new-publ
 			rangeLastPublishNode: '#rangeLastPublish',
 			ratingsNode: '#<%= PortletDataHandlerKeys.RATINGS %>',
 			setupNode: '#<%= PortletDataHandlerKeys.PORTLET_SETUP_ALL %>',
-			timeZone: '<%= timeZone.getID() %>',
+			timeZoneOffset: <%= timeZoneOffset %>,
 			userPreferencesNode: '#<%= PortletDataHandlerKeys.PORTLET_USER_PREFERENCES_ALL %>'
 		}
 	);

@@ -729,6 +729,37 @@ public class UsersAdminImpl implements UsersAdmin {
 	}
 
 	@Override
+	public List<Object> getOrganizationsAndUsers(Hits hits) {
+		List<Document> documents = hits.toList();
+
+		List<Object> results = new ArrayList<>(documents.size());
+
+		for (Document document : documents) {
+			String portletId = document.getPortletId();
+
+			if (portletId.equals(Organization.class.getName())) {
+				long organizationId = GetterUtil.getLong(
+					document.get(Field.ORGANIZATION_ID));
+
+				Organization organization =
+					OrganizationLocalServiceUtil.fetchOrganization(
+						organizationId);
+
+				results.add(organization);
+			}
+			else if (portletId.equals(User.class.getName())) {
+				long userId = UserIndexer.getUserId(document);
+
+				User user = UserLocalServiceUtil.fetchUser(userId);
+
+				results.add(user);
+			}
+		}
+
+		return results;
+	}
+
+	@Override
 	public List<OrgLabor> getOrgLabors(ActionRequest actionRequest) {
 		List<OrgLabor> orgLabors = new ArrayList<>();
 

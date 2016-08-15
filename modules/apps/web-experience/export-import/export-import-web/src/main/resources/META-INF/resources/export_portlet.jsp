@@ -493,7 +493,7 @@ portletURL.setParameter("portletResource", portletResource);
 			rangeDateRangeNode: '#rangeDateRange',
 			rangeLastNode: '#rangeLast',
 			ratingsNode: '#<%= PortletDataHandlerKeys.RATINGS %>',
-			timeZone: '<%= timeZone.getID() %>'
+			timeZoneOffset: <%= timeZoneOffset %>
 		}
 	);
 

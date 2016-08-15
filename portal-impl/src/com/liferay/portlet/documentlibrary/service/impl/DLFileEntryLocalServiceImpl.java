@@ -2444,6 +2444,8 @@ public class DLFileEntryLocalServiceImpl
 		for (DLFileVersion dlFileVersion : dlFileVersions) {
 			dlFileVersion.setFolderId(newFolderId);
 			dlFileVersion.setTreePath(dlFileVersion.buildTreePath());
+			dlFileVersion.setStatusByUserId(userId);
+			dlFileVersion.setStatusByUserName(user.getFullName());
 
 			dlFileVersionPersistence.update(dlFileVersion);
 		}

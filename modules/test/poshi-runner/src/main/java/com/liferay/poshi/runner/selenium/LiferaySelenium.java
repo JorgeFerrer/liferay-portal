@@ -238,7 +238,7 @@ public interface LiferaySelenium {
 
 	public Number getCursorPosition(String locator);
 
-	public Number getElementHeight(String locator);
+	public int getElementHeight(String locator);
 
 	public Number getElementIndex(String locator);
 
@@ -248,7 +248,7 @@ public interface LiferaySelenium {
 
 	public String getElementValue(String locator) throws Exception;
 
-	public Number getElementWidth(String locator);
+	public int getElementWidth(String locator);
 
 	public String getEmailBody(String index) throws Exception;
 
@@ -624,13 +624,7 @@ public interface LiferaySelenium {
 
 	public void waitForElementNotPresent(String locator) throws Exception;
 
-	public void waitForElementNotPresent(String locator, String timeout)
-		throws Exception;
-
 	public void waitForElementPresent(String locator) throws Exception;
-
-	public void waitForElementPresent(String locator, String timeout)
-		throws Exception;
 
 	public void waitForFrameToLoad(String frameAddress, String timeout);
 

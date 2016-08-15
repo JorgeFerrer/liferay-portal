@@ -16,6 +16,7 @@ package com.liferay.blogs.web.internal.portlet.action;
 
 import com.liferay.asset.kernel.exception.AssetCategoryException;
 import com.liferay.asset.kernel.exception.AssetTagException;
+import com.liferay.blogs.exception.EntryUrlTitleException;
 import com.liferay.blogs.kernel.exception.EntryContentException;
 import com.liferay.blogs.kernel.exception.EntryCoverImageCropException;
 import com.liferay.blogs.kernel.exception.EntryDescriptionException;
@@ -25,8 +26,8 @@ import com.liferay.blogs.kernel.exception.EntrySmallImageScaleException;
 import com.liferay.blogs.kernel.exception.EntryTitleException;
 import com.liferay.blogs.kernel.exception.NoSuchEntryException;
 import com.liferay.blogs.kernel.model.BlogsEntry;
-import com.liferay.blogs.kernel.service.BlogsEntryLocalService;
-import com.liferay.blogs.kernel.service.BlogsEntryService;
+import com.liferay.blogs.service.BlogsEntryLocalService;
+import com.liferay.blogs.service.BlogsEntryService;
 import com.liferay.blogs.web.constants.BlogsPortletKeys;
 import com.liferay.document.library.kernel.exception.FileSizeException;
 import com.liferay.portal.kernel.editor.EditorConstants;
@@ -307,28 +308,36 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 
 			actionResponse.setRenderParameter(
 				"mvcRenderCommandName", "/blogs/edit_entry");
+
+			hideDefaultSuccessMessage(actionRequest);
 		}
 		catch (EntryContentException | EntryCoverImageCropException |
 			   EntryDescriptionException | EntryDisplayDateException |
 			   EntrySmallImageNameException | EntrySmallImageScaleException |
-			   EntryTitleException | FileSizeException |
-			   LiferayFileItemException | SanitizerException |
-			   UploadRequestSizeException e) {
+			   EntryTitleException | EntryUrlTitleException |
+			   FileSizeException | LiferayFileItemException |
+			   SanitizerException | UploadRequestSizeException e) {
 
 			SessionErrors.add(actionRequest, e.getClass());
 
 			actionResponse.setRenderParameter(
 				"mvcRenderCommandName", "/blogs/edit_entry");
+
+			hideDefaultSuccessMessage(actionRequest);
 		}
 		catch (NoSuchEntryException | PrincipalException e) {
 			SessionErrors.add(actionRequest, e.getClass());
 
 			actionResponse.setRenderParameter("mvcPath", "/blogs/error.jsp");
+
+			hideDefaultSuccessMessage(actionRequest);
 		}
 		catch (Throwable t) {
 			_log.error(t, t);
 
 			actionResponse.setRenderParameter("mvcPath", "/blogs/error.jsp");
+
+			hideDefaultSuccessMessage(actionRequest);
 		}
 	}
 
@@ -408,6 +417,7 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 
 		String title = ParamUtil.getString(actionRequest, "title");
 		String subtitle = ParamUtil.getString(actionRequest, "subtitle");
+		String urlTitle = ParamUtil.getString(actionRequest, "urlTitle");
 
 		String description = StringPool.BLANK;
 
@@ -464,7 +474,7 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 		String oldSmallImageURL = StringPool.BLANK;
 
 		if (entryId != 0) {
-			BlogsEntry entry = _blogsEntryLocalService.getBlogsEntry(entryId);
+			BlogsEntry entry = _blogsEntryLocalService.getEntry(entryId);
 
 			oldCoverImageId = entry.getCoverImageFileEntryId();
 			oldCoverImageURL = entry.getCoverImageURL();
@@ -505,11 +515,12 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 			// Add entry
 
 			entry = _blogsEntryService.addEntry(
-				title, subtitle, description, content, displayDateMonth,
-				displayDateDay, displayDateYear, displayDateHour,
-				displayDateMinute, allowPingbacks, allowTrackbacks, trackbacks,
-				coverImageCaption, coverImageImageSelector,
-				smallImageImageSelector, serviceContext);
+				title, subtitle, urlTitle, description, content,
+				displayDateMonth, displayDateDay, displayDateYear,
+				displayDateHour, displayDateMinute, allowPingbacks,
+				allowTrackbacks, trackbacks, coverImageCaption,
+				coverImageImageSelector, smallImageImageSelector,
+				serviceContext);
 
 			BlogsEntryAttachmentFileEntryHelper
 				blogsEntryAttachmentFileEntryHelper =
@@ -586,7 +597,7 @@ public class EditEntryMVCActionCommand extends BaseMVCActionCommand {
 			}
 
 			entry = _blogsEntryService.updateEntry(
-				entryId, title, subtitle, description, content,
+				entryId, title, subtitle, urlTitle, description, content,
 				displayDateMonth, displayDateDay, displayDateYear,
 				displayDateHour, displayDateMinute, allowPingbacks,
 				allowTrackbacks, trackbacks, coverImageCaption,

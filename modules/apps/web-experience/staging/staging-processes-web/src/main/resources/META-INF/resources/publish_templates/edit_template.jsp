@@ -226,7 +226,7 @@ renderResponse.setTitle((exportImportConfiguration == null) ? LanguageUtil.get(r
 			rangeLastPublishNode: '#rangeLastPublish',
 			ratingsNode: '#<%= PortletDataHandlerKeys.RATINGS %>',
 			setupNode: '#<%= PortletDataHandlerKeys.PORTLET_SETUP_ALL %>',
-			timeZone: '<%= timeZone.getID() %>',
+			timeZoneOffset: <%= timeZoneOffset %>,
 			userPreferencesNode: '#<%= PortletDataHandlerKeys.PORTLET_USER_PREFERENCES_ALL %>'
 		}
 	);

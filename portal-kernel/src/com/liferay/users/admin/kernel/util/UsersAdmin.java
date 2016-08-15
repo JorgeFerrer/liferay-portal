@@ -320,6 +320,8 @@ public interface UsersAdmin {
 	public List<Organization> getOrganizations(Hits hits)
 		throws PortalException;
 
+	public List<Object> getOrganizationsAndUsers(Hits hits);
+
 	public List<OrgLabor> getOrgLabors(ActionRequest actionRequest);
 
 	public List<Phone> getPhones(ActionRequest actionRequest);

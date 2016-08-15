@@ -16,7 +16,7 @@ package com.liferay.blogs.service.impl.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.blogs.kernel.model.BlogsEntry;
-import com.liferay.blogs.kernel.service.BlogsEntryLocalServiceUtil;
+import com.liferay.blogs.service.BlogsEntryLocalServiceUtil;
 import com.liferay.portal.kernel.comment.CommentManagerUtil;
 import com.liferay.portal.kernel.service.IdentityServiceContextFunction;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -89,6 +89,12 @@ public class BlogsEntryLocalServiceImplTest {
 			StringUtil.randomString(), new Date(), serviceContext);
 
 		_blogsEntries.add(blogsEntry);
+
+		CommentManagerUtil.addComment(
+			TestPropsValues.getUserId(), TestPropsValues.getGroupId(),
+			BlogsEntry.class.getName(), blogsEntry.getEntryId(),
+			StringUtil.randomString(),
+			new IdentityServiceContextFunction(serviceContext));
 
 		Assert.assertTrue(
 			CommentManagerUtil.hasDiscussion(

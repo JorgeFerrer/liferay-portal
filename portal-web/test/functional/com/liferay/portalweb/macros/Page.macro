@@ -4,6 +4,10 @@
 		<execute function="AssertTextEquals#assertPartialText" locator1="SitePagesEditPage#PAGE_TYPE_EMBEDDED_DESCRIPTION_FIELD" value1="Show content from another website." />
 	</command>
 
+	<command name="_addPageTypeFullPageApplication">
+		<execute function="Select" locator1="SitePagesEditPage#PAGE_TYPE_FULL_PAGE_APPLICATION_SELECT" value1="${portlet}" />
+	</command>
+
 	<command name="_addPageTypeLinkToURL">
 		<execute function="Type" locator1="SitePagesEditPage#PAGE_TYPE_LINK_TO_URL_URL_FIELD" value1="${pageTypeURL}" />
 		<execute function="AssertTextEquals#assertPartialText" locator1="SitePagesEditPage#PAGE_TYPE_LINK_TO_URL_DESCRIPTION_FIELD" value1="Link to another website." />
@@ -45,6 +49,16 @@
 
 					<execute macro="Page#_addPageTypePanel">
 						<var name="componentName" value="${componentName}" />
+					</execute>
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${sitePageType}" arg2="Full Page Application" />
+				<then>
+					<execute function="Select" locator1="SitePagesEditPage#PAGE_TYPE_SELECT" value1="Full Page Application" />
+
+					<execute macro="Page#_addPageTypeFullPageApplication">
+						<var name="portlet" value="${portlet}" />
 					</execute>
 				</then>
 			</elseif>
@@ -103,6 +117,7 @@
 					<var name="componentName" value="${componentName}" />
 					<var name="pageTypeDescription" value="${pageTypeDescription}" />
 					<var name="pageTypeURL" value="${pageTypeURL}" />
+					<var name="portlet" value="${portlet}" />
 					<var name="sitePageType" value="${sitePageType}" />
 				</execute>
 			</then>
@@ -142,8 +157,9 @@
 			<then>
 				<execute function="Type" locator1="NavBar#BASIC_SEARCH_FIELD" value1="${siteName}" />
 				<execute function="Click" locator1="Icon#BASIC_SEARCH" />
-				<execute function="Click#waitForMenuToggleJSClick" locator1="Sites#SITE_TABLE_ACTIONS" />
-				<execute function="AssertClick" locator1="MenuItem#SITE_ADMINISTRATION" value1="Site Administration" />
+				<execute function="AssertClick" locator1="ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK" value1="${siteName}">
+					<var name="key_rowEntry" value="${siteName}" />
+				</execute>
 			</then>
 		</if>
 
@@ -505,6 +521,12 @@
 		</execute>
 	</command>
 
+	<command name="hideFromNavigationMenu">
+		<execute function="Check#checkToggleSwitch" locator1="Checkbox#HIDE_FROM_NAVIGATION_MENU" />
+
+		<execute function="AssertClick" locator1="Button#SAVE" value1="Save" />
+	</command>
+
 	<command name="localizedPG">
 		<var name="key_pageLocale" value="${pageLocale}" />
 
@@ -733,6 +755,15 @@
 	</command>
 
 	<command name="viewPageFriendlyURLPG">
+		<if>
+			<isset var="friendlyUrlLocalized" />
+			<then>
+				<var name="key_friendlyUrlLocalized" value="${friendlyUrlLocalized}" />
+
+				<execute function="Click" locator1="SitePagesEditPage#FRIENDLY_URL_LOCALIZED" />
+			</then>
+		</if>
+
 		<execute function="AssertTextEquals" locator1="SitePagesEditPage#FRIENDLY_URL_FIELD" value1="/${pageName}" />
 	</command>
 
@@ -787,7 +818,7 @@
 	</command>
 
 	<command name="viewPageLockCheck">
-		<execute function="Click" locator1="Dockbar#PAGE_INFO_MESSAGE_ICON" />
+		<execute function="Click" locator1="ControlMenu#INFO" />
 
 		<execute function="AssertTextEquals#assertPartialText" locator1="Message#CUSTOMIZED_PAGE_INFO" value1="This page is linked to a site template which does not allow modifications to it." />
 	</command>
@@ -837,13 +868,13 @@
 	</command>
 
 	<command name="viewPageTemplateLockCheck">
-		<execute function="Click" locator1="Dockbar#PAGE_INFO_MESSAGE_ICON" />
+		<execute function="Click" locator1="ControlMenu#INFO" />
 
 		<execute function="AssertTextEquals#assertPartialText" locator1="Message#CUSTOMIZED_PAGE_INFO" value1="This page is linked to a page template. Disable the automatic propagation of changes to this page to be able to make modifications." />
 	</command>
 
 	<command name="viewPageTemplateNoLockCheck">
-		<execute function="AssertElementNotPresent" locator1="Dockbar#PAGE_INFO_MESSAGE_ICON" />
+		<execute function="AssertElementNotPresent" locator1="ControlMenu#INFO" />
 		<execute function="AssertElementNotPresent" locator1="Message#CUSTOMIZED_PAGE_INFO" />
 	</command>
 

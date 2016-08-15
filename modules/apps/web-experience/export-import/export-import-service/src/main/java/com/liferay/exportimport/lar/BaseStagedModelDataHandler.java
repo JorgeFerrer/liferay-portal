@@ -15,7 +15,6 @@
 package com.liferay.exportimport.lar;
 
 import com.liferay.exportimport.content.processor.ExportImportContentProcessor;
-import com.liferay.exportimport.content.processor.ExportImportContentProcessorRegistryUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportDateUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportProcessCallbackRegistryUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
@@ -147,14 +146,14 @@ public abstract class BaseStagedModelDataHandler<T extends StagedModel>
 			portletDataContext, stagedModel);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0
+	 */
+	@Deprecated
 	protected ExportImportContentProcessor getExportImportContentProcessor(
 		Class<T> clazz) {
 
-		ExportImportContentProcessor exportImportContentProcessor =
-			ExportImportContentProcessorRegistryUtil.
-				getExportImportContentProcessor(clazz.getName());
-
-		return exportImportContentProcessor;
+		return null;
 	}
 
 	protected StagedModelRepository<T> getStagedModelRepository() {
