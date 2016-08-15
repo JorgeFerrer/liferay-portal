@@ -307,6 +307,9 @@ public class OrganizationLocalServiceTest {
 			organization.getOrganizationId(), RandomTestUtil.randomString(),
 			false);
 
+		_organizations.add(subOrganization);
+		_organizations.add(organization);
+
 		UserLocalServiceUtil.addOrganizationUser(
 			organization.getOrganizationId(), TestPropsValues.getUserId());
 
