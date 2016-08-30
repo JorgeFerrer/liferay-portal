@@ -39,6 +39,13 @@ public class ResourceActionsUtil {
 		getResourceActions().checkAction(name, actionId);
 	}
 
+	public static boolean containsModelResourceAction(
+		String modelName, String portletName, String actionId) {
+
+		return getResourceActions().containsModelResourceAction(
+			modelName, portletName, actionId);
+	}
+
 	public static String getAction(HttpServletRequest request, String action) {
 		return getResourceActions().getAction(request, action);
 	}

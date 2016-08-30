@@ -38,6 +38,9 @@ public interface ResourceActions {
 	public void checkAction(String name, String actionId)
 		throws NoSuchResourceActionException;
 
+	public boolean containsModelResourceAction(
+		String modelName, String portletName, String actionId);
+
 	public String getAction(HttpServletRequest request, String action);
 
 	public String getAction(Locale locale, String action);
