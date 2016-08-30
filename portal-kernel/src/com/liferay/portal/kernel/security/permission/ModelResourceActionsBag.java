@@ -22,6 +22,10 @@ import java.util.Set;
  */
 public interface ModelResourceActionsBag extends ResourceActionsBag {
 
+	public Set<String> getPortletModelResourceActions(String portletName);
+
+	public Set<String> getPortletResources();
+
 	public Set<String> getResourceOwnerDefaultActions();
 
 	public Map<String, Double> getResourceWeights();
