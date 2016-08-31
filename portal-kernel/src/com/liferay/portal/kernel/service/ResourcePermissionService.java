@@ -95,6 +95,11 @@ public interface ResourcePermissionService extends BaseService {
 		java.lang.String name, int scope, java.lang.String primKey,
 		long roleId, java.lang.String actionId) throws PortalException;
 
+	public void addResourcePermission(long groupId, long companyId,
+		java.lang.String name, int scope, long roleId,
+		java.lang.String actionId, java.lang.String[] groupIds)
+		throws java.lang.Exception;
+
 	/**
 	* Revokes permission at the scope from the role to perform the action on
 	* resources of the type. For example, this method could be used to revoke a
@@ -192,4 +197,12 @@ public interface ResourcePermissionService extends BaseService {
 	public void setIndividualResourcePermissions(long groupId, long companyId,
 		java.lang.String name, java.lang.String primKey, long roleId,
 		java.lang.String[] actionIds) throws PortalException;
+
+	public void updateViewControlPanelPermission(long groupId, long companyId,
+		java.lang.String portletId, int scope, long roleId, int roleType,
+		java.lang.String[] groupIds) throws java.lang.Exception;
+
+	public void updateViewRootResourcePermission(long groupId, long companyId,
+		java.lang.String portletId, int scope, long roleId,
+		java.lang.String[] groupIds) throws java.lang.Exception;
 }

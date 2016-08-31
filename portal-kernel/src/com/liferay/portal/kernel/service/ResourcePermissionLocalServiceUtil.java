@@ -629,6 +629,15 @@ public class ResourcePermissionLocalServiceUtil {
 			actionId);
 	}
 
+	public static void addResourcePermission(long companyId,
+		java.lang.String name, int scope, long roleId,
+		java.lang.String actionId, java.lang.String[] groupIds)
+		throws java.lang.Exception {
+		getService()
+			.addResourcePermission(companyId, name, scope, roleId, actionId,
+			groupIds);
+	}
+
 	/**
 	* Grants the role permissions at the scope to perform the actions on all
 	* resources of the type. Existing actions are retained.
@@ -881,6 +890,22 @@ public class ResourcePermissionLocalServiceUtil {
 		getService()
 			.setResourcePermissions(companyId, name, scope, primKey, roleId,
 			actionIds);
+	}
+
+	public static void updateViewControlPanelPermission(long companyId,
+		java.lang.String portletId, int scope, long roleId, int roleType,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		getService()
+			.updateViewControlPanelPermission(companyId, portletId, scope,
+			roleId, roleType, groupIds);
+	}
+
+	public static void updateViewRootResourcePermission(long companyId,
+		java.lang.String portletId, int scope, long roleId,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		getService()
+			.updateViewRootResourcePermission(companyId, portletId, scope,
+			roleId, groupIds);
 	}
 
 	public static ResourcePermissionLocalService getService() {
