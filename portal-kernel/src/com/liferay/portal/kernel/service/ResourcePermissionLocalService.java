@@ -789,4 +789,16 @@ public interface ResourcePermissionLocalService extends BaseLocalService,
 	public void setResourcePermissions(long companyId, java.lang.String name,
 		int scope, java.lang.String primKey, long roleId,
 		java.lang.String[] actionIds) throws PortalException;
+
+	public void updateAction(Role role, java.lang.String selResource,
+		java.lang.String actionId, int scope, java.lang.String[] groupIds)
+		throws java.lang.Exception;
+
+	public void updateViewControlPanelPermission(Role role,
+		java.lang.String portletId, int scope, java.lang.String[] groupIds)
+		throws java.lang.Exception;
+
+	public void updateViewRootResourcePermission(Role role,
+		java.lang.String portletId, int scope, java.lang.String[] groupIds)
+		throws java.lang.Exception;
 }
