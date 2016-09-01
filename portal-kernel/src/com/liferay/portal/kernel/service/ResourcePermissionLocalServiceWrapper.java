@@ -915,6 +915,30 @@ public class ResourcePermissionLocalServiceWrapper
 	}
 
 	@Override
+	public void updateAction(com.liferay.portal.kernel.model.Role role,
+		java.lang.String selResource, java.lang.String actionId, int scope,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		_resourcePermissionLocalService.updateAction(role, selResource,
+			actionId, scope, groupIds);
+	}
+
+	@Override
+	public void updateViewControlPanelPermission(
+		com.liferay.portal.kernel.model.Role role, java.lang.String portletId,
+		int scope, java.lang.String[] groupIds) throws java.lang.Exception {
+		_resourcePermissionLocalService.updateViewControlPanelPermission(role,
+			portletId, scope, groupIds);
+	}
+
+	@Override
+	public void updateViewRootResourcePermission(
+		com.liferay.portal.kernel.model.Role role, java.lang.String portletId,
+		int scope, java.lang.String[] groupIds) throws java.lang.Exception {
+		_resourcePermissionLocalService.updateViewRootResourcePermission(role,
+			portletId, scope, groupIds);
+	}
+
+	@Override
 	public ResourcePermissionLocalService getWrappedService() {
 		return _resourcePermissionLocalService;
 	}

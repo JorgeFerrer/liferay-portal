@@ -883,6 +883,26 @@ public class ResourcePermissionLocalServiceUtil {
 			actionIds);
 	}
 
+	public static void updateAction(com.liferay.portal.kernel.model.Role role,
+		java.lang.String selResource, java.lang.String actionId, int scope,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		getService().updateAction(role, selResource, actionId, scope, groupIds);
+	}
+
+	public static void updateViewControlPanelPermission(
+		com.liferay.portal.kernel.model.Role role, java.lang.String portletId,
+		int scope, java.lang.String[] groupIds) throws java.lang.Exception {
+		getService()
+			.updateViewControlPanelPermission(role, portletId, scope, groupIds);
+	}
+
+	public static void updateViewRootResourcePermission(
+		com.liferay.portal.kernel.model.Role role, java.lang.String portletId,
+		int scope, java.lang.String[] groupIds) throws java.lang.Exception {
+		getService()
+			.updateViewRootResourcePermission(role, portletId, scope, groupIds);
+	}
+
 	public static ResourcePermissionLocalService getService() {
 		if (_service == null) {
 			_service = (ResourcePermissionLocalService)PortalBeanLocatorUtil.locate(ResourcePermissionLocalService.class.getName());
