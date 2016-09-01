@@ -35,6 +35,15 @@ public class ModelResourceActionsBagImpl
 
 		super(modelResourceActionsBag);
 
+		for (String porletName :
+				modelResourceActionsBag.getPortletResources()) {
+
+			_portletModelResourceActions.put(
+				porletName,
+				modelResourceActionsBag.getPortletModelResourceActions(
+					porletName));
+		}
+
 		_resourceOwnerDefaultActions.addAll(
 			modelResourceActionsBag.getResourceOwnerDefaultActions());
 		_resourceWeights.putAll(modelResourceActionsBag.getResourceWeights());
@@ -43,6 +52,19 @@ public class ModelResourceActionsBagImpl
 	@Override
 	public ModelResourceActionsBag clone() {
 		return new ModelResourceActionsBagImpl(this);
+	}
+
+	public Set<String> getPortletModelResourceActions(String portletName) {
+		if (!_portletModelResourceActions.containsKey(portletName)) {
+			_portletModelResourceActions.put(
+				portletName, new HashSet<String>());
+		}
+
+		return _portletModelResourceActions.get(portletName);
+	}
+
+	public Set<String> getPortletResources() {
+		return _portletModelResourceActions.keySet();
 	}
 
 	@Override
@@ -55,6 +77,8 @@ public class ModelResourceActionsBagImpl
 		return _resourceWeights;
 	}
 
+	private final Map<String, Set<String>> _portletModelResourceActions =
+		new HashMap<>();
 	private final Set<String> _resourceOwnerDefaultActions = new HashSet<>();
 	private final Map<String, Double> _resourceWeights = new HashMap<>();
 

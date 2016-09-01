@@ -75,10 +75,16 @@ for (int i = 0; i < permissions.size(); i++) {
 		curModelName = resource.getName();
 		curModelLabel = ResourceActionsUtil.getModelResource(request, curModelName);
 
-		List portletResources = ResourceActionsUtil.getModelPortletResources(curModelName);
+		List<String> portletResources = ResourceActionsUtil.getModelPortletResources(curModelName);
 
 		if (!portletResources.isEmpty()) {
-			curPortletName = (String)portletResources.get(0);
+			for (String portletResource : portletResources) {
+				if (ResourceActionsUtil.containsModelResourceAction(curModelName, portletResource, actionId)) {
+					curPortletName = portletResource;
+
+					break;
+				}
+			}
 		}
 	}
 

@@ -122,6 +122,23 @@ public class ResourceActionsImpl implements ResourceActions {
 		}
 	}
 
+	@Override
+	public boolean containsModelResourceAction(
+		String modelName, String portletName, String actionId) {
+
+		ModelResourceActionsBag modelResourceActionsBag =
+			_modelResourceActionsBags.get(modelName);
+
+		if (modelResourceActionsBag == null) {
+			return false;
+		}
+
+		Set<String> resourceActions =
+			modelResourceActionsBag.getPortletModelResourceActions(portletName);
+
+		return resourceActions.contains(actionId);
+	}
+
 	public void destroy() {
 		_resourceBundleLoaders.close();
 	}
@@ -1149,6 +1166,13 @@ public class ResourceActionsImpl implements ResourceActions {
 
 			Set<String> portletResources =
 				modelResourceActionsBag.getResources();
+
+			Set<String> portletModelResourceActions =
+				modelResourceActionsBag.getPortletModelResourceActions(
+					portletName);
+
+			readSupportsActions(
+				modelResourceElement, portletModelResourceActions);
 
 			portletResources.add(portletName);
 
