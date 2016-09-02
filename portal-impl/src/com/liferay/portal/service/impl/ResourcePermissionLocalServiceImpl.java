@@ -1276,7 +1276,9 @@ public class ResourcePermissionLocalServiceImpl
 		}
 
 		if (selResource != null) {
-			addResourcePermission(role, selResource, actionId, scope, groupIds);
+			addResourcePermission(
+				role.getCompanyId(), selResource, scope, role.getRoleId(),
+				actionId, groupIds);
 		}
 	}
 
@@ -1294,7 +1296,8 @@ public class ResourcePermissionLocalServiceImpl
 
 			if (actions.contains(ActionKeys.VIEW)) {
 				addResourcePermission(
-					role, modelResource, ActionKeys.VIEW, scope, groupIds);
+					role.getCompanyId(), modelResource, scope, role.getRoleId(),
+					ActionKeys.VIEW, groupIds);
 			}
 		}
 	}
