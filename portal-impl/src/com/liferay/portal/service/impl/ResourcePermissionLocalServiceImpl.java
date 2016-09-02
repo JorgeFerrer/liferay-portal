@@ -90,6 +90,36 @@ public class ResourcePermissionLocalServiceImpl
 	 */
 	public static final String[] EMPTY_ACTION_IDS = {null};
 
+	@Override
+	public void addResourcePermission(
+			long companyId, String name, int scope, long roleId,
+			String actionId, String[] groupIds)
+		throws Exception {
+
+		if (scope == ResourceConstants.SCOPE_COMPANY) {
+			addResourcePermission(
+				companyId, name, scope, String.valueOf(companyId), roleId,
+				actionId);
+		}
+		else if (scope == ResourceConstants.SCOPE_GROUP_TEMPLATE) {
+			addResourcePermission(
+				companyId, name, ResourceConstants.SCOPE_GROUP_TEMPLATE,
+				String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID), roleId,
+				actionId);
+		}
+		else if (scope == ResourceConstants.SCOPE_GROUP) {
+			for (String curGroupId : groupIds) {
+				removeResourcePermission(
+					companyId, name, ResourceConstants.SCOPE_GROUP, curGroupId,
+					roleId, actionId);
+
+				addResourcePermission(
+					companyId, name, ResourceConstants.SCOPE_GROUP, curGroupId,
+					roleId, actionId);
+			}
+		}
+	}
+
 	/**
 	 * Grants the role permission at the scope to perform the action on
 	 * resources of the type. Existing actions are retained.
@@ -1211,39 +1241,6 @@ public class ResourcePermissionLocalServiceImpl
 	}
 
 	@Override
-	public void updateAction(
-			Role role, String selResource, String actionId, int scope,
-			String[] groupIds)
-		throws Exception {
-
-		long companyId = role.getCompanyId();
-		long roleId = role.getRoleId();
-
-		if (scope == ResourceConstants.SCOPE_COMPANY) {
-			addResourcePermission(
-				companyId, selResource, scope,
-				String.valueOf(role.getCompanyId()), roleId, actionId);
-		}
-		else if (scope == ResourceConstants.SCOPE_GROUP_TEMPLATE) {
-			addResourcePermission(
-				companyId, selResource, ResourceConstants.SCOPE_GROUP_TEMPLATE,
-				String.valueOf(GroupConstants.DEFAULT_PARENT_GROUP_ID), roleId,
-				actionId);
-		}
-		else if (scope == ResourceConstants.SCOPE_GROUP) {
-			for (String curGroupId : groupIds) {
-				removeResourcePermission(
-					companyId, selResource, ResourceConstants.SCOPE_GROUP,
-					curGroupId, roleId, actionId);
-
-				addResourcePermission(
-					companyId, selResource, ResourceConstants.SCOPE_GROUP,
-					curGroupId, roleId, actionId);
-			}
-		}
-	}
-
-	@Override
 	public void updateViewControlPanelPermission(
 			Role role, String portletId, int scope, String[] groupIds)
 		throws Exception {
@@ -1279,7 +1276,7 @@ public class ResourcePermissionLocalServiceImpl
 		}
 
 		if (selResource != null) {
-			updateAction(role, selResource, actionId, scope, groupIds);
+			addResourcePermission(role, selResource, actionId, scope, groupIds);
 		}
 	}
 
@@ -1296,7 +1293,7 @@ public class ResourcePermissionLocalServiceImpl
 				modelResource);
 
 			if (actions.contains(ActionKeys.VIEW)) {
-				updateAction(
+				addResourcePermission(
 					role, modelResource, ActionKeys.VIEW, scope, groupIds);
 			}
 		}
