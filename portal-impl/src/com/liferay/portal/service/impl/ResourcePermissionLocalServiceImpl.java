@@ -1242,11 +1242,12 @@ public class ResourcePermissionLocalServiceImpl
 
 	@Override
 	public void updateViewControlPanelPermission(
-			Role role, String portletId, int scope, String[] groupIds)
+			long companyId, String portletId, int scope, long roleId,
+			int roleType, String[] groupIds)
 		throws Exception {
 
 		Portlet portlet = portletLocalService.getPortletById(
-			role.getCompanyId(), portletId);
+			companyId, portletId);
 
 		if (Validator.isNull(portlet)) {
 			return;
@@ -1262,7 +1263,7 @@ public class ResourcePermissionLocalServiceImpl
 		String actionId = null;
 
 		if (ArrayUtil.contains(PortletCategoryKeys.ALL, controlPanelCategory) &&
-			(role.getType() == RoleConstants.TYPE_REGULAR)) {
+			(roleType == RoleConstants.TYPE_REGULAR)) {
 
 			selResource = PortletKeys.PORTAL;
 			actionId = ActionKeys.VIEW_CONTROL_PANEL;
@@ -1277,14 +1278,14 @@ public class ResourcePermissionLocalServiceImpl
 
 		if (selResource != null) {
 			addResourcePermission(
-				role.getCompanyId(), selResource, scope, role.getRoleId(),
-				actionId, groupIds);
+				companyId, selResource, scope, roleId, actionId, groupIds);
 		}
 	}
 
 	@Override
 	public void updateViewRootResourcePermission(
-			Role role, String portletId, int scope, String[] groupIds)
+			long companyId, String portletId, int scope, long roleId,
+			String[] groupIds)
 		throws Exception {
 
 		String modelResource = ResourceActionsUtil.getPortletRootModelResource(
@@ -1296,8 +1297,8 @@ public class ResourcePermissionLocalServiceImpl
 
 			if (actions.contains(ActionKeys.VIEW)) {
 				addResourcePermission(
-					role.getCompanyId(), modelResource, scope, role.getRoleId(),
-					ActionKeys.VIEW, groupIds);
+					companyId, modelResource, scope, roleId, ActionKeys.VIEW,
+					groupIds);
 			}
 		}
 	}
