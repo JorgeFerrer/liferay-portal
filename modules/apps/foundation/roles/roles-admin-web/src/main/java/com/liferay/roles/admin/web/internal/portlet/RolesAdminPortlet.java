@@ -191,7 +191,7 @@ public class RolesAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public Role editRole(
+	public void editRole(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
@@ -234,14 +234,12 @@ public class RolesAdminPortlet extends MVCPortlet {
 			SessionMessages.add(actionRequest, "roleCreated");
 
 			actionResponse.sendRedirect(redirect);
-
-			return role;
 		}
 		else {
 
 			// Update role
 
-			return _roleService.updateRole(
+			_roleService.updateRole(
 				roleId, name, titleMap, descriptionMap, subtype,
 				serviceContext);
 		}
