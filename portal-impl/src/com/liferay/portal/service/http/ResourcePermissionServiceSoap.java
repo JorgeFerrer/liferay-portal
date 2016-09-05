@@ -64,6 +64,21 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class ResourcePermissionServiceSoap {
+	public static void addResourcePermission(long groupId, long companyId,
+		java.lang.String name, int scope, long roleId,
+		java.lang.String actionId, java.lang.String[] groupIds)
+		throws RemoteException {
+		try {
+			ResourcePermissionServiceUtil.addResourcePermission(groupId,
+				companyId, name, scope, roleId, actionId, groupIds);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	/**
 	* Grants the role permission at the scope to perform the action on
 	* resources of the type. Existing actions are retained.
@@ -206,6 +221,34 @@ public class ResourcePermissionServiceSoap {
 		try {
 			ResourcePermissionServiceUtil.setIndividualResourcePermissions(groupId,
 				companyId, name, primKey, roleId, actionIds);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void updateViewControlPanelPermission(long groupId,
+		long companyId, java.lang.String portletId, int scope, long roleId,
+		int roleType, java.lang.String[] groupIds) throws RemoteException {
+		try {
+			ResourcePermissionServiceUtil.updateViewControlPanelPermission(groupId,
+				companyId, portletId, scope, roleId, roleType, groupIds);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void updateViewRootResourcePermission(long groupId,
+		long companyId, java.lang.String portletId, int scope, long roleId,
+		java.lang.String[] groupIds) throws RemoteException {
+		try {
+			ResourcePermissionServiceUtil.updateViewRootResourcePermission(groupId,
+				companyId, portletId, scope, roleId, groupIds);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

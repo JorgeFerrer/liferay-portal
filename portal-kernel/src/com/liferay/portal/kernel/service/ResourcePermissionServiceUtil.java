@@ -95,6 +95,15 @@ public class ResourcePermissionServiceUtil {
 			roleId, actionId);
 	}
 
+	public static void addResourcePermission(long groupId, long companyId,
+		java.lang.String name, int scope, long roleId,
+		java.lang.String actionId, java.lang.String[] groupIds)
+		throws java.lang.Exception {
+		getService()
+			.addResourcePermission(groupId, companyId, name, scope, roleId,
+			actionId, groupIds);
+	}
+
 	/**
 	* Revokes permission at the scope from the role to perform the action on
 	* resources of the type. For example, this method could be used to revoke a
@@ -209,6 +218,22 @@ public class ResourcePermissionServiceUtil {
 		getService()
 			.setIndividualResourcePermissions(groupId, companyId, name,
 			primKey, roleId, actionIds);
+	}
+
+	public static void updateViewControlPanelPermission(long groupId,
+		long companyId, java.lang.String portletId, int scope, long roleId,
+		int roleType, java.lang.String[] groupIds) throws java.lang.Exception {
+		getService()
+			.updateViewControlPanelPermission(groupId, companyId, portletId,
+			scope, roleId, roleType, groupIds);
+	}
+
+	public static void updateViewRootResourcePermission(long groupId,
+		long companyId, java.lang.String portletId, int scope, long roleId,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		getService()
+			.updateViewRootResourcePermission(groupId, companyId, portletId,
+			scope, roleId, groupIds);
 	}
 
 	public static ResourcePermissionService getService() {

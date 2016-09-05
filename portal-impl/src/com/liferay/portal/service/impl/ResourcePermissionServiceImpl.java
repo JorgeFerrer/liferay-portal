@@ -36,6 +36,19 @@ import java.util.Map;
 public class ResourcePermissionServiceImpl
 	extends ResourcePermissionServiceBaseImpl {
 
+	@Override
+	public void addResourcePermission(
+			long groupId, long companyId, String name, int scope, long roleId,
+			String actionId, String[] groupIds)
+		throws Exception {
+
+		permissionService.checkPermission(
+			groupId, Role.class.getName(), roleId);
+
+		resourcePermissionLocalService.addResourcePermission(
+			companyId, name, scope, roleId, actionId, groupIds);
+	}
+
 	/**
 	 * Grants the role permission at the scope to perform the action on
 	 * resources of the type. Existing actions are retained.
@@ -216,6 +229,32 @@ public class ResourcePermissionServiceImpl
 		resourcePermissionLocalService.setResourcePermissions(
 			companyId, name, ResourceConstants.SCOPE_INDIVIDUAL, primKey,
 			roleIdsToActionIds);
+	}
+
+	@Override
+	public void updateViewControlPanelPermission(
+			long groupId, long companyId, String portletId, int scope,
+			long roleId, int roleType, String[] groupIds)
+		throws Exception {
+
+		permissionService.checkPermission(
+			groupId, Role.class.getName(), roleId);
+
+		resourcePermissionLocalService.updateViewControlPanelPermission(
+			companyId, portletId, scope, roleId, roleType, groupIds);
+	}
+
+	@Override
+	public void updateViewRootResourcePermission(
+			long groupId, long companyId, String portletId, int scope,
+			long roleId, String[] groupIds)
+		throws Exception {
+
+		permissionService.checkPermission(
+			groupId, Role.class.getName(), roleId);
+
+		resourcePermissionLocalService.updateViewRootResourcePermission(
+			companyId, portletId, scope, roleId, groupIds);
 	}
 
 }

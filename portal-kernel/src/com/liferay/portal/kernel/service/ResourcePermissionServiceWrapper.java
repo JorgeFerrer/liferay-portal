@@ -87,6 +87,15 @@ public class ResourcePermissionServiceWrapper
 			name, scope, primKey, roleId, actionId);
 	}
 
+	@Override
+	public void addResourcePermission(long groupId, long companyId,
+		java.lang.String name, int scope, long roleId,
+		java.lang.String actionId, java.lang.String[] groupIds)
+		throws java.lang.Exception {
+		_resourcePermissionService.addResourcePermission(groupId, companyId,
+			name, scope, roleId, actionId, groupIds);
+	}
+
 	/**
 	* Revokes permission at the scope from the role to perform the action on
 	* resources of the type. For example, this method could be used to revoke a
@@ -201,6 +210,22 @@ public class ResourcePermissionServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 		_resourcePermissionService.setIndividualResourcePermissions(groupId,
 			companyId, name, primKey, roleId, actionIds);
+	}
+
+	@Override
+	public void updateViewControlPanelPermission(long groupId, long companyId,
+		java.lang.String portletId, int scope, long roleId, int roleType,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		_resourcePermissionService.updateViewControlPanelPermission(groupId,
+			companyId, portletId, scope, roleId, roleType, groupIds);
+	}
+
+	@Override
+	public void updateViewRootResourcePermission(long groupId, long companyId,
+		java.lang.String portletId, int scope, long roleId,
+		java.lang.String[] groupIds) throws java.lang.Exception {
+		_resourcePermissionService.updateViewRootResourcePermission(groupId,
+			companyId, portletId, scope, roleId, groupIds);
 	}
 
 	@Override
