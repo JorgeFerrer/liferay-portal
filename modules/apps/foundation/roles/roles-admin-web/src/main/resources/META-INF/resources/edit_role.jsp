@@ -169,6 +169,25 @@ renderResponse.setTitle((role == null) ? LanguageUtil.get(request, "new-role") :
 	</aui:fieldset-group>
 </aui:form>
 
+<aui:script sandbox="<%= true %>">
+	var form = $(document.<portlet:namespace />fm);
+
+	function <portlet:namespace />enableNameField() {
+
+		var nameInput = form.fm('name');
+
+		nameInput.removeAttr('disabled');
+
+		<c:if test="<%= role == null %>">
+			nameInput.val(form.fm('title').val());
+		</c:if>
+
+		submitForm(form);
+	}
+
+	form.on('submit', <portlet:namespace />enableNameField);
+</aui:script>
+
 <%
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, ((role == null) ? "add-role" : "details")), currentURL);
 %>
