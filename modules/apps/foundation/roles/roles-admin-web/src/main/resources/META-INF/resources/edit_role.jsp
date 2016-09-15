@@ -187,7 +187,3 @@ renderResponse.setTitle((role == null) ? LanguageUtil.get(request, "new-role") :
 
 	form.on('submit', <portlet:namespace />enableNameField);
 </aui:script>
-
-<%
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, ((role == null) ? "add-role" : "details")), currentURL);
-%>
