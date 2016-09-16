@@ -18,13 +18,9 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIcon;
 import com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIcon;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.service.permission.RolePermissionUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.roles.admin.constants.RolesAdminPortletKeys;
 
 import javax.portlet.PortletRequest;
@@ -85,17 +81,18 @@ public class EditRolePortletConfigurationIcon
 
 	@Override
 	public boolean isShow(PortletRequest portletRequest) {
-		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)portletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY);
 
-			return RolePermissionUtil.contains(
-				themeDisplay.getPermissionChecker(), _getRoleId(portletRequest),
-				ActionKeys.UPDATE);
-		}
-		catch (Exception e) {
-		}
+		// try {
+		// 	ThemeDisplay themeDisplay =
+		// 		(ThemeDisplay)portletRequest.getAttribute(
+		// 			WebKeys.THEME_DISPLAY);
+
+		// 	return RolePermissionUtil.contains(
+		// 		themeDisplay.getPermissionChecker(), _getRoleId(portletRequest),
+		// 		ActionKeys.UPDATE);
+		// }
+		// catch (Exception e) {
+		// }
 
 		return false;
 	}

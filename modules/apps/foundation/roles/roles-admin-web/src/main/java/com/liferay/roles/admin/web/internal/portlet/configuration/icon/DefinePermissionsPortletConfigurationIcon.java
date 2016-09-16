@@ -15,21 +15,15 @@
 package com.liferay.roles.admin.web.internal.portlet.configuration.icon;
 
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIcon;
 import com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIcon;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.RoleService;
-import com.liferay.portal.kernel.service.permission.RolePermissionUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.roles.admin.constants.RolesAdminPortletKeys;
 
 import java.util.ResourceBundle;
@@ -96,34 +90,35 @@ public class DefinePermissionsPortletConfigurationIcon
 
 	@Override
 	public boolean isShow(PortletRequest portletRequest) {
-		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)portletRequest.getAttribute(
-					WebKeys.THEME_DISPLAY);
 
-			long roleId = _getRoleId(portletRequest);
+		// try {
+		// 	ThemeDisplay themeDisplay =
+		// 		(ThemeDisplay)portletRequest.getAttribute(
+		// 			WebKeys.THEME_DISPLAY);
 
-			Role role = _roleService.fetchRole(roleId);
+		// 	long roleId = _getRoleId(portletRequest);
 
-			String roleName = role.getName();
+		// 	Role role = _roleService.fetchRole(roleId);
 
-			if (!roleName.equals(RoleConstants.ADMINISTRATOR) &&
-				!roleName.equals(RoleConstants.SITE_OWNER) &&
-				!roleName.equals(RoleConstants.ORGANIZATION_ADMINISTRATOR) &&
-				!roleName.equals(RoleConstants.ORGANIZATION_OWNER) &&
-				!roleName.equals(RoleConstants.OWNER) &&
-				!roleName.equals(RoleConstants.SITE_ADMINISTRATOR) &&
-				RolePermissionUtil.contains(
-					themeDisplay.getPermissionChecker(), roleId,
-					ActionKeys.DEFINE_PERMISSIONS)) {
+		// 	String roleName = role.getName();
 
-				return true;
-			}
+		// 	if (!roleName.equals(RoleConstants.ADMINISTRATOR) &&
+		// 		!roleName.equals(RoleConstants.SITE_OWNER) &&
+		// 		!roleName.equals(RoleConstants.ORGANIZATION_ADMINISTRATOR) &&
+		// 		!roleName.equals(RoleConstants.ORGANIZATION_OWNER) &&
+		// 		!roleName.equals(RoleConstants.OWNER) &&
+		// 		!roleName.equals(RoleConstants.SITE_ADMINISTRATOR) &&
+		// 		RolePermissionUtil.contains(
+		// 			themeDisplay.getPermissionChecker(), roleId,
+		// 			ActionKeys.DEFINE_PERMISSIONS)) {
 
-			return false;
-		}
-		catch (Exception e) {
-		}
+		// 		return true;
+		// 	}
+
+		// 	return false;
+		// }
+		// catch (Exception e) {
+		// }
 
 		return false;
 	}
