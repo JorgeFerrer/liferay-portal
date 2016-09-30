@@ -19,10 +19,10 @@ import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.internal.util.AttributeDefinitionUtil;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelRetriever;
 import com.liferay.portal.configuration.metatype.definitions.ExtendedAttributeDefinition;
+import com.liferay.portal.configuration.metatype.definitions.ExtendedObjectClassDefinition;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesUtil;
@@ -255,20 +255,12 @@ public class ExportConfigurationMVCResourceCommand
 			return properties;
 		}
 
+		ExtendedObjectClassDefinition extendedObjectClassDefinition =
+			configurationModel.getExtendedObjectClassDefinition();
+
 		ExtendedAttributeDefinition[] attributeDefinitions =
-			configurationModel.getAttributeDefinitions(ConfigurationModel.ALL);
-
-		if (configurationModel.isCompanyFactory()) {
-			String factoryInstanceLabelAttributeId =
-				configurationModel.getLabelAttribute();
-
-			ExtendedAttributeDefinition factoryInstanceLabelAttribute =
-				configurationModel.getExtendedAttributeDefinition(
-					factoryInstanceLabelAttributeId);
-
-			attributeDefinitions = ArrayUtil.append(
-				attributeDefinitions, factoryInstanceLabelAttribute);
-		}
+			extendedObjectClassDefinition.getAttributeDefinitions(
+				ConfigurationModel.ALL);
 
 		for (AttributeDefinition attributeDefinition : attributeDefinitions) {
 			String[] values = AttributeDefinitionUtil.getProperty(
