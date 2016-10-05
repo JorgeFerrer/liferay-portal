@@ -104,9 +104,6 @@ public class PortalExecutorManagerUtil {
 	private static final Log _log = LogFactoryUtil.getLog(
 		PortalExecutorManagerUtil.class);
 
-	private static final PortalExecutorManagerUtil _instance =
-		new PortalExecutorManagerUtil();
-
 	private static volatile PortalExecutorManager _portalExecutorManager =
 		ProxyFactory.newServiceTrackedInstanceWithoutDummyService(
 			PortalExecutorManager.class, PortalExecutorManagerUtil.class,

@@ -14,10 +14,14 @@
 
 package com.liferay.websocket.whiteboard.test;
 
-import com.liferay.websocket.whiteboard.test.client.TestWebSocketClient;
+import com.liferay.websocket.whiteboard.test.client.BinaryWebSocketClient;
+import com.liferay.websocket.whiteboard.test.client.TextWebSocketClient;
 
 import java.net.URI;
 import java.net.URL;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
@@ -41,13 +45,14 @@ public class TestWebSocketEndpointTest {
 
 	@RunAsClient
 	@Test
-	public void testSendMessageAndReceiveTheSame() throws Exception {
+	public void testSendBinaryMessageAndReceiveTheSame() throws Exception {
 		WebSocketContainer webSocketContainer =
 			ContainerProvider.getWebSocketContainer();
 
-		SynchronousQueue<String> synchronousQueue = new SynchronousQueue<>();
+		SynchronousQueue<ByteBuffer> synchronousQueue =
+			new SynchronousQueue<>();
 
-		TestWebSocketClient testWebSocketClient = new TestWebSocketClient(
+		BinaryWebSocketClient binaryWebSocketClient = new BinaryWebSocketClient(
 			synchronousQueue);
 
 		StringBuilder sb = new StringBuilder();
@@ -60,9 +65,40 @@ public class TestWebSocketEndpointTest {
 
 		URI uri = new URI(sb.toString());
 
-		webSocketContainer.connectToServer(testWebSocketClient, uri);
+		webSocketContainer.connectToServer(binaryWebSocketClient, uri);
 
-		testWebSocketClient.sendText("echo");
+		binaryWebSocketClient.sendMessage(ByteBuffer.wrap("echo".getBytes()));
+
+		ByteBuffer byteBuffer = synchronousQueue.poll(1, TimeUnit.HOURS);
+
+		Assert.assertEquals(
+			"echo", new String(byteBuffer.array(), Charset.forName("UTF-8")));
+	}
+
+	@RunAsClient
+	@Test
+	public void testSendMessageAndReceiveTheSame() throws Exception {
+		WebSocketContainer webSocketContainer =
+			ContainerProvider.getWebSocketContainer();
+
+		SynchronousQueue<String> synchronousQueue = new SynchronousQueue<>();
+
+		TextWebSocketClient textWebSocketClient = new TextWebSocketClient(
+			synchronousQueue);
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("ws://");
+		sb.append(_url.getHost());
+		sb.append(":");
+		sb.append(_url.getPort());
+		sb.append("/o/websocket/test");
+
+		URI uri = new URI(sb.toString());
+
+		webSocketContainer.connectToServer(textWebSocketClient, uri);
+
+		textWebSocketClient.sendMessage("echo");
 
 		Assert.assertEquals("echo", synchronousQueue.poll(1, TimeUnit.HOURS));
 	}

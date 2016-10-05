@@ -37,8 +37,7 @@ public interface AutoLogin {
 		"AUTO_LOGIN_REDIRECT_AND_CONTINUE";
 
 	/**
-	 * @deprecated As of 7.0.0, with no replacement. This method is no longer
-	 *             used.
+	 * @deprecated As of 7.0.0, with no direct replacement
 	 */
 	@Deprecated
 	public String[] handleException(

@@ -505,7 +505,7 @@ public class StringUtilTest {
 
 	@Test
 	public void testShortenStringWith4ByteChars() {
-		int space = (int)CharPool.SPACE;
+		int space = CharPool.SPACE;
 
 		int[] codePoints = new int[] {
 			128515, 128516, space, 128517, 128518, 128519, 128520, 128521

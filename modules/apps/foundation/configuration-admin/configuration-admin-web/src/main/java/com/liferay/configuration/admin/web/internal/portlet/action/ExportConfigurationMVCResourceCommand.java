@@ -19,15 +19,13 @@ import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.internal.util.AttributeDefinitionUtil;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelRetriever;
 import com.liferay.portal.configuration.metatype.definitions.ExtendedAttributeDefinition;
+import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PropertiesUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.zip.ZipWriter;
@@ -43,6 +41,8 @@ import javax.portlet.MimeResponse;
 import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
+import org.apache.felix.cm.file.ConfigurationHandler;
 
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.component.annotations.Component;
@@ -225,7 +225,7 @@ public class ExportConfigurationMVCResourceCommand
 			fileName = factoryPid + StringPool.DASH + factoryInstanceId;
 		}
 
-		return fileName + ".cfg";
+		return fileName + ".config";
 	}
 
 	protected Properties getProperties(
@@ -261,22 +261,12 @@ public class ExportConfigurationMVCResourceCommand
 			String[] values = AttributeDefinitionUtil.getProperty(
 				attributeDefinition, configuration);
 
-			String value = null;
-
-			// See http://goo.gl/JhYK7g
-
 			if (values.length == 1) {
-				value = values[0];
+				properties.put(attributeDefinition.getID(), values[0]);
 			}
 			else if (values.length > 1) {
-				value = StringUtil.merge(values, "\n");
+				properties.put(attributeDefinition.getID(), values);
 			}
-
-			if (value == null) {
-				value = StringPool.BLANK;
-			}
-
-			properties.setProperty(attributeDefinition.getID(), value);
 		}
 
 		return properties;
@@ -286,21 +276,14 @@ public class ExportConfigurationMVCResourceCommand
 			String languageId, String factoryPid, String pid)
 		throws Exception {
 
-		StringBundler sb = new StringBundler(5);
-
-		sb.append("##\n## To apply the configuration, place this file in the ");
-		sb.append("Liferay installation's osgi/modules folder. Make sure it ");
-		sb.append("is named ");
-		sb.append(getFileName(factoryPid, pid));
-		sb.append(".\n##\n\n");
-
 		Properties properties = getProperties(languageId, factoryPid, pid);
 
-		sb.append(PropertiesUtil.toString(properties));
+		UnsyncByteArrayOutputStream unsyncByteArrayOutputStream =
+			new UnsyncByteArrayOutputStream();
 
-		String propertiesString = sb.toString();
+		ConfigurationHandler.write(unsyncByteArrayOutputStream, properties);
 
-		return propertiesString.getBytes();
+		return unsyncByteArrayOutputStream.toByteArray();
 	}
 
 	@Reference
