@@ -1,0 +1,6 @@
+Bundle-Name: Liferay Configuration Admin Action
+Bundle-SymbolicName: com.liferay.configuration.admin.action
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.configuration.admin.action
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: Configuration Framework
