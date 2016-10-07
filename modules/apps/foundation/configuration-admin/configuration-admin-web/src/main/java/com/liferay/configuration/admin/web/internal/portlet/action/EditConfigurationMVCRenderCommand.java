@@ -91,6 +91,11 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 				ConfigurationAdminWebKeys.CONFIGURATION_MODEL,
 				configurationModel);
 
+			renderRequest.setAttribute(
+				"errorMessage",
+				ParamUtil.getString(
+					renderRequest, "errorMessage", "Default Message"));
+
 			DDMFormRendererHelper ddmFormRendererHelper =
 				new DDMFormRendererHelper(
 					renderRequest, renderResponse, configurationModel,
@@ -108,6 +113,8 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 		}
 
 		SessionErrors.add(renderRequest, "entryInvalid");
+
+		System.out.println("NOOOOOOOOO");
 
 		return "/error.jsp";
 	}
