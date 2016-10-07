@@ -16,6 +16,7 @@ package com.liferay.configuration.admin.web.internal.portlet.action;
 
 import com.liferay.configuration.admin.action.ConfigurationModelActionException;
 import com.liferay.configuration.admin.web.internal.constants.ConfigurationAdminPortletKeys;
+import com.liferay.configuration.admin.web.internal.constants.ConfigurationAdminWebKeys;
 import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelRetriever;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelToDDMFormConverter;
@@ -157,7 +158,10 @@ public class BindConfigurationMVCActionCommand implements MVCActionCommand {
 
 					portletURL.setParameter("redirect", redirect);
 
-					portletURL.setParameter("errorMessage", cause.getMessage());
+					portletURL.setParameter(
+						ConfigurationAdminWebKeys.
+							CONFIGURATION_MODEL_ACTION_ERROR_MESSAGE,
+						cause.getMessage());
 					portletURL.setParameter("factoryPid", factoryPid);
 					portletURL.setParameter("pid", pid);
 
