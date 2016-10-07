@@ -34,7 +34,11 @@ ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle
 String configurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 
 renderResponse.setTitle(configurationModelName);
+
+String errorMessage = (String)request.getAttribute("errorMessage");
 %>
+
+<liferay-ui:error exception="<%= ConfigurationModelActionException.class %>" message="<%= errorMessage %>" />
 
 <portlet:actionURL name="bindConfiguration" var="bindConfigurationActionURL" />
 <portlet:actionURL name="deleteConfiguration" var="deleteConfigurationActionURL" />
