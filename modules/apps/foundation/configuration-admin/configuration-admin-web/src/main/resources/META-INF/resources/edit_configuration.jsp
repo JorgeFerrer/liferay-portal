@@ -35,7 +35,7 @@ String configurationModelName = (componentResourceBundle != null) ? LanguageUtil
 
 renderResponse.setTitle(configurationModelName);
 
-String errorMessage = (String)request.getAttribute("errorMessage");
+String errorMessage = (String)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL_ACTION_ERROR_MESSAGE);
 %>
 
 <liferay-ui:error exception="<%= ConfigurationModelActionException.class %>" message="<%= errorMessage %>" />
