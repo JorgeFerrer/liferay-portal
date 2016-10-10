@@ -14,7 +14,9 @@
 
 package com.liferay.configuration.admin.web.internal.portlet.action;
 
+import com.liferay.configuration.admin.action.ConfigurationModelActionException;
 import com.liferay.configuration.admin.web.internal.constants.ConfigurationAdminPortletKeys;
+import com.liferay.configuration.admin.web.internal.constants.ConfigurationAdminWebKeys;
 import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelRetriever;
 import com.liferay.configuration.admin.web.internal.util.ConfigurationModelToDDMFormConverter;
@@ -26,7 +28,9 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
@@ -44,6 +48,8 @@ import java.util.ResourceBundle;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 
 import org.osgi.framework.Constants;
 import org.osgi.service.cm.Configuration;
@@ -128,7 +134,50 @@ public class BindConfigurationMVCActionCommand implements MVCActionCommand {
 			properties.put(ConfigurationAdmin.SERVICE_FACTORYPID, factoryPid);
 		}
 
-		configureTargetService(configurationModel, configuration, properties);
+		try {
+			configureTargetService(
+				configurationModel, configuration, properties);
+		}
+		catch (Exception e) {
+			Throwable cause = e.getCause();
+
+			while (cause != null) {
+				if (cause instanceof ConfigurationModelActionException) {
+					SessionErrors.add(actionRequest, cause.getClass());
+
+					PortletURL portletURL = PortletURLFactoryUtil.create(
+						actionRequest,
+						ConfigurationAdminPortletKeys.SYSTEM_SETTINGS,
+						themeDisplay.getPlid(), PortletRequest.RENDER_PHASE);
+
+					portletURL.setParameter(
+						"mvcRenderCommandName", "/edit_configuration");
+
+					String redirect = ParamUtil.getString(
+						actionRequest, "redirect");
+
+					portletURL.setParameter("redirect", redirect);
+
+					portletURL.setParameter(
+						ConfigurationAdminWebKeys.
+							CONFIGURATION_MODEL_ACTION_ERROR_MESSAGE,
+						cause.getMessage());
+					portletURL.setParameter("factoryPid", factoryPid);
+					portletURL.setParameter("pid", pid);
+
+					try {
+						actionResponse.sendRedirect(portletURL.toString());
+					}
+					catch (IOException ioe) {
+						throw new PortletException(ioe);
+					}
+
+					break;
+				}
+
+				cause = cause.getCause();
+			}
+		}
 
 		return true;
 	}

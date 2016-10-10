@@ -27,6 +27,9 @@ public class ConfigurationAdminWebKeys {
 
 	public static final String CONFIGURATION_MODEL = "CONFIGURATION_MODEL";
 
+	public static final String CONFIGURATION_MODEL_ACTION_ERROR_MESSAGE =
+		"CONFIGURATION_MODEL_ACTION_ERROR_MESSAGE";
+
 	public static final String CONFIGURATION_MODEL_FORM_HTML =
 		"CONFIGURATION_MODEL_FORM_HTML";
 
