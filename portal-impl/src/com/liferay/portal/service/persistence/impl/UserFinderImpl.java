@@ -923,42 +923,108 @@ public class UserFinderImpl extends UserFinderBaseImpl implements UserFinder {
 
 			StringBundler sb = new StringBundler(20);
 
+			DB db = getDB();
+
+			boolean sybase = false;
+
+			if (db.getDBType() == DBType.SYBASE) {
+				sybase = true;
+			}
+
 			if (count) {
 				sb.append("SELECT COUNT(userId) AS COUNT_VALUE FROM (");
+			}
+
+			if (count && sybase) {
+				sb.append("SELECT userId FROM ");
 			}
 
 			sb.append(StringPool.OPEN_PARENTHESIS);
 			sb.append(replaceJoinAndWhere(sql, params1));
 			sb.append(StringPool.CLOSE_PARENTHESIS);
 
+			if (count && sybase) {
+				sb.append(" params1");
+			}
+
 			if (params2 != null) {
-				sb.append(" UNION (");
+				if (count && sybase) {
+					sb.append(" UNION SELECT userId FROM (");
+				}
+				else {
+					sb.append(" UNION (");
+				}
+
 				sb.append(replaceJoinAndWhere(sql, params2));
 				sb.append(StringPool.CLOSE_PARENTHESIS);
+
+				if (count && sybase) {
+					sb.append(" params2");
+				}
 			}
 
 			if (params3 != null) {
-				sb.append(" UNION (");
+				if (count && sybase) {
+					sb.append(" UNION SELECT userId FROM (");
+				}
+				else {
+					sb.append(" UNION (");
+				}
+
 				sb.append(replaceJoinAndWhere(sql, params3));
 				sb.append(StringPool.CLOSE_PARENTHESIS);
+
+				if (count && sybase) {
+					sb.append(" params3");
+				}
 			}
 
 			if (params4 != null) {
-				sb.append(" UNION (");
+				if (count && sybase) {
+					sb.append(" UNION SELECT userId FROM (");
+				}
+				else {
+					sb.append(" UNION (");
+				}
+
 				sb.append(replaceJoinAndWhere(sql, params4));
 				sb.append(StringPool.CLOSE_PARENTHESIS);
+
+				if (count && sybase) {
+					sb.append(" params4");
+				}
 			}
 
 			if (params5 != null) {
-				sb.append(" UNION (");
+				if (count && sybase) {
+					sb.append(" UNION SELECT userId FROM (");
+				}
+				else {
+					sb.append(" UNION (");
+				}
+
 				sb.append(replaceJoinAndWhere(sql, params5));
 				sb.append(StringPool.CLOSE_PARENTHESIS);
+
+				if (count && sybase) {
+					sb.append(" params5");
+				}
 			}
 
 			if (params6 != null) {
-				sb.append(" UNION (");
+				if (count && sybase) {
+					sb.append(" UNION SELECT userId FROM (");
+				}
+				else {
+					sb.append(" UNION (");
+				}
+
 				sb.append(replaceJoinAndWhere(sql, params6));
 				sb.append(StringPool.CLOSE_PARENTHESIS);
+
+				if (count && sybase) {
+					sb.append(" params6");
+				}
 			}
 
 			if (count) {
