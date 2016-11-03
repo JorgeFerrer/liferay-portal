@@ -29,7 +29,7 @@ public class UpgradeOrganization extends UpgradeProcess {
 
 	protected void updateRegularOrganizations() throws Exception {
 		try (LoggingTimer loggingTimer = new LoggingTimer()) {
-			runSQL("update Organization_ set type_=\"organization\"");
+			runSQL("update Organization_ set type_='organization'");
 		}
 	}
 
