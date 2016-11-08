@@ -19,7 +19,9 @@ import com.liferay.portal.kernel.service.OrganizationLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.OrganizationTestUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
+import com.liferay.portal.util.PropsValues;
 
 import java.util.List;
 
@@ -51,8 +53,11 @@ public class UpgradeOrganizationTest {
 		List<Organization> organizations =
 			OrganizationLocalServiceUtil.getOrganizations(-1, -1);
 
+		String[] organizationsTypes = PropsValues.ORGANIZATIONS_TYPES;
+
 		for (Organization organization : organizations) {
-			Assert.assertEquals("organization", organization.getType());
+			Assert.assertTrue(
+				ArrayUtil.contains(organizationsTypes, organization.getType()));
 		}
 	}
 
