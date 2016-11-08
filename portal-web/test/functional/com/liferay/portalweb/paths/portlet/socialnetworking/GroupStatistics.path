@@ -10,7 +10,23 @@
 <tbody>
 <tr>
 	<td>SITE_STATISTICS_PANEL</td>
-	<td>//div[contains(@class,'panel-heading')]/div/span[contains(.,'Site Statistics: ${key_siteStatistics}')]</td>
+	<td>//div[contains(@class,'panel-heading')]/div/span[contains(.,'Site Statistics')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--GROUP_STATISTICS_BODY-->
+<tr>
+	<td>GROUP_STATISTICS_BODY_CHART</td>
+	<td>//div[contains(@class,'chart-column')]//div[contains(@class,'group-statistics-chart')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GROUP_STATISTICS_BODY_INFO</td>
+	<td>//div[contains(@class,'info-column')]//div[contains(@class,'group-statistics-info')]</td>
 	<td></td>
 </tr>
 </tbody>

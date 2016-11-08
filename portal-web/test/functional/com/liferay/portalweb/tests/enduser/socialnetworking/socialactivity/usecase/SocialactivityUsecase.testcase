@@ -60,7 +60,7 @@
 			<var name="portlet" value="Social Activity" />
 		</execute>
 
-		<execute macro="SocialActivity#enableCP" />
+		<execute macro="SocialActivity#enableBlogsCP" />
 
 		<execute macro="SocialActivity#configureActionCP">
 			<var name="contributionIncrement" value="2" />
@@ -345,48 +345,6 @@
 		<execute function="AssertSelectedLabel" locator1="MyAccount#LANGUAGE_SELECT" value1="English (United States)" />
 	</command>
 
-	<command name="SaveGroupStatisticsConfiguration" priority="4">
-		<execute macro="Page#add">
-			<var name="pageName" value="Group Statistics Page" />
-		</execute>
-
-		<execute macro="Navigator#gotoPage">
-			<var name="pageName" value="Group Statistics Page" />
-		</execute>
-
-		<execute macro="Portlet#addPG">
-			<var name="portletName" value="Group Statistics" />
-		</execute>
-
-		<var name="key_portletName" value="Group Statistics" />
-
-		<execute function="AssertTextEquals" locator1="Portlet#BODY" value1="Please configure this portlet and select at least one activity counter." />
-
-		<execute macro="Portlet#gotoPortletOptions">
-			<var name="portletName" value="Group Statistics" />
-			<var name="portletOption" value="Configuration" />
-		</execute>
-
-		<execute function="SelectFrame" locator1="GroupStatisticsConfiguration#CONFIGURATION_IFRAME" />
-
-		<execute function="Select" locator1="GroupStatisticsConfiguration#SETUP_COUNTERS_DISPLAY_ACTIVITY_COUNTER_NAME_DROPDOWN" value1="votes by This site's users" />
-		<execute function="Select" locator1="GroupStatisticsConfiguration#SETUP_COUNTERS_CHART_TYPE_DROPDOWN" value1="column diagram" />
-		<execute function="Select" locator1="GroupStatisticsConfiguration#SETUP_COUNTERS_CHART_WIDTH_DROPDOWN" value1="55%" />
-		<execute function="Select" locator1="GroupStatisticsConfiguration#SETUP_COUNTERS_DATA_RANGE_DROPDOWN" value1="last 12 months" />
-
-		<execute macro="PortletEntry#save" />
-
-		<execute function="SelectFrameTop" value1="relative=top" />
-
-		<execute macro="Navigator#gotoPage">
-			<var name="pageName" value="Group Statistics Page" />
-		</execute>
-
-		<var name="key_siteStatistics" value="Votes by Users" />
-
-		<execute function="AssertTextEquals" locator1="GroupStatistics#SITE_STATISTICS_PANEL" value1="Site Statistics: Votes by Users" />
-	</command>
-
 	<command name="SaveUserStatisticsConfiguration" priority="4">
 		<execute macro="Page#add">
 			<var name="pageName" value="User Statistics Page" />
@@ -439,5 +397,64 @@
 		<execute function="AssertNotChecked" locator1="Checkbox#DISPLAY_ADDITIONAL_ACTIVITY_COUNTERS" />
 
 		<execute function="SelectFrameTop" value1="relative=top" />
+	</command>
+
+	<command name="ViewActivityViaGroupStatistics" priority="4">
+		<execute macro="Page#add">
+			<var name="pageName" value="Group Statistics Page" />
+		</execute>
+
+		<execute macro="Navigator#gotoPage">
+			<var name="pageName" value="Group Statistics Page" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Group Statistics" />
+		</execute>
+
+		<var name="key_portletName" value="Group Statistics" />
+
+		<execute function="AssertTextEquals" locator1="Portlet#BODY" value1="Please configure this portlet and select at least one activity counter." />
+
+		<execute macro="SocialActivity#updateGroupStatisticsConfiguration">
+			<var name="chartType" value="column diagram" />
+			<var name="chartWidth" value="55%" />
+			<var name="dataRange" value="last 12 months" />
+			<var name="displayActivityCounterName" value="blog entries of This site's users" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSitesConfiguration">
+			<var name="portlet" value="Social Activity" />
+		</execute>
+
+		<execute macro="SocialActivity#enableBlogsCP" />
+
+		<execute macro="Navigator#openURL" />
+
+		<var name="blogsEntryCounterList" value="1,2,3" />
+
+		<for list="${blogsEntryCounterList}" param="entryCount" >
+			<execute macro="Navigator#openURL" />
+
+			<execute macro="ProductMenu#gotoSitesContent">
+				<var name="portlet" value="Blogs" />
+			</execute>
+
+			<execute macro="Blogs#addEntry">
+				<var name="entryContent" value="Blogs Entry${entryCount} Content" />
+				<var name="entryTitle" value="Blogs Entry${entryCount} Title" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#gotoPage">
+			<var name="pageName" value="Group Statistics Page" />
+		</execute>
+
+		<execute macro="SocialActivity#viewPGViaGroupStatistics">
+			<var name="currentValue" value="3" />
+			<var name="siteStatistics" value="Users' Blog Entries" />
+		</execute>
 	</command>
 </definition>

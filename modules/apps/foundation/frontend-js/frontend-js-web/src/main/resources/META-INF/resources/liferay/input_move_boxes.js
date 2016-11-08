@@ -113,6 +113,7 @@ AUI.add(
 							}
 
 							instance._moveItem(from, to, sort);
+							instance._toggleReorderToolbars();
 						}
 					},
 
@@ -267,6 +268,32 @@ AUI.add(
 							config_reorder.children[0][1].title = strings.RIGHT_MOVE_DOWN;
 
 							instance._rightReorderToolbar = new A.Toolbar(config_reorder).render(rightColumn);
+						}
+
+						instance._toggleReorderToolbars();
+					},
+
+					_toggleReorderToolbar: function(sideReorderToolbar, sideColumn) {
+						var showReorderToolbar = sideColumn.all('option').size() > 1;
+
+						sideReorderToolbar.toggle(showReorderToolbar);
+					},
+
+					_toggleReorderToolbars: function() {
+						var instance = this;
+
+						var contentBox = instance.get('contentBox');
+
+						if (instance.get('leftReorder')) {
+							var leftColumn = contentBox.one('.left-selector-column');
+
+							instance._toggleReorderToolbar(instance._leftReorderToolbar, leftColumn);
+						}
+
+						if (instance.get('rightReorder')) {
+							var rightColumn = contentBox.one('.right-selector-column');
+
+							instance._toggleReorderToolbar(instance._rightReorderToolbar, rightColumn);
 						}
 					}
 				}
