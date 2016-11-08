@@ -15,7 +15,10 @@
 package com.liferay.portal.upgrade.v7_0_3;
 
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LoggingTimer;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.util.PropsValues;
 
 /**
  * @author Manuel de la Peña
@@ -24,12 +27,19 @@ public class UpgradeOrganization extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		updateRegularOrganizations();
+		updateOrganizationsType();
 	}
 
-	protected void updateRegularOrganizations() throws Exception {
+	protected void updateOrganizationsType() throws Exception {
+		String[] organizationsTypes = PropsValues.ORGANIZATIONS_TYPES;
+
+		String organizationsTypesString = ArrayUtil.toString(
+			organizationsTypes, StringPool.NULL, "','");
+
 		try (LoggingTimer loggingTimer = new LoggingTimer()) {
-			runSQL("update Organization_ set type_='organization'");
+			runSQL(
+				"update Organization_ set type_='organization' where type_ " +
+					"not in ('" + organizationsTypesString + "')");
 		}
 	}
 
