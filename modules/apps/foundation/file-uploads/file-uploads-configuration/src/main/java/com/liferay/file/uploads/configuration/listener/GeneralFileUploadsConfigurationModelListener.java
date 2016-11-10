@@ -14,11 +14,108 @@
 
 package com.liferay.file.uploads.configuration.listener;
 
+import com.liferay.file.uploads.configuration.GeneralFileUploadsConfiguration;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.configuration.persistence.listener.ConfigurationModelListener;
+import com.liferay.portal.configuration.persistence.listener.ConfigurationModelListenerException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.HashMapDictionary;
+import com.liferay.portal.kernel.util.LocaleThreadLocal;
+import com.liferay.portal.kernel.util.PrefsProps;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.SystemProperties;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.upload.UploadServletRequestImpl;
+
+import java.io.File;
+import java.io.IOException;
+
+import java.util.Dictionary;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.portlet.PortletPreferences;
+import javax.portlet.ReadOnlyException;
+import javax.portlet.ValidatorException;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Drew Brokke
  */
-public class GeneralFileUploadsConfigurationModelListener implements
-	ConfigurationModelListener {
+@Component(
+	immediate = true,
+	property = {
+		"model.class.name=com.liferay.file.uploads.configuration.GeneralFileUploadsConfiguration"
+	},
+	service = ConfigurationModelListener.class
+)
+public class GeneralFileUploadsConfigurationModelListener
+	implements ConfigurationModelListener {
+
+	@Override
+	public void onAfterDelete(String pid)
+		throws ConfigurationModelListenerException {
+
+		_updateSettings(new HashMapDictionary());
+	}
+
+	@Override
+	public void onAfterSave(String pid, Dictionary<String, Object> properties)
+		throws ConfigurationModelListenerException {
+
+		_updateSettings(properties);
+	}
+
+	private void _updateSettings(Dictionary<String, Object> properties)
+		throws ConfigurationModelListenerException {
+
+		GeneralFileUploadsConfiguration generalFileUploadsConfiguration =
+			ConfigurableUtil.createConfigurable(
+				GeneralFileUploadsConfiguration.class, properties);
+
+		PortletPreferences portletPreferences = _prefsProps.getPreferences();
+
+		try {
+			portletPreferences.setValue(
+				PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE,
+				String.valueOf(
+					generalFileUploadsConfiguration.
+						uploadServletRequestImplMaxSize()));
+
+			String tempDir =
+				generalFileUploadsConfiguration.
+					uploadServletRequestImplTempDir();
+
+			if (Validator.isNull(tempDir)) {
+				tempDir = SystemProperties.get(SystemProperties.TMP_DIR);
+			}
+
+			portletPreferences.setValue(
+				PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_TEMP_DIR, tempDir);
+
+			UploadServletRequestImpl.setTempDir(new File(tempDir));
+
+			portletPreferences.store();
+		}
+		catch (IOException | ReadOnlyException | ValidatorException e) {
+			Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+			ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+				"content.Language", locale, getClass());
+
+			throw new ConfigurationModelListenerException(
+				LanguageUtil.get(
+					resourceBundle,
+					"there-was-an-issue-storing-the-preferences"),
+				GeneralFileUploadsConfiguration.class, this.getClass(),
+				properties);
+		}
+	}
+
+	@Reference
+	private PrefsProps _prefsProps;
+
 }
