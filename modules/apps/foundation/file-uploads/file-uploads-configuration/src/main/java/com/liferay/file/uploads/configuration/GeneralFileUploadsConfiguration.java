@@ -34,13 +34,14 @@ public interface GeneralFileUploadsConfiguration {
 
 	@Meta.AD(
 		deflt = "104857600",
-		id = PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE, required = false
+		id = PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE,
+		name = "overall-maximum-upload-request-size", required = false
 	)
 	public long uploadServletRequestImplMaxSize();
 
 	@Meta.AD(
 		deflt = "", id = PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_TEMP_DIR,
-		required = false
+		name = "temporary-storage-directory", required = false
 	)
 	public String uploadServletRequestImplTempDir();
 
