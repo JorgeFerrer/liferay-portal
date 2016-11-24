@@ -848,13 +848,22 @@ public class PortletConfigurationPortlet extends MVCPortlet {
 			return null;
 		}
 
-		PortletPreferencesIds portletPreferencesIds = new PortletPreferencesIds(
-			themeDisplay.getCompanyId(), layout.getGroupId(),
-			PortletKeys.PREFS_OWNER_TYPE_LAYOUT, PortletKeys.PREFS_PLID_SHARED,
-			portletId);
+		// This will be created for embedded portlets and customized portlets
+		PortletPreferencesIds portletPreferencesIds =
+			getEmbeddedPortletPreferencesIds(
+				themeDisplay.getCompanyId(), layout.getGroupId(), portletId);
 
 		return _portletPreferencesLocalService.getPreferences(
 			portletPreferencesIds);
+	}
+
+	private PortletPreferencesIds getEmbeddedPortletPreferencesIds(
+		long companyId, long groupId, String portletId) {
+
+		return new PortletPreferencesIds(
+			companyId, groupId, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			PortletKeys.PREFS_PLID_SHARED, portletId);
+
 	}
 
 	protected String getPortletTitle(

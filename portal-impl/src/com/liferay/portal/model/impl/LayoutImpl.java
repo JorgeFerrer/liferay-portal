@@ -409,7 +409,7 @@ public class LayoutImpl extends LayoutBaseImpl {
 
 	@Override
 	public List<Portlet> getEmbeddedPortlets(long groupId) {
-		List<PortletPreferences> portletPreferences = _getPortletPreferences(
+		List<PortletPreferences> portletPreferences = _getEmbeddedAndUserCustomizedPortletPreferences(
 			groupId);
 
 		if (portletPreferences.isEmpty()) {
@@ -1020,15 +1020,15 @@ public class LayoutImpl extends LayoutBaseImpl {
 	}
 
 	@Override
-	public boolean isPortletEmbedded(String portletId, long groupId) {
-		List<PortletPreferences> portletPreferences = _getPortletPreferences(
+	public boolean isPortletEmbedded(String portletId, long groupId) { //isPortletEmbeddedOrUserCustomized()
+		List<PortletPreferences> embeddedAndUserCustomizedPortletPreferences = _getEmbeddedAndUserCustomizedPortletPreferences(
 			groupId);
 
-		if (portletPreferences.isEmpty()) {
+		if (embeddedAndUserCustomizedPortletPreferences.isEmpty()) {
 			return false;
 		}
 
-		for (PortletPreferences portletPreference : portletPreferences) {
+		for (PortletPreferences portletPreference : embeddedAndUserCustomizedPortletPreferences) {
 			String currentPortletId = portletPreference.getPortletId();
 
 			if (!portletId.equals(currentPortletId)) {
@@ -1348,32 +1348,43 @@ public class LayoutImpl extends LayoutBaseImpl {
 		return layoutTypePortlet;
 	}
 
-	private List<PortletPreferences> _getPortletPreferences(long groupId) {
-		List<PortletPreferences> portletPreferences =
-			PortletPreferencesLocalServiceUtil.getPortletPreferences(
-				groupId, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
-				PortletKeys.PREFS_PLID_SHARED);
+	private List<PortletPreferences> _getEmbeddedAndUserCustomizedPortletPreferences(long groupId) {
+		List<PortletPreferences> portletPreferences = new ArrayList<>();
 
-		if (isTypePortlet()) {
-			LayoutTypePortlet layoutTypePortlet =
-				(LayoutTypePortlet)getLayoutType();
-
-			PortalPreferences portalPreferences =
-				layoutTypePortlet.getPortalPreferences();
-
-			if ((portalPreferences != null) &&
-				layoutTypePortlet.isCustomizable()) {
-
-				portletPreferences = ListUtil.copy(portletPreferences);
-
-				portletPreferences.addAll(
-					PortletPreferencesLocalServiceUtil.getPortletPreferences(
-						portalPreferences.getUserId(),
-						PortletKeys.PREFS_OWNER_TYPE_USER, getPlid()));
-			}
-		}
+		portletPreferences.addAll(getEmbeddedPortletPreferences(groupId));
+		portletPreferences.addAll(getCustomizedPortletPreferences());
 
 		return portletPreferences;
+	}
+
+	private List<PortletPreferences> getEmbeddedPortletPreferences(
+			long groupId) {
+
+		return PortletPreferencesLocalServiceUtil.getPortletPreferences(
+			groupId, PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+			PortletKeys.PREFS_PLID_SHARED);
+	}
+
+	private List<PortletPreferences> getCustomizedPortletPreferences() {
+		if (!isTypePortlet()) {
+			return Collections.emptyList();
+		}
+
+		LayoutTypePortlet layoutTypePortlet =
+			(LayoutTypePortlet)getLayoutType();
+
+		PortalPreferences portalPreferences =
+			layoutTypePortlet.getPortalPreferences();
+
+		if ((portalPreferences != null) &&
+			layoutTypePortlet.isCustomizable()) {
+
+			return PortletPreferencesLocalServiceUtil.getPortletPreferences(
+				portalPreferences.getUserId(),
+				PortletKeys.PREFS_OWNER_TYPE_USER, getPlid());
+		}
+
+		return Collections.emptyList();
 	}
 
 	private String _getURL(
