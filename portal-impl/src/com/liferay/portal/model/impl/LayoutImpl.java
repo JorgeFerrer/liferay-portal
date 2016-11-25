@@ -1289,13 +1289,23 @@ public class LayoutImpl extends LayoutBaseImpl {
 	private Set<String> _getLayoutPortletIds() {
 		Set<String> layoutPortletIds = new HashSet<>();
 
-		List<PortletPreferences> portletPreferences =
-			PortletPreferencesLocalServiceUtil.getPortletPreferences(
-				PortletKeys.PREFS_OWNER_ID_DEFAULT,
-				PortletKeys.PREFS_OWNER_TYPE_LAYOUT, getPlid());
+		if (_layoutType instanceof LayoutTypePortlet) {
+			List<Portlet> explicitlyAddedPortlets =
+				((LayoutTypePortlet) _layoutType).getExplicitlyAddedPortlets();
 
-		for (PortletPreferences portletPreference : portletPreferences) {
-			layoutPortletIds.add(portletPreference.getPortletId());
+			for (Portlet portlet : explicitlyAddedPortlets) {
+				layoutPortletIds.add(portlet.getPortletId());
+			}
+		}
+		else {
+			List<PortletPreferences> portletPreferences =
+				PortletPreferencesLocalServiceUtil.getPortletPreferences(
+					PortletKeys.PREFS_OWNER_ID_DEFAULT,
+					PortletKeys.PREFS_OWNER_TYPE_LAYOUT, getPlid());
+
+			for (PortletPreferences portletPreference : portletPreferences) {
+				layoutPortletIds.add(portletPreference.getPortletId());
+			}
 		}
 
 		return layoutPortletIds;
