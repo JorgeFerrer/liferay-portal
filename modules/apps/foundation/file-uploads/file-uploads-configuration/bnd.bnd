@@ -1,0 +1,6 @@
+Bundle-Name: Liferay File Uploads Configuration
+Bundle-SymbolicName: com.liferay.file.uploads.configuration
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.file.uploads.configuration
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title:

@@ -83,7 +83,6 @@ import com.liferay.portal.kernel.uuid.PortalUUID;
 import com.liferay.portal.kernel.xuggler.XugglerInstallException;
 import com.liferay.portal.kernel.xuggler.XugglerUtil;
 import com.liferay.portal.security.lang.DoPrivilegedBean;
-import com.liferay.portal.upload.UploadServletRequestImpl;
 import com.liferay.portal.util.MaintenanceUtil;
 import com.liferay.portal.util.PrefsPropsUtil;
 import com.liferay.portal.util.ShutdownUtil;
@@ -91,7 +90,6 @@ import com.liferay.portlet.ActionResponseImpl;
 import com.liferay.portlet.admin.util.CleanUpPermissionsUtil;
 import com.liferay.portlet.admin.util.CleanUpPortletPreferencesUtil;
 
-import java.io.File;
 import java.io.Serializable;
 
 import java.util.Enumeration;
@@ -642,10 +640,6 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 			actionRequest, "shoppingImageMediumMaxSize");
 		long shoppingImageSmallMaxSize = ParamUtil.getLong(
 			actionRequest, "shoppingImageSmallMaxSize");
-		long uploadServletRequestImplMaxSize = ParamUtil.getLong(
-			actionRequest, "uploadServletRequestImplMaxSize");
-		String uploadServletRequestImplTempDir = ParamUtil.getString(
-			actionRequest, "uploadServletRequestImplTempDir");
 		long usersImageMaxSize = ParamUtil.getLong(
 			actionRequest, "usersImageMaxSize");
 
@@ -678,19 +672,6 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 		portletPreferences.setValue(
 			PropsKeys.SHOPPING_IMAGE_SMALL_MAX_SIZE,
 			String.valueOf(shoppingImageSmallMaxSize));
-		portletPreferences.setValue(
-			PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE,
-			String.valueOf(uploadServletRequestImplMaxSize));
-
-		if (Validator.isNotNull(uploadServletRequestImplTempDir)) {
-			portletPreferences.setValue(
-				PropsKeys.UPLOAD_SERVLET_REQUEST_IMPL_TEMP_DIR,
-				uploadServletRequestImplTempDir);
-
-			UploadServletRequestImpl.setTempDir(
-				new File(uploadServletRequestImplTempDir));
-		}
-
 		portletPreferences.setValue(
 			PropsKeys.USERS_IMAGE_MAX_SIZE, String.valueOf(usersImageMaxSize));
 
