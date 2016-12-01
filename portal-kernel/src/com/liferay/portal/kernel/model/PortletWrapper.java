@@ -1308,7 +1308,7 @@ public class PortletWrapper implements Portlet, ModelWrapper<Portlet> {
 	* Returns the Facebook integration method of the portlet.
 	*
 	* @return the Facebook integration method of the portlet
-	* @deprecated As of 7.1.0, with no direct replacement
+	* @deprecated As of 7.0.0, with no direct replacement
 	*/
 	@Deprecated
 	@Override
@@ -2495,7 +2495,7 @@ public class PortletWrapper implements Portlet, ModelWrapper<Portlet> {
 	* Sets the Facebook integration method of the portlet.
 	*
 	* @param facebookIntegration the Facebook integration method of the portlet
-	* @deprecated As of 7.1.0, with no direct replacement
+	* @deprecated As of 7.0.0, with no direct replacement
 	*/
 	@Deprecated
 	@Override
