@@ -243,37 +243,6 @@ RoleSearchTerms searchTerms = (RoleSearchTerms)roleSearchContainer.getSearchTerm
 				modelResourceRoleId = GetterUtil.getLong(resourcePrimKey);
 			}
 
-			boolean filterGuestRole = false;
-
-			if (Objects.equals(modelResource, Layout.class.getName())) {
-				Layout resourceLayout = LayoutLocalServiceUtil.getLayout(GetterUtil.getLong(resourcePrimKey));
-
-				if (resourceLayout.isPrivateLayout()) {
-					Group resourceLayoutGroup = resourceLayout.getGroup();
-
-					if (!resourceLayoutGroup.isLayoutSetPrototype()) {
-						filterGuestRole = true;
-					}
-				}
-			}
-			else if (Validator.isNotNull(portletResource)) {
-				int pos = resourcePrimKey.indexOf(PortletConstants.LAYOUT_SEPARATOR);
-
-				if (pos > 0) {
-					long resourcePlid = GetterUtil.getLong(resourcePrimKey.substring(0, pos));
-
-					Layout resourceLayout = LayoutLocalServiceUtil.getLayout(resourcePlid);
-
-					if (resourceLayout.isPrivateLayout()) {
-						Group resourceLayoutGroup = resourceLayout.getGroup();
-
-						if (!resourceLayoutGroup.isLayoutPrototype() && !resourceLayoutGroup.isLayoutSetPrototype()) {
-							filterGuestRole = true;
-						}
-					}
-				}
-			}
-
 			List<String> excludedRoleNames = new ArrayList<>();
 
 			excludedRoleNames.add(RoleConstants.ADMINISTRATOR);
@@ -283,10 +252,6 @@ RoleSearchTerms searchTerms = (RoleSearchTerms)roleSearchContainer.getSearchTerm
 				excludedRoleNames.add(RoleConstants.ORGANIZATION_OWNER);
 				excludedRoleNames.add(RoleConstants.SITE_ADMINISTRATOR);
 				excludedRoleNames.add(RoleConstants.SITE_OWNER);
-			}
-
-			if (filterGuestRole) {
-				excludedRoleNames.add(RoleConstants.GUEST);
 			}
 
 			long teamGroupId = group.getGroupId();

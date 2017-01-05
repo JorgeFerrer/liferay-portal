@@ -37,7 +37,6 @@ page import="com.liferay.portal.kernel.model.Group" %><%@
 page import="com.liferay.portal.kernel.model.Layout" %><%@
 page import="com.liferay.portal.kernel.model.Organization" %><%@
 page import="com.liferay.portal.kernel.model.Portlet" %><%@
-page import="com.liferay.portal.kernel.model.PortletConstants" %><%@
 page import="com.liferay.portal.kernel.model.PublicRenderParameter" %><%@
 page import="com.liferay.portal.kernel.model.Resource" %><%@
 page import="com.liferay.portal.kernel.model.ResourceConstants" %><%@
@@ -102,7 +101,6 @@ page import="com.liferay.taglib.servlet.PipingServletResponse" %>
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.LinkedHashSet" %><%@
 page import="java.util.List" %><%@
-page import="java.util.Objects" %><%@
 page import="java.util.Set" %>
 
 <%@ page import="javax.portlet.PortletMode" %><%@
