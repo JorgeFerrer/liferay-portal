@@ -333,9 +333,22 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			if (defaultUser != null) {
 				if (!defaultUser.isAgreedToTermsOfUse()) {
 					defaultUser.setAgreedToTermsOfUse(true);
-
-					userPersistence.update(defaultUser);
 				}
+
+				defaultUser.setLanguageId(companyDefaultLocale.toString());
+
+				if (Validator.isNotNull(
+					PropsValues.COMPANY_DEFAULT_TIME_ZONE)) {
+					defaultUser.setTimeZoneId(
+						PropsValues.COMPANY_DEFAULT_TIME_ZONE);
+				}
+				else {
+					TimeZone timeZone = TimeZoneUtil.getDefault();
+
+					defaultUser.setTimeZoneId(timeZone.getID());
+				}
+
+				userPersistence.update(defaultUser);
 			}
 			else {
 				long userId = counterLocalService.increment();
