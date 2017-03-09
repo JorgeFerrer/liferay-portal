@@ -345,10 +345,6 @@ public class PanelAppRegistry {
 					userRole.getRoleId(), actionId);
 			}
 
-			portletLocalService.updatePortlet(
-				portlet.getCompanyId(), portlet.getPortletId(),
-				StringPool.BLANK, portlet.isActive());
-
 			portletPreferences.setValue(
 				_MY_ACCOUNT_PERMISSIONS_INITIALIZED, StringPool.TRUE);
 
