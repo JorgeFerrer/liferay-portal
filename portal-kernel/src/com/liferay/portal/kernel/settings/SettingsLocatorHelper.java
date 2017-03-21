@@ -35,6 +35,8 @@ public interface SettingsLocatorHelper {
 	public Settings getConfigurationBeanSettings(
 		String configurationPid, Settings parentSettings);
 
+	public Settings getGlobalPortalPreferenceSettings(Settings parentSettings);
+
 	public Settings getGroupPortletPreferencesSettings(
 		long groupId, String settingsId, Settings parentSettings);
 
