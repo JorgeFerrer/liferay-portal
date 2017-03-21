@@ -112,6 +112,12 @@ public class SettingsLocatorHelperImpl implements SettingsLocatorHelper {
 		return getConfigurationBeanSettings(configurationPid);
 	}
 
+	@Override
+	public Settings getGlobalPortalPreferenceSettings(Settings parentSettings) {
+		return new PortletPreferencesSettings(
+			PrefsPropsUtil.getPreferences(), parentSettings);
+	}
+
 	public PortletPreferences getGroupPortletPreferences(
 		long groupId, String settingsId) {
 

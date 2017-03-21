@@ -50,6 +50,11 @@ public class SettingsLocatorHelperUtil {
 			settingsId, parentSettings);
 	}
 
+	public Settings getGlobalPortalPreferenceSettings(Settings parentSettings) {
+		return getSettingsLocatorHelper().getGlobalPortalPreferenceSettings(
+			parentSettings);
+	}
+
 	public Settings getGroupPortletPreferencesSettings(
 		long groupId, String settingsId, Settings parentSettings) {
 

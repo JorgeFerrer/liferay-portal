@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.model.PortletInstance;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
+import com.liferay.portal.kernel.settings.GlobalServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.PortletInstanceSettingsLocator;
 import com.liferay.portal.kernel.settings.Settings;
@@ -138,6 +139,16 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			clazz,
 			new PortletInstanceSettingsLocator(
 				layout, portletId, configurationPid));
+	}
+
+	@Override
+	public <T> T getSystemConfiguration(Class<T> clazz)
+		throws ConfigurationException {
+
+		String configurationPid = _getConfigurationPid(clazz);
+
+		return getConfiguration(
+			clazz, new GlobalServiceSettingsLocator(configurationPid));
 	}
 
 	protected <T> Class<?> getOverrideClass(Class<T> clazz) {
