@@ -22,7 +22,7 @@ import com.liferay.vulcan.core.builder.RepresentationBuilder;
  */
 public interface SemanticRepresentation<T> {
 
-	public void data(RepresentationBuilder<T> representationBuilder);
+	public void buildRepresentation(RepresentationBuilder<T> representationBuilder);
 
 	public String getIdentifier(T t);
 

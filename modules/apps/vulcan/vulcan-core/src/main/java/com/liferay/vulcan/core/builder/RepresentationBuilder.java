@@ -23,10 +23,10 @@ import java.util.function.Function;
  */
 public interface RepresentationBuilder<T> {
 
-	public <S> RepresentationBuilder<T> addField(
-		String type, Class<S> clazz, Function<T, Optional<S>> creator);
+	public <S> RepresentationBuilder<T> addEmbedded(
+		String key, Class<S> clazz, Function<T, Optional<S>> objectFunction);
 
-	public RepresentationBuilder<T> addRelation(
-		String key, Function<T, Object> value);
+	public RepresentationBuilder<T> addField(
+		String key, Function<T, Object> valueFunction);
 
 }
