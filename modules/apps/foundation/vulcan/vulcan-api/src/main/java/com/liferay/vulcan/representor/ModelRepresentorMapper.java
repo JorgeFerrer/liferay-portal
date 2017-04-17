@@ -12,17 +12,16 @@
  * details.
  */
 
-package com.liferay.vulcan.semantic.representor;
+package com.liferay.vulcan.representor;
 
-import com.liferay.vulcan.semantic.representor.builder.SemanticRepresentorBuilder;
+import com.liferay.vulcan.representor.builder.RepresentorBuilder;
 
 /**
  * @author Carlos Sierra Andrés
  * @author Alejandro Hernández
  */
-public interface SemanticRepresentor<T> {
+public interface ModelRepresentorMapper<T> {
 
-	public void buildSemanticRepresentor(
-		SemanticRepresentorBuilder<T> semanticRepresentorBuilder);
+	public void buildRepresentor(RepresentorBuilder<T> representorBuilder);
 
 }
