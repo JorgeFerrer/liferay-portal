@@ -12,17 +12,20 @@
  * details.
  */
 
-package com.liferay.vulcan.semantic.representor;
+package com.liferay.vulcan.collection;
 
-import com.liferay.vulcan.semantic.representor.builder.SemanticRepresentorBuilder;
+import java.util.Collection;
 
 /**
  * @author Carlos Sierra Andrés
- * @author Alejandro Hernández
  */
-public interface SemanticRepresentor<T> {
+public interface Pagination {
 
-	public void buildSemanticRepresentor(
-		SemanticRepresentorBuilder<T> semanticRepresentorBuilder);
+	public <T> PageContainer<T> createContainer(
+		Collection<T> collection, int totalItems);
+
+	public int getEndPosition();
+
+	public int getStartPosition();
 
 }
