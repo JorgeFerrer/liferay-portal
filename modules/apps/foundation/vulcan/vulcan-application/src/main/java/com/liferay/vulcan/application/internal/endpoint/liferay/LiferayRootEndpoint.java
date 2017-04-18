@@ -18,8 +18,10 @@ import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
+import com.liferay.portal.kernel.util.GroupThreadLocal;
 import com.liferay.vulcan.contributor.APIContributor;
 import com.liferay.vulcan.endpoint.RootEndpoint;
+import com.liferay.vulcan.resource.GroupScoped;
 import com.liferay.vulcan.resource.Resource;
 
 import javax.ws.rs.NotFoundException;
@@ -70,12 +72,23 @@ public class LiferayRootEndpoint implements RootEndpoint {
 		if (apiContributor instanceof Resource) {
 			Resource resource = (Resource)apiContributor;
 
+			if (resource instanceof GroupScoped) {
+				((GroupScoped)resource).setGroupId(
+					GroupThreadLocal.getGroupId());
+			}
+
 			_resourceContext.initResource(resource);
 
 			return resource;
 		}
 
 		throw new NotFoundException();
+	}
+
+	@Path("/group/{id}/")
+	public LiferayRootEndpoint getGroupScopeResource(@PathParam("id") long id) {
+		GroupThreadLocal.setGroupId(id);
+		return this;
 	}
 
 	@Context
