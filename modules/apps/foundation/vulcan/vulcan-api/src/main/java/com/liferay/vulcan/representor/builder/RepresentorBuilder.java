@@ -18,8 +18,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * @author Carlos Sierra Andrés
  * @author Alejandro Hernández
+ * @author Carlos Sierra Andrés
+ * @author Jorge Ferrer
  */
 public interface RepresentorBuilder<T> {
 
