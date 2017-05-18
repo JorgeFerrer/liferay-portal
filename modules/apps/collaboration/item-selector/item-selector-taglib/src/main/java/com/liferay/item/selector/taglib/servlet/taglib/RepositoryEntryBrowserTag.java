@@ -23,10 +23,10 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.repository.model.RepositoryEntry;
+import com.liferay.portal.kernel.upload.UploadServletRequestSettingsUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.taglib.util.IncludeTag;
 
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public class RepositoryEntryBrowserTag extends IncludeTag {
 		_displayStyle = null;
 		_extensions = new ArrayList<>();
 		_itemSelectedEventName = null;
-		_maxFileSize = PropsValues.UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE;
+		_maxFileSize = UploadServletRequestSettingsUtil.getMaxSize();
 		_portletURL = null;
 		_repositoryEntries = new ArrayList<>();
 		_repositoryEntriesCount = 0;
@@ -244,8 +244,7 @@ public class RepositoryEntryBrowserTag extends IncludeTag {
 	private List<String> _extensions = new ArrayList<>();
 	private String _itemSelectedEventName;
 	private ItemSelectorReturnTypeResolver _itemSelectorReturnTypeResolver;
-	private long _maxFileSize =
-		PropsValues.UPLOAD_SERVLET_REQUEST_IMPL_MAX_SIZE;
+	private long _maxFileSize = UploadServletRequestSettingsUtil.getMaxSize();
 	private PortletURL _portletURL;
 	private List<RepositoryEntry> _repositoryEntries = new ArrayList<>();
 	private int _repositoryEntriesCount;
