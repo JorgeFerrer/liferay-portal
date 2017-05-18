@@ -119,12 +119,7 @@ public class LiferayPortlet extends GenericPortlet {
 		catch (PortletException pe) {
 			Throwable cause = pe.getCause();
 
-			if (isSessionErrorException(cause)) {
-				SessionErrors.add(actionRequest, cause.getClass(), cause);
-			}
-			else {
-				throw pe;
-			}
+			SessionErrors.add(actionRequest, cause.getClass(), cause);
 		}
 	}
 
@@ -582,6 +577,10 @@ public class LiferayPortlet extends GenericPortlet {
 		return isProcessPortletRequest(resourceRequest);
 	}
 
+	/**
+	 * @deprecated As of 7.0.0, with no direct replacement
+	 */
+	@Deprecated
 	protected boolean isSessionErrorException(Throwable cause) {
 		if (_log.isDebugEnabled()) {
 			_log.debug(cause, cause);
