@@ -33,6 +33,8 @@ ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle
 
 String configurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 
+String configurationModelDescription = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getDescription()) : configurationModel.getDescription();
+
 renderResponse.setTitle(configurationModelName);
 %>
 
@@ -56,6 +58,10 @@ renderResponse.setTitle(configurationModelName);
 
 		<div class="lfr-ddm-container" id="lfr-ddm-container">
 			<aui:fieldset-group>
+				<aui:alert closeable="<%= false %>" type="default">
+					<%= configurationModelDescription %>
+				</aui:alert>
+
 				<c:if test="<%= !configurationModel.hasConfiguration() %>">
 					<aui:alert closeable="<%= false %>" id="errorAlert" type="info">
 						<liferay-ui:message key="this-configuration-was-not-saved-yet" />
