@@ -4776,10 +4776,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	/**
 	 * Updates the user's modified date.
 	 *
-	 * @param  userId the primary key of the user
-	 * @param  modifiedDate the new modified date
-	 * @return the user
+	 * @param      userId the primary key of the user
+	 * @param      modifiedDate the new modified date
+	 * @return     the user
+	 * @deprecated As of 7.0.0, with no direct replacement
 	 */
+	@Deprecated
 	@Override
 	public User updateModifiedDate(long userId, Date modifiedDate)
 		throws PortalException {
