@@ -336,8 +336,6 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 			if (defaultUser != null) {
 				if (!defaultUser.isAgreedToTermsOfUse()) {
 					defaultUser.setAgreedToTermsOfUse(true);
-
-					userPersistence.update(defaultUser);
 				}
 			}
 			else {
@@ -352,20 +350,6 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 				defaultUser.setScreenName(
 					String.valueOf(defaultUser.getUserId()));
 				defaultUser.setEmailAddress("default@" + company.getMx());
-				defaultUser.setLanguageId(
-					LocaleUtil.toLanguageId(companyDefaultLocale));
-
-				if (Validator.isNotNull(
-						PropsValues.COMPANY_DEFAULT_TIME_ZONE)) {
-
-					defaultUser.setTimeZoneId(
-						PropsValues.COMPANY_DEFAULT_TIME_ZONE);
-				}
-				else {
-					TimeZone timeZone = TimeZoneUtil.getDefault();
-
-					defaultUser.setTimeZoneId(timeZone.getID());
-				}
 
 				String greeting = LanguageUtil.format(
 					defaultUser.getLocale(), "welcome", null, false);
@@ -401,6 +385,21 @@ public class CompanyLocalServiceImpl extends CompanyLocalServiceBaseImpl {
 
 				contactPersistence.update(defaultContact);
 			}
+
+			defaultUser.setLanguageId(
+				LocaleUtil.toLanguageId(companyDefaultLocale));
+
+			if (Validator.isNotNull(PropsValues.COMPANY_DEFAULT_TIME_ZONE)) {
+				defaultUser.setTimeZoneId(
+					PropsValues.COMPANY_DEFAULT_TIME_ZONE);
+			}
+			else {
+				TimeZone timeZone = TimeZoneUtil.getDefault();
+
+				defaultUser.setTimeZoneId(timeZone.getID());
+			}
+
+			userPersistence.update(defaultUser);
 
 			// System roles
 
