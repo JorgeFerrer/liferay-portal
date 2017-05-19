@@ -33,6 +33,8 @@ ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle
 
 String configurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 
+String configurationModelDescription = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getDescription()) : configurationModel.getDescription();
+
 renderResponse.setTitle(configurationModelName);
 %>
 
@@ -55,6 +57,12 @@ renderResponse.setTitle(configurationModelName);
 		<aui:input name="pid" type="hidden" value="<%= configurationModel.getID() %>" />
 
 		<div class="lfr-ddm-container" id="lfr-ddm-container">
+			<c:if test="<%= !Validator.isBlank(configurationModelDescription) %>">
+				<aui:alert closeable="<%= false %>" type="default">
+					<%= configurationModelDescription %>
+				</aui:alert>
+			</c:if>
+
 			<aui:fieldset-group>
 				<c:if test="<%= !configurationModel.hasConfiguration() %>">
 					<aui:alert closeable="<%= false %>" id="errorAlert" type="info">
