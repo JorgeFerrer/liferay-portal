@@ -16,23 +16,20 @@ package com.liferay.users.admin.demo.data.creator.internal;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.RoleConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
-import com.liferay.users.admin.demo.data.creator.SiteAdminUserDemoDataCreator;
+import com.liferay.users.admin.demo.data.creator.SiteMemberUserDemoDataCreator;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Sergio González
+ * @author Pei-Jung Lan
  */
-@Component(service = SiteAdminUserDemoDataCreator.class)
-public class SiteAdminUserDemoDataCreatorImpl
-	extends BaseUserDemoDataCreator implements SiteAdminUserDemoDataCreator {
+@Component(service = SiteMemberUserDemoDataCreator.class)
+public class SiteMemberUserDemoDataCreatorImpl
+	extends BaseUserDemoDataCreator implements SiteMemberUserDemoDataCreator {
 
 	@Override
 	public User create(long groupId) throws PortalException {
@@ -49,20 +46,23 @@ public class SiteAdminUserDemoDataCreatorImpl
 
 		userLocalService.addGroupUser(groupId, user.getUserId());
 
-		Role role = _roleLocalService.getRole(
-			group.getCompanyId(), RoleConstants.SITE_ADMINISTRATOR);
+		return user;
+	}
+
+	@Override
+	public User create(long groupId, String emailAddress, long[] roleIds)
+		throws PortalException {
+
+		User user = create(groupId, emailAddress);
 
 		_userGroupRoleLocalService.addUserGroupRoles(
-			user.getUserId(), groupId, new long[] {role.getRoleId()});
+			user.getUserId(), groupId, roleIds);
 
-		return userLocalService.getUser(user.getUserId());
+		return user;
 	}
 
 	@Reference
 	private GroupLocalService _groupLocalService;
-
-	@Reference
-	private RoleLocalService _roleLocalService;
 
 	@Reference
 	private UserGroupRoleLocalService _userGroupRoleLocalService;
