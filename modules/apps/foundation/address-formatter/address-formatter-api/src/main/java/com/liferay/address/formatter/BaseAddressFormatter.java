@@ -17,8 +17,14 @@ package com.liferay.address.formatter;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Reference;
 
@@ -37,7 +43,7 @@ public abstract class BaseAddressFormatter implements AddressFormatter {
 		Country country = countryService.fetchCountry(countryId);
 
 		if (country != null) {
-			return country.getName();
+			return country.getName(getUserLocale());
 		}
 
 		return null;
@@ -69,6 +75,21 @@ public abstract class BaseAddressFormatter implements AddressFormatter {
 
 	public String getZip(Address address) {
 		return address.getZip();
+	}
+
+	protected ThemeDisplay getThemeDisplay() {
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		return serviceContext.getThemeDisplay();
+	}
+
+	protected Locale getUserLocale() {
+		ThemeDisplay themeDisplay = getThemeDisplay();
+
+		User user = themeDisplay.getUser();
+
+		return user.getLocale();
 	}
 
 	@Reference
