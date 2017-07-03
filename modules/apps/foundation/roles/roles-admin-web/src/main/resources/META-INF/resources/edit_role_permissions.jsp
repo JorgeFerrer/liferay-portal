@@ -412,12 +412,45 @@ if (!portletName.equals(PortletKeys.SERVER_ADMIN)) {
 </aui:script>
 
 <aui:script>
-	function <portlet:namespace />updateActions() {
+	function <portlet:namespace />updateActions(selected, unselected) {
+
+		var selectedArray = selected.split(",");
+		var unselectedArray = unselected.split(",");
+
+		var resourceBlockChange = Boolean(false);
+
+		var i = 0;
+
 		var form = AUI.$(document.<portlet:namespace />fm);
 
 		form.fm('redirect').val('<%= HtmlUtil.escapeJS(portletURL.toString()) %>');
-		form.fm('selectedTargets').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
-		form.fm('unselectedTargets').val(Liferay.Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
+		var selectedTargets = form.fm('selectedTargets').val(Liferay.Util.listCheckedExcept(form, '<portlet:namespace />allRowIds'));
+		var unselectedTargets = form.fm('unselectedTargets').val(Liferay.Util.listUncheckedExcept(form, '<portlet:namespace />allRowIds'));
+
+		var selectedTargets = String(selectedTargets.val()).split(",");
+		var unselectedTargets = String(unselectedTargets.val()).split(",");
+
+		for (i = 0; i < selectedTargets.length; i++) {
+			for (var j = 0; (j < unselectedArray.length) && !(resourceBlockChange); j++) {
+				if ( selectedTargets[i] === unselectedArray[j] ) {
+					resourceBlockChange = true;
+				}
+			}
+		}
+
+		for (i = 0; (i < unselectedTargets.length) && !(resourceBlockChange); i++) {
+			for (var j = 0; (j < selectedArray.length) && !(resourceBlockChange); j++) {
+				if ( unselectedTargets[i] === selectedArray[j] ) {
+					resourceBlockChange = true;
+				}
+			}
+		}
+
+		if (resourceBlockChange) {
+			if (!confirm('<liferay-ui:message key="changing-these-permissions-will-overwrite-all-permissions-of-that-type-previously-configured-on-this-entity" />')) {
+				return;
+			}
+		}
 
 		submitForm(form);
 	}
