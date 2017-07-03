@@ -41,6 +41,7 @@ import com.liferay.portal.kernel.service.GroupService;
 import com.liferay.portal.kernel.service.ResourceBlockLocalService;
 import com.liferay.portal.kernel.service.ResourceBlockService;
 import com.liferay.portal.kernel.service.ResourcePermissionService;
+import com.liferay.portal.kernel.service.ResourceTypePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.RoleService;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -558,6 +559,14 @@ public class RolesAdminPortlet extends MVCPortlet {
 	}
 
 	@Reference(unbind = "-")
+	protected void setResourceTypePermissionLocalService(
+		ResourceTypePermissionLocalService resourceTypePermissionLocalService) {
+
+		_resourceTypePermissionLocalService =
+			resourceTypePermissionLocalService;
+	}
+
+	@Reference(unbind = "-")
 	protected void setRoleLocalService(RoleLocalService roleLocalService) {
 		_roleLocalService = roleLocalService;
 	}
@@ -631,6 +640,23 @@ public class RolesAdminPortlet extends MVCPortlet {
 
 		long companyId = role.getCompanyId();
 		long roleId = role.getRoleId();
+
+		long oldActionIds =
+			_resourceTypePermissionLocalService.getCompanyScopeActionIds(
+				companyId, selResource, roleId);
+
+		long newActionId = _resourceBlockLocalService.getActionId(
+			selResource, actionId);
+
+		boolean wasSelected = false;
+
+		if ((oldActionIds & newActionId) > 0) {
+			wasSelected = true;
+		}
+
+		if (wasSelected == selected) {
+			return;
+		}
 
 		if (selected) {
 			if (scope == ResourceConstants.SCOPE_GROUP) {
@@ -726,6 +752,8 @@ public class RolesAdminPortlet extends MVCPortlet {
 	private ResourceBlockLocalService _resourceBlockLocalService;
 	private ResourceBlockService _resourceBlockService;
 	private ResourcePermissionService _resourcePermissionService;
+	private ResourceTypePermissionLocalService
+		_resourceTypePermissionLocalService;
 	private RoleLocalService _roleLocalService;
 	private RoleService _roleService;
 	private UserService _userService;
