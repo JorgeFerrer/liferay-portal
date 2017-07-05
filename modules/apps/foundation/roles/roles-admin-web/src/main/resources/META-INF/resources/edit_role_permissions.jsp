@@ -430,18 +430,22 @@ if (!portletName.equals(PortletKeys.SERVER_ADMIN)) {
 		var selectedTargets = String(selectedTargets.val()).split(",");
 		var unselectedTargets = String(unselectedTargets.val()).split(",");
 
-		for (i = 0; i < selectedTargets.length; i++) {
-			for (var j = 0; (j < unselectedArray.length) && !(resourceBlockChange); j++) {
-				if ( selectedTargets[i] === unselectedArray[j] ) {
-					resourceBlockChange = true;
+		if ((unselectedArray === "") || (selectedTargets === "")) {
+			for (i = 0; i < selectedTargets.length; i++) {
+				for (var j = 0; (j < unselectedArray.length) && !(resourceBlockChange); j++) {
+					if ( selectedTargets[i] === unselectedArray[j] ) {
+						resourceBlockChange = true;
+					}
 				}
 			}
 		}
 
-		for (i = 0; (i < unselectedTargets.length) && !(resourceBlockChange); i++) {
-			for (var j = 0; (j < selectedArray.length) && !(resourceBlockChange); j++) {
-				if ( unselectedTargets[i] === selectedArray[j] ) {
-					resourceBlockChange = true;
+		if ((selectedArray === "") || (unselectedTargets === "")) {
+			for (i = 0; (i < unselectedTargets.length) && !(resourceBlockChange); i++) {
+				for (var j = 0; (j < selectedArray.length) && !(resourceBlockChange); j++) {
+					if ( unselectedTargets[i] === selectedArray[j] ) {
+						resourceBlockChange = true;
+					}
 				}
 			}
 		}
