@@ -1,25 +1,13 @@
 
-# Liferay Contribution Process
+# How to Contribute
 
-Liferay 7 went from being a single monolithic application to being composed of many modules. This has lead to changes in the way that we develop for Liferay as well as how we accept contributions from the community.
+Liferay is developed by its community consisting of Liferay users, enthusiasts, employees, customers, partners, and others. We strongly encourage you to contribute to Liferay's open source projects by implementing new features, enhancing existing features, and fixing bugs. We also welcome your participation in our forums, writing documentation, and translating existing documentation.
 
-## Liferay Central vs. Sub Repos
-
-The Liferay organization on Github has many new repos that start with com-liferay-* and well as the traditional Liferay Central (**liferay-portal**) repos.
-
-With modularity comes interesting opportunities for increasing developer productivity. One large change we are working on is the addition of autonomous Sub Repos. Sub Repos allow for independently developing sections of the platform and then merging those changes back into a central repository.
-
-Ultimately, all source will reside in a Sub Repo and all contributions would take place in the Sub Repo.  Depending on the type of contribution, one of three areas may be involved:
-
-* **Platform Core** - These are parts of the original platform that have not been extracted to a module as of yet. They carry familiar names from Liferay 6.2 such as: portal-impl, portal-kernel and portal-web and reside in the Liferay Central repo.
-
-* **Modules in Central** - These modules are maintained within the Liferay Central repo, however a Sub Repo exists and are in “push” mode meaning the changes to the module in liferay-portal are propagated to the Sub Repo.
-
-* **Modules in a Sub Repo** - These are the Sub Repos that are in “pull” mode. All changes are applied to the modules in the Sub Repo and are then merged into liferay-portal. In this scenarios all changes are made to the Sub Repo.  At the time of this writing only 5 Sub Repos are active.  As time passes everything should be changed from a Sub Repo.
-
-## Liferay Portal - More Information
+Liferay is known for its innovative top quality features. To maintain this reputation, all code changes are reviewed by a core set of Liferay project maintainers. We encourage you to introduce yourself to the core maintainer(s) and engage them as you contribute to the areas they maintain.
 
 To get a deeper understanding of Liferay in general, make sure to read Liferay’s official documentation on the [Liferay Developer Network](http://dev.liferay.com), for [using](https://dev.liferay.com/discover/portal) and [deploying](https://dev.liferay.com/discover/deployment) Liferay Portal, and [developing](https://dev.liferay.com/develop/tutorials) on Liferay. This documentation contains extensive explanations, examples, and reference material for you to consult time and time again.
+
+For more information, visit the links listed in the Additional Resources section, below.
 
 # Building Liferay Portal
 
