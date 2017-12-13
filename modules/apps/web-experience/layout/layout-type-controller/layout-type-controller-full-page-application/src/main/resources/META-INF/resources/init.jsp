@@ -24,6 +24,7 @@ page import="com.liferay.portal.kernel.layoutconfiguration.util.RuntimePageUtil"
 page import="com.liferay.portal.kernel.model.Layout" %><%@
 page import="com.liferay.portal.kernel.model.LayoutTemplateConstants" %><%@
 page import="com.liferay.portal.kernel.model.Portlet" %><%@
+page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.service.LayoutTemplateLocalServiceUtil" %><%@
 page import="com.liferay.portal.kernel.template.StringTemplateResource" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
@@ -35,6 +36,8 @@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 
 <%@ page import="java.util.List" %><%@
 page import="java.util.Objects" %>
+
+<%@ page import="javax.portlet.WindowState" %>
 
 <liferay-frontend:defineObjects />
 

@@ -25,8 +25,23 @@ if (Validator.isNull(ppid)) {
 	ppid = typeSettingsProperties.getProperty("fullPageApplicationPortlet");
 }
 
-String velocityTemplateId = theme.getThemeId() + LayoutTemplateConstants.STANDARD_SEPARATOR + "max";
-String velocityTemplateContent = LayoutTemplateLocalServiceUtil.getContent("max", true, theme.getThemeId());
+String portletWindowState = typeSettingsProperties.getProperty(WebKeys.WINDOW_STATE);
+
+if (Validator.isBlank(portletWindowState)) {
+	portletWindowState = WindowState.MAXIMIZED.toString();
+}
+
+String layoutTemplateId = null;
+
+if (portletWindowState.equals(WindowState.MAXIMIZED.toString())) {
+	layoutTemplateId = "max";
+}
+else if (portletWindowState.equals(LiferayWindowState.POP_UP.toString())) {
+	layoutTemplateId = "pop_up";
+}
+
+String velocityTemplateId = theme.getThemeId() + LayoutTemplateConstants.STANDARD_SEPARATOR + layoutTemplateId;
+String velocityTemplateContent = LayoutTemplateLocalServiceUtil.getContent(layoutTemplateId, true, theme.getThemeId());
 
 if (Validator.isNotNull(velocityTemplateContent)) {
 	RuntimePageUtil.processTemplate(request, response, ppid, new StringTemplateResource(velocityTemplateId, velocityTemplateContent));

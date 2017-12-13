@@ -39,3 +39,16 @@ if (selLayout != null) {
 	%>
 
 </aui:select>
+
+<%
+String portletWindowState = WindowState.MAXIMIZED.toString();
+
+if (selLayout != null) {
+	portletWindowState = GetterUtil.getString(selLayout.getTypeSettingsProperty(WebKeys.WINDOW_STATE));
+}
+%>
+
+<aui:select label='<%= LanguageUtil.get(resourceBundle, "window-state") %>' name='<%= "TypeSettingsProperties--" + WebKeys.WINDOW_STATE + "--" %>'>
+	<aui:option label="<%= WindowState.MAXIMIZED %>" selected="<%= Objects.equals(WindowState.MAXIMIZED.toString(), portletWindowState) %>" value="<%= WindowState.MAXIMIZED %>" />
+	<aui:option label="<%= LiferayWindowState.POP_UP %>" selected="<%= Objects.equals(LiferayWindowState.POP_UP.toString(), portletWindowState) %>" value="<%= LiferayWindowState.POP_UP %>" />
+</aui:select>

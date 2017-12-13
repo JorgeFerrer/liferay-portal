@@ -17,6 +17,7 @@ package com.liferay.layout.type.controller.full.page.application.internal.contro
 import com.liferay.layout.type.controller.full.page.application.internal.constants.FullPageApplicationLayoutTypeControllerConstants;
 import com.liferay.layout.type.controller.full.page.application.internal.constants.FullPageApplicationLayoutTypeControllerWebKeys;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
+import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypeController;
 import com.liferay.portal.kernel.model.Portlet;
@@ -24,6 +25,7 @@ import com.liferay.portal.kernel.model.impl.BaseLayoutTypeControllerImpl;
 import com.liferay.portal.kernel.service.PortletLocalService;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PredicateFilter;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
 import java.util.List;
@@ -55,6 +57,17 @@ public class FullPageApplicationLayoutTypeController
 	@Override
 	public String getURL() {
 		return _URL;
+	}
+
+	@Override
+	public String includeEditContent(
+			HttpServletRequest request, HttpServletResponse response,
+			Layout layout)
+		throws Exception {
+
+		request.setAttribute(WebKeys.SEL_LAYOUT, layout);
+
+		return super.includeEditContent(request, response, layout);
 	}
 
 	@Override
@@ -151,7 +164,7 @@ public class FullPageApplicationLayoutTypeController
 
 	private static final String _URL =
 		"${liferay:mainPath}/portal/layout?p_l_id=${liferay:plid}" +
-			"&p_v_l_s_g_id=${liferay:pvlsgid}";
+			"&p_v_l_s_g_id=${liferay:pvlsgid}&p_p_state=${WINDOW_STATE}";
 
 	private static final String _VIEW_PAGE =
 		"/layout/view/full_page_application.jsp";
