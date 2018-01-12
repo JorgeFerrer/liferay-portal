@@ -27,10 +27,8 @@ import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.LayoutService;
 
-import java.lang.reflect.Constructor;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,15 +45,13 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = LayoutResourceCollectionUtil.class)
 public class LayoutResourceCollectionUtil {
 
-	public <T extends WebPage> T getLayout(Long plid, Class<T> clazz) {
+	public <T extends WebPage> T getLayout(
+		Long plid, Function<Layout, T> function) {
+
 		try {
 			Layout layout = _layoutLocalService.getLayout(plid);
 
-			Constructor<T> constructor = clazz.getConstructor(Layout.class);
-
-			T webPage = constructor.newInstance(layout);
-
-			return webPage;
+			return function.apply(layout);
 		}
 		catch (AuthException | PrincipalException e) {
 			throw new NotAuthorizedException(e);
@@ -63,81 +59,60 @@ public class LayoutResourceCollectionUtil {
 		catch (NoSuchLayoutException nsle) {
 			throw new NotFoundException("Unable to get article " + plid, nsle);
 		}
-		catch (PortalException | ReflectiveOperationException e) {
-			throw new ServerErrorException(500, e);
+		catch (PortalException pe) {
+			throw new ServerErrorException(500, pe);
 		}
 	}
 
-	public <T extends WebPage> PageItems<T> getLayouts(
-		Pagination pagination, Long groupId, Class clazz, String type) {
+	public <T> PageItems<T> getLayouts(
+		Pagination pagination, Long groupId, Function<Layout, T> function,
+		String type) {
 
-		List<T> webPages = new ArrayList<>();
-		int totalCount = 0;
+		List<Layout> privateLayouts = _layoutService.getLayouts(groupId, false);
+		List<Layout> publicLayouts = _layoutService.getLayouts(groupId, true);
 
-		try {
-			List<Layout> layouts = new ArrayList<>();
+		Stream<Layout> stream = Stream.concat(
+			privateLayouts.stream(), publicLayouts.stream());
 
-			layouts.addAll(_layoutService.getLayouts(groupId, false));
-			layouts.addAll(_layoutService.getLayouts(groupId, true));
+		List<Layout> layouts = stream.filter(
+			layout -> layout.getType().equals(type)
+		).collect(
+			Collectors.toList()
+		);
 
-			Constructor<T> constructor = clazz.getConstructor(Layout.class);
+		int totalCount = layouts.size();
 
-			Stream<Layout> stream = layouts.stream();
+		int endPosition = Math.min(pagination.getEndPosition(), totalCount);
 
-			stream = stream.filter(layout -> layout.getType().equals(type));
+		List<Layout> layoutsSublist = layouts.subList(
+			pagination.getStartPosition(), endPosition);
 
-			layouts = stream.collect(Collectors.toList());
+		Stream<Layout> sublistStream = layoutsSublist.stream();
 
-			totalCount = layouts.size();
+		List<T> webPages = sublistStream.map(
+			function
+		).collect(
+			Collectors.toList()
+		);
 
-			int endPosition = pagination.getEndPosition();
-
-			if (endPosition > totalCount) {
-				endPosition = totalCount;
-			}
-
-			List<Layout> layoutsSublist = layouts.subList(
-				pagination.getStartPosition(), endPosition);
-
-			stream = layoutsSublist.stream();
-
-			webPages = stream.<List<T>>collect(
-				() -> new ArrayList<>(),
-				(result, layout) -> {
-					try {
-						result.add(constructor.newInstance(layout));
-					}
-					catch (ReflectiveOperationException roe) {
-					}
-				},
-				(left, right) -> {
-					left.addAll(right);
-				});
-		}
-		catch (ReflectiveOperationException roe) {
-			_log.error("Unable to get layouts", roe);
-		}
-
-		return new PageItems(webPages, totalCount);
+		return new PageItems<>(webPages, totalCount);
 	}
 
-	public <T extends WebPage> T removeLayout(Long plid, Class<T> clazz) {
+	public <T extends WebPage> T removeLayout(
+		Long plid, Function<Layout, T> function) {
+
 		try {
 			Layout layout = _layoutLocalService.deleteLayout(plid);
 
-			Constructor<T> constructor = clazz.getConstructor(Layout.class);
-
-			T webPage = constructor.newInstance(layout);
-
-			return webPage;
+			return function.apply(layout);
 		}
 		catch (AuthException | PrincipalException e) {
 			throw new NotAuthorizedException(e);
 		}
 		catch (NoSuchLayoutException nsle) {
 		}
-		catch (PortalException | ReflectiveOperationException e) {
-			throw new ServerErrorException(500, e);
+		catch (PortalException pe) {
+			throw new ServerErrorException(500, pe);
 		}
 
 		return null;

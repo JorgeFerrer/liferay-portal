@@ -53,7 +53,7 @@ public class EmbeddedWebPageCollectionResource
 
 		return builder.<Long>addGetter(
 			(pagination, groupId) -> _layoutResourceCollectionUtil.getLayouts(
-				pagination, groupId, EmbeddedWebPage.class,
+				pagination, groupId, EmbeddedWebPage::new,
 				LayoutConstants.TYPE_EMBEDDED)
 		).build();
 	}
@@ -69,10 +69,10 @@ public class EmbeddedWebPageCollectionResource
 
 		return builder.addGetter(
 			webPageId -> _layoutResourceCollectionUtil.getLayout(
-				webPageId, EmbeddedWebPage.class)
+				webPageId, EmbeddedWebPage::new)
 		).addRemover(
 			webPageId -> _layoutResourceCollectionUtil.removeLayout(
-				webPageId, EmbeddedWebPage.class)
+				webPageId, EmbeddedWebPage::new)
 		).build();
 	}
 
