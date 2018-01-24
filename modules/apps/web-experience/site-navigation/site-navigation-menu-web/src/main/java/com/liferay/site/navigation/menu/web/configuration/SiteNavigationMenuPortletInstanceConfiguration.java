@@ -56,7 +56,4 @@ public interface SiteNavigationMenuPortletInstanceConfiguration {
 	@Meta.AD(deflt = "preview", name = "preview", required = false)
 	public boolean preview();
 
-	@Meta.AD(name = "bullet-style", required = false)
-	public String bulletStyle();
-
 }
