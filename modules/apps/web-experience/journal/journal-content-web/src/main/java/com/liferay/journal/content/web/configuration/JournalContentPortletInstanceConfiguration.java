@@ -48,6 +48,6 @@ public interface JournalContentPortletInstanceConfiguration {
 	public String contentMetadataAssetAddonEntryKeys();
 
 	@Meta.AD(name = "enable-view-count-increment", required = false)
-	public String enableViewCountIncrement();
+	public boolean enableViewCountIncrement();
 
 }
