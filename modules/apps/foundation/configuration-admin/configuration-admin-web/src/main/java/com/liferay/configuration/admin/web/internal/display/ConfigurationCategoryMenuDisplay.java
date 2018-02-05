@@ -37,7 +37,7 @@ public class ConfigurationCategoryMenuDisplay {
 			ConfigurationScopeDisplay configurationScopeDisplay =
 				new ConfigurationScopeDisplay(scopeKey);
 
-			_configurationScopesDisplays.put(
+			_configurationScopeDisplays.put(
 				scopeKey, configurationScopeDisplay);
 		}
 
@@ -53,18 +53,18 @@ public class ConfigurationCategoryMenuDisplay {
 	public Collection<ConfigurationScopeDisplay>
 		getConfigurationScopeDisplays() {
 
-		return _configurationScopesDisplays.values();
+		return _configurationScopeDisplays.values();
 	}
 
 	private void _addConfigurationModel(ConfigurationModel configurationModel) {
 		ConfigurationScopeDisplay configurationScopeDisplay =
-			_configurationScopesDisplays.get(configurationModel.getScope());
+			_configurationScopeDisplays.get(configurationModel.getScope());
 
 		if (configurationScopeDisplay == null) {
 			configurationScopeDisplay = new ConfigurationScopeDisplay(
 				configurationModel.getScope());
 
-			_configurationScopesDisplays.put(
+			_configurationScopeDisplays.put(
 				configurationModel.getScope(), configurationScopeDisplay);
 		}
 
@@ -80,6 +80,6 @@ public class ConfigurationCategoryMenuDisplay {
 
 	private final ConfigurationCategoryDisplay _configurationCategoryDisplay;
 	private Map<String, ConfigurationScopeDisplay>
-		_configurationScopesDisplays = new LinkedHashMap<>(_SCOPE_KEYS.length);
+		_configurationScopeDisplays = new LinkedHashMap<>(_SCOPE_KEYS.length);
 
 }
