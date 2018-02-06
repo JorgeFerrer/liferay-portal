@@ -27,6 +27,7 @@ import com.liferay.portal.configuration.metatype.definitions.ExtendedMetaTypeInf
 import com.liferay.portal.configuration.metatype.definitions.ExtendedMetaTypeService;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -148,9 +149,7 @@ public class ConfigurationModelRetrieverImpl
 		configurationCategorySets.addAll(
 			_categorySetServiceTrackerMap.keySet());
 
-		if ((configurationCategorySets == null) ||
-			configurationCategorySets.isEmpty()) {
-
+		if (SetUtil.isEmpty(configurationCategorySets)) {
 			return Collections.emptyList();
 		}
 
