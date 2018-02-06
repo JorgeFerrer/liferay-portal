@@ -24,8 +24,6 @@ import org.osgi.service.component.annotations.Component;
 @Component
 public class OpenIdConfigurationCategory implements ConfigurationCategory {
 
-	public static final String KEY = "open-id";
-
 	@Override
 	public String getCategorySetKey() {
 		return _CATEGORY_SET_KEY;
@@ -33,9 +31,11 @@ public class OpenIdConfigurationCategory implements ConfigurationCategory {
 
 	@Override
 	public String getKey() {
-		return KEY;
+		return _KEY;
 	}
 
 	private static final String _CATEGORY_SET_KEY = "platform";
+
+	private static final String _KEY = "open-id";
 
 }

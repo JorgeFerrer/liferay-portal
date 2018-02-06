@@ -25,8 +25,6 @@ import org.osgi.service.component.annotations.Component;
 public class TemplateEnginesConfigurationCategory
 	implements ConfigurationCategory {
 
-	public static final String KEY = "template-engines";
-
 	@Override
 	public String getCategorySetKey() {
 		return _CATEGORY_SET_KEY;
@@ -34,9 +32,11 @@ public class TemplateEnginesConfigurationCategory
 
 	@Override
 	public String getKey() {
-		return KEY;
+		return _KEY;
 	}
 
 	private static final String _CATEGORY_SET_KEY = "platform";
+
+	private static final String _KEY = "template-engines";
 
 }

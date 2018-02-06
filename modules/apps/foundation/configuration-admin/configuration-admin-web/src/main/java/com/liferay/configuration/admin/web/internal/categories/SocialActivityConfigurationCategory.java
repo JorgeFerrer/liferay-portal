@@ -25,8 +25,6 @@ import org.osgi.service.component.annotations.Component;
 public class SocialActivityConfigurationCategory
 	implements ConfigurationCategory {
 
-	public static final String KEY = "social-activity";
-
 	@Override
 	public String getCategorySetKey() {
 		return _CATEGORY_SET_KEY;
@@ -34,9 +32,11 @@ public class SocialActivityConfigurationCategory
 
 	@Override
 	public String getKey() {
-		return KEY;
+		return _KEY;
 	}
 
 	private static final String _CATEGORY_SET_KEY = "social";
+
+	private static final String _KEY = "social-activity";
 
 }

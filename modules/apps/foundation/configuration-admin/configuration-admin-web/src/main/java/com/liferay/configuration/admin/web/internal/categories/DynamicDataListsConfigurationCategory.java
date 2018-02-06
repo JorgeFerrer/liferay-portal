@@ -25,8 +25,6 @@ import org.osgi.service.component.annotations.Component;
 public class DynamicDataListsConfigurationCategory
 	implements ConfigurationCategory {
 
-	public static final String KEY = "dynamic-data-lists";
-
 	@Override
 	public String getCategorySetKey() {
 		return _CATEGORY_SET_KEY;
@@ -39,9 +37,11 @@ public class DynamicDataListsConfigurationCategory
 
 	@Override
 	public String getKey() {
-		return KEY;
+		return _KEY;
 	}
 
 	private static final String _CATEGORY_SET_KEY = "content-management";
+
+	private static final String _KEY = "dynamic-data-lists";
 
 }
