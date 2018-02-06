@@ -35,15 +35,11 @@ public class ConfigurationCategoryMenuDisplay {
 
 		_configurationCategoryDisplay = configurationCategoryDisplay;
 
-		Stream<ExtendedObjectClassDefinition.Scope> scopeStream = Arrays.stream(
-			ExtendedObjectClassDefinition.Scope.values());
+		Stream<String> scopeStream = Arrays.stream(_UI_ORDERED_SCOPES);
 
-		scopeStream.map(
-			Enum::toString
-		).forEach(
+		scopeStream.forEach(
 			scopeKey -> _configurationScopeDisplays.put(
-				scopeKey, new ConfigurationScopeDisplay(scopeKey))
-		);
+				scopeKey, new ConfigurationScopeDisplay(scopeKey)));
 
 		for (ConfigurationModel configurationModel : configurationModels) {
 			_addConfigurationModel(configurationModel);
@@ -74,6 +70,13 @@ public class ConfigurationCategoryMenuDisplay {
 
 		configurationScopeDisplay.add(configurationModel);
 	}
+
+	private static final String[] _UI_ORDERED_SCOPES = {
+		ExtendedObjectClassDefinition.Scope.SYSTEM.toString(),
+		ExtendedObjectClassDefinition.Scope.COMPANY.toString(),
+		ExtendedObjectClassDefinition.Scope.GROUP.toString(),
+		ExtendedObjectClassDefinition.Scope.PORTLET_INSTANCE.toString()
+	};
 
 	private final ConfigurationCategoryDisplay _configurationCategoryDisplay;
 	private Map<String, ConfigurationScopeDisplay> _configurationScopeDisplays =
