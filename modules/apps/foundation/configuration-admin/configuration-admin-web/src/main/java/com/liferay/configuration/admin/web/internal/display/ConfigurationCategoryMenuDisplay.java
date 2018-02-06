@@ -17,10 +17,12 @@ package com.liferay.configuration.admin.web.internal.display;
 import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * @author Jorge Ferrer
@@ -33,13 +35,15 @@ public class ConfigurationCategoryMenuDisplay {
 
 		_configurationCategoryDisplay = configurationCategoryDisplay;
 
-		for (String scopeKey : _SCOPE_KEYS) {
-			ConfigurationScopeDisplay configurationScopeDisplay =
-				new ConfigurationScopeDisplay(scopeKey);
+		Stream<ExtendedObjectClassDefinition.Scope> scopeStream = Arrays.stream(
+			ExtendedObjectClassDefinition.Scope.values());
 
-			_configurationScopeDisplays.put(
-				scopeKey, configurationScopeDisplay);
-		}
+		scopeStream.map(
+			Enum::toString
+		).forEach(
+			scopeKey -> _configurationScopeDisplays.put(
+				scopeKey, new ConfigurationScopeDisplay(scopeKey))
+		);
 
 		for (ConfigurationModel configurationModel : configurationModels) {
 			_addConfigurationModel(configurationModel);
@@ -71,15 +75,8 @@ public class ConfigurationCategoryMenuDisplay {
 		configurationScopeDisplay.add(configurationModel);
 	}
 
-	private static final String[] _SCOPE_KEYS = {
-		ExtendedObjectClassDefinition.Scope.SYSTEM.toString(),
-		ExtendedObjectClassDefinition.Scope.COMPANY.toString(),
-		ExtendedObjectClassDefinition.Scope.GROUP.toString(),
-		ExtendedObjectClassDefinition.Scope.PORTLET_INSTANCE.toString()
-	};
-
 	private final ConfigurationCategoryDisplay _configurationCategoryDisplay;
-	private Map<String, ConfigurationScopeDisplay>
-		_configurationScopeDisplays = new LinkedHashMap<>(_SCOPE_KEYS.length);
+	private Map<String, ConfigurationScopeDisplay> _configurationScopeDisplays =
+		new LinkedHashMap<>();
 
 }
