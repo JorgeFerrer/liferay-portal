@@ -28,10 +28,6 @@ PortletURL portletURL = siteAdminDisplayContext.getPortletURL();
 request.setAttribute("view.jsp-displayStyle", displayStyle);
 request.setAttribute("view.jsp-groupSearchContainer", groupSearch);
 
-PortletURL mainURL = renderResponse.createRenderURL();
-
-mainURL.setParameter("mvcPath", "/view.jsp");
-
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites"), mainURL.toString());
 
 if (group != null) {
@@ -74,10 +70,6 @@ if (group != null) {
 			<aui:form action="<%= deleteGroupsURL %>" name="fm">
 				<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
 
-				<div id="breadcrumb">
-					<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-				</div>
-
 				<liferay-ui:error exception="<%= NoSuchLayoutSetException.class %>">
 
 					<%
@@ -115,6 +107,17 @@ if (group != null) {
 		</div>
 	</div>
 </div>
+
+<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_COMMUNITY) %>">
+	<liferay-portlet:renderURL varImpl="addSiteURL">
+		<portlet:param name="jspPage" value="/site_wizard/view_layout_set_prototypes.jsp" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+	</liferay-portlet:renderURL>
+
+	<liferay-frontend:add-menu>
+		<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "add") %>' url="<%= addSiteURL.toString() %>" />
+	</liferay-frontend:add-menu>
+</c:if>
 
 <%!
 private static Log _log = LogFactoryUtil.getLog("com_liferay_site_admin_web.view_jsp");

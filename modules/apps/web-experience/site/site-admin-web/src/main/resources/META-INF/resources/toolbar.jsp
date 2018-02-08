@@ -28,6 +28,12 @@ SearchContainer groupSearch = (SearchContainer)request.getAttribute("view.jsp-gr
 	items="<%= siteAdminDisplayContext.getNavigationItems() %>"
 />
 
+<div class="breadcrumb-container">
+	<div class="container-fluid-1280">
+		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
+	</div>
+</div>
+
 <liferay-frontend:management-bar
 	includeCheckBox="<%= true %>"
 	searchContainerId="<%= searchContainerId %>"

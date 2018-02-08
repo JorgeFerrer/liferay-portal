@@ -111,10 +111,13 @@ page import="com.liferay.ratings.kernel.RatingsType" %><%@
 page import="com.liferay.ratings.kernel.display.context.CompanyPortletRatingsDefinitionDisplayContext" %><%@
 page import="com.liferay.ratings.kernel.display.context.GroupPortletRatingsDefinitionDisplayContext" %><%@
 page import="com.liferay.ratings.kernel.transformer.RatingsDataTransformerUtil" %><%@
+page import="com.liferay.site.admin.web.internal.constants.SiteAdminConstants" %><%@
 page import="com.liferay.site.admin.web.internal.constants.SiteAdminPortletKeys" %><%@
 page import="com.liferay.site.admin.web.internal.constants.SiteAdminWebKeys" %><%@
 page import="com.liferay.site.admin.web.internal.display.context.SiteAdminDisplayContext" %><%@
 page import="com.liferay.site.constants.SiteWebKeys" %><%@
+page import="com.liferay.site.util.GroupCreationStep" %><%@
+page import="com.liferay.site.util.GroupStarterKit" %><%@
 page import="com.liferay.site.util.GroupURLProvider" %><%@
 page import="com.liferay.sites.kernel.util.Sites" %><%@
 page import="com.liferay.sites.kernel.util.SitesUtil" %>
@@ -138,9 +141,13 @@ page import="javax.portlet.WindowState" %>
 <portlet:defineObjects />
 
 <%
-SiteAdminDisplayContext siteAdminDisplayContext = new SiteAdminDisplayContext(request, liferayPortletRequest, liferayPortletResponse);
+SiteAdminDisplayContext siteAdminDisplayContext = new SiteAdminDisplayContext(request, response, liferayPortletRequest, liferayPortletResponse);
 
 portletDisplay.setShowStagingIcon(false);
+
+PortletURL mainURL = renderResponse.createRenderURL();
+
+mainURL.setParameter("mvcPath", "/view.jsp");
 %>
 
 <%@ include file="/init-ext.jsp" %>
