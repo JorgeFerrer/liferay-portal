@@ -92,7 +92,10 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.liveusers.LiveUsers;
 import com.liferay.site.admin.web.internal.constants.SiteAdminPortletKeys;
 import com.liferay.site.constants.SiteWebKeys;
+import com.liferay.site.util.GroupCreationStep;
+import com.liferay.site.util.GroupCreationStepRegistry;
 import com.liferay.site.util.GroupSearchProvider;
+import com.liferay.site.util.GroupStarterKitRegistry;
 import com.liferay.site.util.GroupURLProvider;
 import com.liferay.sites.kernel.util.Sites;
 import com.liferay.sites.kernel.util.SitesUtil;
@@ -121,6 +124,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -128,6 +132,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-site-admin",
 		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.icon=/icons/site_admin.png",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.private-request-attributes=false",
@@ -315,16 +320,31 @@ public class SiteAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void saveCreationStep(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Throwable {
+
+		String creationStepName = ParamUtil.getString(
+			actionRequest, "creationStepName");
+
+		GroupCreationStep groupCreationStep =
+			groupCreationStepRegistry.getGroupCreationStep(creationStepName);
+
+		groupCreationStep.processAction(actionRequest, actionResponse);
+
+		hideDefaultSuccessMessage(actionRequest);
+
+		MultiSessionMessages.add(
+			actionRequest,
+			SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed");
+	}
+
 	@Override
 	protected void doDispatch(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		renderRequest.setAttribute(
-			SiteWebKeys.GROUP_SEARCH_PROVIDER, groupSearchProvider);
-
-		renderRequest.setAttribute(
-			SiteWebKeys.GROUP_URL_PROVIDER, groupURLProvider);
+		setRenderAttributes(renderRequest);
 
 		if (SessionErrors.contains(
 				renderRequest, NoSuchBackgroundTaskException.class.getName()) ||
@@ -551,6 +571,21 @@ public class SiteAdminPortlet extends MVCPortlet {
 		MembershipRequestService membershipRequestService) {
 
 		this.membershipRequestService = membershipRequestService;
+	}
+
+	protected void setRenderAttributes(RenderRequest renderRequest) {
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_CREATION_STEP_REGISTRY,
+			groupCreationStepRegistry);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_SEARCH_PROVIDER, groupSearchProvider);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_STARTER_KIT_REGISTRY, groupStarterKitRegistry);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_URL_PROVIDER, groupURLProvider);
 	}
 
 	@Reference(unbind = "-")
@@ -937,9 +972,16 @@ public class SiteAdminPortlet extends MVCPortlet {
 	@Reference
 	protected BackgroundTaskManager backgroundTaskManager;
 
+	@Reference
+	protected GroupCreationStepRegistry groupCreationStepRegistry;
+
 	protected GroupLocalService groupLocalService;
 	protected GroupSearchProvider groupSearchProvider;
 	protected GroupService groupService;
+
+	@Reference
+	protected GroupStarterKitRegistry groupStarterKitRegistry;
+
 	protected GroupURLProvider groupURLProvider;
 
 	@Reference
