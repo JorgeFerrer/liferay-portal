@@ -1,0 +1,82 @@
+.portlet-site-admin {
+	.breadcrumb-container {
+		background-color: #FFFFFF;
+
+		.breadcrumb {
+			margin-bottom: 0;
+
+			& > li {
+				font-size: 0.9rem;
+				text-transform: capitalize;
+			}
+		}
+	}
+
+	.multi-step-progress-bar-collapse > li:last-child {
+		.divider {
+			width: 0;
+		}
+	}
+
+	.site-creation-container {
+		background-color: #FFF;
+		margin-top: 100px;
+
+		.btn-next-creation-step {
+			float: right;
+		}
+
+		.button-holder {
+			margin: 0;
+			padding: 40px 0;
+		}
+
+		.site-creation-header {
+			border-bottom: 1px solid grey;
+			margin-bottom: 30px;
+			padding: 40px 0 5px 0;
+			text-transform: uppercase;
+		}
+	}
+
+	.site-name-fieldset {
+		padding-bottom: 140px;
+	}
+
+	.site-template-card {
+		position: relative;
+
+		.site-template-button {
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%,-50%);
+		}
+	}
+
+	.site-type-container {
+		padding-top: 40px;
+	}
+
+	.starter-kit-card {
+		position: relative;
+
+		.starter-kit-apply-button {
+			left: 50%;
+			position: absolute;
+			top: 40%;
+			transform: translate(-50%, -50%);
+		}
+
+		.starter-kit-details-button {
+			left: 50%;
+			position: absolute;
+			top: 60%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+
+.loadingmask {
+	z-index: 100000!important;
+}
