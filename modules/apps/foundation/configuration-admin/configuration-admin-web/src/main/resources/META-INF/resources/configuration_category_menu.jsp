@@ -55,7 +55,7 @@ ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoade
 
 							String curConfigurationModelName = (curComponentResourceBundle != null) ? LanguageUtil.get(curComponentResourceBundle, curConfigurationModel.getName()) : curConfigurationModel.getName();
 
-							String cssClass = configurationModel.equals(curConfigurationModel)? "active nav-link": "nav-link";
+							String cssClass = configurationModel.equals(curConfigurationModel) ? "active nav-link": "nav-link";
 						%>
 
 							<li class="nav-item">
