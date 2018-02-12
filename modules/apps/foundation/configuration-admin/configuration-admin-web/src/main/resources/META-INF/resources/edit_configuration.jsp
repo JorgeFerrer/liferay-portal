@@ -31,7 +31,7 @@ String ddmFormHTML = (String)request.getAttribute(ConfigurationAdminWebKeys.CONF
 String category = configurationModel.getCategory();
 
 portletDisplay.setShowBackIcon(true);
-portletDisplay.setURLBack(portletURL.toString());
+portletDisplay.setURLBack(redirect);
 
 ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoaderProvider)request.getAttribute(ConfigurationAdminWebKeys.RESOURCE_BUNDLE_LOADER_PROVIDER);
 

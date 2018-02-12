@@ -61,6 +61,7 @@ ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoade
 							<li class="nav-item">
 								<portlet:renderURL var="editURL">
 									<portlet:param name="mvcRenderCommandName" value="/edit_configuration" />
+									<portlet:param name="redirect" value="<%= currentURL %>" />
 									<portlet:param name="factoryPid" value="<%= curConfigurationModel.getFactoryPid() %>" />
 									<portlet:param name="pid" value="<%= curConfigurationModel.getID() %>" />
 								</portlet:renderURL>
