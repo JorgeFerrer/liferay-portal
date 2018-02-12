@@ -41,7 +41,7 @@ ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle
 
 String factoryConfigurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 
-renderResponse.setTitle(LanguageUtil.get(request, category));
+renderResponse.setTitle(LanguageUtil.get(request, "category." + category));
 %>
 
 <liferay-frontend:add-menu>
