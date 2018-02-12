@@ -79,7 +79,7 @@ public class CategoryMVCRenderCommand implements MVCRenderCommand {
 						getFirstConfigurationModel();
 
 				if (configurationModel.isFactory() &&
-					!configurationModel.isSystemScope()) {
+					!configurationModel.isCompanyFactory()) {
 
 					redirectURL.setParameter(
 						"mvcRenderCommandName", "/view_factory_instances");
