@@ -56,19 +56,19 @@ renderResponse.setTitle(LanguageUtil.get(request, "category." + category));
 <portlet:actionURL name="bindConfiguration" var="bindConfigurationActionURL" />
 <portlet:actionURL name="deleteConfiguration" var="deleteConfigurationActionURL" />
 
-<div class="container">
+<div class="container-fluid container-fluid-max-xl container-form-lg">
 	<div class="row">
 		<div class="col-md-3">
 			<liferay-util:include page="/configuration_category_menu.jsp" servletContext="<%= application %>" />
 		</div>
 
 		<div class="col-md-9">
-			<aui:form action="<%= bindConfigurationActionURL %>" method="post" name="fm">
-				<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
-				<aui:input name="factoryPid" type="hidden" value="<%= configurationModel.getFactoryPid() %>" />
-				<aui:input name="pid" type="hidden" value="<%= configurationModel.getID() %>" />
+			<div class="sheet sheet-lg">
+				<aui:form action="<%= bindConfigurationActionURL %>" method="post" name="fm">
+					<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
+					<aui:input name="factoryPid" type="hidden" value="<%= configurationModel.getFactoryPid() %>" />
+					<aui:input name="pid" type="hidden" value="<%= configurationModel.getID() %>" />
 
-				<div class="lfr-ddm-container" id="lfr-ddm-container">
 					<h2>
 						<%= configurationModelName %>
 
@@ -122,40 +122,39 @@ renderResponse.setTitle(LanguageUtil.get(request, "category." + category));
 						</c:if>
 					</h2>
 
-					<aui:fieldset-group>
-						<c:if test="<%= !configurationModel.hasConfiguration() %>">
-							<aui:alert closeable="<%= false %>" id="errorAlert" type="info">
-								<liferay-ui:message key="this-configuration-was-not-saved-yet" />
-							</aui:alert>
-						</c:if>
+					<c:if test="<%= !configurationModel.hasConfiguration() %>">
+						<aui:alert closeable="<%= false %>" id="errorAlert" type="info">
+							<liferay-ui:message key="this-configuration-was-not-saved-yet" />
+						</aui:alert>
+					</c:if>
 
-						<%
-						String configurationModelDescription = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getDescription()) : configurationModel.getDescription();
-						%>
+					<%
+					String configurationModelDescription = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getDescription()) : configurationModel.getDescription();
+					%>
 
-						<c:if test="<%= !Validator.isBlank(configurationModelDescription) %>">
-							<p class="text-default">
-								<strong><%= configurationModelDescription %></strong>
-							</p>
-						</c:if>
+					<c:if test="<%= !Validator.isBlank(configurationModelDescription) %>">
+						<p class="text-default">
+							<strong><%= configurationModelDescription %></strong>
+						</p>
+					</c:if>
 
-						<%= ddmFormHTML %>
-					</aui:fieldset-group>
-				</div>
+					<%= ddmFormHTML %>
 
-				<aui:button-row>
-					<c:choose>
-						<c:when test="<%= configurationModel.hasConfiguration() %>">
-							<aui:button name="update" type="submit" value="update" />
-						</c:when>
-						<c:otherwise>
-							<aui:button name="save" type="submit" value="save" />
-						</c:otherwise>
-					</c:choose>
+					<aui:button-row>
+						<c:choose>
+							<c:when test="<%= configurationModel.hasConfiguration() %>">
+								<aui:button name="update" type="submit" value="update" />
+							</c:when>
+							<c:otherwise>
+								<aui:button name="save" type="submit" value="save" />
+							</c:otherwise>
+						</c:choose>
 
-					<aui:button href="<%= redirect %>" name="cancel" type="cancel" />
-				</aui:button-row>
-			</aui:form>
+						<aui:button href="<%= redirect %>" name="cancel" type="cancel" />
+					</aui:button-row>
+
+				</aui:form>
+			</div>
 		</div>
 	</div>
 </div>
