@@ -37,55 +37,51 @@ List<ConfigurationCategorySetDisplay> configurationCategorySetDisplays = (List<C
 	</liferay-frontend:management-bar-filters>
 </liferay-frontend:management-bar>
 
-<div class="container-fluid-1280">
-	<div aria-orientation="vertical" class="panel-group" role="tablist">
+<div class="container-fluid container-fluid-max-xl container-view">
+	<ul class="list-group">
 
 		<%
 		for (ConfigurationCategorySetDisplay configurationCategorySetDisplay : configurationCategorySetDisplays) {
 		%>
 
-			<div class="panel panel-secondary">
-				<div class="panel-header panel-header-link">
-					<span class="panel-title text-uppercase"><liferay-ui:message key='<%= "category-set." + configurationCategorySetDisplay.getKey() %>' /></span>
-				</div>
+			<li class="list-group-header">
+			    <h3 class="list-group-header-title text-uppercase">
+					<liferay-ui:message key='<%= "category-set." + configurationCategorySetDisplay.getKey() %>' />
+				</h3>
+	  		</li>
 
-				<div role="tabpanel">
-					<div class="panel-body">
-						<div class="row">
+			<li class="list-group-card">
+			    <ul class="list-group">
 
-							<%
-							for (ConfigurationCategoryDisplay configurationCategoryDisplay : configurationCategorySetDisplay.getConfigurationCategoryDisplays()) {
-							%>
+					<%
+					for (ConfigurationCategoryDisplay configurationCategoryDisplay : configurationCategorySetDisplay.getConfigurationCategoryDisplays()) {
+					%>
 
-								<portlet:renderURL var="categoryURL">
-									<portlet:param name="mvcRenderCommandName" value="/category" />
-									<portlet:param name="configurationCategory" value="<%= configurationCategoryDisplay.getKey() %>" />
-								</portlet:renderURL>
+						<portlet:renderURL var="categoryURL">
+							<portlet:param name="mvcRenderCommandName" value="/category" />
+							<portlet:param name="configurationCategory" value="<%= configurationCategoryDisplay.getKey() %>" />
+						</portlet:renderURL>
 
-								<div class="col-1 mb-4 text-center">
-									<a href="<%= categoryURL %>">
-										<div class="pb-4">
-											<clay:icon elementClasses="user-icon-sm" symbol="<%= configurationCategoryDisplay.getIcon() %>" />
-										</div>
+						<li class="list-group-card-item">
+							<a href="<%= categoryURL %>">
+								<clay:icon elementClasses="user-icon-sm" symbol="<%= configurationCategoryDisplay.getIcon() %>" />
 
-										<div>
-											<liferay-ui:message key='<%= "category." + configurationCategoryDisplay.getKey() %>' />
-										</div>
-									</a>
-								</div>
+								<span class="list-group-card-item-text">
+									<liferay-ui:message key='<%= "category." + configurationCategoryDisplay.getKey() %>' />
+								</span>
+							</a>
+						</li>
 
-							<%
-							}
-							%>
+					<%
+					}
+					%>
 
-						</div>
-					</div>
-				</div>
-			</div>
+				</ul>
+			</li>
 
 		<%
 		}
 		%>
 
-	</div>
+	</ul>
 </div>
