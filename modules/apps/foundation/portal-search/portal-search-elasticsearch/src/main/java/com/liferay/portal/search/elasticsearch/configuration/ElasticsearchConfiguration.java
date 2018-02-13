@@ -22,7 +22,7 @@ import com.liferay.portal.search.elasticsearch.connection.OperationMode;
 /**
  * @author Michael C. Han
  */
-@ExtendedObjectClassDefinition(category = "foundation")
+@ExtendedObjectClassDefinition(category = "search")
 @Meta.OCD(
 	id = "com.liferay.portal.search.elasticsearch.configuration.ElasticsearchConfiguration",
 	localization = "content/Language",
