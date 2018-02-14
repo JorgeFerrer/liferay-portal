@@ -59,6 +59,13 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		ConfigurationModel configurationModel = (ConfigurationModel)obj;
+
+		return Objects.equals(getID(), configurationModel.getID());
+	}
+
+	@Override
 	public ExtendedAttributeDefinition[] getAttributeDefinitions(int filter) {
 		ExtendedAttributeDefinition[] extendedAttributeDefinitions =
 			_extendedObjectClassDefinition.getAttributeDefinitions(filter);
@@ -202,8 +209,24 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 		return false;
 	}
 
+	public boolean isCompanyScope() {
+		return Objects.equals(getScope(), Scope.COMPANY);
+	}
+
 	public boolean isFactory() {
 		return _factory;
+	}
+
+	public boolean isGroupScope() {
+		return Objects.equals(getScope(), Scope.GROUP);
+	}
+
+	public boolean isPortletInstanceScope() {
+		return Objects.equals(getScope(), Scope.PORTLET_INSTANCE);
+	}
+
+	public boolean isSystemScope() {
+		return Objects.equals(getScope(), Scope.SYSTEM);
 	}
 
 	protected String getLabelAttributeValue() {
