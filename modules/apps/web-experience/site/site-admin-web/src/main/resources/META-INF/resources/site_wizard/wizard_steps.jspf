@@ -41,7 +41,7 @@
 		%>
 
 			<li class="<%= cssClass %>">
-				<div class="progress-bar-title"><liferay-ui:message key="<%= groupCreationStep.getLabel(request) %>" /> </div>
+				<div class="progress-bar-title"><liferay-ui:message key="<%= groupCreationStep.getLabel(locale) %>" /> </div>
 				<div class="divider"></div>
 				<div class="progress-bar-step"><%= step %></div>
 			</li>
