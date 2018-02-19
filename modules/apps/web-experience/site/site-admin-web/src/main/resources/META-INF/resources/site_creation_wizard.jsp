@@ -29,9 +29,9 @@ long layoutSetPrototypeId = ParamUtil.getLong(request, "layoutSetPrototypeId");
 
 long parentGroupSearchContainerPrimaryKeys = ParamUtil.getLong(request, "parentGroupSearchContainerPrimaryKeys");
 
-List<GroupCreationStep> groupCreationSteps = siteAdminDisplayContext.getGroupCreationSteps();
+List<GroupCreationStep> groupCreationSteps = siteCreationWizardDisplayContext.getGroupCreationSteps();
 
-String currentCreationStepName = siteAdminDisplayContext.getCurrentCreationStepName();
+String currentCreationStepName = siteCreationWizardDisplayContext.getCurrentCreationStepName();
 
 String creationTypeLabel = StringPool.BLANK;
 
@@ -46,7 +46,7 @@ if (creationType.equals(SiteAdminConstants.CREATION_TYPE_STARTER_KIT)) {
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites"), mainURL.toString());
 PortalUtil.addPortletBreadcrumbEntry(request, creationTypeLabel, backURL);
 
-String currentCreationStepLabel = siteAdminDisplayContext.getCurrentCreationStepLabel();
+String currentCreationStepLabel = siteCreationWizardDisplayContext.getCurrentCreationStepLabel();
 
 PortalUtil.addPortletBreadcrumbEntry(request, currentCreationStepLabel, StringPool.BLANK);
 
@@ -75,11 +75,11 @@ portletDisplay.setURLBack(backURL.toString());
 			<aui:input name="creationStepName" type="hidden" value="<%= currentCreationStepName %>" />
 			<aui:input name="creationType" type="hidden" value="<%= creationType %>" />
 			<aui:input name="currentURL" type="hidden" value="<%= currentURL %>" />
-			<aui:input name="groupId" type="hidden" value="<%= siteAdminDisplayContext.getGroupId() %>" />
+			<aui:input name="groupId" type="hidden" value="<%= siteCreationWizardDisplayContext.getGroupId() %>" />
 			<aui:input name="groupStarterKitKey" type="hidden" value="<%= groupStarterKitKey %>" />
 			<aui:input name="layoutSetPrototypeId" type="hidden" value="<%= layoutSetPrototypeId %>" />
 			<aui:input name="parentGroupSearchContainerPrimaryKeys" type="hidden" value="<%= parentGroupSearchContainerPrimaryKeys %>" />
-			<aui:input name="redirect" type="hidden" value="<%= siteAdminDisplayContext.getCreationStepRedirect() %>" />
+			<aui:input name="redirect" type="hidden" value="<%= siteCreationWizardDisplayContext.getCreationStepRedirect() %>" />
 
 			<liferay-ui:error exception="<%= DuplicateGroupException.class %>" message="please-enter-a-unique-name" />
 			<liferay-ui:error exception="<%= GroupInheritContentException.class %>" message="this-site-cannot-inherit-content-from-its-parent-site" />
@@ -97,7 +97,7 @@ portletDisplay.setURLBack(backURL.toString());
 			<liferay-ui:error exception="<%= GroupParentException.MustNotHaveStagingParent.class %>" message="the-site-cannot-have-a-staging-site-as-its-parent-site" />
 
 			<%
-			siteAdminDisplayContext.renderCurrentCreationStep();
+			siteCreationWizardDisplayContext.renderCurrentCreationStep();
 			%>
 
 			<aui:button-row>
@@ -107,25 +107,25 @@ portletDisplay.setURLBack(backURL.toString());
 
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 					</c:when>
-					<c:when test="<%= Validator.isNotNull(siteAdminDisplayContext.getPreviousCreationStepName()) %>">
+					<c:when test="<%= Validator.isNotNull(siteCreationWizardDisplayContext.getPreviousCreationStepName()) %>">
 						<portlet:renderURL var="previousCreationStepURL">
 							<portlet:param name="jspPage" value="/site_creation_wizard.jsp" />
 							<portlet:param name="redirect" value="<%= redirect %>" />
 							<portlet:param name="backURL" value="<%= backURL %>" />
-							<portlet:param name="groupId" value="<%= String.valueOf(siteAdminDisplayContext.getGroupId()) %>" />
+							<portlet:param name="groupId" value="<%= String.valueOf(siteCreationWizardDisplayContext.getGroupId()) %>" />
 							<portlet:param name="parentGroupSearchContainerPrimaryKeys" value="<%= String.valueOf(parentGroupSearchContainerPrimaryKeys) %>" />
-							<portlet:param name="creationStepName" value="<%= siteAdminDisplayContext.getPreviousCreationStepName() %>" />
+							<portlet:param name="creationStepName" value="<%= siteCreationWizardDisplayContext.getPreviousCreationStepName() %>" />
 							<portlet:param name="creationType" value="creationType" />
 						</portlet:renderURL>
 
 						<aui:button cssClass="btn-lg" href="<%= previousCreationStepURL %>" type="cancel" value="previous" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteAdminDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteAdminDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' />
 					</c:when>
 					<c:otherwise>
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteAdminDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteAdminDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' />
 					</c:otherwise>
 				</c:choose>
 			</aui:button-row>
@@ -139,7 +139,7 @@ portletDisplay.setURLBack(backURL.toString());
 		function(event) {
 			event.preventDefault();
 
-			var lastGroupCreationStep = <%= siteAdminDisplayContext.isLastGroupCreationStep() %>
+			var lastGroupCreationStep = <%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>
 
 			if (lastGroupCreationStep) {
 				if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-continue-all-contents-will-be-deleted") %>')) {
@@ -153,6 +153,8 @@ portletDisplay.setURLBack(backURL.toString());
 					loadingMask.show();
 
 					submitForm(document.<portlet:namespace />fm);
+
+					loadingMask.hide();
 				}
 			}
 			else {

@@ -16,9 +16,9 @@
 
 <%@ include file="/init.jsp" %>
 
-<img src="<%= siteAdminDisplayContext.getGroupStarterKitThumbnailSrc() %>" />
+<img src="<%= siteCreationWizardDisplayContext.getGroupStarterKitThumbnailSrc() %>" />
 
-<p><%= HtmlUtil.escape(siteAdminDisplayContext.getGroupStarterKitDescription()) %></p>
+<p><%= HtmlUtil.escape(siteCreationWizardDisplayContext.getGroupStarterKitDescription()) %></p>
 
 <aui:button-row>
 	<aui:button cssClass="btn-lg" name="applyButton" primary="<%= true %>" value="apply" />

@@ -25,7 +25,7 @@ long parentGroupSearchContainerPrimaryKeys = ParamUtil.getLong(request, "parentG
 
 SearchContainer<GroupStarterKit> groupStarterKitSearchContainer = new SearchContainer<>(liferayPortletRequest, currentURLObj, null, "there-are-no-available-starter-kits");
 
-List<GroupStarterKit> groupStarterKits = siteAdminDisplayContext.getGroupStarterKits();
+List<GroupStarterKit> groupStarterKits = siteCreationWizardDisplayContext.getGroupStarterKits();
 
 int indexFrom = groupStarterKitSearchContainer.getStart();
 int indexTo = groupStarterKitSearchContainer.getEnd();
@@ -66,7 +66,7 @@ portletDisplay.setURLBack(backURL);
 				<liferay-portlet:renderURL varImpl="addSiteURL">
 					<portlet:param name="jspPath" value="/site_creation_wizard.jsp" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
-					<portlet:param name="groupId" value="<%= String.valueOf(siteAdminDisplayContext.getGroupId()) %>" />
+					<portlet:param name="groupId" value="<%= String.valueOf(siteCreationWizardDisplayContext.getGroupId()) %>" />
 					<portlet:param name="parentGroupSearchContainerPrimaryKeys" value="<%= String.valueOf(parentGroupSearchContainerPrimaryKeys) %>" />
 					<portlet:param name="groupStarterKitKey" value="<%= groupStarterKit.getKey() %>" />
 					<portlet:param name="creationType" value="<%= SiteAdminConstants.CREATION_TYPE_STARTER_KIT %>" />
@@ -98,13 +98,13 @@ portletDisplay.setURLBack(backURL);
 						<portlet:param name="addSiteURL" value="<%= addSiteURL.toString() %>" />
 					</liferay-portlet:renderURL>
 
-					<a class="btn btn-default hide starter-kit-details-button" href="<%= siteAdminDisplayContext.getRenderPreviewURL("renderPreview", groupStarterKit.getName(locale), renderPreviewURL) %>">
+					<a class="btn btn-default hide starter-kit-details-button" href="<%= siteCreationWizardDisplayContext.getRenderPreviewURL("renderPreview", groupStarterKit.getName(locale), renderPreviewURL) %>">
 						<liferay-ui:message key="details" />
 					</a>
 				</liferay-ui:search-container-column-text>
 			</liferay-ui:search-container-row>
 
-			<liferay-ui:search-iterator displayStyle="icon" markupView="lexicon" searchContainer="<%= groupStarterKitSearchContainer %>" />
+			<liferay-ui:search-iterator displayStyle="icon" markupView="lexicon" />
 		</liferay-ui:search-container>
 	</div>
 
