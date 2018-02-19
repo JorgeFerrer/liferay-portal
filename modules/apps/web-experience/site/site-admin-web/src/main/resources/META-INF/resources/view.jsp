@@ -108,17 +108,6 @@ if (group != null) {
 	</div>
 </div>
 
-<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_COMMUNITY) %>">
-	<liferay-portlet:renderURL varImpl="addSiteURL">
-		<portlet:param name="jspPage" value="/site_wizard/view_layout_set_prototypes.jsp" />
-		<portlet:param name="redirect" value="<%= currentURL %>" />
-	</liferay-portlet:renderURL>
-
-	<liferay-frontend:add-menu>
-		<liferay-frontend:add-menu-item title='<%= LanguageUtil.get(request, "add") %>' url="<%= addSiteURL.toString() %>" />
-	</liferay-frontend:add-menu>
-</c:if>
-
 <%!
 private static Log _log = LogFactoryUtil.getLog("com_liferay_site_admin_web.view_jsp");
 %>
