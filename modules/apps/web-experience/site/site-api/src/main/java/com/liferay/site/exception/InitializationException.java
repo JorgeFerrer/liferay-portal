@@ -12,27 +12,31 @@
  * details.
  */
 
-package com.liferay.site.util;
+package com.liferay.site.exception;
 
-import com.liferay.site.exception.InitializationException;
+import aQute.bnd.annotation.ProviderType;
 
-import java.util.Locale;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Alessio Antonio Rendina
  */
-public interface GroupStarterKit {
+@ProviderType
+public class InitializationException extends PortalException {
 
-	public String getDescription(Locale locale);
+	public InitializationException() {
+	}
 
-	public String getKey();
+	public InitializationException(String msg) {
+		super(msg);
+	}
 
-	public String getName(Locale locale);
+	public InitializationException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
 
-	public String getThumbnailSrc();
-
-	public void initialize(long groupId) throws InitializationException;
-
-	public boolean isActive(long companyId);
+	public InitializationException(Throwable cause) {
+		super(cause);
+	}
 
 }
