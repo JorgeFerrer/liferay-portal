@@ -14,6 +14,8 @@
 
 package com.liferay.site.util;
 
+import java.util.Locale;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
@@ -25,17 +27,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface GroupCreationStep {
 
-	public String getLabel(HttpServletRequest httpServletRequest);
+	public String getLabel(Locale locale);
 
 	public String getName();
 
-	public boolean isActive(
-			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws Exception;
+	public boolean isActive(long groupId);
 
 	public void processAction(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			boolean create)
 		throws Exception;
 
 	public void render(

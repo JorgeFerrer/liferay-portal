@@ -22,34 +22,25 @@ import com.liferay.portal.kernel.exception.GroupParentException;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
-import com.liferay.portal.kernel.service.GroupService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.site.admin.web.internal.constants.SiteAdminConstants;
-import com.liferay.site.constants.SiteWebKeys;
 import com.liferay.site.util.GroupCreationStep;
-import com.liferay.site.util.GroupStarterKit;
-import com.liferay.site.util.GroupStarterKitRegistry;
-import com.liferay.sites.kernel.util.SitesUtil;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -60,8 +51,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"group.creation.step.name=" + SiteNameGroupCreationStep.NAME,
-		"group.creation.step.order:Integer=10"
+		"group.creation.step.display.order:Integer=10",
+		"group.creation.step.name=" + SiteNameGroupCreationStep.NAME
 	},
 	service = GroupCreationStep.class
 )
@@ -70,8 +61,11 @@ public class SiteNameGroupCreationStep implements GroupCreationStep {
 	public static final String NAME = "site-name";
 
 	@Override
-	public String getLabel(HttpServletRequest httpServletRequest) {
-		return LanguageUtil.get(httpServletRequest, getName());
+	public String getLabel(Locale locale) {
+		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
+			"content.Language", locale, getClass());
+
+		return LanguageUtil.get(resourceBundle, getName());
 	}
 
 	@Override
@@ -80,21 +74,28 @@ public class SiteNameGroupCreationStep implements GroupCreationStep {
 	}
 
 	@Override
-	public boolean isActive(
-			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws Exception {
-
+	public boolean isActive(long groupId) {
 		return true;
 	}
 
 	@Override
 	public void processAction(
-			ActionRequest actionRequest, ActionResponse actionResponse)
+			ActionRequest actionRequest, ActionResponse actionResponse,
+			boolean create)
 		throws Exception {
 
+		Group group = null;
+
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+
 		try {
-			updateGroup(actionRequest);
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				Group.class.getName(), actionRequest);
+
+			ServiceContextThreadLocal.pushServiceContext(serviceContext);
+
+			group = _siteAdminPortletHelper.updateGroup(
+				actionRequest, serviceContext, create);
 		}
 		catch (Exception e) {
 			if (e instanceof NoSuchGroupException ||
@@ -114,8 +115,7 @@ public class SiteNameGroupCreationStep implements GroupCreationStep {
 
 				SessionErrors.add(actionRequest, e.getClass());
 
-				String redirect = ParamUtil.getString(
-					actionRequest, "currentURL");
+				redirect = ParamUtil.getString(actionRequest, "currentURL");
 
 				actionResponse.sendRedirect(redirect);
 
@@ -125,7 +125,9 @@ public class SiteNameGroupCreationStep implements GroupCreationStep {
 			throw e;
 		}
 
-		String redirect = ParamUtil.getString(actionRequest, "redirect");
+		if (group != null) {
+			redirect = getRedirect(actionResponse, group, redirect);
+		}
 
 		actionResponse.sendRedirect(redirect);
 	}
@@ -141,96 +143,34 @@ public class SiteNameGroupCreationStep implements GroupCreationStep {
 			"/site_wizard/site_name.jsp");
 	}
 
-	protected void setSessionAttribute(
-		Group group, HttpServletRequest httpServletRequest) {
+	protected String getRedirect(
+		ActionResponse actionResponse, Group group, String portletURL) {
 
-		HttpSession httpSession = httpServletRequest.getSession();
+		StringBundler keySB = new StringBundler(5);
 
-		if (group != null) {
-			httpSession.setAttribute(SiteWebKeys.GROUP_ID, group.getGroupId());
+		keySB.append(StringPool.AMPERSAND);
+		keySB.append(actionResponse.getNamespace());
+		keySB.append("groupId");
+
+		if (portletURL.contains(keySB.toString())) {
+			return portletURL;
 		}
+
+		keySB.append(StringPool.EQUAL);
+		keySB.append(group.getGroupId());
+
+		StringBundler redirectSB = new StringBundler(2);
+
+		redirectSB.append(portletURL);
+		redirectSB.append(keySB.toString());
+
+		return redirectSB.toString();
 	}
-
-	protected Group updateGroup(ActionRequest actionRequest) throws Exception {
-		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
-			actionRequest);
-
-		long groupId = ParamUtil.getLong(actionRequest, "groupId");
-
-		String creationType = ParamUtil.getString(
-			actionRequest, "creationType");
-		String groupStarterKitKey = ParamUtil.getString(
-			actionRequest, "groupStarterKitKey");
-		long layoutSetPrototypeId = ParamUtil.getLong(
-			actionRequest, "layoutSetPrototypeId");
-		long parentGroupId = ParamUtil.getLong(
-			actionRequest, "parentGroupSearchContainerPrimaryKeys",
-			GroupConstants.DEFAULT_PARENT_GROUP_ID);
-		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
-			actionRequest, "name");
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			Group.class.getName(), actionRequest);
-
-		Group group = null;
-
-		if (groupId <= 0) {
-			group = _groupService.addGroup(
-				parentGroupId, GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap,
-				new HashMap<Locale, String>(), GroupConstants.TYPE_SITE_OPEN,
-				true, GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION,
-				StringPool.BLANK, true, true, serviceContext);
-		}
-		else {
-			Group oldGroup = _groupService.getGroup(groupId);
-
-			group = _groupService.updateGroup(
-				groupId, parentGroupId, nameMap, oldGroup.getDescriptionMap(),
-				oldGroup.getType(), oldGroup.getManualMembership(),
-				oldGroup.getMembershipRestriction(), oldGroup.getFriendlyURL(),
-				oldGroup.getInheritContent(), oldGroup.getActive(),
-				serviceContext);
-		}
-
-		if (creationType.equals(SiteAdminConstants.CREATION_TYPE_STARTER_KIT) &&
-			Validator.isNotNull(groupStarterKitKey)) {
-
-			GroupStarterKit groupStarterKit =
-				_groupStarterKitRegistry.getGroupStarterKit(groupStarterKitKey);
-
-			groupStarterKit.initialize(group.getGroupId());
-		}
-
-		if (creationType.equals(
-				SiteAdminConstants.CREATION_TYPE_SITE_TEMPLATE) &&
-			(layoutSetPrototypeId > 0)) {
-
-			if (!group.isStaged() || group.isStagedRemotely()) {
-				SitesUtil.updateLayoutSetPrototypesLinks(
-					group, layoutSetPrototypeId, 0L, true, false);
-			}
-			else {
-				SitesUtil.updateLayoutSetPrototypesLinks(
-					group.getStagingGroup(), layoutSetPrototypeId, 0L, true,
-					false);
-			}
-		}
-
-		setSessionAttribute(group, httpServletRequest);
-
-		return group;
-	}
-
-	@Reference
-	private GroupService _groupService;
-
-	@Reference
-	private GroupStarterKitRegistry _groupStarterKitRegistry;
 
 	@Reference
 	private JSPRenderer _jspRenderer;
 
 	@Reference
-	private Portal _portal;
+	private SiteAdminPortletHelper _siteAdminPortletHelper;
 
 }
