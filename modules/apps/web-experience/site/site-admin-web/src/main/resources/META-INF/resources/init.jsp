@@ -115,6 +115,7 @@ page import="com.liferay.site.admin.web.internal.constants.SiteAdminConstants" %
 page import="com.liferay.site.admin.web.internal.constants.SiteAdminPortletKeys" %><%@
 page import="com.liferay.site.admin.web.internal.constants.SiteAdminWebKeys" %><%@
 page import="com.liferay.site.admin.web.internal.display.context.SiteAdminDisplayContext" %><%@
+page import="com.liferay.site.admin.web.internal.display.context.SiteCreationWizardDisplayContext" %><%@
 page import="com.liferay.site.constants.SiteWebKeys" %><%@
 page import="com.liferay.site.util.GroupCreationStep" %><%@
 page import="com.liferay.site.util.GroupStarterKit" %><%@
@@ -141,7 +142,9 @@ page import="javax.portlet.WindowState" %>
 <portlet:defineObjects />
 
 <%
-SiteAdminDisplayContext siteAdminDisplayContext = new SiteAdminDisplayContext(request, response, liferayPortletRequest, liferayPortletResponse);
+SiteAdminDisplayContext siteAdminDisplayContext = new SiteAdminDisplayContext(request, liferayPortletRequest, liferayPortletResponse);
+
+SiteCreationWizardDisplayContext siteCreationWizardDisplayContext = new SiteCreationWizardDisplayContext(request, response, liferayPortletResponse);
 
 portletDisplay.setShowStagingIcon(false);
 
