@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.site.internal.util.comparator;
+package com.liferay.site.admin.web.internal.util.comparator;
 
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
 import com.liferay.portal.kernel.util.MapUtil;
@@ -25,14 +25,16 @@ import java.util.Comparator;
 /**
  * @author Alessio Antonio Rendina
  */
-public class GroupCreationStepServiceWrapperOrderComparator
+public class GroupCreationStepServiceWrapperDisplayOrderComparator
 	implements Comparator<ServiceWrapper<GroupCreationStep>>, Serializable {
 
-	public GroupCreationStepServiceWrapperOrderComparator() {
+	public GroupCreationStepServiceWrapperDisplayOrderComparator() {
 		this(true);
 	}
 
-	public GroupCreationStepServiceWrapperOrderComparator(boolean ascending) {
+	public GroupCreationStepServiceWrapperDisplayOrderComparator(
+		boolean ascending) {
+
 		_ascending = ascending;
 	}
 
@@ -54,7 +56,7 @@ public class GroupCreationStepServiceWrapperOrderComparator
 			return value;
 		}
 		else {
-			return Math.negateExact(value);
+			return -value;
 		}
 	}
 

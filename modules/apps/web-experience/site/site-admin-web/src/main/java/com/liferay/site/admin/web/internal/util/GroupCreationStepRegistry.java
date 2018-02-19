@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.site.internal.util;
+package com.liferay.site.admin.web.internal.util;
 
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
@@ -22,17 +22,13 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.site.internal.util.comparator.GroupCreationStepServiceWrapperOrderComparator;
+import com.liferay.site.admin.web.internal.util.comparator.GroupCreationStepServiceWrapperDisplayOrderComparator;
 import com.liferay.site.util.GroupCreationStep;
-import com.liferay.site.util.GroupCreationStepRegistry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
@@ -42,11 +38,9 @@ import org.osgi.service.component.annotations.Deactivate;
 /**
  * @author Alessio Antonio Rendina
  */
-@Component(immediate = true)
-public class GroupCreationStepRegistryImpl
-	implements GroupCreationStepRegistry {
+@Component(immediate = true, service = GroupCreationStepRegistry.class)
+public class GroupCreationStepRegistry {
 
-	@Override
 	public GroupCreationStep getGroupCreationStep(
 		String groupCreationStepName) {
 
@@ -71,12 +65,7 @@ public class GroupCreationStepRegistryImpl
 		return groupCreationStepServiceWrapper.getService();
 	}
 
-	@Override
-	public List<GroupCreationStep> getGroupCreationSteps(
-			HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws Exception {
-
+	public List<GroupCreationStep> getGroupCreationSteps(long groupId) {
 		List<GroupCreationStep> groupCreationSteps = new ArrayList<>();
 
 		List<ServiceWrapper<GroupCreationStep>>
@@ -93,68 +82,12 @@ public class GroupCreationStepRegistryImpl
 			GroupCreationStep groupCreationStep =
 				groupCreationStepServiceWrapper.getService();
 
-			if (groupCreationStep.isActive(
-					httpServletRequest, httpServletResponse)) {
-
+			if (groupCreationStep.isActive(groupId)) {
 				groupCreationSteps.add(groupCreationStep);
 			}
 		}
 
 		return Collections.unmodifiableList(groupCreationSteps);
-	}
-
-	@Override
-	public GroupCreationStep getNextGroupCreationStep(
-			String groupCreationStepName, HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws Exception {
-
-		if (Validator.isNull(groupCreationStepName)) {
-			return null;
-		}
-
-		List<GroupCreationStep> groupCreationSteps = getGroupCreationSteps(
-			httpServletRequest, httpServletResponse);
-
-		GroupCreationStep groupCreationStep = getGroupCreationStep(
-			groupCreationStepName);
-
-		int groupCreationStepIndex = groupCreationSteps.indexOf(
-			groupCreationStep);
-
-		if ((groupCreationStepIndex >= 0) &&
-			(groupCreationStepIndex < (groupCreationSteps.size() - 1))) {
-
-			return groupCreationSteps.get(groupCreationStepIndex + 1);
-		}
-
-		return null;
-	}
-
-	@Override
-	public GroupCreationStep getPreviousGroupCreationStep(
-			String groupCreationStepName, HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse)
-		throws Exception {
-
-		if (Validator.isNull(groupCreationStepName)) {
-			return null;
-		}
-
-		List<GroupCreationStep> groupCreationSteps = getGroupCreationSteps(
-			httpServletRequest, httpServletResponse);
-
-		GroupCreationStep groupCreationStep = getGroupCreationStep(
-			groupCreationStepName);
-
-		int groupCreationStepIndex = groupCreationSteps.indexOf(
-			groupCreationStep);
-
-		if (groupCreationStepIndex > 0) {
-			return groupCreationSteps.get(groupCreationStepIndex - 1);
-		}
-
-		return null;
 	}
 
 	@Activate
@@ -173,12 +106,12 @@ public class GroupCreationStepRegistryImpl
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		GroupCreationStepRegistryImpl.class);
+		GroupCreationStepRegistry.class);
 
 	private ServiceTrackerMap<String, ServiceWrapper<GroupCreationStep>>
 		_groupCreationStepServiceTrackerMap;
 	private final Comparator<ServiceWrapper<GroupCreationStep>>
 		_groupCreationStepServiceWrapperDisplayOrderComparator =
-			new GroupCreationStepServiceWrapperOrderComparator();
+			new GroupCreationStepServiceWrapperDisplayOrderComparator();
 
 }

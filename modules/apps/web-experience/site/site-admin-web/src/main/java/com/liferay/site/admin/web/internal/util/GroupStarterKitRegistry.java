@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.site.internal.util;
+package com.liferay.site.admin.web.internal.util;
 
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
@@ -22,9 +22,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.site.internal.util.comparator.GroupStarterKitServiceWrapperOrderComparator;
+import com.liferay.site.admin.web.internal.util.comparator.GroupStarterKitServiceWrapperDisplayOrderComparator;
 import com.liferay.site.util.GroupStarterKit;
-import com.liferay.site.util.GroupStarterKitRegistry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,10 +38,9 @@ import org.osgi.service.component.annotations.Deactivate;
 /**
  * @author Alessio Antonio Rendina
  */
-@Component(immediate = true)
-public class GroupStarterKitRegistryImpl implements GroupStarterKitRegistry {
+@Component(immediate = true, service = GroupStarterKitRegistry.class)
+public class GroupStarterKitRegistry {
 
-	@Override
 	public GroupStarterKit getGroupStarterKit(String key) {
 		if (Validator.isNull(key)) {
 			return null;
@@ -62,12 +60,10 @@ public class GroupStarterKitRegistryImpl implements GroupStarterKitRegistry {
 		return groupStarterKitServiceWrapper.getService();
 	}
 
-	@Override
 	public List<GroupStarterKit> getGroupStarterKits(long companyId) {
 		return getGroupStarterKits(companyId, false);
 	}
 
-	@Override
 	public List<GroupStarterKit> getGroupStarterKits(
 		long companyId, boolean active) {
 
@@ -94,60 +90,6 @@ public class GroupStarterKitRegistryImpl implements GroupStarterKitRegistry {
 		return Collections.unmodifiableList(groupStarterKits);
 	}
 
-	@Override
-	public GroupStarterKit getNextGroupStarterKit(
-		long companyId, String groupStarterKitkey, boolean active) {
-
-		if (Validator.isNull(groupStarterKitkey)) {
-			return null;
-		}
-
-		List<GroupStarterKit> groupStarterKits = getGroupStarterKits(
-			companyId, active);
-
-		GroupStarterKit groupStarterKit = getGroupStarterKit(
-			groupStarterKitkey);
-
-		int groupStarterKeyIndex = groupStarterKits.indexOf(groupStarterKit);
-
-		if (groupStarterKeyIndex >= 0) {
-			if (groupStarterKeyIndex >= (groupStarterKits.size() - 1)) {
-				return groupStarterKits.get(0);
-			}
-
-			return groupStarterKits.get(groupStarterKeyIndex + 1);
-		}
-
-		return null;
-	}
-
-	@Override
-	public GroupStarterKit getPreviousGroupStarterKit(
-		long companyId, String groupStarterKitkey, boolean active) {
-
-		if (Validator.isNull(groupStarterKitkey)) {
-			return null;
-		}
-
-		List<GroupStarterKit> groupStarterKits = getGroupStarterKits(
-			companyId, active);
-
-		GroupStarterKit groupStarterKit = getGroupStarterKit(
-			groupStarterKitkey);
-
-		int groupStarterKeyIndex = groupStarterKits.indexOf(groupStarterKit);
-
-		if (groupStarterKeyIndex > 0) {
-			return groupStarterKits.get(groupStarterKeyIndex - 1);
-		}
-
-		if (groupStarterKeyIndex == 0) {
-			return groupStarterKits.get(groupStarterKits.size() - 1);
-		}
-
-		return null;
-	}
-
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		_serviceTrackerMap = ServiceTrackerMapFactory.openSingleValueMap(
@@ -162,11 +104,11 @@ public class GroupStarterKitRegistryImpl implements GroupStarterKitRegistry {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		GroupStarterKitRegistryImpl.class);
+		GroupStarterKitRegistry.class);
 
 	private static final Comparator<ServiceWrapper<GroupStarterKit>>
 		_groupStarterKitServiceWrapperOrderComparator =
-			new GroupStarterKitServiceWrapperOrderComparator();
+			new GroupStarterKitServiceWrapperDisplayOrderComparator();
 
 	private ServiceTrackerMap<String, ServiceWrapper<GroupStarterKit>>
 		_serviceTrackerMap;

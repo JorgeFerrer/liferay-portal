@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.site.internal.util.comparator;
+package com.liferay.site.admin.web.internal.util.comparator;
 
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerCustomizerFactory.ServiceWrapper;
 import com.liferay.portal.kernel.util.MapUtil;
@@ -25,14 +25,16 @@ import java.util.Comparator;
 /**
  * @author Alessio Antonio Rendina
  */
-public class GroupStarterKitServiceWrapperOrderComparator
+public class GroupStarterKitServiceWrapperDisplayOrderComparator
 	implements Comparator<ServiceWrapper<GroupStarterKit>>, Serializable {
 
-	public GroupStarterKitServiceWrapperOrderComparator() {
+	public GroupStarterKitServiceWrapperDisplayOrderComparator() {
 		this(true);
 	}
 
-	public GroupStarterKitServiceWrapperOrderComparator(boolean ascending) {
+	public GroupStarterKitServiceWrapperDisplayOrderComparator(
+		boolean ascending) {
+
 		_ascending = ascending;
 	}
 
@@ -42,10 +44,10 @@ public class GroupStarterKitServiceWrapperOrderComparator
 		ServiceWrapper<GroupStarterKit> serviceWrapper2) {
 
 		int priority1 = MapUtil.getInteger(
-			serviceWrapper1.getProperties(), "group.starter.kit.order",
+			serviceWrapper1.getProperties(), "group.starter.kit.display.order",
 			Integer.MAX_VALUE);
 		int priority2 = MapUtil.getInteger(
-			serviceWrapper2.getProperties(), "group.starter.kit.order",
+			serviceWrapper2.getProperties(), "group.starter.kit.display.order",
 			Integer.MAX_VALUE);
 
 		int value = Integer.compare(priority1, priority2);
@@ -54,7 +56,7 @@ public class GroupStarterKitServiceWrapperOrderComparator
 			return value;
 		}
 		else {
-			return Math.negateExact(value);
+			return -value;
 		}
 	}
 
