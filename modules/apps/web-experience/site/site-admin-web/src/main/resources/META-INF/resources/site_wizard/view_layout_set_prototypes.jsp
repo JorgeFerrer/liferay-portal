@@ -25,7 +25,7 @@ long parentGroupSearchContainerPrimaryKeys = ParamUtil.getLong(request, "parentG
 
 SearchContainer<LayoutSetPrototype> layoutSetPrototypeSearchContainer = new SearchContainer<>(liferayPortletRequest, currentURLObj, null, "there-are-no-site-templates");
 
-List<LayoutSetPrototype> layoutSetPrototypes = siteAdminDisplayContext.getLayoutSetPrototypes();
+List<LayoutSetPrototype> layoutSetPrototypes = siteCreationWizardDisplayContext.getLayoutSetPrototypes();
 
 int indexFrom = layoutSetPrototypeSearchContainer.getStart();
 int indexTo = layoutSetPrototypeSearchContainer.getEnd();
@@ -67,7 +67,7 @@ portletDisplay.setURLBack(backURL);
 				<liferay-portlet:renderURL varImpl="addSiteURL">
 					<portlet:param name="jspPage" value="/site_creation_wizard.jsp" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
-					<portlet:param name="groupId" value="<%= String.valueOf(siteAdminDisplayContext.getGroupId()) %>" />
+					<portlet:param name="groupId" value="<%= String.valueOf(siteCreationWizardDisplayContext.getGroupId()) %>" />
 					<portlet:param name="layoutSetPrototypeId" value="<%= String.valueOf(layoutSetPrototype.getLayoutSetPrototypeId()) %>" />
 					<portlet:param name="parentGroupSearchContainerPrimaryKeys" value="<%= String.valueOf(parentGroupSearchContainerPrimaryKeys) %>" />
 					<portlet:param name="creationType" value="<%= SiteAdminConstants.CREATION_TYPE_SITE_TEMPLATE %>" />

@@ -17,9 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-long groupId = (Long)session.getAttribute(SiteWebKeys.GROUP_ID);
-
-Group group = GroupLocalServiceUtil.getGroup(groupId);
+Group group = siteCreationWizardDisplayContext.getGroup();
 
 GroupURLProvider groupURLProvider = (GroupURLProvider)request.getAttribute(SiteWebKeys.GROUP_URL_PROVIDER);
 
@@ -34,7 +32,7 @@ portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
 %>
 
-<liferay-ui:success key='<%= SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed" %>' message="<%= siteAdminDisplayContext.getSummarySuccessMessage(viewSiteSettingsURL.toString()) %>" />
+<liferay-ui:success key='<%= SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed" %>' message="<%= siteCreationWizardDisplayContext.getSummarySuccessMessage(viewSiteSettingsURL.toString()) %>" />
 
 <div class="breadcrumb-container">
 	<div class="container-fluid-1280">
