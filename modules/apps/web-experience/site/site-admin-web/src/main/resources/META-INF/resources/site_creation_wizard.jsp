@@ -43,12 +43,7 @@ if (creationType.equals(SiteAdminConstants.CREATION_TYPE_STARTER_KIT)) {
 	creationTypeLabel = LanguageUtil.get(request, "starter-kits");
 }
 
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites"), mainURL.toString());
-PortalUtil.addPortletBreadcrumbEntry(request, creationTypeLabel, backURL);
-
 String currentCreationStepLabel = siteCreationWizardDisplayContext.getCurrentCreationStepLabel();
-
-PortalUtil.addPortletBreadcrumbEntry(request, currentCreationStepLabel, StringPool.BLANK);
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL.toString());
@@ -57,12 +52,6 @@ renderResponse.setTitle("add-new-site");
 %>
 
 <portlet:actionURL name="saveCreationStep" var="saveCreationStepURL" />
-
-<div class="breadcrumb-container">
-	<div class="container-fluid-1280">
-		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-	</div>
-</div>
 
 <div class="container-fluid-1280">
 	<%@ include file="/site_wizard/wizard_steps.jspf" %>
