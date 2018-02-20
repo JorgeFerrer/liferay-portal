@@ -25,20 +25,11 @@ String viewSiteURL = groupURLProvider.getGroupURL(group, liferayPortletRequest);
 
 PortletURL viewSiteSettingsURL = PortalUtil.getControlPanelPortletURL(request, group, SiteAdminPortletKeys.SITE_SETTINGS, 0, 0, PortletRequest.RENDER_PHASE);
 
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites"), mainURL.toString());
-PortalUtil.addPortletBreadcrumbEntry(request, group.getDescriptiveName(locale), StringPool.BLANK);
-
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(String.valueOf(renderResponse.createRenderURL()));
 %>
 
 <liferay-ui:success key='<%= SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed" %>' message="<%= siteCreationWizardDisplayContext.getSummarySuccessMessage(viewSiteSettingsURL.toString()) %>" />
-
-<div class="breadcrumb-container">
-	<div class="container-fluid-1280">
-		<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-	</div>
-</div>
 
 <div class="container-fluid-1280">
 	<div class="col-md-8 offset-md-2 site-creation-container">
