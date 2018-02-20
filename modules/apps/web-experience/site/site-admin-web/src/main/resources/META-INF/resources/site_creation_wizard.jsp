@@ -103,7 +103,7 @@ portletDisplay.setURLBack(backURL.toString());
 			<aui:button-row>
 				<c:choose>
 					<c:when test="<%= (groupCreationSteps.size() == 1) %>">
-						<aui:button cssClass="btn-lg btn-primary" name="nextCreationStepButton" primary="<%= true %>" value="apply" type="submit"/>
+						<aui:button cssClass="btn-lg btn-primary" name="nextCreationStepButton" primary="<%= true %>" value="create" type="submit"/>
 
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 					</c:when>
@@ -120,12 +120,12 @@ portletDisplay.setURLBack(backURL.toString());
 
 						<aui:button cssClass="btn-lg" href="<%= previousCreationStepURL %>" type="cancel" value="previous" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' type="submit" />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "create" : "next" %>' type="submit" />
 					</c:when>
 					<c:otherwise>
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' type="submit" />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "create" : "next" %>' type="submit" />
 					</c:otherwise>
 				</c:choose>
 			</aui:button-row>
