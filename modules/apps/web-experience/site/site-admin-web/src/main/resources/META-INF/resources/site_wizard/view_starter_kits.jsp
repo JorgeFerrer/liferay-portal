@@ -90,7 +90,7 @@ portletDisplay.setURLBack(backURL);
 						title="<%= groupStarterKit.getName(locale) %>"
 					/>
 
-					<aui:button cssClass="hide starter-kit-apply-button" href="<%= addSiteURL.toString() %>" value="apply" />
+					<aui:button cssClass="hide starter-kit-select-button" href="<%= addSiteURL.toString() %>" value="select" />
 
 					<liferay-portlet:renderURL var="renderPreviewURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 						<portlet:param name="jspPage" value="/starter_kit/details.jsp" />
@@ -159,7 +159,7 @@ portletDisplay.setURLBack(backURL);
 
 		$('.starter-kit-card').hover(
 			function() {
-				var applyButton = $(this).find('.starter-kit-apply-button');
+				var applyButton = $(this).find('.starter-kit-select-button');
 				var detailsButton = $(this).find('.starter-kit-details-button');
 				var card = $(this).find('.taglib-vertical-card');
 
@@ -168,7 +168,7 @@ portletDisplay.setURLBack(backURL);
 				card.css('opacity', '0.5');
 			},
 			function() {
-				var applyButton = $(this).find('.starter-kit-apply-button');
+				var applyButton = $(this).find('.starter-kit-select-button');
 				var detailsButton = $(this).find('.starter-kit-details-button');
 				var card = $(this).find('.taglib-vertical-card');
 
