@@ -42,6 +42,8 @@ PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "site-te
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL);
+
+renderResponse.setTitle("add-new-site");
 %>
 
 <%@ include file="/site_wizard/navigation.jspf" %>
