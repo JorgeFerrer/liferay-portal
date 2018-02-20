@@ -64,7 +64,7 @@ portletDisplay.setURLBack(backURL);
 				modelVar="groupStarterKit"
 			>
 				<liferay-portlet:renderURL varImpl="addSiteURL">
-					<portlet:param name="jspPath" value="/site_creation_wizard.jsp" />
+					<portlet:param name="jspPage" value="/site_creation_wizard.jsp" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="groupId" value="<%= String.valueOf(siteCreationWizardDisplayContext.getGroupId()) %>" />
 					<portlet:param name="parentGroupSearchContainerPrimaryKeys" value="<%= String.valueOf(parentGroupSearchContainerPrimaryKeys) %>" />
