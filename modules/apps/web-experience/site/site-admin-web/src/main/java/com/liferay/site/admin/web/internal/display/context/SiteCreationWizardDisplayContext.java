@@ -92,7 +92,7 @@ public class SiteCreationWizardDisplayContext {
 		String groupCreationStepName = getNextCreationStepName();
 
 		if (Validator.isNull(groupCreationStepName)) {
-			portletURL.setParameter("jspPage", "/summary.jsp");
+			portletURL.setParameter("jspPage", "/site_wizard/summary.jsp");
 
 			String redirect = ParamUtil.getString(_request, "redirect");
 
@@ -107,7 +107,8 @@ public class SiteCreationWizardDisplayContext {
 			}
 		}
 		else {
-			portletURL.setParameter("jspPage", "/site_creation_wizard.jsp");
+			portletURL.setParameter(
+				"jspPage", "/site_wizard/site_creation_wizard.jsp");
 
 			String redirect = ParamUtil.getString(_request, "redirect");
 
