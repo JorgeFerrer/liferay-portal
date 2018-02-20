@@ -91,7 +91,7 @@ portletDisplay.setURLBack(backURL);
 						</liferay-frontend:vertical-card-footer>
 					</liferay-frontend:icon-vertical-card>
 
-					<aui:button cssClass="hide site-template-button" href="<%= addSiteURL.toString() %>" value="apply" />
+					<aui:button cssClass="hide site-template-button" href="<%= addSiteURL.toString() %>" value="select" />
 				</liferay-ui:search-container-column-text>
 			</liferay-ui:search-container-row>
 
