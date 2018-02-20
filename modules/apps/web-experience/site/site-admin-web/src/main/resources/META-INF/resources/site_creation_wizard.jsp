@@ -103,7 +103,7 @@ portletDisplay.setURLBack(backURL.toString());
 			<aui:button-row>
 				<c:choose>
 					<c:when test="<%= (groupCreationSteps.size() == 1) %>">
-						<aui:button cssClass="btn-lg btn-primary" name="nextCreationStepButton" primary="<%= true %>" value="apply" />
+						<aui:button cssClass="btn-lg btn-primary" name="nextCreationStepButton" primary="<%= true %>" value="apply" type="submit"/>
 
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 					</c:when>
@@ -120,46 +120,15 @@ portletDisplay.setURLBack(backURL.toString());
 
 						<aui:button cssClass="btn-lg" href="<%= previousCreationStepURL %>" type="cancel" value="previous" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' type="submit" />
 					</c:when>
 					<c:otherwise>
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "apply" : "next" %>' type="submit" />
 					</c:otherwise>
 				</c:choose>
 			</aui:button-row>
 		</aui:form>
 	</div>
 </div>
-
-<aui:script use="aui-base, aui-loading-mask-deprecated">
-	A.one('#<portlet:namespace/>nextCreationStepButton').on(
-		'click',
-		function(event) {
-			event.preventDefault();
-
-			var lastGroupCreationStep = <%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>
-
-			if (lastGroupCreationStep) {
-				if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-continue-all-contents-will-be-deleted") %>')) {
-					var loadingMask = new A.LoadingMask(
-						{
-							'strings.loading' : '<%= UnicodeLanguageUtil.get(request, "this-may-take-several-minutes") %>',
-							target : A.getBody()
-						}
-					);
-
-					loadingMask.show();
-
-					submitForm(document.<portlet:namespace />fm);
-
-					loadingMask.hide();
-				}
-			}
-			else {
-				submitForm(document.<portlet:namespace />fm);
-			}
-		}
-	);
-</aui:script>
