@@ -52,6 +52,8 @@ PortalUtil.addPortletBreadcrumbEntry(request, currentCreationStepLabel, StringPo
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL.toString());
+
+renderResponse.setTitle("add-new-site");
 %>
 
 <portlet:actionURL name="saveCreationStep" var="saveCreationStepURL" />
