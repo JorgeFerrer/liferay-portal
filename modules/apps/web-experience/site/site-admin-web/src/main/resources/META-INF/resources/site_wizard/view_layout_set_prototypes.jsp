@@ -37,9 +37,6 @@ if (indexTo > layoutSetPrototypes.size()) {
 layoutSetPrototypeSearchContainer.setResults(layoutSetPrototypes.subList(indexFrom, indexTo));
 layoutSetPrototypeSearchContainer.setTotal(layoutSetPrototypes.size());
 
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites"), mainURL.toString());
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "site-templates"), StringPool.BLANK);
-
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL);
 
@@ -49,12 +46,6 @@ renderResponse.setTitle("add-new-site");
 <%@ include file="/site_wizard/navigation.jspf" %>
 
 <c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_COMMUNITY) %>">
-	<div class="breadcrumb-container">
-		<div class="container-fluid-1280">
-			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-		</div>
-	</div>
-
 	<div class="container-fluid-1280">
 		<liferay-ui:search-container
 			searchContainer="<%= layoutSetPrototypeSearchContainer %>"
