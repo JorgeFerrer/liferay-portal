@@ -80,7 +80,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
@@ -91,7 +90,12 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.liveusers.LiveUsers;
 import com.liferay.site.admin.web.internal.constants.SiteAdminPortletKeys;
+import com.liferay.site.admin.web.internal.util.GroupCreationStepHelper;
+import com.liferay.site.admin.web.internal.util.GroupCreationStepRegistry;
+import com.liferay.site.admin.web.internal.util.GroupStarterKitRegistry;
+import com.liferay.site.admin.web.internal.util.SiteAdminPortletHelper;
 import com.liferay.site.constants.SiteWebKeys;
+import com.liferay.site.util.GroupCreationStep;
 import com.liferay.site.util.GroupSearchProvider;
 import com.liferay.site.util.GroupURLProvider;
 import com.liferay.sites.kernel.util.Sites;
@@ -102,8 +106,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -121,6 +123,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -128,6 +131,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-site-admin",
 		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.icon=/icons/site_admin.png",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.private-request-attributes=false",
@@ -315,16 +319,40 @@ public class SiteAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void saveCreationStep(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Throwable {
+
+		String creationStepName = ParamUtil.getString(
+			actionRequest, "creationStepName");
+
+		GroupCreationStep groupCreationStep =
+			groupCreationStepRegistry.getGroupCreationStep(creationStepName);
+
+		long groupId = siteAdminPortletHelper.getGroupId(actionRequest);
+
+		boolean lastGroupCreationStep =
+			groupCreationStepHelper.isLastGroupCreationStep(
+				groupId, creationStepName);
+
+		boolean create = ParamUtil.getBoolean(
+			actionRequest, "createSite", lastGroupCreationStep);
+
+		groupCreationStep.processAction(actionRequest, actionResponse, create);
+
+		hideDefaultSuccessMessage(actionRequest);
+
+		MultiSessionMessages.add(
+			actionRequest,
+			SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed");
+	}
+
 	@Override
 	protected void doDispatch(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		renderRequest.setAttribute(
-			SiteWebKeys.GROUP_SEARCH_PROVIDER, groupSearchProvider);
-
-		renderRequest.setAttribute(
-			SiteWebKeys.GROUP_URL_PROVIDER, groupURLProvider);
+		setRenderAttributes(renderRequest);
 
 		if (SessionErrors.contains(
 				renderRequest, NoSuchBackgroundTaskException.class.getName()) ||
@@ -553,6 +581,27 @@ public class SiteAdminPortlet extends MVCPortlet {
 		this.membershipRequestService = membershipRequestService;
 	}
 
+	protected void setRenderAttributes(RenderRequest renderRequest) {
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_CREATION_STEP_HELPER, groupCreationStepHelper);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_CREATION_STEP_REGISTRY,
+			groupCreationStepRegistry);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_SEARCH_PROVIDER, groupSearchProvider);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_STARTER_KIT_REGISTRY, groupStarterKitRegistry);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_URL_PROVIDER, groupURLProvider);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.SITE_ADMIN_PORTLET_HELPER, siteAdminPortletHelper);
+	}
+
 	@Reference(unbind = "-")
 	protected void setRoleLocalService(RoleLocalService roleLocalService) {
 		this.roleLocalService = roleLocalService;
@@ -607,111 +656,31 @@ public class SiteAdminPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long userId = portal.getUserId(actionRequest);
-
 		long liveGroupId = ParamUtil.getLong(actionRequest, "liveGroupId");
-
-		long parentGroupId = ParamUtil.getLong(
-			actionRequest, "parentGroupSearchContainerPrimaryKeys",
-			GroupConstants.DEFAULT_PARENT_GROUP_ID);
-		Map<Locale, String> nameMap = null;
-		Map<Locale, String> descriptionMap = null;
-		int type = 0;
-		String friendlyURL = null;
-		boolean inheritContent = false;
-		boolean active = false;
-		boolean manualMembership = true;
-
-		int membershipRestriction =
-			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION;
-
-		boolean actionRequestMembershipRestriction = ParamUtil.getBoolean(
-			actionRequest, "membershipRestriction");
-
-		if (actionRequestMembershipRestriction &&
-			(parentGroupId != GroupConstants.DEFAULT_PARENT_GROUP_ID)) {
-
-			membershipRestriction =
-				GroupConstants.MEMBERSHIP_RESTRICTION_TO_PARENT_SITE_MEMBERS;
-		}
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			Group.class.getName(), actionRequest);
 
 		ServiceContextThreadLocal.pushServiceContext(serviceContext);
 
-		Group liveGroup = null;
+		Group liveGroup = siteAdminPortletHelper.updateGroup(
+			actionRequest, serviceContext);
 
-		if (liveGroupId <= 0) {
+		if (liveGroup.getType() == GroupConstants.TYPE_SITE_OPEN) {
+			List<MembershipRequest> membershipRequests =
+				membershipRequestLocalService.search(
+					liveGroupId, MembershipRequestConstants.STATUS_PENDING,
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
-			// Add group
+			for (MembershipRequest membershipRequest : membershipRequests) {
+				membershipRequestService.updateStatus(
+					membershipRequest.getMembershipRequestId(),
+					themeDisplay.translate("your-membership-has-been-approved"),
+					MembershipRequestConstants.STATUS_APPROVED, serviceContext);
 
-			nameMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "name");
-			descriptionMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "description");
-			type = ParamUtil.getInteger(actionRequest, "type");
-			friendlyURL = ParamUtil.getString(actionRequest, "friendlyURL");
-			manualMembership = ParamUtil.getBoolean(
-				actionRequest, "manualMembership");
-			inheritContent = ParamUtil.getBoolean(
-				actionRequest, "inheritContent");
-			active = ParamUtil.getBoolean(actionRequest, "active");
-
-			liveGroup = groupService.addGroup(
-				parentGroupId, GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap,
-				descriptionMap, type, manualMembership, membershipRestriction,
-				friendlyURL, true, inheritContent, active, serviceContext);
-
-			LiveUsers.joinGroup(
-				themeDisplay.getCompanyId(), liveGroup.getGroupId(), userId);
-		}
-		else {
-
-			// Update group
-
-			liveGroup = groupLocalService.getGroup(liveGroupId);
-
-			nameMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "name", liveGroup.getNameMap());
-			descriptionMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "description", liveGroup.getDescriptionMap());
-			type = ParamUtil.getInteger(
-				actionRequest, "type", liveGroup.getType());
-			manualMembership = ParamUtil.getBoolean(
-				actionRequest, "manualMembership",
-				liveGroup.isManualMembership());
-			friendlyURL = ParamUtil.getString(
-				actionRequest, "friendlyURL", liveGroup.getFriendlyURL());
-			inheritContent = ParamUtil.getBoolean(
-				actionRequest, "inheritContent", liveGroup.getInheritContent());
-			active = ParamUtil.getBoolean(
-				actionRequest, "active", liveGroup.getActive());
-
-			liveGroup = groupService.updateGroup(
-				liveGroupId, parentGroupId, nameMap, descriptionMap, type,
-				manualMembership, membershipRestriction, friendlyURL,
-				inheritContent, active, serviceContext);
-
-			if (type == GroupConstants.TYPE_SITE_OPEN) {
-				List<MembershipRequest> membershipRequests =
-					membershipRequestLocalService.search(
-						liveGroupId, MembershipRequestConstants.STATUS_PENDING,
-						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-				for (MembershipRequest membershipRequest : membershipRequests) {
-					membershipRequestService.updateStatus(
-						membershipRequest.getMembershipRequestId(),
-						themeDisplay.translate(
-							"your-membership-has-been-approved"),
-						MembershipRequestConstants.STATUS_APPROVED,
-						serviceContext);
-
-					LiveUsers.joinGroup(
-						themeDisplay.getCompanyId(),
-						membershipRequest.getGroupId(),
-						new long[] {membershipRequest.getUserId()});
-				}
+				LiveUsers.joinGroup(
+					themeDisplay.getCompanyId(), membershipRequest.getGroupId(),
+					new long[] {membershipRequest.getUserId()});
 			}
 		}
 
@@ -832,7 +801,7 @@ public class SiteAdminPortlet extends MVCPortlet {
 		if (liveGroup.hasStagingGroup()) {
 			Group stagingGroup = liveGroup.getStagingGroup();
 
-			friendlyURL = ParamUtil.getString(
+			String friendlyURL = ParamUtil.getString(
 				actionRequest, "stagingFriendlyURL",
 				stagingGroup.getFriendlyURL());
 
@@ -937,9 +906,19 @@ public class SiteAdminPortlet extends MVCPortlet {
 	@Reference
 	protected BackgroundTaskManager backgroundTaskManager;
 
+	@Reference
+	protected GroupCreationStepHelper groupCreationStepHelper;
+
+	@Reference
+	protected GroupCreationStepRegistry groupCreationStepRegistry;
+
 	protected GroupLocalService groupLocalService;
 	protected GroupSearchProvider groupSearchProvider;
 	protected GroupService groupService;
+
+	@Reference
+	protected GroupStarterKitRegistry groupStarterKitRegistry;
+
 	protected GroupURLProvider groupURLProvider;
 
 	@Reference
@@ -956,6 +935,9 @@ public class SiteAdminPortlet extends MVCPortlet {
 	protected Portal portal;
 
 	protected RoleLocalService roleLocalService;
+
+	@Reference
+	protected SiteAdminPortletHelper siteAdminPortletHelper;
 
 	@Reference
 	protected Staging staging;

@@ -61,6 +61,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Pavel Savinov
+ * @author Alessio Antonio Rendina
  */
 public class SiteAdminDisplayContext {
 
@@ -68,7 +69,7 @@ public class SiteAdminDisplayContext {
 			HttpServletRequest request,
 			LiferayPortletRequest liferayPortletRequest,
 			LiferayPortletResponse liferayPortletResponse)
-		throws PortalException {
+		throws Exception {
 
 		_request = request;
 		_liferayPortletRequest = liferayPortletRequest;
