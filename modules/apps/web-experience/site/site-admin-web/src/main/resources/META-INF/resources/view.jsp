@@ -28,10 +28,6 @@ PortletURL portletURL = siteAdminDisplayContext.getPortletURL();
 request.setAttribute("view.jsp-displayStyle", displayStyle);
 request.setAttribute("view.jsp-groupSearchContainer", groupSearch);
 
-PortletURL mainURL = renderResponse.createRenderURL();
-
-mainURL.setParameter("mvcPath", "/view.jsp");
-
 PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "sites"), mainURL.toString());
 
 if (group != null) {
@@ -73,10 +69,6 @@ if (group != null) {
 
 			<aui:form action="<%= deleteGroupsURL %>" name="fm">
 				<aui:input name="redirect" type="hidden" value="<%= portletURL.toString() %>" />
-
-				<div id="breadcrumb">
-					<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= false %>" showPortletBreadcrumb="<%= true %>" />
-				</div>
 
 				<liferay-ui:error exception="<%= NoSuchLayoutSetException.class %>">
 
