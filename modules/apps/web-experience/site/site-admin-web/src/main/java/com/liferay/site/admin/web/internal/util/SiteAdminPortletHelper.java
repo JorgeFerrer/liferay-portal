@@ -44,25 +44,21 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = SiteAdminPortletHelper.class)
 public class SiteAdminPortletHelper {
 
-	public long getGroupId(PortletRequest portletRequest) {
-		return ParamUtil.getLong(portletRequest, "groupId");
+	public Group getGroup(PortletRequest portletRequest)
+		throws PortalException {
+
+		long groupId = ParamUtil.getLong(portletRequest, "groupId");
+
+		if (groupId <= 0) {
+			return null;
+		}
+
+		return _groupService.getGroup(groupId);
 	}
 
 	public Group updateGroup(
 			ActionRequest actionRequest, ServiceContext serviceContext)
 		throws Exception {
-
-		return updateGroup(actionRequest, serviceContext, true);
-	}
-
-	public Group updateGroup(
-			ActionRequest actionRequest, ServiceContext serviceContext,
-			boolean create)
-		throws Exception {
-
-		if (!create) {
-			return null;
-		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -170,18 +166,6 @@ public class SiteAdminPortletHelper {
 		}
 
 		return group;
-	}
-
-	protected Group getGroup(PortletRequest portletRequest)
-		throws PortalException {
-
-		long groupId = getGroupId(portletRequest);
-
-		if (groupId <= 0) {
-			return null;
-		}
-
-		return _groupService.getGroup(groupId);
 	}
 
 	@Reference
