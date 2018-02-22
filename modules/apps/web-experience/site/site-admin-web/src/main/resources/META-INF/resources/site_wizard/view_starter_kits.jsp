@@ -40,7 +40,6 @@ groupStarterKitSearchContainer.setTotal(groupStarterKits.size());
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL);
 
-
 renderResponse.setTitle("add-new-site");
 %>
 
@@ -57,10 +56,10 @@ renderResponse.setTitle("add-new-site");
 				keyProperty="key"
 				modelVar="groupStarterKit"
 			>
-				<liferay-portlet:renderURL varImpl="addSiteURL">
+				<liferay-portlet:renderURL varImpl="addSiteURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 					<portlet:param name="jspPage" value="/site_creation_wizard.jsp" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
-					<portlet:param name="groupId" value="<%= String.valueOf(siteCreationWizardDisplayContext.getGroupId()) %>" />
+					<portlet:param name="groupId" value="<%= String.valueOf(siteAdminDisplayContext.getGroupId()) %>" />
 					<portlet:param name="parentGroupSearchContainerPrimaryKeys" value="<%= String.valueOf(parentGroupSearchContainerPrimaryKeys) %>" />
 					<portlet:param name="groupStarterKitKey" value="<%= groupStarterKit.getKey() %>" />
 					<portlet:param name="creationType" value="<%= SiteAdminConstants.CREATION_TYPE_STARTER_KIT %>" />
@@ -84,7 +83,7 @@ renderResponse.setTitle("add-new-site");
 						title="<%= groupStarterKit.getName(locale) %>"
 					/>
 
-					<aui:button cssClass="hide starter-kit-select-button" href="<%= addSiteURL.toString() %>" value="select" />
+					<aui:button cssClass="hide starter-kit-select-button" onClick="<%= siteAdminDisplayContext.getEditSiteNameTaglibOnClick(addSiteURL.toString()) %>" value="select" />
 
 					<liferay-portlet:renderURL var="renderPreviewURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 						<portlet:param name="jspPage" value="/starter_kit/details.jsp" />
@@ -103,6 +102,30 @@ renderResponse.setTitle("add-new-site");
 	</div>
 
 	<aui:script use="aui-base">
+		Liferay.provide(
+			window,
+			'<portlet:namespace/>editSiteName',
+			function(uri) {
+				Liferay.Util.openWindow(
+					{
+						dialog: {
+							centered: true,
+							destroyOnClose: true,
+							height: 800,
+							modal: true,
+							width: 900
+						},
+						dialogIframe: {
+							bodyCssClass: 'dialog-with-footer'
+						},
+						id: 'editSiteNameDialog',
+						title: '<liferay-ui:message key="site-name" />',
+						uri: uri
+					}
+				);
+			}
+		);
+
 		Liferay.provide(
 			window,
 			'<portlet:namespace/>renderPreview',
@@ -130,8 +153,8 @@ renderResponse.setTitle("add-new-site");
 		Liferay.provide(
 			window,
 			'refreshPortlet',
-			function(url) {
-				Liferay.Util.getOpener().closePopup('renderPreviewDialog');
+			function(dialogId, url) {
+				Liferay.Util.getOpener().closePopup(dialogId);
 
 				if (url) {
 					window.location.replace(url);

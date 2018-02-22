@@ -72,21 +72,6 @@ renderResponse.setTitle("add-new-site");
 			<aui:input name="parentGroupSearchContainerPrimaryKeys" type="hidden" value="<%= parentGroupSearchContainerPrimaryKeys %>" />
 			<aui:input name="redirect" type="hidden" value="<%= siteCreationWizardDisplayContext.getCreationStepRedirect() %>" />
 
-			<liferay-ui:error exception="<%= DuplicateGroupException.class %>" message="please-enter-a-unique-name" />
-			<liferay-ui:error exception="<%= GroupInheritContentException.class %>" message="this-site-cannot-inherit-content-from-its-parent-site" />
-
-			<liferay-ui:error exception="<%= GroupKeyException.class %>">
-				<p>
-					<liferay-ui:message arguments="<%= new String[] {SiteConstants.NAME_LABEL, SiteConstants.getNameGeneralRestrictions(locale), SiteConstants.NAME_RESERVED_WORDS} %>" key="the-x-cannot-be-x-or-a-reserved-word-such-as-x" />
-				</p>
-
-				<p>
-					<liferay-ui:message arguments="<%= new String[] {SiteConstants.NAME_LABEL, SiteConstants.NAME_INVALID_CHARACTERS} %>" key="the-x-cannot-contain-the-following-invalid-characters-x" />
-				</p>
-			</liferay-ui:error>
-
-			<liferay-ui:error exception="<%= GroupParentException.MustNotHaveStagingParent.class %>" message="the-site-cannot-have-a-staging-site-as-its-parent-site" />
-
 			<%
 			siteCreationWizardDisplayContext.renderCurrentCreationStep();
 			%>
@@ -94,7 +79,7 @@ renderResponse.setTitle("add-new-site");
 			<aui:button-row>
 				<c:choose>
 					<c:when test="<%= (groupCreationSteps.size() == 1) %>">
-						<aui:button cssClass="btn-lg btn-primary" name="nextCreationStepButton" primary="<%= true %>" value="create" type="submit"/>
+						<aui:button cssClass="btn-lg btn-primary" name="nextCreationStepButton" primary="<%= true %>" type="submit" value="create" />
 
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 					</c:when>
@@ -111,12 +96,12 @@ renderResponse.setTitle("add-new-site");
 
 						<aui:button cssClass="btn-lg" href="<%= previousCreationStepURL %>" type="cancel" value="previous" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "create" : "next" %>' type="submit" />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" type="submit" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "create" : "next" %>' />
 					</c:when>
 					<c:otherwise>
 						<aui:button cssClass="btn-lg" href="<%= backURL %>" type="cancel" value="cancel" />
 
-						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "create" : "next" %>' type="submit" />
+						<aui:button cssClass="btn-lg btn-next-creation-step" name="nextCreationStepButton" primary="<%= siteCreationWizardDisplayContext.isLastGroupCreationStep() %>" type="submit" value='<%= (siteCreationWizardDisplayContext.isLastGroupCreationStep()) ? "create" : "next" %>' />
 					</c:otherwise>
 				</c:choose>
 			</aui:button-row>

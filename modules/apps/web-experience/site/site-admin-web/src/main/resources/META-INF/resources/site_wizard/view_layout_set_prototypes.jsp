@@ -57,8 +57,8 @@ renderResponse.setTitle("add-new-site");
 				keyProperty="layoutSetPrototypeId"
 				modelVar="layoutSetPrototype"
 			>
-				<liferay-portlet:renderURL varImpl="addSiteURL">
-					<portlet:param name="jspPage" value="/site_creation_wizard.jsp" />
+				<liferay-portlet:renderURL varImpl="addSiteURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+					<portlet:param name="jspPage" value="/site_name.jsp" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="groupId" value="<%= String.valueOf(siteCreationWizardDisplayContext.getGroupId()) %>" />
 					<portlet:param name="layoutSetPrototypeId" value="<%= String.valueOf(layoutSetPrototype.getLayoutSetPrototypeId()) %>" />
@@ -84,7 +84,7 @@ renderResponse.setTitle("add-new-site");
 						</liferay-frontend:vertical-card-footer>
 					</liferay-frontend:icon-vertical-card>
 
-					<aui:button cssClass="hide site-template-button" href="<%= addSiteURL.toString() %>" value="select" />
+					<aui:button cssClass="hide site-template-button" onClick="<%= siteAdminDisplayContext.getEditSiteNameTaglibOnClick(addSiteURL.toString()) %>" value="select" />
 				</liferay-ui:search-container-column-text>
 			</liferay-ui:search-container-row>
 
@@ -108,6 +108,56 @@ renderResponse.setTitle("add-new-site");
 				button.addClass('hide');
 				card.css('opacity', '1');
 			}
+		);
+	</aui:script>
+
+	<aui:script use="aui-base">
+		Liferay.provide(
+			window,
+			'<portlet:namespace/>editSiteName',
+			function(uri) {
+				Liferay.Util.openWindow(
+					{
+						dialog: {
+							centered: true,
+							destroyOnClose: true,
+							height: 800,
+							modal: true,
+							width: 900
+						},
+						dialogIframe: {
+							bodyCssClass: 'dialog-with-footer'
+						},
+						id: 'editSiteNameDialog',
+						title: '<liferay-ui:message key="site-name" />',
+						uri: uri
+					}
+				);
+			}
+		);
+
+		Liferay.provide(
+			window,
+			'refreshPortlet',
+			function(dialogId, url) {
+				Liferay.Util.getOpener().closePopup(dialogId);
+
+				if (url) {
+					window.location.replace(url);
+				}
+			},
+			['aui-dialog','aui-dialog-iframe']
+		);
+
+		Liferay.provide(
+			window,
+			'closePopup',
+			function(dialogId) {
+				var dialog = Liferay.Util.Window.getById(dialogId);
+
+				dialog.destroy();
+			},
+			['liferay-util-window']
 		);
 	</aui:script>
 </c:if>

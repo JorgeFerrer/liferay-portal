@@ -34,7 +34,7 @@ String addSiteURL = ParamUtil.getString(request, "addSiteURL");
 	A.one('#<portlet:namespace/>applyButton').on(
 		'click',
 		function(event) {
-			Liferay.Util.getOpener().refreshPortlet('<%= addSiteURL %>');
+			Liferay.Util.getOpener().refreshPortlet('renderPreviewDialog', '<%= HtmlUtil.escape(addSiteURL) %>');
 		}
 	);
 
