@@ -38,6 +38,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.RemoteOptionsException;
 import com.liferay.portal.kernel.exception.RequiredGroupException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
@@ -48,6 +51,7 @@ import com.liferay.portal.kernel.model.LayoutSetPrototype;
 import com.liferay.portal.kernel.model.MembershipRequest;
 import com.liferay.portal.kernel.model.MembershipRequestConstants;
 import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.SiteConstants;
 import com.liferay.portal.kernel.model.Team;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
@@ -71,12 +75,14 @@ import com.liferay.portal.kernel.service.TeamLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.servlet.MultiSessionMessages;
+import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -106,6 +112,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -117,6 +124,8 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -271,6 +280,62 @@ public class SiteAdminPortlet extends MVCPortlet {
 			themeDisplay.getCompanyId(), groupId, removeUserIds);
 	}
 
+	public void editSiteName(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Throwable {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			Group.class.getName(), actionRequest);
+
+		ServiceContextThreadLocal.pushServiceContext(serviceContext);
+
+		try {
+			Group group = siteAdminPortletHelper.updateGroup(
+				actionRequest, serviceContext);
+
+			jsonObject.put("groupId", group.getGroupId());
+
+			jsonObject.put("success", true);
+		}
+		catch (Exception e) {
+			if (e instanceof NoSuchGroupException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass());
+
+				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
+			}
+
+			if (e instanceof DuplicateGroupException ||
+				e instanceof GroupInheritContentException ||
+				e instanceof GroupKeyException ||
+				e instanceof GroupParentException.MustNotHaveStagingParent) {
+
+				SessionErrors.add(actionRequest, e.getClass());
+
+				jsonObject.put(
+					"errorMessage",
+					getErrorLocalizedMessage(actionRequest.getLocale(), e));
+				jsonObject.put("success", false);
+
+				writeJSON(actionResponse, jsonObject);
+			}
+
+			throw e;
+		}
+
+		hideDefaultErrorMessage(actionRequest);
+		hideDefaultSuccessMessage(actionRequest);
+
+		writeJSON(actionResponse, jsonObject);
+
+		MultiSessionMessages.add(
+			actionRequest,
+			SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed");
+	}
+
 	/**
 	 * Resets the number of failed merge attempts for the site template, which
 	 * is accessed by retrieving the layout set prototype ID. Once the counter
@@ -329,16 +394,9 @@ public class SiteAdminPortlet extends MVCPortlet {
 		GroupCreationStep groupCreationStep =
 			groupCreationStepRegistry.getGroupCreationStep(creationStepName);
 
-		long groupId = siteAdminPortletHelper.getGroupId(actionRequest);
+		Group group = siteAdminPortletHelper.getGroup(actionRequest);
 
-		boolean lastGroupCreationStep =
-			groupCreationStepHelper.isLastGroupCreationStep(
-				groupId, creationStepName);
-
-		boolean create = ParamUtil.getBoolean(
-			actionRequest, "createSite", lastGroupCreationStep);
-
-		groupCreationStep.processAction(actionRequest, actionResponse, create);
+		groupCreationStep.save(group, actionRequest.getParameterMap());
 
 		hideDefaultSuccessMessage(actionRequest);
 
@@ -386,6 +444,49 @@ public class SiteAdminPortlet extends MVCPortlet {
 
 		return ArrayUtil.toArray(
 			filteredUserIds.toArray(new Long[filteredUserIds.size()]));
+	}
+
+	protected String getErrorLocalizedMessage(Locale locale, Exception e) {
+		String localizedMessage = StringPool.BLANK;
+
+		if (e instanceof DuplicateGroupException) {
+			localizedMessage = LanguageUtil.get(
+				locale, "please-enter-a-unique-name");
+		}
+
+		if (e instanceof GroupInheritContentException) {
+			localizedMessage = LanguageUtil.get(
+				locale,
+				"this-site-cannot-inherit-content-from-its-parent-site");
+		}
+
+		if (e instanceof GroupKeyException) {
+			localizedMessage = LanguageUtil.format(
+				locale, "the-x-cannot-be-x-or-a-reserved-word-such-as-x",
+				new String[] {
+					SiteConstants.NAME_LABEL,
+					SiteConstants.getNameGeneralRestrictions(locale),
+					SiteConstants.NAME_RESERVED_WORDS
+				});
+
+			localizedMessage += StringPool.SPACE;
+
+			localizedMessage += LanguageUtil.format(
+				locale,
+				"the-x-cannot-contain-the-following-invalid-characters-x",
+				new String[] {
+					SiteConstants.NAME_LABEL,
+					SiteConstants.NAME_INVALID_CHARACTERS
+				});
+		}
+
+		if (e instanceof GroupParentException.MustNotHaveStagingParent) {
+			localizedMessage = LanguageUtil.get(
+				locale,
+				"the-site-cannot-have-a-staging-site-as-its-parent-site");
+		}
+
+		return localizedMessage;
 	}
 
 	protected String getHistoryKey(
@@ -901,6 +1002,19 @@ public class SiteAdminPortlet extends MVCPortlet {
 		themeDisplay.setSiteGroupId(liveGroup.getGroupId());
 
 		return liveGroup;
+	}
+
+	protected void writeJSON(ActionResponse actionResponse, Object jsonObj)
+		throws IOException {
+
+		HttpServletResponse httpServletResponse = portal.getHttpServletResponse(
+			actionResponse);
+
+		httpServletResponse.setContentType(ContentTypes.APPLICATION_JSON);
+
+		ServletResponseUtil.write(httpServletResponse, jsonObj.toString());
+
+		httpServletResponse.flushBuffer();
 	}
 
 	@Reference
