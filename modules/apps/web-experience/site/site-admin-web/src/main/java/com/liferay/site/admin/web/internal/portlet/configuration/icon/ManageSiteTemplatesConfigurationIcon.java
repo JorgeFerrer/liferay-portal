@@ -43,7 +43,8 @@ import org.osgi.service.component.annotations.Component;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + SiteAdminPortletKeys.SITE_ADMIN,
-		"path=/view.jsp"},
+		"path=/view.jsp"
+	},
 	service = PortletConfigurationIcon.class
 )
 public class ManageSiteTemplatesConfigurationIcon
