@@ -14,10 +14,10 @@
 
 package com.liferay.site.util;
 
-import java.util.Locale;
+import com.liferay.portal.kernel.model.Group;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,14 +33,12 @@ public interface GroupCreationStep {
 
 	public boolean isActive(long groupId);
 
-	public void processAction(
-			ActionRequest actionRequest, ActionResponse actionResponse,
-			boolean create)
-		throws Exception;
-
 	public void render(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
+		throws Exception;
+
+	public void save(Group group, Map<String, String[]> parameterMap)
 		throws Exception;
 
 }
