@@ -48,7 +48,7 @@ String currentCreationStepLabel = siteCreationWizardDisplayContext.getCurrentCre
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(backURL.toString());
 
-renderResponse.setTitle("add-new-site");
+renderResponse.setTitle(LanguageUtil.get(request, "add-new-site"));
 %>
 
 <portlet:actionURL name="saveCreationStep" var="saveCreationStepURL" />
