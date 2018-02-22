@@ -42,6 +42,8 @@ import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -107,6 +109,21 @@ public class SiteAdminDisplayContext {
 			SiteAdminPortletKeys.SITE_ADMIN, "display-style", "list");
 
 		return _displayStyle;
+	}
+
+	public String getEditSiteNameTaglibOnClick(String uri) {
+		StringBundler sb = new StringBundler(8);
+
+		sb.append(_liferayPortletResponse.getNamespace());
+		sb.append("editSiteName");
+		sb.append(StringPool.OPEN_PARENTHESIS);
+		sb.append(StringPool.APOSTROPHE);
+		sb.append(uri);
+		sb.append(StringPool.APOSTROPHE);
+		sb.append(StringPool.CLOSE_PARENTHESIS);
+		sb.append(StringPool.SEMICOLON);
+
+		return sb.toString();
 	}
 
 	public Group getGroup() throws PortalException {

@@ -38,6 +38,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.RemoteOptionsException;
 import com.liferay.portal.kernel.exception.RequiredGroupException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
@@ -48,6 +51,7 @@ import com.liferay.portal.kernel.model.LayoutSetPrototype;
 import com.liferay.portal.kernel.model.MembershipRequest;
 import com.liferay.portal.kernel.model.MembershipRequestConstants;
 import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.SiteConstants;
 import com.liferay.portal.kernel.model.Team;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
@@ -71,16 +75,17 @@ import com.liferay.portal.kernel.service.TeamLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.servlet.MultiSessionMessages;
+import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
@@ -91,7 +96,12 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.liveusers.LiveUsers;
 import com.liferay.site.admin.web.internal.constants.SiteAdminPortletKeys;
+import com.liferay.site.admin.web.internal.util.GroupCreationStepHelper;
+import com.liferay.site.admin.web.internal.util.GroupCreationStepRegistry;
+import com.liferay.site.admin.web.internal.util.GroupStarterKitRegistry;
+import com.liferay.site.admin.web.internal.util.SiteAdminPortletHelper;
 import com.liferay.site.constants.SiteWebKeys;
+import com.liferay.site.util.GroupCreationStep;
 import com.liferay.site.util.GroupSearchProvider;
 import com.liferay.site.util.GroupURLProvider;
 import com.liferay.sites.kernel.util.Sites;
@@ -103,7 +113,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -116,11 +125,14 @@ import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
+ * @author Alessio Antonio Rendina
  */
 @Component(
 	immediate = true,
@@ -128,6 +140,7 @@ import org.osgi.service.component.annotations.Reference;
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.css-class-wrapper=portlet-site-admin",
 		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.icon=/icons/site_admin.png",
 		"com.liferay.portlet.preferences-owned-by-group=true",
 		"com.liferay.portlet.private-request-attributes=false",
@@ -267,6 +280,62 @@ public class SiteAdminPortlet extends MVCPortlet {
 			themeDisplay.getCompanyId(), groupId, removeUserIds);
 	}
 
+	public void editSiteName(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Throwable {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			Group.class.getName(), actionRequest);
+
+		ServiceContextThreadLocal.pushServiceContext(serviceContext);
+
+		try {
+			Group group = siteAdminPortletHelper.updateGroup(
+				actionRequest, serviceContext);
+
+			jsonObject.put("groupId", group.getGroupId());
+
+			jsonObject.put("success", true);
+		}
+		catch (Exception e) {
+			if (e instanceof NoSuchGroupException ||
+				e instanceof PrincipalException) {
+
+				SessionErrors.add(actionRequest, e.getClass());
+
+				actionResponse.setRenderParameter("mvcPath", "/error.jsp");
+			}
+
+			if (e instanceof DuplicateGroupException ||
+				e instanceof GroupInheritContentException ||
+				e instanceof GroupKeyException ||
+				e instanceof GroupParentException.MustNotHaveStagingParent) {
+
+				SessionErrors.add(actionRequest, e.getClass());
+
+				jsonObject.put(
+					"errorMessage",
+					getErrorLocalizedMessage(actionRequest.getLocale(), e));
+				jsonObject.put("success", false);
+
+				writeJSON(actionResponse, jsonObject);
+			}
+
+			throw e;
+		}
+
+		hideDefaultErrorMessage(actionRequest);
+		hideDefaultSuccessMessage(actionRequest);
+
+		writeJSON(actionResponse, jsonObject);
+
+		MultiSessionMessages.add(
+			actionRequest,
+			SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed");
+	}
+
 	/**
 	 * Resets the number of failed merge attempts for the site template, which
 	 * is accessed by retrieving the layout set prototype ID. Once the counter
@@ -315,16 +384,33 @@ public class SiteAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void saveCreationStep(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Throwable {
+
+		String creationStepName = ParamUtil.getString(
+			actionRequest, "creationStepName");
+
+		GroupCreationStep groupCreationStep =
+			groupCreationStepRegistry.getGroupCreationStep(creationStepName);
+
+		Group group = siteAdminPortletHelper.getGroup(actionRequest);
+
+		groupCreationStep.save(group, actionRequest.getParameterMap());
+
+		hideDefaultSuccessMessage(actionRequest);
+
+		MultiSessionMessages.add(
+			actionRequest,
+			SiteAdminPortletKeys.SITE_ADMIN + "requestProcessed");
+	}
+
 	@Override
 	protected void doDispatch(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		renderRequest.setAttribute(
-			SiteWebKeys.GROUP_SEARCH_PROVIDER, groupSearchProvider);
-
-		renderRequest.setAttribute(
-			SiteWebKeys.GROUP_URL_PROVIDER, groupURLProvider);
+		setRenderAttributes(renderRequest);
 
 		if (SessionErrors.contains(
 				renderRequest, NoSuchBackgroundTaskException.class.getName()) ||
@@ -358,6 +444,49 @@ public class SiteAdminPortlet extends MVCPortlet {
 
 		return ArrayUtil.toArray(
 			filteredUserIds.toArray(new Long[filteredUserIds.size()]));
+	}
+
+	protected String getErrorLocalizedMessage(Locale locale, Exception e) {
+		String localizedMessage = StringPool.BLANK;
+
+		if (e instanceof DuplicateGroupException) {
+			localizedMessage = LanguageUtil.get(
+				locale, "please-enter-a-unique-name");
+		}
+
+		if (e instanceof GroupInheritContentException) {
+			localizedMessage = LanguageUtil.get(
+				locale,
+				"this-site-cannot-inherit-content-from-its-parent-site");
+		}
+
+		if (e instanceof GroupKeyException) {
+			localizedMessage = LanguageUtil.format(
+				locale, "the-x-cannot-be-x-or-a-reserved-word-such-as-x",
+				new String[] {
+					SiteConstants.NAME_LABEL,
+					SiteConstants.getNameGeneralRestrictions(locale),
+					SiteConstants.NAME_RESERVED_WORDS
+				});
+
+			localizedMessage += StringPool.SPACE;
+
+			localizedMessage += LanguageUtil.format(
+				locale,
+				"the-x-cannot-contain-the-following-invalid-characters-x",
+				new String[] {
+					SiteConstants.NAME_LABEL,
+					SiteConstants.NAME_INVALID_CHARACTERS
+				});
+		}
+
+		if (e instanceof GroupParentException.MustNotHaveStagingParent) {
+			localizedMessage = LanguageUtil.get(
+				locale,
+				"the-site-cannot-have-a-staging-site-as-its-parent-site");
+		}
+
+		return localizedMessage;
 	}
 
 	protected String getHistoryKey(
@@ -553,6 +682,27 @@ public class SiteAdminPortlet extends MVCPortlet {
 		this.membershipRequestService = membershipRequestService;
 	}
 
+	protected void setRenderAttributes(RenderRequest renderRequest) {
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_CREATION_STEP_HELPER, groupCreationStepHelper);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_CREATION_STEP_REGISTRY,
+			groupCreationStepRegistry);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_SEARCH_PROVIDER, groupSearchProvider);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_STARTER_KIT_REGISTRY, groupStarterKitRegistry);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.GROUP_URL_PROVIDER, groupURLProvider);
+
+		renderRequest.setAttribute(
+			SiteWebKeys.SITE_ADMIN_PORTLET_HELPER, siteAdminPortletHelper);
+	}
+
 	@Reference(unbind = "-")
 	protected void setRoleLocalService(RoleLocalService roleLocalService) {
 		this.roleLocalService = roleLocalService;
@@ -607,111 +757,31 @@ public class SiteAdminPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long userId = portal.getUserId(actionRequest);
-
 		long liveGroupId = ParamUtil.getLong(actionRequest, "liveGroupId");
-
-		long parentGroupId = ParamUtil.getLong(
-			actionRequest, "parentGroupSearchContainerPrimaryKeys",
-			GroupConstants.DEFAULT_PARENT_GROUP_ID);
-		Map<Locale, String> nameMap = null;
-		Map<Locale, String> descriptionMap = null;
-		int type = 0;
-		String friendlyURL = null;
-		boolean inheritContent = false;
-		boolean active = false;
-		boolean manualMembership = true;
-
-		int membershipRestriction =
-			GroupConstants.DEFAULT_MEMBERSHIP_RESTRICTION;
-
-		boolean actionRequestMembershipRestriction = ParamUtil.getBoolean(
-			actionRequest, "membershipRestriction");
-
-		if (actionRequestMembershipRestriction &&
-			(parentGroupId != GroupConstants.DEFAULT_PARENT_GROUP_ID)) {
-
-			membershipRestriction =
-				GroupConstants.MEMBERSHIP_RESTRICTION_TO_PARENT_SITE_MEMBERS;
-		}
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			Group.class.getName(), actionRequest);
 
 		ServiceContextThreadLocal.pushServiceContext(serviceContext);
 
-		Group liveGroup = null;
+		Group liveGroup = siteAdminPortletHelper.updateGroup(
+			actionRequest, serviceContext);
 
-		if (liveGroupId <= 0) {
+		if (liveGroup.getType() == GroupConstants.TYPE_SITE_OPEN) {
+			List<MembershipRequest> membershipRequests =
+				membershipRequestLocalService.search(
+					liveGroupId, MembershipRequestConstants.STATUS_PENDING,
+					QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
-			// Add group
+			for (MembershipRequest membershipRequest : membershipRequests) {
+				membershipRequestService.updateStatus(
+					membershipRequest.getMembershipRequestId(),
+					themeDisplay.translate("your-membership-has-been-approved"),
+					MembershipRequestConstants.STATUS_APPROVED, serviceContext);
 
-			nameMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "name");
-			descriptionMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "description");
-			type = ParamUtil.getInteger(actionRequest, "type");
-			friendlyURL = ParamUtil.getString(actionRequest, "friendlyURL");
-			manualMembership = ParamUtil.getBoolean(
-				actionRequest, "manualMembership");
-			inheritContent = ParamUtil.getBoolean(
-				actionRequest, "inheritContent");
-			active = ParamUtil.getBoolean(actionRequest, "active");
-
-			liveGroup = groupService.addGroup(
-				parentGroupId, GroupConstants.DEFAULT_LIVE_GROUP_ID, nameMap,
-				descriptionMap, type, manualMembership, membershipRestriction,
-				friendlyURL, true, inheritContent, active, serviceContext);
-
-			LiveUsers.joinGroup(
-				themeDisplay.getCompanyId(), liveGroup.getGroupId(), userId);
-		}
-		else {
-
-			// Update group
-
-			liveGroup = groupLocalService.getGroup(liveGroupId);
-
-			nameMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "name", liveGroup.getNameMap());
-			descriptionMap = LocalizationUtil.getLocalizationMap(
-				actionRequest, "description", liveGroup.getDescriptionMap());
-			type = ParamUtil.getInteger(
-				actionRequest, "type", liveGroup.getType());
-			manualMembership = ParamUtil.getBoolean(
-				actionRequest, "manualMembership",
-				liveGroup.isManualMembership());
-			friendlyURL = ParamUtil.getString(
-				actionRequest, "friendlyURL", liveGroup.getFriendlyURL());
-			inheritContent = ParamUtil.getBoolean(
-				actionRequest, "inheritContent", liveGroup.getInheritContent());
-			active = ParamUtil.getBoolean(
-				actionRequest, "active", liveGroup.getActive());
-
-			liveGroup = groupService.updateGroup(
-				liveGroupId, parentGroupId, nameMap, descriptionMap, type,
-				manualMembership, membershipRestriction, friendlyURL,
-				inheritContent, active, serviceContext);
-
-			if (type == GroupConstants.TYPE_SITE_OPEN) {
-				List<MembershipRequest> membershipRequests =
-					membershipRequestLocalService.search(
-						liveGroupId, MembershipRequestConstants.STATUS_PENDING,
-						QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-				for (MembershipRequest membershipRequest : membershipRequests) {
-					membershipRequestService.updateStatus(
-						membershipRequest.getMembershipRequestId(),
-						themeDisplay.translate(
-							"your-membership-has-been-approved"),
-						MembershipRequestConstants.STATUS_APPROVED,
-						serviceContext);
-
-					LiveUsers.joinGroup(
-						themeDisplay.getCompanyId(),
-						membershipRequest.getGroupId(),
-						new long[] {membershipRequest.getUserId()});
-				}
+				LiveUsers.joinGroup(
+					themeDisplay.getCompanyId(), membershipRequest.getGroupId(),
+					new long[] {membershipRequest.getUserId()});
 			}
 		}
 
@@ -832,7 +902,7 @@ public class SiteAdminPortlet extends MVCPortlet {
 		if (liveGroup.hasStagingGroup()) {
 			Group stagingGroup = liveGroup.getStagingGroup();
 
-			friendlyURL = ParamUtil.getString(
+			String friendlyURL = ParamUtil.getString(
 				actionRequest, "stagingFriendlyURL",
 				stagingGroup.getFriendlyURL());
 
@@ -934,12 +1004,35 @@ public class SiteAdminPortlet extends MVCPortlet {
 		return liveGroup;
 	}
 
+	protected void writeJSON(ActionResponse actionResponse, Object jsonObj)
+		throws IOException {
+
+		HttpServletResponse httpServletResponse = portal.getHttpServletResponse(
+			actionResponse);
+
+		httpServletResponse.setContentType(ContentTypes.APPLICATION_JSON);
+
+		ServletResponseUtil.write(httpServletResponse, jsonObj.toString());
+
+		httpServletResponse.flushBuffer();
+	}
+
 	@Reference
 	protected BackgroundTaskManager backgroundTaskManager;
+
+	@Reference
+	protected GroupCreationStepHelper groupCreationStepHelper;
+
+	@Reference
+	protected GroupCreationStepRegistry groupCreationStepRegistry;
 
 	protected GroupLocalService groupLocalService;
 	protected GroupSearchProvider groupSearchProvider;
 	protected GroupService groupService;
+
+	@Reference
+	protected GroupStarterKitRegistry groupStarterKitRegistry;
+
 	protected GroupURLProvider groupURLProvider;
 
 	@Reference
@@ -956,6 +1049,9 @@ public class SiteAdminPortlet extends MVCPortlet {
 	protected Portal portal;
 
 	protected RoleLocalService roleLocalService;
+
+	@Reference
+	protected SiteAdminPortletHelper siteAdminPortletHelper;
 
 	@Reference
 	protected Staging staging;
