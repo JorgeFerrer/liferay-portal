@@ -41,6 +41,6 @@ public class LanguageConfigurationCategory implements ConfigurationCategory {
 
 	private static final String _CATEGORY_SET_KEY = "platform";
 
-	private static final String _KEY = "infrastructure";
+	private static final String _KEY = "language";
 
 }
