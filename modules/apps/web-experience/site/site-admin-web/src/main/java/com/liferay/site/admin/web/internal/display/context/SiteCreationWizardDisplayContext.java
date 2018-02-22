@@ -76,10 +76,10 @@ public class SiteCreationWizardDisplayContext {
 		GroupCreationStep groupCreationStep =
 			_groupCreationStepRegistry.getGroupCreationStep(creationStepName);
 
-		if (groupCreationStep == null) {
-			List<GroupCreationStep> groupCreationSteps =
-				_groupCreationStepRegistry.getGroupCreationSteps(getGroupId());
+		List<GroupCreationStep> groupCreationSteps =
+			_groupCreationStepRegistry.getGroupCreationSteps(getGroupId());
 
+		if ((groupCreationStep == null) && !groupCreationSteps.isEmpty()) {
 			groupCreationStep = groupCreationSteps.get(0);
 		}
 
@@ -87,58 +87,7 @@ public class SiteCreationWizardDisplayContext {
 	}
 
 	public String getCreationStepRedirect() {
-		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
-
-		String groupCreationStepName = getNextCreationStepName();
-
-		if (Validator.isNull(groupCreationStepName)) {
-			portletURL.setParameter("jspPage", "/site_wizard/summary.jsp");
-
-			String redirect = ParamUtil.getString(_request, "redirect");
-
-			if (Validator.isNotNull(redirect)) {
-				portletURL.setParameter("redirect", redirect);
-			}
-
-			String backURL = ParamUtil.getString(_request, "backURL");
-
-			if (Validator.isNotNull(redirect)) {
-				portletURL.setParameter("backURL", backURL);
-			}
-		}
-		else {
-			portletURL.setParameter(
-				"jspPage", "/site_wizard/site_creation_wizard.jsp");
-
-			String redirect = ParamUtil.getString(_request, "redirect");
-
-			if (Validator.isNotNull(redirect)) {
-				portletURL.setParameter("redirect", redirect);
-			}
-
-			String creationStepName = ParamUtil.getString(
-				_request, "creationStepName");
-
-			if (Validator.isNotNull(creationStepName)) {
-				portletURL.setParameter("creationStepName", creationStepName);
-			}
-
-			String creationType = ParamUtil.getString(_request, "creationType");
-
-			if (Validator.isNotNull(creationStepName)) {
-				portletURL.setParameter("creationType", creationType);
-			}
-
-			String groupStarterKitKey = ParamUtil.getString(
-				_request, "groupStarterKitKey");
-
-			if (Validator.isNotNull(groupStarterKitKey)) {
-				portletURL.setParameter(
-					"groupStarterKitKey", groupStarterKitKey);
-			}
-		}
-
-		return portletURL.toString();
+		return getCreationStepRedirect(getNextCreationStepName());
 	}
 
 	public String getCurrentCreationStepLabel() {
@@ -278,6 +227,19 @@ public class SiteCreationWizardDisplayContext {
 		return sb.toString();
 	}
 
+	public String getSiteNameRedirect() {
+		List<GroupCreationStep> groupCreationSteps =
+			_groupCreationStepRegistry.getGroupCreationSteps(getGroupId());
+
+		if (groupCreationSteps.isEmpty()) {
+			return getCreationStepRedirect(StringPool.BLANK);
+		}
+
+		GroupCreationStep groupCreationStep = groupCreationSteps.get(0);
+
+		return getCreationStepRedirect(groupCreationStep.getName());
+	}
+
 	public String getSummarySuccessMessage(String url) {
 		StringBundler sb = new StringBundler(3);
 
@@ -301,6 +263,59 @@ public class SiteCreationWizardDisplayContext {
 
 	public void renderCurrentCreationStep() throws Exception {
 		_groupCreationStep.render(_request, _response);
+	}
+
+	protected String getCreationStepRedirect(String groupCreationStepName) {
+		PortletURL portletURL = _liferayPortletResponse.createRenderURL();
+
+		if (Validator.isNull(groupCreationStepName)) {
+			portletURL.setParameter("jspPage", "/site_wizard/summary.jsp");
+
+			String redirect = ParamUtil.getString(_request, "redirect");
+
+			if (Validator.isNotNull(redirect)) {
+				portletURL.setParameter("redirect", redirect);
+			}
+
+			String backURL = ParamUtil.getString(_request, "backURL");
+
+			if (Validator.isNotNull(redirect)) {
+				portletURL.setParameter("backURL", backURL);
+			}
+		}
+		else {
+			portletURL.setParameter(
+				"jspPage", "/site_wizard/site_creation_wizard.jsp");
+
+			String redirect = ParamUtil.getString(_request, "redirect");
+
+			if (Validator.isNotNull(redirect)) {
+				portletURL.setParameter("redirect", redirect);
+			}
+
+			String creationStepName = ParamUtil.getString(
+				_request, "creationStepName");
+
+			if (Validator.isNotNull(creationStepName)) {
+				portletURL.setParameter("creationStepName", creationStepName);
+			}
+
+			String creationType = ParamUtil.getString(_request, "creationType");
+
+			if (Validator.isNotNull(creationStepName)) {
+				portletURL.setParameter("creationType", creationType);
+			}
+
+			String groupStarterKitKey = ParamUtil.getString(
+				_request, "groupStarterKitKey");
+
+			if (Validator.isNotNull(groupStarterKitKey)) {
+				portletURL.setParameter(
+					"groupStarterKitKey", groupStarterKitKey);
+			}
+		}
+
+		return portletURL.toString();
 	}
 
 	protected String getNextCreationStepName() {
