@@ -4,6 +4,9 @@ import Soy from 'metal-soy';
 
 import templates from './FragmentEntryLink.soy';
 
+const ARROW_DOWN_KEYCODE = 40;
+const ARROW_UP_KEYCODE = 38;
+
 /**
  * FragmentEntryLink
  * @review
@@ -82,6 +85,34 @@ class FragmentEntryLink extends Component {
 		);
 
 		this._editors = [];
+	}
+
+	/**
+	 * Emits a moveDown event with the fragmentEntryLinkId.
+	 * @private
+	 */
+
+	_emitMoveDownEvent() {
+		this.emit(
+			'moveDown',
+			{
+				fragmentEntryLinkId: this.fragmentEntryLinkId
+			}
+		);
+	}
+
+	/**
+	 * Emits a moveDown event with the fragmentEntryLinkId.
+	 * @private
+	 */
+
+	_emitMoveUpEvent() {
+		this.emit(
+			'moveUp',
+			{
+				fragmentEntryLinkId: this.fragmentEntryLinkId
+			}
+		);
 	}
 
 	/**
@@ -201,12 +232,7 @@ class FragmentEntryLink extends Component {
 	 */
 
 	_handleFragmentMoveDownButtonClick() {
-		this.emit(
-			'moveDown',
-			{
-				fragmentEntryLinkId: this.fragmentEntryLinkId
-			}
-		);
+		this._emitMoveDownEvent();
 	}
 
 	/**
@@ -218,12 +244,7 @@ class FragmentEntryLink extends Component {
 	 */
 
 	_handleFragmentMoveUpButtonClick() {
-		this.emit(
-			'moveUp',
-			{
-				fragmentEntryLinkId: this.fragmentEntryLinkId
-			}
-		);
+		this._emitMoveUpEvent();
 	}
 
 	/**
