@@ -5,6 +5,7 @@ import Soy from 'metal-soy';
 import templates from './FragmentEntryLink.soy';
 
 const ARROW_DOWN_KEYCODE = 40;
+
 const ARROW_UP_KEYCODE = 38;
 
 /**
@@ -221,6 +222,27 @@ class FragmentEntryLink extends Component {
 				value: event.editor.getData()
 			}
 		);
+	}
+
+	/**
+	 * Handle fragment keyup event so it can emit when it
+	 * should be moved or selected.
+	 * @param {KeyboardEvent} event
+	 * @private
+	 * @review
+	 */
+
+	_handleFragmentKeyUp(event) {
+		if (document.activeElement === this.refs.fragmentWrapper) {
+			switch (event.which) {
+			case ARROW_DOWN_KEYCODE:
+				this._emitMoveDownEvent();
+				break;
+			case ARROW_UP_KEYCODE:
+				this._emitMoveUpEvent();
+				break;
+			}
+		}
 	}
 
 	/**
