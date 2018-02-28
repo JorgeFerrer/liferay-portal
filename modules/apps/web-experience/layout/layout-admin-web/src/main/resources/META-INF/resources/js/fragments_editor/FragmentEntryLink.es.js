@@ -4,6 +4,10 @@ import Soy from 'metal-soy';
 
 import templates from './FragmentEntryLink.soy';
 
+const ARROW_DOWN_KEYCODE = 40;
+
+const ARROW_UP_KEYCODE = 38;
+
 /**
  * FragmentEntryLink
  * @review
@@ -82,6 +86,34 @@ class FragmentEntryLink extends Component {
 		);
 
 		this._editors = [];
+	}
+
+	/**
+	 * Emits a moveDown event with the fragmentEntryLinkId.
+	 * @private
+	 */
+
+	_emitMoveDownEvent() {
+		this.emit(
+			'moveDown',
+			{
+				fragmentEntryLinkId: this.fragmentEntryLinkId
+			}
+		);
+	}
+
+	/**
+	 * Emits a moveDown event with the fragmentEntryLinkId.
+	 * @private
+	 */
+
+	_emitMoveUpEvent() {
+		this.emit(
+			'moveUp',
+			{
+				fragmentEntryLinkId: this.fragmentEntryLinkId
+			}
+		);
 	}
 
 	/**
@@ -193,15 +225,60 @@ class FragmentEntryLink extends Component {
 	}
 
 	/**
+	 * Handle fragment keyup event so it can emit when it
+	 * should be moved or selected.
+	 * @param {KeyboardEvent} event
+	 * @private
+	 * @review
+	 */
+
+	_handleFragmentKeyUp(event) {
+		if (document.activeElement === this.refs.fragmentWrapper) {
+			switch (event.which) {
+			case ARROW_DOWN_KEYCODE:
+				this._emitMoveDownEvent();
+				break;
+			case ARROW_UP_KEYCODE:
+				this._emitMoveUpEvent();
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Callback executed when the fragment move down button is clicked.
+	 * It emits a 'moveDown' event with
+	 * the FragmentEntryLink id.
+	 * @private
+	 * @review
+	 */
+
+	_handleFragmentMoveDownButtonClick() {
+		this._emitMoveDownEvent();
+	}
+
+	/**
+	 * Callback executed when the fragment move up button is clicked.
+	 * It emits a 'moveUp' event with
+	 * the FragmentEntryLink id.
+	 * @private
+	 * @review
+	 */
+
+	_handleFragmentMoveUpButtonClick() {
+		this._emitMoveUpEvent();
+	}
+
+	/**
 	 * Callback executed when the fragment remove button is clicked.
-	 * It emits a 'fragmentRemoveButtonClick' event with
+	 * It emits a 'remove' event with
 	 * the FragmentEntryLink id.
 	 * @private
 	 */
 
 	_handleFragmentRemoveButtonClick() {
 		this.emit(
-			'fragmentRemoveButtonClick',
+			'remove',
 			{
 				fragmentEntryLinkId: this.fragmentEntryLinkId
 			}
