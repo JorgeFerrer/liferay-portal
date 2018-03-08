@@ -46,7 +46,7 @@ List<ConfigurationCategorySectionDisplay> configurationCategorySectionDisplays =
 
 			<li class="list-group-header">
 				<h3 class="list-group-header-title text-uppercase">
-					<liferay-ui:message key='<%= "category-set." + configurationCategorySectionDisplay.getKey() %>' />
+					<liferay-ui:message key='<%= "category-set." + configurationCategorySectionDisplay.getConfigurationCategorySection() %>' />
 				</h3>
 			</li>
 			<li class="list-group-card">

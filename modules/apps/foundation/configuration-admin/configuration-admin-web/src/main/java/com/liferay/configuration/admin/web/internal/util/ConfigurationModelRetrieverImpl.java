@@ -478,13 +478,14 @@ public class ConfigurationModelRetrieverImpl
 			ConfigurationCategorySectionDisplay configurationCategoryDisplay2) {
 
 			String configurationCategory1 =
-				configurationCategoryDisplay1.getKey();
+				configurationCategoryDisplay1.getConfigurationCategorySection();
 			String configurationCategory2 =
-				configurationCategoryDisplay2.getKey();
+				configurationCategoryDisplay2.getConfigurationCategorySection();
 
 			int index1 = _orderedCategories.indexOf(configurationCategory1);
 			int index2 = _orderedCategories.indexOf(
-				configurationCategoryDisplay2.getKey());
+				configurationCategoryDisplay2.
+					getConfigurationCategorySection());
 
 			if ((index1 == -1) && (index2 == -1)) {
 				return configurationCategory1.compareTo(configurationCategory2);

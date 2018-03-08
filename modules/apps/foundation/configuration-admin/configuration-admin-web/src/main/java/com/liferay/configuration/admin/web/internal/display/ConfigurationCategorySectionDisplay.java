@@ -41,7 +41,7 @@ public class ConfigurationCategorySectionDisplay {
 		return new ArrayList(_configurationCategoryDisplays);
 	}
 
-	public String getKey() {
+	public String getConfigurationCategorySection() {
 		return _configurationCategorySection;
 	}
 
