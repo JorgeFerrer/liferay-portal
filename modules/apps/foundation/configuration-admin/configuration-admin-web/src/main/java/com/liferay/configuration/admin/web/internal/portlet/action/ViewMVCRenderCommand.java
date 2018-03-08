@@ -49,7 +49,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 		List<ConfigurationCategorySectionDisplay>
 			configurationCategorySectionDisplays =
 				_configurationModelRetriever.
-					getConfigurationCategorySetDisplays();
+					getConfigurationCategorySectionDisplays();
 
 		renderRequest.setAttribute(
 			ConfigurationAdminWebKeys.CONFIGURATION_CATEGORY_SET_DISPLAYS,

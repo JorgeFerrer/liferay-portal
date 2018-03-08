@@ -41,7 +41,7 @@ public interface ConfigurationModelRetriever {
 		String configurationCategory, String languageId);
 
 	public List<ConfigurationCategorySectionDisplay>
-		getConfigurationCategorySetDisplays();
+		getConfigurationCategorySectionDisplays();
 
 	public Map<String, ConfigurationModel> getConfigurationModels();
 

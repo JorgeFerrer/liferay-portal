@@ -124,7 +124,7 @@ public class ConfigurationModelRetrieverImpl
 
 	@Override
 	public List<ConfigurationCategorySectionDisplay>
-		getConfigurationCategorySetDisplays() {
+		getConfigurationCategorySectionDisplays() {
 
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
@@ -135,7 +135,7 @@ public class ConfigurationModelRetrieverImpl
 			categorizeConfigurationModels(configurationModelsMap);
 
 		Map<String, ConfigurationCategorySectionDisplay>
-			configurationCategorySetDisplaysMap = new HashMap<>();
+			configurationCategorySectionDisplaysMap = new HashMap<>();
 
 		for (String curConfigurationCategoryKey :
 				categorizedConfigurationModels.keySet()) {
@@ -151,7 +151,7 @@ public class ConfigurationModelRetrieverImpl
 
 			ConfigurationCategorySectionDisplay
 				configurationCategorySectionDisplay =
-					configurationCategorySetDisplaysMap.get(
+					configurationCategorySectionDisplaysMap.get(
 						curConfigurationCategory.getCategorySection());
 
 			if (configurationCategorySectionDisplay == null) {
@@ -159,7 +159,7 @@ public class ConfigurationModelRetrieverImpl
 					new ConfigurationCategorySectionDisplay(
 						curConfigurationCategory.getCategorySection());
 
-				configurationCategorySetDisplaysMap.put(
+				configurationCategorySectionDisplaysMap.put(
 					curConfigurationCategory.getCategorySection(),
 					configurationCategorySectionDisplay);
 			}
@@ -171,13 +171,13 @@ public class ConfigurationModelRetrieverImpl
 				configurationCategoryDisplay);
 		}
 
-		Set<ConfigurationCategorySectionDisplay> configurationCategorySets =
+		Set<ConfigurationCategorySectionDisplay> configurationCategorySections =
 			new TreeSet(new ConfigurationCategoryDisplaySetComparator());
 
-		configurationCategorySets.addAll(
-			configurationCategorySetDisplaysMap.values());
+		configurationCategorySections.addAll(
+			configurationCategorySectionDisplaysMap.values());
 
-		return new ArrayList<>(configurationCategorySets);
+		return new ArrayList<>(configurationCategorySections);
 	}
 
 	@Override
@@ -279,7 +279,7 @@ public class ConfigurationModelRetrieverImpl
 					emitter.emit(configurationCategory.getKey());
 				});
 
-		_categorySetServiceTrackerMap =
+		_categorySectionServiceTrackerMap =
 			ServiceTrackerMapFactory.openMultiValueMap(
 				bundleContext, ConfigurationCategory.class, null,
 				(serviceReference, emitter) -> {
@@ -343,11 +343,11 @@ public class ConfigurationModelRetrieverImpl
 	}
 
 	protected List<ConfigurationCategory> getConfigurationCategories(
-		String configurationCategorySetKey) {
+		String configurationCategorySection) {
 
 		List<ConfigurationCategory> configurationCategories =
-			_categorySetServiceTrackerMap.getService(
-				configurationCategorySetKey);
+			_categorySectionServiceTrackerMap.getService(
+				configurationCategorySection);
 
 		if (configurationCategories == null) {
 			configurationCategories = Collections.emptyList();
@@ -458,10 +458,10 @@ public class ConfigurationModelRetrieverImpl
 	}
 
 	private BundleContext _bundleContext;
+	private ServiceTrackerMap<String, List<ConfigurationCategory>>
+		_categorySectionServiceTrackerMap;
 	private ServiceTrackerMap<String, ConfigurationCategory>
 		_categoryServiceTrackerMap;
-	private ServiceTrackerMap<String, List<ConfigurationCategory>>
-		_categorySetServiceTrackerMap;
 
 	@Reference
 	private ConfigurationAdmin _configurationAdmin;
