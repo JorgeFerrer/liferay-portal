@@ -172,7 +172,7 @@ public class ConfigurationModelRetrieverImpl
 		}
 
 		Set<ConfigurationCategorySectionDisplay> configurationCategorySections =
-			new TreeSet(new ConfigurationCategoryDisplaySetComparator());
+			new TreeSet(new ConfigurationCategorySectionDisplayComparator());
 
 		configurationCategorySections.addAll(
 			configurationCategorySectionDisplaysMap.values());
@@ -469,26 +469,32 @@ public class ConfigurationModelRetrieverImpl
 	@Reference
 	private ExtendedMetaTypeService _extendedMetaTypeService;
 
-	private static class ConfigurationCategoryDisplaySetComparator
+	private static class ConfigurationCategorySectionDisplayComparator
 		implements Comparator<ConfigurationCategorySectionDisplay> {
 
 		@Override
 		public int compare(
-			ConfigurationCategorySectionDisplay configurationCategoryDisplay1,
-			ConfigurationCategorySectionDisplay configurationCategoryDisplay2) {
+			ConfigurationCategorySectionDisplay
+				configurationCategorySectionDisplay1,
+			ConfigurationCategorySectionDisplay
+				configurationCategorySectionDisplay2) {
 
-			String configurationCategory1 =
-				configurationCategoryDisplay1.getConfigurationCategorySection();
-			String configurationCategory2 =
-				configurationCategoryDisplay2.getConfigurationCategorySection();
+			String configurationCategorySection1 =
+				configurationCategorySectionDisplay1.
+					getConfigurationCategorySection();
+			String configurationCategorySection2 =
+				configurationCategorySectionDisplay2.
+					getConfigurationCategorySection();
 
-			int index1 = _orderedCategories.indexOf(configurationCategory1);
+			int index1 = _orderedCategories.indexOf(
+				configurationCategorySection1);
 			int index2 = _orderedCategories.indexOf(
-				configurationCategoryDisplay2.
+				configurationCategorySectionDisplay2.
 					getConfigurationCategorySection());
 
 			if ((index1 == -1) && (index2 == -1)) {
-				return configurationCategory1.compareTo(configurationCategory2);
+				return configurationCategorySection1.compareTo(
+					configurationCategorySection2);
 			}
 			else if (index1 == -1) {
 				return 1;
@@ -503,7 +509,8 @@ public class ConfigurationModelRetrieverImpl
 				return -1;
 			}
 
-			return configurationCategory1.compareTo(configurationCategory2);
+			return configurationCategorySection1.compareTo(
+				configurationCategorySection2);
 		}
 
 		private final List<String> _orderedCategories = ListUtil.fromArray(
