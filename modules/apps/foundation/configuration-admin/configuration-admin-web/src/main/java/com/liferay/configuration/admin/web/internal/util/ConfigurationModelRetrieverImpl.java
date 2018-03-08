@@ -17,7 +17,7 @@ package com.liferay.configuration.admin.web.internal.util;
 import com.liferay.configuration.admin.category.ConfigurationCategory;
 import com.liferay.configuration.admin.web.internal.display.ConfigurationCategoryDisplay;
 import com.liferay.configuration.admin.web.internal.display.ConfigurationCategoryMenuDisplay;
-import com.liferay.configuration.admin.web.internal.display.ConfigurationCategorySetDisplay;
+import com.liferay.configuration.admin.web.internal.display.ConfigurationCategorySectionDisplay;
 import com.liferay.configuration.admin.web.internal.model.ConfigurationModel;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -123,7 +123,7 @@ public class ConfigurationModelRetrieverImpl
 	}
 
 	@Override
-	public List<ConfigurationCategorySetDisplay>
+	public List<ConfigurationCategorySectionDisplay>
 		getConfigurationCategorySetDisplays() {
 
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
@@ -134,7 +134,7 @@ public class ConfigurationModelRetrieverImpl
 		Map<String, Set<ConfigurationModel>> categorizedConfigurationModels =
 			categorizeConfigurationModels(configurationModelsMap);
 
-		Map<String, ConfigurationCategorySetDisplay>
+		Map<String, ConfigurationCategorySectionDisplay>
 			configurationCategorySetDisplaysMap = new HashMap<>();
 
 		for (String curConfigurationCategoryKey :
@@ -149,27 +149,29 @@ public class ConfigurationModelRetrieverImpl
 					curConfigurationCategoryKey);
 			}
 
-			ConfigurationCategorySetDisplay configurationCategorySetDisplay =
-				configurationCategorySetDisplaysMap.get(
-					curConfigurationCategory.getCategorySection());
+			ConfigurationCategorySectionDisplay
+				configurationCategorySectionDisplay =
+					configurationCategorySetDisplaysMap.get(
+						curConfigurationCategory.getCategorySection());
 
-			if (configurationCategorySetDisplay == null) {
-				configurationCategorySetDisplay =
-					new ConfigurationCategorySetDisplay(
+			if (configurationCategorySectionDisplay == null) {
+				configurationCategorySectionDisplay =
+					new ConfigurationCategorySectionDisplay(
 						curConfigurationCategory.getCategorySection());
 
 				configurationCategorySetDisplaysMap.put(
 					curConfigurationCategory.getCategorySection(),
-					configurationCategorySetDisplay);
+					configurationCategorySectionDisplay);
 			}
 
 			ConfigurationCategoryDisplay configurationCategoryDisplay =
 				new ConfigurationCategoryDisplay(curConfigurationCategory);
 
-			configurationCategorySetDisplay.add(configurationCategoryDisplay);
+			configurationCategorySectionDisplay.add(
+				configurationCategoryDisplay);
 		}
 
-		Set<ConfigurationCategorySetDisplay> configurationCategorySets =
+		Set<ConfigurationCategorySectionDisplay> configurationCategorySets =
 			new TreeSet(new ConfigurationCategoryDisplaySetComparator());
 
 		configurationCategorySets.addAll(
@@ -468,12 +470,12 @@ public class ConfigurationModelRetrieverImpl
 	private ExtendedMetaTypeService _extendedMetaTypeService;
 
 	private static class ConfigurationCategoryDisplaySetComparator
-		implements Comparator<ConfigurationCategorySetDisplay> {
+		implements Comparator<ConfigurationCategorySectionDisplay> {
 
 		@Override
 		public int compare(
-			ConfigurationCategorySetDisplay configurationCategoryDisplay1,
-			ConfigurationCategorySetDisplay configurationCategoryDisplay2) {
+			ConfigurationCategorySectionDisplay configurationCategoryDisplay1,
+			ConfigurationCategorySectionDisplay configurationCategoryDisplay2) {
 
 			String configurationCategory1 =
 				configurationCategoryDisplay1.getKey();
