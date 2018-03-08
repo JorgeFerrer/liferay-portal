@@ -151,15 +151,15 @@ public class ConfigurationModelRetrieverImpl
 
 			ConfigurationCategorySetDisplay configurationCategorySetDisplay =
 				configurationCategorySetDisplaysMap.get(
-					curConfigurationCategory.getCategorySetKey());
+					curConfigurationCategory.getCategorySection());
 
 			if (configurationCategorySetDisplay == null) {
 				configurationCategorySetDisplay =
 					new ConfigurationCategorySetDisplay(
-						curConfigurationCategory.getCategorySetKey());
+						curConfigurationCategory.getCategorySection());
 
 				configurationCategorySetDisplaysMap.put(
-					curConfigurationCategory.getCategorySetKey(),
+					curConfigurationCategory.getCategorySection(),
 					configurationCategorySetDisplay);
 			}
 
@@ -284,7 +284,7 @@ public class ConfigurationModelRetrieverImpl
 					ConfigurationCategory configurationCategory =
 						bundleContext.getService(serviceReference);
 
-					emitter.emit(configurationCategory.getCategorySetKey());
+					emitter.emit(configurationCategory.getCategorySection());
 				});
 	}
 

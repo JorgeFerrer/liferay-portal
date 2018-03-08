@@ -28,7 +28,7 @@ public class ConfigurationCategoryDisplay {
 	}
 
 	public String getCategorySetKey() {
-		return _configurationCategory.getCategorySetKey();
+		return _configurationCategory.getCategorySection();
 	}
 
 	public String getIcon() {
