@@ -285,7 +285,7 @@ public class ConfigurationModelRetrieverImpl
 					ConfigurationCategory configurationCategory =
 						bundleContext.getService(serviceReference);
 
-					emitter.emit(configurationCategory.getKey());
+					emitter.emit(configurationCategory.getCategoryKey());
 				});
 	}
 
