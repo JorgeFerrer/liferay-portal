@@ -115,7 +115,7 @@ renderResponse.setTitle(LanguageUtil.get(request, "search-results"));
 				String category = null;
 
 				if (configurationCategory != null) {
-					categorySection = LanguageUtil.get(request, "category-set." + configurationCategory.getCategorySection());
+					categorySection = LanguageUtil.get(request, "category-section." + configurationCategory.getCategorySection());
 					category = LanguageUtil.get(request, "category." + configurationCategory.getCategoryKey());
 				}
 				else {
