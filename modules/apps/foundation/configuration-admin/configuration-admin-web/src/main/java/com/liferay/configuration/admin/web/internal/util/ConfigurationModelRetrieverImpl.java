@@ -109,6 +109,13 @@ public class ConfigurationModelRetrieverImpl
 		return null;
 	}
 
+	public ConfigurationCategory getConfigurationCategory(
+		String configurationCategoryKey) {
+
+		return _configurationCategoryServiceTrackerMap.getService(
+			configurationCategoryKey);
+	}
+
 	@Override
 	public ConfigurationCategoryMenuDisplay getConfigurationCategoryMenuDisplay(
 		String configurationCategory, String languageId) {
@@ -353,13 +360,6 @@ public class ConfigurationModelRetrieverImpl
 		}
 
 		return configurationCategories;
-	}
-
-	protected ConfigurationCategory getConfigurationCategory(
-		String configurationCategoryKey) {
-
-		return _configurationCategoryServiceTrackerMap.getService(
-			configurationCategoryKey);
 	}
 
 	protected ConfigurationModel getConfigurationModel(
