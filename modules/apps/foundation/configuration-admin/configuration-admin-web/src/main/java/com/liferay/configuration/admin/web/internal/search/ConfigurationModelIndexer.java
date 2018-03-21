@@ -202,17 +202,17 @@ public class ConfigurationModelIndexer extends BaseIndexer<ConfigurationModel> {
 				configurationModel.getCategory());
 
 		if (configurationCategory != null) {
-			ResourceBundleLoader categoryResourceBundleLoader =
+			ResourceBundleLoader configurationCategoryResourceBundleLoader =
 				_resourceBundleLoaderProvider.getResourceBundleLoader(
 					configurationCategory.getBundleSymbolicName());
 
-			Map<Locale, String> categoryValues = _translate(
-				categoryResourceBundleLoader,
+			Map<Locale, String> configurationCategoryValues = _translate(
+				configurationCategoryResourceBundleLoader,
 				GetterUtil.getString(
 					"category." + configurationModel.getCategory()));
 
 			document.addLocalizedText(
-				FieldNames.CONFIGURATION_CATEGORY, categoryValues);
+				FieldNames.CONFIGURATION_CATEGORY, configurationCategoryValues);
 		}
 
 		ResourceBundleLoader resourceBundleLoader =
