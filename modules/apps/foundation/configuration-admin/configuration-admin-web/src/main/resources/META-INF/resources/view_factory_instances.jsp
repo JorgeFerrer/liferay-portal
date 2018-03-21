@@ -25,8 +25,19 @@ if (Validator.isNull(redirect)) {
 	redirect = portletURL.toString();
 }
 
-ConfigurationModelIterator configurationModelIterator = (ConfigurationModelIterator)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL_ITERATOR);
 ConfigurationModel configurationModel = (ConfigurationModel)request.getAttribute(ConfigurationAdminWebKeys.FACTORY_CONFIGURATION_MODEL);
+ConfigurationModelIterator configurationModelIterator = (ConfigurationModelIterator)request.getAttribute(ConfigurationAdminWebKeys.CONFIGURATION_MODEL_ITERATOR);
+
+PortalUtil.addPortletBreadcrumbEntry(request, portletDisplay.getPortletDisplayName(), String.valueOf(renderResponse.createRenderURL()));
+
+String categoryDisplayName = LanguageUtil.get(request, "category." + configurationModel.getCategory());
+
+PortletURL viewCategoryURL = renderResponse.createRenderURL();
+
+viewCategoryURL.setParameter("mvcRenderCommandName", "/view_category");
+viewCategoryURL.setParameter("configurationCategory", configurationModel.getCategory());
+
+PortalUtil.addPortletBreadcrumbEntry(request, categoryDisplayName, viewCategoryURL.toString());
 
 ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoaderProvider)request.getAttribute(ConfigurationAdminWebKeys.RESOURCE_BUNDLE_LOADER_PROVIDER);
 
@@ -36,18 +47,6 @@ ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle
 
 String factoryConfigurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 
-String categoryDisplayName = LanguageUtil.get(request, "category." + configurationModel.getCategory());
-
-PortletURL homeURL = renderResponse.createRenderURL();
-
-PortalUtil.addPortletBreadcrumbEntry(request, portletDisplay.getPortletDisplayName(), homeURL.toString());
-
-PortletURL viewCategoryURL = renderResponse.createRenderURL();
-
-viewCategoryURL.setParameter("mvcRenderCommandName", "/view_category");
-viewCategoryURL.setParameter("configurationCategory", configurationModel.getCategory());
-
-PortalUtil.addPortletBreadcrumbEntry(request, categoryDisplayName, viewCategoryURL.toString());
 PortalUtil.addPortletBreadcrumbEntry(request, factoryConfigurationModelName, null);
 
 portletDisplay.setShowBackIcon(true);

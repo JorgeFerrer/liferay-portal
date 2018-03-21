@@ -44,11 +44,9 @@ if (configurationModel.isFactory()) {
 	bindRedirectURL = viewFactoryInstancesURL.toString();
 }
 
+PortalUtil.addPortletBreadcrumbEntry(request, portletDisplay.getPortletDisplayName(), String.valueOf(renderResponse.createRenderURL()));
+
 String categoryDisplayName = LanguageUtil.get(request, "category." + configurationModel.getCategory());
-
-PortletURL homeURL = renderResponse.createRenderURL();
-
-PortalUtil.addPortletBreadcrumbEntry(request, portletDisplay.getPortletDisplayName(), homeURL.toString());
 
 PortletURL viewCategoryURL = renderResponse.createRenderURL();
 
