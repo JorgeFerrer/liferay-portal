@@ -38,8 +38,8 @@ String bindRedirectURL = currentURL;
 if (configurationModel.isFactory()) {
 	PortletURL viewFactoryInstancesURL = renderResponse.createRenderURL();
 
-	viewFactoryInstancesURL.setParameter("factoryPid", configurationModel.getFactoryPid());
 	viewFactoryInstancesURL.setParameter("mvcRenderCommandName", "/view_factory_instances");
+	viewFactoryInstancesURL.setParameter("factoryPid", configurationModel.getFactoryPid());
 
 	bindRedirectURL = viewFactoryInstancesURL.toString();
 }
