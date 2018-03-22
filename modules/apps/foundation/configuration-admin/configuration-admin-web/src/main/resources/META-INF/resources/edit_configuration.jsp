@@ -35,12 +35,12 @@ ResourceBundle componentResourceBundle = resourceBundleLoader.loadResourceBundle
 
 String bindRedirectURL = currentURL;
 
+PortletURL viewFactoryInstancesURL = renderResponse.createRenderURL();
+
+viewFactoryInstancesURL.setParameter("mvcRenderCommandName", "/view_factory_instances");
+viewFactoryInstancesURL.setParameter("factoryPid", configurationModel.getFactoryPid());
+
 if (configurationModel.isFactory()) {
-	PortletURL viewFactoryInstancesURL = renderResponse.createRenderURL();
-
-	viewFactoryInstancesURL.setParameter("mvcRenderCommandName", "/view_factory_instances");
-	viewFactoryInstancesURL.setParameter("factoryPid", configurationModel.getFactoryPid());
-
 	bindRedirectURL = viewFactoryInstancesURL.toString();
 }
 
@@ -58,12 +58,7 @@ PortalUtil.addPortletBreadcrumbEntry(request, categoryDisplayName, viewCategoryU
 String configurationModelName = (componentResourceBundle != null) ? LanguageUtil.get(componentResourceBundle, configurationModel.getName()) : configurationModel.getName();
 
 if (configurationModel.isFactory() && !configurationModel.isCompanyFactory()) {
-	PortletURL viewFactoryInstances = renderResponse.createRenderURL();
-
-	viewFactoryInstances.setParameter("mvcRenderCommandName", "/view_factory_instances");
-	viewFactoryInstances.setParameter("factoryPid", configurationModel.getFactoryPid());
-
-	PortalUtil.addPortletBreadcrumbEntry(request, configurationModelName, viewFactoryInstances.toString());
+	PortalUtil.addPortletBreadcrumbEntry(request, configurationModelName, viewFactoryInstancesURL.toString());
 
 	if (configurationModel.hasConfiguration()) {
 		PortalUtil.addPortletBreadcrumbEntry(request, configurationModel.getLabel(), null);
