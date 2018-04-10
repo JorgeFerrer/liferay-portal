@@ -1,4 +1,5 @@
 <#assign
+	demo_mode = getterUtil.getBoolean(themeDisplay.getThemeSetting("demo-mode"))
 	facebook_icon = getterUtil.getBoolean(themeDisplay.getThemeSetting("facebook-icon"))
 	facebook_icon_link_url = themeDisplay.getThemeSetting("facebook-icon-link-url")
 	show_main_navigation_in_full_screen = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-main-navigation-in-full-screen"))

@@ -45,18 +45,22 @@
 			</header>
 
 			<main id="content" role="main">
-				<h1 class="hide-accessible">${the_title}</h1>
-
-				<#if selectable>
-					<@liferay_util["include"] page=content_include />
+				<#if demo_mode>
+					<#include "${full_templates_path}/demo.ftl" />
 				<#else>
-					${portletDisplay.recycle()}
+					<h1 class="hide-accessible">${the_title}</h1>
 
-					${portletDisplay.setTitle(the_title)}
-
-					<@liferay_theme["wrap-portlet"] page="portlet.ftl">
+					<#if selectable>
 						<@liferay_util["include"] page=content_include />
-					</@>
+					<#else>
+						${portletDisplay.recycle()}
+
+						${portletDisplay.setTitle(the_title)}
+
+						<@liferay_theme["wrap-portlet"] page="portlet.ftl">
+							<@liferay_util["include"] page=content_include />
+						</@>
+					</#if>
 				</#if>
 			</main>
 

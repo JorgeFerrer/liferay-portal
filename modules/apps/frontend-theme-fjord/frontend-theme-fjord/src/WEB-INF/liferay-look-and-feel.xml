@@ -8,6 +8,7 @@
 	<theme id="fjord" name="fjord">
 		<template-extension>ftl</template-extension>
 		<settings>
+			<setting configurable="true" key="demo-mode" type="checkbox" value="true" />
 			<setting configurable="true" key="facebook-icon" type="checkbox" value="true" />
 			<setting configurable="true" key="facebook-icon-link-url" value="http://www.facebook.com" />
 			<setting configurable="true" key="show-main-navigation-in-full-screen" type="checkbox" value="false" />
