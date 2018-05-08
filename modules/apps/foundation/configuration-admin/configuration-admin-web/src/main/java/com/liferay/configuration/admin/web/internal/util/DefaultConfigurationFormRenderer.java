@@ -20,6 +20,8 @@ import com.liferay.configuration.admin.web.internal.constants.ConfigurationAdmin
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,6 +34,13 @@ public class DefaultConfigurationFormRenderer
 	@Override
 	public String getPid() {
 		return "DEFAULT";
+	}
+
+	@Override
+	public Map<String, Object> getRequestParameters(
+		HttpServletRequest request) {
+
+		return null;
 	}
 
 	@Override

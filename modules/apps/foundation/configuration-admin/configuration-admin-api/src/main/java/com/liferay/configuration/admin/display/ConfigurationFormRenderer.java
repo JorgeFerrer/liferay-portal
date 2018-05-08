@@ -15,6 +15,7 @@
 package com.liferay.configuration.admin.display;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 public interface ConfigurationFormRenderer {
 
 	public String getPid();
+
+	public Map<String, Object> getRequestParameters(HttpServletRequest request);
 
 	public void render(HttpServletRequest request, HttpServletResponse response)
 		throws IOException;
