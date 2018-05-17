@@ -25,7 +25,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 @Meta.OCD(
 	id = "com.liferay.portlet.configuration.css.web.internal.configuration.PortletConfigurationCSSPortletConfiguration",
 	localization = "content/Language",
-	name = "widget-configuration-css-portlet-widget-name"
+	name = "widget-configuration-css-widget-configuration-name"
 )
 public interface PortletConfigurationCSSPortletConfiguration {
 

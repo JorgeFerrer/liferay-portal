@@ -143,7 +143,7 @@ if (!GroupPermissionUtil.contains(permissionChecker, themeDisplay.getScopeGroup(
 
 					var dateChecker = exportImport.getDateRangeChecker();
 
-					if (dateChecker.validRange && confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-publish-to-live-and-update-the-existing-widget-data") %>')) {
+					if (dateChecker.validRange && confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-publish-to-live-and-update-the-existing-application-data") %>')) {
 						submitForm(document.<portlet:namespace />fm1);
 					}
 					else if (!dateChecker.validRange) {
