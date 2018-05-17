@@ -18,7 +18,7 @@ import com.liferay.configuration.admin.category.ConfigurationCategory;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Inácio Nery
+ * @author Jorge Ferrer
  */
 @Component
 public class WidgetConfigurationCategory implements ConfigurationCategory {
