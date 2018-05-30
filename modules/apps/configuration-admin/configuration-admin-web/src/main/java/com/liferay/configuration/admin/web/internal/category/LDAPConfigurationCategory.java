@@ -43,6 +43,6 @@ public class LDAPConfigurationCategory implements ConfigurationCategory {
 
 	private static final String _CATEGORY_KEY = "ldap";
 
-	private static final String _CATEGORY_SECTION = "platform";
+	private static final String _CATEGORY_SECTION = "security";
 
 }
