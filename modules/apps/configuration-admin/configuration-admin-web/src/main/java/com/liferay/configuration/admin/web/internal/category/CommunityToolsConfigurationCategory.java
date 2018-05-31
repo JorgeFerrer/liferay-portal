@@ -22,7 +22,8 @@ import org.osgi.service.component.annotations.Component;
  * @author Jorge Ferrer
  */
 @Component
-public class CommunityToolsConfigurationCategory implements ConfigurationCategory {
+public class CommunityToolsConfigurationCategory
+	implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryIcon() {

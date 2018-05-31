@@ -22,7 +22,8 @@ import org.osgi.service.component.annotations.Component;
  * @author Pei-Jung Lan
  */
 @Component
-public class SecurityToolsConfigurationCategory implements ConfigurationCategory {
+public class SecurityToolsConfigurationCategory
+	implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryIcon() {

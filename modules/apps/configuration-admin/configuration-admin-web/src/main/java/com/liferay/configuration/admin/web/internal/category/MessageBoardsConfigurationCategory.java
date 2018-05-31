@@ -15,13 +15,15 @@
 package com.liferay.configuration.admin.web.internal.category;
 
 import com.liferay.configuration.admin.category.ConfigurationCategory;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Jorge Ferrer
  */
 @Component
-public class MessageBoardsConfigurationCategory implements ConfigurationCategory {
+public class MessageBoardsConfigurationCategory
+	implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryIcon() {

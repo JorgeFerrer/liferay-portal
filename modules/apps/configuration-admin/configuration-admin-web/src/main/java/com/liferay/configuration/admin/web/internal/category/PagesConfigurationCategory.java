@@ -22,8 +22,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Pei-Jung Lan
  */
 @Component
-public class PagesConfigurationCategory
-	implements ConfigurationCategory {
+public class PagesConfigurationCategory implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryKey() {
