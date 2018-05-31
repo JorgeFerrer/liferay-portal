@@ -19,10 +19,11 @@ import com.liferay.configuration.admin.category.ConfigurationCategory;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Jorge Ferrer
+ * @author Pei-Jung Lan
  */
 @Component
-public class CommunityConfigurationCategory implements ConfigurationCategory {
+public class DevicesConfigurationCategory
+	implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryIcon() {
@@ -39,10 +40,10 @@ public class CommunityConfigurationCategory implements ConfigurationCategory {
 		return _CATEGORY_SECTION;
 	}
 
-	private static final String _CATEGORY_ICON = "community";
+	private static final String _CATEGORY_ICON = "devices";
 
-	private static final String _CATEGORY_KEY = "community";
+	private static final String _CATEGORY_KEY = "devices";
 
-	private static final String _CATEGORY_SECTION = "social";
+	private static final String _CATEGORY_SECTION = "platform";
 
 }
