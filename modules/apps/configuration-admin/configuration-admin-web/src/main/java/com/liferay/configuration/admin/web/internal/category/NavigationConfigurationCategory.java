@@ -43,6 +43,6 @@ public class NavigationConfigurationCategory implements ConfigurationCategory {
 
 	private static final String _CATEGORY_KEY = "navigation";
 
-	private static final String _CATEGORY_SECTION = "content-management";
+	private static final String _CATEGORY_SECTION = "content";
 
 }

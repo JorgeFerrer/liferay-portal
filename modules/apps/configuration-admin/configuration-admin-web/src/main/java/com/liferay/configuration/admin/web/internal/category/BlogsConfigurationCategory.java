@@ -43,6 +43,6 @@ public class BlogsConfigurationCategory implements ConfigurationCategory {
 
 	private static final String _CATEGORY_KEY = "blogs";
 
-	private static final String _CATEGORY_SECTION = "content-management";
+	private static final String _CATEGORY_SECTION = "content";
 
 }

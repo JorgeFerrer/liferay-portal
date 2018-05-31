@@ -43,6 +43,6 @@ public class BreadcrumbsConfigurationCategory implements ConfigurationCategory {
 
 	private static final String _CATEGORY_KEY = "breadcrumbs";
 
-	private static final String _CATEGORY_SECTION = "content-management";
+	private static final String _CATEGORY_SECTION = "content";
 
 }
