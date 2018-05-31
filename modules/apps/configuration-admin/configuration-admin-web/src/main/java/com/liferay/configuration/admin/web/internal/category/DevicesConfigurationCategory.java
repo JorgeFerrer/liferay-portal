@@ -22,8 +22,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Pei-Jung Lan
  */
 @Component
-public class DevicesConfigurationCategory
-	implements ConfigurationCategory {
+public class DevicesConfigurationCategory implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryIcon() {
