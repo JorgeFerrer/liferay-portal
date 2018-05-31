@@ -32,7 +32,8 @@ public interface PortletConfigurationCSSPortletConfiguration {
 	@Meta.AD(
 		deflt = "false",
 		description = "show-link-application-urls-to-page-description",
-		name = "show-link-application-urls-to-page-name", required = false)
+		name = "show-link-application-urls-to-page-name", required = false
+	)
 	public boolean showLinkToPage();
 
 }
