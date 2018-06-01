@@ -71,6 +71,11 @@ public class ConfigurationModelConfigurationEntry
 	}
 
 	@Override
+	public String getKey() {
+		return _configurationModel.getID();
+	}
+
+	@Override
 	public String getName() {
 		ResourceBundleLoader curResourceBundleLoader =
 			_resourceBundleLoaderProvider.getResourceBundleLoader(
