@@ -15,14 +15,14 @@
 package com.liferay.configuration.admin.web.internal.category;
 
 import com.liferay.configuration.admin.category.ConfigurationCategory;
+
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Jorge Ferrer
  */
 @Component
-public class AuditConfigurationCategory
-	implements ConfigurationCategory {
+public class AuditConfigurationCategory implements ConfigurationCategory {
 
 	@Override
 	public String getCategoryIcon() {
