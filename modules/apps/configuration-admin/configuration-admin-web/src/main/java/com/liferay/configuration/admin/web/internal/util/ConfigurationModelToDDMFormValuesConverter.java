@@ -21,6 +21,9 @@ import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.settings.LocationVariableResolver;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -39,15 +42,19 @@ public class ConfigurationModelToDDMFormValuesConverter {
 
 	public ConfigurationModelToDDMFormValuesConverter(
 		ConfigurationModel configurationModel, DDMForm ddmForm, Locale locale,
-		ResourceBundle resourceBundle) {
+		ResourceBundle resourceBundle,
+		LocationVariableResolver locationVariableResolver) {
 
 		_configurationModel = configurationModel;
 		_ddmForm = ddmForm;
 		_locale = locale;
 		_resourceBundle = resourceBundle;
+		_locationVariableResolver = locationVariableResolver;
 
 		_ddmFormFieldsMap = ddmForm.getDDMFormFieldsMap(false);
 	}
+
+	private final LocationVariableResolver _locationVariableResolver;
 
 	public DDMFormValues getDDMFormValues() {
 		DDMFormValues ddmFormValues = new DDMFormValues(_ddmForm);
@@ -143,6 +150,19 @@ public class ConfigurationModelToDDMFormValuesConverter {
 	protected void setDDMFormFieldValueLocalizedValue(
 		String value, DDMFormFieldValue ddmFormFieldValue) {
 
+		// If it's a location type variable, resolve it
+
+		try {
+			if (_locationVariableResolver.isLocationVariable(value)) {
+				value = _locationVariableResolver.resolve(value);
+			}
+		}
+		catch (Exception e) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to resolve the location variable.", e);
+			}
+		}
+
 		String type = getDDMFormFieldType(ddmFormFieldValue.getName());
 
 		if (type.equals(DDMFormFieldType.SELECT)) {
@@ -155,6 +175,9 @@ public class ConfigurationModelToDDMFormValuesConverter {
 
 		ddmFormFieldValue.setValue(localizedValue);
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		ConfigurationModelToDDMFormValuesConverter.class);
 
 	private final ConfigurationModel _configurationModel;
 	private final DDMForm _ddmForm;

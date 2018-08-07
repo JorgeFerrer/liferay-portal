@@ -28,8 +28,12 @@ import com.liferay.configuration.admin.web.internal.util.DDMFormRendererHelper;
 import com.liferay.configuration.admin.web.internal.util.ResourceBundleLoaderProvider;
 import com.liferay.dynamic.data.mapping.form.renderer.DDMFormRenderer;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.settings.LocationVariableResolver;
+import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ClassLoaderUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
@@ -91,7 +95,7 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 				configurationModel.getExtendedObjectClassDefinition(),
 				configuration, configurationModel.getBundleSymbolicName(),
 				configurationModel.getBundleLocation(),
-				configurationModel.isFactory());
+				configurationModel.isFactory(), configurationModel.getClassLoader());
 		}
 
 		if (configurationModel != null) {
@@ -126,10 +130,20 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 				ConfigurationAdminWebKeys.CONFIGURATION_MODEL,
 				configurationModel);
 
+			String bundleSymbolicName = configurationModel.getBundleSymbolicName();
+
+			ClassLoader classLoader = configurationModel.getClassLoader();
+
+			LocationVariableResolver locationVariableResolver =
+				new LocationVariableResolver(
+					new ClassLoaderResourceManager(classLoader),
+					_settingsLocatorHelper);
+
 			DDMFormRendererHelper ddmFormRendererHelper =
 				new DDMFormRendererHelper(
 					renderRequest, renderResponse, configurationModel,
-					_ddmFormRenderer, _resourceBundleLoaderProvider);
+					_ddmFormRenderer, _resourceBundleLoaderProvider,
+					locationVariableResolver);
 
 			renderRequest.setAttribute(
 				ConfigurationAdminWebKeys.CONFIGURATION_MODEL_FORM_HTML,
@@ -146,6 +160,9 @@ public class EditConfigurationMVCRenderCommand implements MVCRenderCommand {
 
 		return "/error.jsp";
 	}
+
+	@Reference
+	private SettingsLocatorHelper _settingsLocatorHelper;
 
 	@Reference
 	private ConfigurationEntryRetriever _configurationEntryRetriever;

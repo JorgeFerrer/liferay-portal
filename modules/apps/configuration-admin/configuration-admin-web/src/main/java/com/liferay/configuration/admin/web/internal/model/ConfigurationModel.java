@@ -50,12 +50,29 @@ public class ConfigurationModel implements ExtendedObjectClassDefinition {
 		Configuration configuration, String bundleSymbolicName,
 		String bundleLocation, boolean factory) {
 
+		this(
+			extendedObjectClassDefinition, configuration, bundleSymbolicName,
+			bundleLocation, factory, ConfigurationModel.class.getClassLoader());
+	}
+
+	public ConfigurationModel(
+		ExtendedObjectClassDefinition extendedObjectClassDefinition,
+		Configuration configuration, String bundleSymbolicName,
+		String bundleLocation, boolean factory, ClassLoader classLoader) {
+
 		_extendedObjectClassDefinition = extendedObjectClassDefinition;
 		_configuration = configuration;
 		_bundleSymbolicName = bundleSymbolicName;
 		_bundleLocation = bundleLocation;
 		_factory = factory;
+		_classLoader = classLoader;
 	}
+
+	public ClassLoader getClassLoader() {
+		return _classLoader;
+	}
+
+	private final ClassLoader _classLoader;
 
 	@Override
 	public boolean equals(Object obj) {

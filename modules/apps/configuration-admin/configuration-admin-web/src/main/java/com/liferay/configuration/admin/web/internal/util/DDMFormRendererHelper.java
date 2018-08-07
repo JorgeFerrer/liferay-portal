@@ -25,7 +25,11 @@ import com.liferay.dynamic.data.mapping.util.DDMFormLayoutFactory;
 import com.liferay.dynamic.data.mapping.util.DDMUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.resource.manager.ClassLoaderResourceManager;
+import com.liferay.portal.kernel.settings.LocationVariableResolver;
+import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ClassLoaderUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -45,14 +49,18 @@ public class DDMFormRendererHelper {
 	public DDMFormRendererHelper(
 		PortletRequest portletRequest, PortletResponse portletResponse,
 		ConfigurationModel configurationModel, DDMFormRenderer ddmFormRenderer,
-		ResourceBundleLoaderProvider resourceBundleLoaderProvider) {
+		ResourceBundleLoaderProvider resourceBundleLoaderProvider,
+		LocationVariableResolver locationVariableResolver) {
 
 		_portletRequest = portletRequest;
 		_portletResponse = portletResponse;
 		_configurationModel = configurationModel;
 		_ddmFormRenderer = ddmFormRenderer;
 		_resourceBundleLoaderProvider = resourceBundleLoaderProvider;
+		_locationVariableResolver = locationVariableResolver;
 	}
+
+	private final LocationVariableResolver _locationVariableResolver;
 
 	public String getDDMFormHTML() throws PortletException {
 		try {
@@ -138,7 +146,8 @@ public class DDMFormRendererHelper {
 		ConfigurationModelToDDMFormValuesConverter
 			configurationModelToDDMFormValuesConverter =
 				new ConfigurationModelToDDMFormValuesConverter(
-					_configurationModel, ddmForm, locale, resourceBundle);
+					_configurationModel, ddmForm, locale, resourceBundle,
+					_locationVariableResolver);
 
 		return configurationModelToDDMFormValuesConverter.getDDMFormValues();
 	}

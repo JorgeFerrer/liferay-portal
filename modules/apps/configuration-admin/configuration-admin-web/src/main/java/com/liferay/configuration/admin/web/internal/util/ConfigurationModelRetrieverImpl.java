@@ -38,6 +38,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.wiring.BundleWiring;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Activate;
@@ -177,7 +178,8 @@ public class ConfigurationModelRetrieverImpl
 			ConfigurationModel curConfigurationModel = new ConfigurationModel(
 				factoryConfigurationModel, configuration,
 				factoryConfigurationModel.getBundleSymbolicName(),
-				configuration.getBundleLocation(), false);
+				configuration.getBundleLocation(), false,
+				factoryConfigurationModel.getClassLoader());
 
 			factoryInstances.add(curConfigurationModel);
 		}
@@ -252,10 +254,13 @@ public class ConfigurationModelRetrieverImpl
 			return null;
 		}
 
+		ClassLoader classLoader =
+			bundle.adapt(BundleWiring.class).getClassLoader();
+
 		ConfigurationModel configurationModel = new ConfigurationModel(
 			metaTypeInformation.getObjectClassDefinition(pid, locale),
 			getConfiguration(pid), bundle.getSymbolicName(),
-			StringPool.QUESTION, factory);
+			StringPool.QUESTION, factory, classLoader);
 
 		if (configurationModel.isCompanyFactory()) {
 			Configuration configuration = getCompanyDefaultConfiguration(pid);
@@ -263,7 +268,7 @@ public class ConfigurationModelRetrieverImpl
 			configurationModel = new ConfigurationModel(
 				configurationModel.getExtendedObjectClassDefinition(),
 				configuration, bundle.getSymbolicName(), StringPool.QUESTION,
-				configurationModel.isFactory());
+				configurationModel.isFactory(), classLoader);
 		}
 
 		return configurationModel;
