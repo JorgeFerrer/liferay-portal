@@ -78,7 +78,7 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(59);
+		StringBundler sb = new StringBundler(57);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -114,8 +114,6 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable,
 		sb.append(prefixId);
 		sb.append(", suffixId=");
 		sb.append(suffixId);
-		sb.append(", male=");
-		sb.append(male);
 		sb.append(", birthday=");
 		sb.append(birthday);
 		sb.append(", smsSn=");
@@ -208,7 +206,6 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable,
 
 		contactImpl.setPrefixId(prefixId);
 		contactImpl.setSuffixId(suffixId);
-		contactImpl.setMale(male);
 
 		if (birthday == Long.MIN_VALUE) {
 			contactImpl.setBirthday(null);
@@ -320,8 +317,6 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable,
 		prefixId = objectInput.readLong();
 
 		suffixId = objectInput.readLong();
-
-		male = objectInput.readBoolean();
 		birthday = objectInput.readLong();
 		smsSn = objectInput.readUTF();
 		facebookSn = objectInput.readUTF();
@@ -395,8 +390,6 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable,
 		objectOutput.writeLong(prefixId);
 
 		objectOutput.writeLong(suffixId);
-
-		objectOutput.writeBoolean(male);
 		objectOutput.writeLong(birthday);
 
 		if (smsSn == null) {
@@ -487,7 +480,6 @@ public class ContactCacheModel implements CacheModel<Contact>, Externalizable,
 	public String lastName;
 	public long prefixId;
 	public long suffixId;
-	public boolean male;
 	public long birthday;
 	public String smsSn;
 	public String facebookSn;
