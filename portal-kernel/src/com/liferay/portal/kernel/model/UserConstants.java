@@ -92,16 +92,7 @@ public class UserConstants {
 		StringBundler sb = new StringBundler(9);
 
 		sb.append(imagePath);
-		sb.append("/user_");
-
-		if (male) {
-			sb.append("male");
-		}
-		else {
-			sb.append("female");
-		}
-
-		sb.append("_portrait?img_id=");
+		sb.append("/user_male_portrait?img_id=");
 		sb.append(portraitId);
 
 		if (_userFileUploadsSettings.isImageCheckToken()) {

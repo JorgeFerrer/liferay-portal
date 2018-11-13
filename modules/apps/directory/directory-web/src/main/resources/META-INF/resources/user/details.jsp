@@ -67,15 +67,6 @@ for (int i = 1; i<organizations.size(); i++) {
 			</dd>
 		</c:if>
 
-		<c:if test="<%= PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.FIELD_ENABLE_COM_LIFERAY_PORTAL_KERNEL_MODEL_CONTACT_MALE) %>">
-			<dt>
-				<liferay-ui:message key="gender" />
-			</dt>
-			<dd>
-				<%= LanguageUtil.get(request, selUser.isMale() ? "male" : "female") %>
-			</dd>
-		</c:if>
-
 		<c:if test="<%= !organizations.isEmpty() %>">
 			<dt>
 				<c:choose>

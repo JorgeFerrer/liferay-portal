@@ -210,7 +210,6 @@ public class FacebookConnectAction extends BaseStrutsAction {
 		String lastName = jsonObject.getString("last_name");
 		long prefixId = 0;
 		long suffixId = 0;
-		boolean male = Objects.equals(jsonObject.getString("gender"), "male");
 		int birthdayMonth = Calendar.JANUARY;
 		int birthdayDay = 1;
 		int birthdayYear = 1970;
@@ -226,7 +225,7 @@ public class FacebookConnectAction extends BaseStrutsAction {
 		User user = _userLocalService.addUser(
 			creatorUserId, companyId, autoPassword, password1, password2,
 			autoScreenName, screenName, emailAddress, facebookId, openId,
-			locale, firstName, middleName, lastName, prefixId, suffixId, male,
+			locale, firstName, middleName, lastName, prefixId, suffixId,
 			birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
 			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 
@@ -365,12 +364,11 @@ public class FacebookConnectAction extends BaseStrutsAction {
 		String emailAddress = jsonObject.getString("email");
 		String firstName = jsonObject.getString("first_name");
 		String lastName = jsonObject.getString("last_name");
-		boolean male = Objects.equals(jsonObject.getString("gender"), "male");
 
 		if ((facebookId == user.getFacebookId()) &&
 			emailAddress.equals(user.getEmailAddress()) &&
 			firstName.equals(user.getFirstName()) &&
-			lastName.equals(user.getLastName()) && (male == user.isMale())) {
+			lastName.equals(user.getLastName())) {
 
 			return user;
 		}
@@ -409,7 +407,7 @@ public class FacebookConnectAction extends BaseStrutsAction {
 			facebookId, user.getOpenId(), true, null, user.getLanguageId(),
 			user.getTimeZoneId(), user.getGreeting(), user.getComments(),
 			firstName, user.getMiddleName(), lastName, contact.getPrefixId(),
-			contact.getSuffixId(), male, birthdayMonth, birthdayDay,
+			contact.getSuffixId(), birthdayMonth, birthdayDay,
 			birthdayYear, contact.getSmsSn(), contact.getFacebookSn(),
 			contact.getJabberSn(), contact.getSkypeSn(), contact.getTwitterSn(),
 			contact.getJobTitle(), groupIds, organizationIds, roleIds,

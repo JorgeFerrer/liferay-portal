@@ -132,16 +132,6 @@ public class UserAccountRepresentorBuilderHelperImpl
 		);
 	}
 
-	private static String _getGender(User user) {
-		return Try.fromFallible(
-			user::isMale
-		).map(
-			male -> male ? "male" : "female"
-		).orElse(
-			null
-		);
-	}
-
 	private ClassNameClassPK _createClassNameAndClassPK(
 		UserWrapper userWrapper) {
 

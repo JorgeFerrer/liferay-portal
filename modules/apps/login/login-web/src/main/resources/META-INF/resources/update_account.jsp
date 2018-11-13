@@ -59,7 +59,6 @@ else if (selUser != null) {
 	birthdayCalendar.setTime(selContact.getBirthday());
 }
 
-boolean male = BeanParamUtil.getBoolean(selUser, request, "male", true);
 String jobTitle = BeanParamUtil.getString(selUser, request, "jobTitle");
 %>
 
@@ -84,7 +83,6 @@ String jobTitle = BeanParamUtil.getString(selUser, request, "jobTitle");
 		<aui:input name="lastName" type="hidden" value="<%= lastName %>" />
 		<aui:input name="prefixId" type="hidden" value="<%= String.valueOf(prefixId) %>" />
 		<aui:input name="suffixId" type="hidden" value="<%= String.valueOf(suffixId) %>" />
-		<aui:input name="male" type="hidden" value="<%= String.valueOf(male) %>" />
 		<aui:input name="birthdayDay" type="hidden" value="<%= String.valueOf(birthdayCalendar.get(Calendar.DAY_OF_MONTH)) %>" />
 		<aui:input name="birthdayMonth" type="hidden" value="<%= String.valueOf(birthdayCalendar.get(Calendar.MONTH)) %>" />
 		<aui:input name="birthdayYear" type="hidden" value="<%= String.valueOf(birthdayCalendar.get(Calendar.YEAR)) %>" />

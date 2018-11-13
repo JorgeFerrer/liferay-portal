@@ -164,7 +164,6 @@ public class StatusFinderImpl
 		sqlQuery.addScalar("firstName", Type.STRING);
 		sqlQuery.addScalar("groupId", Type.LONG);
 		sqlQuery.addScalar("lastName", Type.STRING);
-		//sqlQuery.addScalar("male", Type.BOOLEAN);
 		sqlQuery.addScalar("middleName", Type.STRING);
 		sqlQuery.addScalar("portraitId", Type.LONG);
 		sqlQuery.addScalar("screenName", Type.STRING);

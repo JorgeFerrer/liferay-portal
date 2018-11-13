@@ -281,9 +281,7 @@ public class LiferayPersonService implements PersonService {
 
 		sb.append(securityToken.getDomain());
 		sb.append(PortalUtil.getPathImage());
-		sb.append("/user_");
-		sb.append(user.isFemale() ? "female" : "male");
-		sb.append("_portrait?img_id=");
+		sb.append("/user_male_portrait?img_id=");
 		sb.append(user.getPortraitId());
 		sb.append("&t=");
 		sb.append(WebServerServletTokenUtil.getToken(user.getPortraitId()));
@@ -318,15 +316,6 @@ public class LiferayPersonService implements PersonService {
 
 		if (fields.contains(Person.Field.EMAILS)) {
 			person.setEmails(getEmails(user));
-		}
-
-		if (fields.contains(Person.Field.GENDER.toString())) {
-			if (user.isFemale()) {
-				person.setGender(Person.Gender.female);
-			}
-			else {
-				person.setGender(Person.Gender.male);
-			}
 		}
 
 		if (fields.contains(Person.Field.NICKNAME.toString())) {

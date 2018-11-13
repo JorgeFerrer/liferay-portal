@@ -84,7 +84,6 @@ public class ContactModelListener extends BaseModelListener<Contact> {
 		attributesBuilder.add("jobClass");
 		attributesBuilder.add("jobTitle");
 		attributesBuilder.add("lastName");
-		attributesBuilder.add("male");
 		attributesBuilder.add("middleName");
 		attributesBuilder.add("prefixId");
 		attributesBuilder.add("skypeSn");
