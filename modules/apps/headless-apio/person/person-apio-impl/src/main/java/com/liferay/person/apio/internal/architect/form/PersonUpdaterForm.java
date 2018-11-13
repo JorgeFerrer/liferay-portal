@@ -181,10 +181,6 @@ public class PersonUpdaterForm {
 		_familyName = lastName;
 	}
 
-	public void setGender(String gender) {
-		_male = "male".equals(gender);
-	}
-
 	public void setGivenName(String givenName) {
 		_givenName = givenName;
 	}

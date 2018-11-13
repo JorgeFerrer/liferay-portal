@@ -68,10 +68,10 @@ Mockito.doReturn(
 ```
 
 ```java
-String gender = Try.fromFallible(
-    user::isMale
+String passwordModified = Try.fromFallible(
+    user::getPasswordModified
 ).map(
-    male -> male ? "male" : "female"
+    passwordModified -> passwordModified ? "Modified" : "Not Modified"
 ).orElse(
     null
 );

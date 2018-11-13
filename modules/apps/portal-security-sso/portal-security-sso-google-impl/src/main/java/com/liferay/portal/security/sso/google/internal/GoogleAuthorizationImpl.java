@@ -158,7 +158,6 @@ public class GoogleAuthorizationImpl implements GoogleAuthorization {
 		String lastName = userinfoplus.getFamilyName();
 		long prefixId = 0;
 		long suffixId = 0;
-		boolean male = Objects.equals(userinfoplus.getGender(), "male");
 		int birthdayMonth = Calendar.JANUARY;
 		int birthdayDay = 1;
 		int birthdayYear = 1970;
@@ -314,11 +313,10 @@ public class GoogleAuthorizationImpl implements GoogleAuthorization {
 		String emailAddress = userinfoplus.getEmail();
 		String firstName = userinfoplus.getGivenName();
 		String lastName = userinfoplus.getFamilyName();
-		boolean male = Objects.equals(userinfoplus.getGender(), "male");
 
 		if (emailAddress.equals(user.getEmailAddress()) &&
 			firstName.equals(user.getFirstName()) &&
-			lastName.equals(user.getLastName()) && (male == user.isMale())) {
+			lastName.equals(user.getLastName())) {
 
 			return user;
 		}

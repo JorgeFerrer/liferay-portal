@@ -129,7 +129,6 @@ public class EditUserMVCActionCommand extends BaseMVCActionCommand {
 		String lastName = ParamUtil.getString(actionRequest, "lastName");
 		long prefixId = ParamUtil.getInteger(actionRequest, "prefixId");
 		long suffixId = ParamUtil.getInteger(actionRequest, "suffixId");
-		boolean male = ParamUtil.getBoolean(actionRequest, "male", true);
 		int birthdayMonth = ParamUtil.getInteger(
 			actionRequest, "birthdayMonth");
 		int birthdayDay = ParamUtil.getInteger(actionRequest, "birthdayDay");
@@ -480,8 +479,6 @@ public class EditUserMVCActionCommand extends BaseMVCActionCommand {
 			contact, actionRequest, "prefixId");
 		long suffixId = BeanParamUtil.getInteger(
 			contact, actionRequest, "suffixId");
-		boolean male = BeanParamUtil.getBoolean(
-			user, actionRequest, "male", true);
 
 		Calendar birthdayCal = CalendarFactoryUtil.getCalendar();
 

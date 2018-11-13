@@ -1452,10 +1452,7 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 		for (String propertyName : _CONTACT_PROPERTY_NAMES) {
 			String mappingPropertyName = propertyName;
 
-			if (propertyName.equals("male")) {
-				mappingPropertyName = ContactConverterKeys.GENDER;
-			}
-			else if (propertyName.equals("prefixId")) {
+			if (propertyName.equals("prefixId")) {
 				mappingPropertyName = ContactConverterKeys.PREFIX;
 			}
 			else if (propertyName.equals("suffixId")) {
@@ -1697,8 +1694,8 @@ public class LDAPUserImporterImpl implements LDAPUserImporter, UserImporter {
 	}
 
 	private static final String[] _CONTACT_PROPERTY_NAMES = {
-		"birthday", "employeeNumber", "facebookSn", "jabberSn", "male",
-		"prefixId", "skypeSn", "smsSn", "suffixId", "twitterSn"
+		"birthday", "employeeNumber", "facebookSn", "jabberSn", "prefixId",
+		"skypeSn", "smsSn", "suffixId", "twitterSn"
 	};
 
 	private static final String _IMPORT_BY_GROUP = "group";
