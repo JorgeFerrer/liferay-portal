@@ -112,7 +112,6 @@ public class ImportMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
-
 	@Reference
 	private FragmentsImporter _fragmentsImporter;
 
