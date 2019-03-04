@@ -119,8 +119,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 			_importResources(
 				fragmentCollection.getFragmentCollectionId(),
-				fragmentCollection.getResourcesFolderId(), zipFile,
-				groupId, userId);
+				fragmentCollection.getResourcesFolderId(), zipFile, groupId,
+				userId);
 
 			_importFragmentEntries(
 				userId, groupId, zipFile,
@@ -161,8 +161,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private FragmentCollection _addFragmentCollection(
-			long groupId, String fragmentCollectionKey,
-			String name, String description, boolean overwrite)
+			long groupId, String fragmentCollectionKey, String name,
+			String description, boolean overwrite)
 		throws Exception {
 
 		FragmentCollection fragmentCollection =
@@ -175,8 +175,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 			fragmentCollection =
 				_fragmentCollectionService.addFragmentCollection(
-					groupId, fragmentCollectionKey, name,
-					description, serviceContext);
+					groupId, fragmentCollectionKey, name, description,
+					serviceContext);
 		}
 		else if (overwrite) {
 			fragmentCollection =
@@ -193,9 +193,9 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private FragmentEntry _addFragmentEntry(
-			long fragmentCollectionId,
-			String fragmentEntryKey, String name, String css, String html,
-			String js, String typeLabel, boolean overwrite)
+			long fragmentCollectionId, String fragmentEntryKey, String name,
+			String css, String html, String js, String typeLabel,
+			boolean overwrite)
 		throws Exception {
 
 		FragmentCollection fragmentCollection =
@@ -561,7 +561,8 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 
 	private static final String _DEFAULT_FRAGMENT_COLLECTION_KEY = "imported";
 
-	private static final Log _log = LogFactoryUtil.getLog(FragmentsImporterImpl.class);
+	private static final Log _log = LogFactoryUtil.getLog(
+		FragmentsImporterImpl.class);
 
 	@Reference
 	private FragmentCollectionLocalService _fragmentCollectionLocalService;

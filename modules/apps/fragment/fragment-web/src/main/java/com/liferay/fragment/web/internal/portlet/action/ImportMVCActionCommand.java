@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import java.io.File;
+
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -78,8 +79,7 @@ public class ImportMVCActionCommand extends BaseMVCActionCommand {
 		File file = uploadPortletRequest.getFile("file");
 
 		try {
-			importFile(
-				actionRequest, file, fragmentCollectionId, overwrite);
+			importFile(actionRequest, file, fragmentCollectionId, overwrite);
 
 			SessionMessages.add(actionRequest, "success");
 		}
@@ -95,8 +95,8 @@ public class ImportMVCActionCommand extends BaseMVCActionCommand {
 			boolean overwrite)
 		throws Exception {
 
-		ServiceContext serviceContext =
-			ServiceContextFactory.getInstance(actionRequest);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			actionRequest);
 
 		long userId = serviceContext.getUserId();
 
@@ -111,7 +111,6 @@ public class ImportMVCActionCommand extends BaseMVCActionCommand {
 				invalidFragmentEntriesNames);
 		}
 	}
-
 
 	@Reference
 	private FragmentsImporter _fragmentsImporter;
