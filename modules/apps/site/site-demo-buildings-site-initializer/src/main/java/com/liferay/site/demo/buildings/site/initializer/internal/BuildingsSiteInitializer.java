@@ -32,6 +32,7 @@ import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.dynamic.data.mapping.storage.StorageType;
 import com.liferay.dynamic.data.mapping.util.DDM;
+import com.liferay.fragment.importer.FragmentsImporter;
 import com.liferay.fragment.model.FragmentCollection;
 import com.liferay.fragment.model.FragmentEntry;
 import com.liferay.fragment.model.FragmentEntryModel;
@@ -81,6 +82,7 @@ import com.liferay.portlet.PortletPreferencesImpl;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
 
+import java.io.File;
 import java.io.InputStream;
 
 import java.net.URL;
@@ -143,6 +145,18 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 			_updateLookAndFeel(serviceContext);
 
 			List<FileEntry> fileEntries = _addFileEntries(serviceContext);
+
+			URL fragmentsZipUrl = _bundle.getEntry(_PATH + "/fragments.zip");
+
+			if (fragmentsZipUrl != null) {
+				File tempFile =
+					FileUtil.createTempFile(fragmentsZipUrl.openStream());
+
+				Group group = _groupLocalService.getGroup(groupId);
+
+				_fragmentsImporter.importFile(
+					group.getCreatorUserId(), groupId, 0, tempFile, false);
+			}
 
 			List<FragmentEntry> fragmentEntries = _addFragmentEntries(
 				fileEntries, serviceContext);
@@ -967,6 +981,9 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 
 	@Reference
 	private FragmentEntryLocalService _fragmentEntryLocalService;
+
+	@Reference
+	private FragmentsImporter _fragmentsImporter;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
