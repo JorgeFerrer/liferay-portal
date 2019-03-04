@@ -66,38 +66,16 @@ import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import javax.portlet.ActionRequest;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
  */
-@Component(immediate = true, service = ImportUtil.class)
-public class ImportUtil {
+@Component(immediate = true, service = FragmentsImporter.class)
+public class FragmentsImporterImpl implements FragmentsImporter {
 
-	public void importFile(
-			ActionRequest actionRequest, File file, long fragmentCollectionId,
-			boolean overwrite)
-		throws Exception {
-
-		ServiceContext serviceContext =
-			ServiceContextFactory.getInstance(actionRequest);
-
-		long userId = serviceContext.getUserId();
-
-		List<String> invalidFragmentEntriesNames = importFile(
-			userId, serviceContext.getScopeGroupId(), fragmentCollectionId,
-			file, overwrite);
-
-		if (ListUtil.isNotEmpty(invalidFragmentEntriesNames)) {
-			SessionMessages.add(
-				actionRequest, "invalidFragmentEntriesNames",
-				invalidFragmentEntriesNames);
-		}
-	}
-
+	@Override
 	public List<String> importFile(
 			long userId, long groupId, long fragmentCollectionId, File file,
 			boolean overwrite)
@@ -585,7 +563,7 @@ public class ImportUtil {
 
 	private static final String _DEFAULT_FRAGMENT_COLLECTION_KEY = "imported";
 
-	private static final Log _log = LogFactoryUtil.getLog(ImportUtil.class);
+	private static final Log _log = LogFactoryUtil.getLog(FragmentsImporterImpl.class);
 
 	@Reference
 	private FragmentCollectionLocalService _fragmentCollectionLocalService;
