@@ -497,7 +497,8 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 		throws Exception {
 
 		Enumeration<URL> enumeration = _bundle.findEntries(
-			_PATH + "/journal/structures/buildings_entry/templates", "*", false);
+			_PATH + "/journal/structures/buildings_entry/templates", "*",
+			false);
 
 		while (enumeration.hasMoreElements()) {
 			URL url = enumeration.nextElement();
