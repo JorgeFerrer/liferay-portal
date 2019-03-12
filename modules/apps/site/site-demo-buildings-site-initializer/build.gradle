@@ -16,3 +16,13 @@ dependencies {
 	compileOnly project(":apps:site:site-api")
 	compileOnly project(":core:petra:petra-string")
 }
+
+task zipFragments(type: Zip) {
+	archiveName = "fragments.zip"
+	destinationDir file("classes/com/liferay/site/demo/buildings/site/initializer/internal/dependencies")
+	from "src/main/zippableResources/fragments"
+}
+
+jar {
+	dependsOn zipFragments
+}
