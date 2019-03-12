@@ -1,0 +1,61 @@
+.fragment_41564{
+}
+
+.fragment_41564 .navbar-brand {
+display: flex;
+padding: 0 12px;
+}
+
+.fragment_41564 .brand-logo {
+height: 20px;
+margin-right: 8px;
+width: 20px;
+}
+
+.fragment_41564 h3 {
+color: #FFF;
+font-size: 16px;
+font-weight: 800;
+line-height: 1.4;
+margin-bottom: 0;
+}
+
+.fragment_41564 h3 a {
+color: #272833;
+}
+
+.fragment_41564 .nav-link {
+color: #CDCED9;
+font-weight: 600;
+padding: 8px 16px;
+}
+
+.fragment_41564 .active>.nav-link {
+color: #FFFf;
+}
+
+.fragment_41564 .portlet {
+margin: 8px 0;
+padding: 0;
+}
+
+.fragment_41564 .portlet-content {
+background-color: transparent;
+border: none;
+padding: 0;
+}
+
+.fragment_41564 .portlet-header {
+display: none;
+}
+
+.fragment_41564 .nav-group {
+align-items: center;
+display: flex;
+}
+
+.fragment_41564 .nav-group .btn {
+background-color: transparent;
+color: #FFF;
+margin: 0 12px;
+}
