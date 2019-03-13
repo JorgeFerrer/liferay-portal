@@ -1,0 +1,4 @@
+Bundle-Name: Liferay Demo Buildings Site Initializer
+Bundle-SymbolicName: com.liferay.demo.buildings.site.initializer
+Bundle-Version: 2.0.0
+Web-ContextPath: /demo-buildings-site-initializer

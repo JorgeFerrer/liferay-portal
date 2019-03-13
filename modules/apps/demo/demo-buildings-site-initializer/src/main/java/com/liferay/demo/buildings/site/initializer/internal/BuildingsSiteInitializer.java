@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.site.demo.buildings.site.initializer.internal;
+package com.liferay.demo.buildings.site.initializer.internal;
 
 import com.liferay.fragment.importer.FragmentsImporter;
 import com.liferay.petra.string.StringPool;
@@ -75,8 +75,7 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 	@Override
 	public void initialize(long groupId) throws InitializationException {
 		try {
-			URL fragmentsZipUrl = _bundle.getEntry(
-				_PATH + "/fragments.zip");
+			URL fragmentsZipUrl = _bundle.getEntry(_PATH + "/fragments.zip");
 
 			if (fragmentsZipUrl != null) {
 				File tempFile = FileUtil.createTempFile(
@@ -106,7 +105,7 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 	}
 
 	private static final String _PATH =
-		"com/liferay/site/demo/buildings/site/initializer/internal" +
+		"com/liferay/demo/buildings/site/initializer/internal" +
 			"/dependencies";
 
 	private static final String _SITE_INITIALIZER_NAME = "Buildings Demo";
@@ -123,7 +122,7 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 	private GroupLocalService _groupLocalService;
 
 	@Reference(
-		target = "(osgi.web.symbolicname=com.liferay.site.demo.buildings.site.initializer)"
+		target = "(osgi.web.symbolicname=com.liferay.demo.buildings.site.initializer)"
 	)
 	private ServletContext _servletContext;
 
