@@ -260,7 +260,7 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 			return path.substring(pos + 1);
 		}
 
-		return StringPool.BLANK;
+		return path;
 	}
 
 	private Map<String, FragmentCollectionFolder>
@@ -364,8 +364,12 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 			contentPath = contentPath.substring(2);
 		}
 
-		String path = fileName.substring(
-			0, fileName.lastIndexOf(StringPool.SLASH));
+		String path = fileName;
+
+		if (fileName.lastIndexOf(CharPool.SLASH) != -1) {
+			path = fileName.substring(
+				0, fileName.lastIndexOf(CharPool.SLASH));
+		}
 
 		return _getInputStream(zipFile, path + StringPool.SLASH + contentPath);
 	}
@@ -383,8 +387,12 @@ public class FragmentsImporterImpl implements FragmentsImporter {
 	}
 
 	private String _getKey(String fileName) {
-		String path = fileName.substring(
-			0, fileName.lastIndexOf(CharPool.SLASH));
+		String path = fileName;
+
+		if (fileName.lastIndexOf(CharPool.SLASH) != -1) {
+			path = fileName.substring(
+				0, fileName.lastIndexOf(CharPool.SLASH));
+		}
 
 		return path.substring(path.lastIndexOf(CharPool.SLASH) + 1);
 	}
