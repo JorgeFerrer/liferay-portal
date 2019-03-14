@@ -14,9 +14,19 @@
 
 package com.liferay.site.buildings.site.initializer.internal;
 
+import com.liferay.fragment.importer.FragmentsImporter;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.site.exception.InitializationException;
 import com.liferay.site.initializer.SiteInitializer;
+
+import java.io.File;
+
+import java.net.URL;
 
 import java.util.Locale;
 
@@ -63,6 +73,22 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 
 	@Override
 	public void initialize(long groupId) throws InitializationException {
+		try {
+			URL fragmentsZipUrl = _bundle.getEntry("/fragments.zip");
+
+			File tempFile = FileUtil.createTempFile(
+				fragmentsZipUrl.openStream());
+
+			Group group = _groupLocalService.getGroup(groupId);
+
+			_fragmentsImporter.importFile(
+				group.getCreatorUserId(), groupId, 0, tempFile, false);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new InitializationException(e);
+		}
 	}
 
 	@Override
@@ -77,7 +103,16 @@ public class BuildingsSiteInitializer implements SiteInitializer {
 
 	private static final String _NAME = "Buildings";
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		BuildingsSiteInitializer.class);
+
 	private Bundle _bundle;
+
+	@Reference
+	private FragmentsImporter _fragmentsImporter;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.site.buildings.site.initializer)"
