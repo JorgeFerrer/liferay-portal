@@ -18,7 +18,13 @@
 
 <%
 LayoutPortletsDisplayContext layoutPortletsDisplayContext = new LayoutPortletsDisplayContext(renderRequest, renderResponse, request);
+
+LayoutPortletsManagementToolbarDisplayContext siteTeamsManagementToolbarDisplayContext = new LayoutPortletsManagementToolbarDisplayContext(liferayPortletRequest, liferayPortletResponse, request, layoutPortletsDisplayContext);
 %>
+
+<clay:management-toolbar
+	displayContext="<%= siteTeamsManagementToolbarDisplayContext %>"
+/>
 
 <aui:form action="" cssClass="container-fluid-1280" name="fm">
 	<liferay-ui:search-container
