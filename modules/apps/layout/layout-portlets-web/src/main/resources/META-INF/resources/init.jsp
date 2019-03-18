@@ -26,7 +26,8 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.layout.portlets.web.internal.display.context.LayoutPortletsDisplayContext" %>
+<%@ page import="com.liferay.layout.portlets.web.internal.display.context.LayoutPortletsDisplayContext" %><%@
+page import="com.liferay.layout.portlets.web.internal.display.context.LayoutPortletsManagementToolbarDisplayContext" %>
 
 <liferay-theme:defineObjects />
 
