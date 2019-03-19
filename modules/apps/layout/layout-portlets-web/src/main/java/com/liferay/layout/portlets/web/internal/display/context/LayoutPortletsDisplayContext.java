@@ -14,6 +14,7 @@
 
 package com.liferay.layout.portlets.web.internal.display.context;
 
+import com.liferay.layout.portlets.web.internal.search.PortletSearch;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -26,7 +27,6 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.layout.portlets.web.internal.search.PortletSearch;
 import com.liferay.portal.util.WebAppPool;
 
 import java.util.ArrayList;
@@ -97,9 +97,10 @@ public class LayoutPortletsDisplayContext {
 
 		for (int i = 0; i < categories.length; i++) {
 			String category = categories[i];
+
 			sb.append(LanguageUtil.get(_request, category));
 
-			if (i < (categories.length -1)) {
+			if (i < (categories.length - 1)) {
 				sb.append(StringPool.COMMA_AND_SPACE);
 			}
 		}
@@ -172,12 +173,12 @@ public class LayoutPortletsDisplayContext {
 
 				if (categories == null) {
 					_portletCategories.put(
-						portletId, new String[]{curPortletCategoryName});
+						portletId, new String[] {curPortletCategoryName});
 				}
 				else {
 					_portletCategories.put(
-						portletId, ArrayUtil.append(
-							categories, curPortletCategoryName));
+						portletId,
+						ArrayUtil.append(categories, curPortletCategoryName));
 				}
 			}
 		}
@@ -186,8 +187,8 @@ public class LayoutPortletsDisplayContext {
 	private String _displayStyle;
 	private String _orderByCol;
 	private String _orderByType;
-	private ArrayList<Portlet> _portlets;
 	private Map<String, String[]> _portletCategories = new HashMap<>();
+	private ArrayList<Portlet> _portlets;
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private final HttpServletRequest _request;

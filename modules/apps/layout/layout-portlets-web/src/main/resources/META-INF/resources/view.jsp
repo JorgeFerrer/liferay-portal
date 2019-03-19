@@ -37,7 +37,6 @@ LayoutPortletsManagementToolbarDisplayContext siteTeamsManagementToolbarDisplayC
 			keyProperty="portletId"
 			modelVar="portlet"
 		>
-
 			<liferay-ui:search-container-column-text
 				cssClass="table-cell-expand-small table-cell-minw-200 table-title"
 				name="name"
@@ -49,7 +48,6 @@ LayoutPortletsManagementToolbarDisplayContext siteTeamsManagementToolbarDisplayC
 				name="categories"
 				value="<%= layoutPortletsDisplayContext.getPortletCategoryLabels(portlet.getRootPortletId()) %>"
 			/>
-
 		</liferay-ui:search-container-row>
 
 		<liferay-ui:search-iterator

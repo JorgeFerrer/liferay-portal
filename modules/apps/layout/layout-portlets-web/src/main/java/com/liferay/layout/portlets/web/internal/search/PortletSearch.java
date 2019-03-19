@@ -39,7 +39,9 @@ public class PortletSearch extends SearchContainer<Portlet> {
 		}
 	};
 
-	public PortletSearch(PortletRequest portletRequest, PortletURL iteratorURL) {
+	public PortletSearch(
+		PortletRequest portletRequest, PortletURL iteratorURL) {
+
 		super(
 			portletRequest, new PortletDisplayTerms(portletRequest),
 			new PortletDisplayTerms(portletRequest), DEFAULT_CUR_PARAM,
