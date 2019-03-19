@@ -30,10 +30,13 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.WebAppPool;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
@@ -93,19 +96,13 @@ public class LayoutPortletsDisplayContext {
 	public String getPortletCategoryLabels(String portletId) {
 		String[] categories = _portletCategories.get(portletId);
 
-		StringBuffer sb = new StringBuffer(categories.length * 2);
+		Stream<String> stream = Arrays.stream(categories);
 
-		for (int i = 0; i < categories.length; i++) {
-			String category = categories[i];
-
-			sb.append(LanguageUtil.get(_request, category));
-
-			if (i < (categories.length - 1)) {
-				sb.append(StringPool.COMMA_AND_SPACE);
-			}
-		}
-
-		return sb.toString();
+		return stream.map(
+			category -> LanguageUtil.get(_request, category)
+		).collect(
+			Collectors.joining(StringPool.COMMA_AND_SPACE)
+		);
 	}
 
 	public PortletURL getPortletURL() {
