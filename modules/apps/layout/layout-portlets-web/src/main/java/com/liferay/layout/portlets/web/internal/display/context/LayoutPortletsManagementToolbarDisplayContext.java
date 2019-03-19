@@ -48,11 +48,6 @@ public class LayoutPortletsManagementToolbarDisplayContext
 	}
 
 	@Override
-	protected String[] getDisplayViews() {
-		return new String[] {"list"};
-	}
-
-	@Override
 	protected String[] getNavigationKeys() {
 		return new String[] {"all"};
 	}
