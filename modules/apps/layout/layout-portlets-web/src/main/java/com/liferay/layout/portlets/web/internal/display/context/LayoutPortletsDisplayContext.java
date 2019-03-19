@@ -126,9 +126,7 @@ public class LayoutPortletsDisplayContext {
 		searchContainer.setOrderByCol(getOrderByCol());
 		searchContainer.setOrderByType(getOrderByType());
 
-		int total = _portlets.size();
-
-		searchContainer.setTotal(total);
+		searchContainer.setTotal(_portlets.size());
 
 		List results = ListUtil.sort(
 			_portlets, searchContainer.getOrderByComparator());
@@ -147,8 +145,6 @@ public class LayoutPortletsDisplayContext {
 
 		Collection<PortletCategory> portletCategories =
 			portletCategory.getCategories();
-
-		_portlets = new ArrayList<>();
 
 		for (PortletCategory curPortletCategory : portletCategories) {
 			if (curPortletCategory.isHidden()) {
@@ -187,8 +183,8 @@ public class LayoutPortletsDisplayContext {
 	private String _displayStyle;
 	private String _orderByCol;
 	private String _orderByType;
-	private Map<String, String[]> _portletCategories = new HashMap<>();
-	private ArrayList<Portlet> _portlets;
+	private final Map<String, String[]> _portletCategories = new HashMap<>();
+	private final ArrayList<Portlet> _portlets = new ArrayList<>();
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private final HttpServletRequest _request;
