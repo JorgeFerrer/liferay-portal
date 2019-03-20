@@ -94,7 +94,7 @@ public class LayoutPortletsDisplayContext {
 	}
 
 	public String getPortletCategoryLabels(String portletId) {
-		String[] categories = _portletCategories.get(portletId);
+		String[] categories = _layoutPortletCategories.get(portletId);
 
 		Stream<String> stream = Arrays.stream(categories);
 
@@ -123,10 +123,10 @@ public class LayoutPortletsDisplayContext {
 		searchContainer.setOrderByCol(getOrderByCol());
 		searchContainer.setOrderByType(getOrderByType());
 
-		searchContainer.setTotal(_portlets.size());
+		searchContainer.setTotal(_layoutPortlets.size());
 
 		List results = ListUtil.sort(
-			_portlets, searchContainer.getOrderByComparator());
+			_layoutPortlets, searchContainer.getOrderByComparator());
 
 		results = ListUtil.subList(
 			results, searchContainer.getStart(), searchContainer.getEnd());
@@ -157,19 +157,19 @@ public class LayoutPortletsDisplayContext {
 				}
 
 				if (portlet != null) {
-					_portlets.add(portlet);
+					_layoutPortlets.add(portlet);
 				}
 
-				String[] categories = _portletCategories.get(portletId);
+				String[] categories = _layoutPortletCategories.get(portletId);
 
 				String curPortletCategoryName = curPortletCategory.getName();
 
 				if (categories == null) {
-					_portletCategories.put(
+					_layoutPortletCategories.put(
 						portletId, new String[] {curPortletCategoryName});
 				}
 				else {
-					_portletCategories.put(
+					_layoutPortletCategories.put(
 						portletId,
 						ArrayUtil.append(categories, curPortletCategoryName));
 				}
@@ -178,10 +178,11 @@ public class LayoutPortletsDisplayContext {
 	}
 
 	private String _displayStyle;
+	private final Map<String, String[]> _layoutPortletCategories =
+		new HashMap<>();
+	private final ArrayList<Portlet> _layoutPortlets = new ArrayList<>();
 	private String _orderByCol;
 	private String _orderByType;
-	private final Map<String, String[]> _portletCategories = new HashMap<>();
-	private final ArrayList<Portlet> _portlets = new ArrayList<>();
 	private final RenderRequest _renderRequest;
 	private final RenderResponse _renderResponse;
 	private final HttpServletRequest _request;
