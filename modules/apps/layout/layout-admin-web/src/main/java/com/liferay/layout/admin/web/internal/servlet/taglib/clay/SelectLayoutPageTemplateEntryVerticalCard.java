@@ -121,7 +121,7 @@ public class SelectLayoutPageTemplateEntryVerticalCard implements VerticalCard {
 			return LanguageUtil.get(_request, "widget-page-template");
 		}
 
-		return LanguageUtil.get(_request, "standard-page-template");
+		return LanguageUtil.get(_request, "content-page-template");
 	}
 
 	@Override
