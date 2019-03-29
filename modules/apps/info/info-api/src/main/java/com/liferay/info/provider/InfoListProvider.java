@@ -17,7 +17,7 @@ package com.liferay.info.provider;
 import aQute.bnd.annotation.ConsumerType;
 
 import com.liferay.info.pagination.Pagination;
-import com.liferay.portal.kernel.search.Sort;
+import com.liferay.info.sort.Sort;
 
 import java.util.List;
 import java.util.Locale;
