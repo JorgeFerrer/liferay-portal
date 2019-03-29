@@ -22,18 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface InfoItemRenderer<T> {
 
-	public default void render(
-		T t, HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse) {
-
-		render(
-			t, httpServletRequest, httpServletResponse,
-			InfoListRendererContext.DEFAULT_INFO_LIST_RENDERER_CONTEXT);
-	}
-
 	public void render(
 		T t, HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse,
-		InfoListRendererContext infoListRendererContext);
+		HttpServletResponse httpServletResponse);
 
 }
