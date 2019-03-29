@@ -28,6 +28,6 @@ public interface InfoItemRendererTracker {
 
 	public List<InfoItemRenderer> getInfoItemRenderers();
 
-	public List<InfoItemRenderer> getInfoItemRenderers(Class<?> itemClass);
+	public List<InfoItemRenderer> getInfoItemRenderers(String itemClassName);
 
 }

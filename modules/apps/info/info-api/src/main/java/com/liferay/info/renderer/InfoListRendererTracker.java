@@ -28,6 +28,6 @@ public interface InfoListRendererTracker {
 
 	public List<InfoListRenderer> getInfoListRenderers();
 
-	public List<InfoListRenderer> getInfoListRenderers(Class<?> itemClass);
+	public List<InfoListRenderer> getInfoListRenderers(String itemClassName);
 
 }

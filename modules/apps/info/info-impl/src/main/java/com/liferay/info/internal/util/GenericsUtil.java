@@ -46,4 +46,10 @@ public class GenericsUtil {
 		return Object.class;
 	}
 
+	public static String getItemClassName(Object object) {
+		Class<?> clazz = getItemClass(object);
+
+		return clazz.getName();
+	}
+
 }

@@ -51,9 +51,9 @@ public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 	}
 
 	@Override
-	public List<InfoListRenderer> getInfoListRenderers(Class<?> itemClass) {
+	public List<InfoListRenderer> getInfoListRenderers(String itemClassName) {
 		List<InfoListRenderer> infoListRenderers =
-			_itemClassInfoListRenderers.get(itemClass);
+			_itemClassNameInfoListRenderers.get(itemClassName);
 
 		if (infoListRenderers != null) {
 			return new ArrayList<>(infoListRenderers);
@@ -70,8 +70,8 @@ public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 		_infoListRenderers.put(infoListRenderer.getKey(), infoListRenderer);
 
 		List<InfoListRenderer> itemClassInfoListRenderers =
-			_itemClassInfoListRenderers.computeIfAbsent(
-				GenericsUtil.getItemClass(infoListRenderer),
+			_itemClassNameInfoListRenderers.computeIfAbsent(
+				GenericsUtil.getItemClassName(infoListRenderer),
 				itemClass -> new ArrayList<>());
 
 		itemClassInfoListRenderers.add(infoListRenderer);
@@ -81,17 +81,17 @@ public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 		_infoListRenderers.remove(infoListRenderer.getKey());
 
 		List<InfoListRenderer> itemClassInfoListRenderers =
-			_itemClassInfoListRenderers.get(
+			_itemClassNameInfoListRenderers.get(
 				GenericsUtil.getItemClass(infoListRenderer));
 
 		if (itemClassInfoListRenderers != null) {
-			_itemClassInfoListRenderers.remove(infoListRenderer);
+			_itemClassNameInfoListRenderers.remove(infoListRenderer);
 		}
 	}
 
 	private final Map<String, InfoListRenderer> _infoListRenderers =
 		new ConcurrentHashMap<>();
-	private final Map<Class, List<InfoListRenderer>>
-		_itemClassInfoListRenderers = new ConcurrentHashMap<>();
+	private final Map<String, List<InfoListRenderer>>
+		_itemClassNameInfoListRenderers = new ConcurrentHashMap<>();
 
 }

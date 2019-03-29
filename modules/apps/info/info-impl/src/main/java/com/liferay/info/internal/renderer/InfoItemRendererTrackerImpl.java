@@ -51,9 +51,9 @@ public class InfoItemRendererTrackerImpl implements InfoItemRendererTracker {
 	}
 
 	@Override
-	public List<InfoItemRenderer> getInfoItemRenderers(Class<?> itemClass) {
+	public List<InfoItemRenderer> getInfoItemRenderers(String itemClassName) {
 		List<InfoItemRenderer> infoItemRenderers =
-			_itemClassInfoItemRenderers.get(itemClass);
+			_itemClassNameInfoItemRenderers.get(itemClassName);
 
 		if (infoItemRenderers != null) {
 			return new ArrayList<>(infoItemRenderers);
@@ -70,8 +70,8 @@ public class InfoItemRendererTrackerImpl implements InfoItemRendererTracker {
 		_infoItemRenderers.put(infoItemRenderer.getKey(), infoItemRenderer);
 
 		List<InfoItemRenderer> itemClassInfoItemRenderers =
-			_itemClassInfoItemRenderers.computeIfAbsent(
-				GenericsUtil.getItemClass(infoItemRenderer),
+			_itemClassNameInfoItemRenderers.computeIfAbsent(
+				GenericsUtil.getItemClassName(infoItemRenderer),
 				itemClass -> new ArrayList<>());
 
 		itemClassInfoItemRenderers.add(infoItemRenderer);
@@ -81,17 +81,17 @@ public class InfoItemRendererTrackerImpl implements InfoItemRendererTracker {
 		_infoItemRenderers.remove(infoItemRenderer.getKey());
 
 		List<InfoItemRenderer> itemClassInfoItemRenderers =
-			_itemClassInfoItemRenderers.get(
+			_itemClassNameInfoItemRenderers.get(
 				GenericsUtil.getItemClass(infoItemRenderer));
 
 		if (itemClassInfoItemRenderers != null) {
-			_itemClassInfoItemRenderers.remove(infoItemRenderer);
+			_itemClassNameInfoItemRenderers.remove(infoItemRenderer);
 		}
 	}
 
 	private final Map<String, InfoItemRenderer> _infoItemRenderers =
 		new ConcurrentHashMap<>();
-	private final Map<Class, List<InfoItemRenderer>>
-		_itemClassInfoItemRenderers = new ConcurrentHashMap<>();
+	private final Map<String, List<InfoItemRenderer>>
+		_itemClassNameInfoItemRenderers = new ConcurrentHashMap<>();
 
 }
