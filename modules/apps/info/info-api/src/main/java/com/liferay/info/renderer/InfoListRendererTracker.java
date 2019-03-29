@@ -24,7 +24,7 @@ import java.util.List;
 @ProviderType
 public interface InfoListRendererTracker {
 
-	public InfoListRenderer getInfoListRenderer(String className);
+	public InfoListRenderer getInfoListRenderer(String key);
 
 	public List<InfoListRenderer> getInfoListRenderers();
 

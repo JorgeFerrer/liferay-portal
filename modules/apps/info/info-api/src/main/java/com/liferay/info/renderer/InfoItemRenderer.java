@@ -22,6 +22,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface InfoItemRenderer<T> {
 
+	public default String getKey() {
+		Class<?> clazz = getClass();
+
+		return clazz.getName();
+	}
+
 	public void render(
 		T t, HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse);

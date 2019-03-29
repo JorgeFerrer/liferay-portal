@@ -37,12 +37,12 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 
 	@Override
-	public InfoListRenderer getInfoListRenderer(String className) {
-		if (Validator.isNull(className)) {
+	public InfoListRenderer getInfoListRenderer(String key) {
+		if (Validator.isNull(key)) {
 			return null;
 		}
 
-		return _infoListRenderers.get(className);
+		return _infoListRenderers.get(key);
 	}
 
 	@Override
@@ -67,9 +67,7 @@ public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 		policy = ReferencePolicy.DYNAMIC
 	)
 	protected void setInfoListRenderer(InfoListRenderer infoListRenderer) {
-		Class<?> clazz = infoListRenderer.getClass();
-
-		_infoListRenderers.put(clazz.getName(), infoListRenderer);
+		_infoListRenderers.put(infoListRenderer.getKey(), infoListRenderer);
 
 		List<InfoListRenderer> itemClassInfoListRenderers =
 			_itemClassInfoListRenderers.computeIfAbsent(
@@ -80,9 +78,7 @@ public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 	}
 
 	protected void unsetInfoListRenderer(InfoListRenderer infoListRenderer) {
-		Class<?> clazz = infoListRenderer.getClass();
-
-		_infoListRenderers.remove(clazz.getName());
+		_infoListRenderers.remove(infoListRenderer.getKey());
 
 		List<InfoListRenderer> itemClassInfoListRenderers =
 			_itemClassInfoListRenderers.get(

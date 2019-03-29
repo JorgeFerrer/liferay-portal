@@ -24,6 +24,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface InfoListRenderer<T> {
 
+	public default String getKey() {
+		Class<?> clazz = getClass();
+
+		return clazz.getName();
+	}
+
 	public void render(
 		List<T> list, HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse);
