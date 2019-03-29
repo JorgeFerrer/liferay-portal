@@ -19,7 +19,6 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.info.renderer.InfoItemRenderer;
-import com.liferay.info.renderer.InfoListRendererContext;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,14 +30,13 @@ import org.osgi.service.component.annotations.Component;
  * @author Jorge Ferrer
  */
 @Component(service = InfoItemRenderer.class)
-public class AssetEntryInfoItemRenderer
+public abstract class AssetEntryInfoItemRenderer
 	implements InfoItemRenderer<AssetEntry> {
 
 	@Override
 	public void render(
 		AssetEntry assetEntry, HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse,
-		InfoListRendererContext infoListRendererContext) {
+		HttpServletResponse httpServletResponse) {
 
 		AssetRendererFactory<?> assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
@@ -52,12 +50,13 @@ public class AssetEntryInfoItemRenderer
 				assetRendererFactory.getAssetRenderer(assetEntry.getClassPK());
 
 			assetRenderer.include(
-				httpServletRequest, httpServletResponse,
-				infoListRendererContext.getTemplate());
+				httpServletRequest, httpServletResponse, getTemplate());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
+
+	protected abstract String getTemplate();
 
 }
