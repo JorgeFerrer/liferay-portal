@@ -14,6 +14,8 @@
 
 package com.liferay.fragment.constants;
 
+import java.util.Objects;
+
 /**
  * @author Preston Crary
  */
