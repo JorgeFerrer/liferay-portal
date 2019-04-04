@@ -55,6 +55,7 @@ create table FragmentEntryLink (
 	js STRING null,
 	editableValues STRING null,
 	position INTEGER,
+	rendererKey VARCHAR(75) null,
 	lastPropagationDate DATE null,
 	namespace VARCHAR(75) null,
 	lastPublishDate DATE null

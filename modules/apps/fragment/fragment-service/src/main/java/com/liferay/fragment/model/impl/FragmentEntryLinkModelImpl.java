@@ -79,6 +79,7 @@ public class FragmentEntryLinkModelImpl
 		{"classPK", Types.BIGINT}, {"css", Types.VARCHAR},
 		{"html", Types.VARCHAR}, {"js", Types.VARCHAR},
 		{"editableValues", Types.VARCHAR}, {"position", Types.INTEGER},
+		{"rendererKey", Types.VARCHAR},
 		{"lastPropagationDate", Types.TIMESTAMP}, {"namespace", Types.VARCHAR},
 		{"lastPublishDate", Types.TIMESTAMP}
 	};
@@ -104,13 +105,14 @@ public class FragmentEntryLinkModelImpl
 		TABLE_COLUMNS_MAP.put("js", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("editableValues", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("position", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("rendererKey", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastPropagationDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("namespace", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastPublishDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table FragmentEntryLink (uuid_ VARCHAR(75) null,fragmentEntryLinkId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,originalFragmentEntryLinkId LONG,fragmentEntryId LONG,classNameId LONG,classPK LONG,css STRING null,html STRING null,js STRING null,editableValues STRING null,position INTEGER,lastPropagationDate DATE null,namespace VARCHAR(75) null,lastPublishDate DATE null)";
+		"create table FragmentEntryLink (uuid_ VARCHAR(75) null,fragmentEntryLinkId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,originalFragmentEntryLinkId LONG,fragmentEntryId LONG,classNameId LONG,classPK LONG,css STRING null,html STRING null,js STRING null,editableValues STRING null,position INTEGER,rendererKey VARCHAR(75) null,lastPropagationDate DATE null,namespace VARCHAR(75) null,lastPublishDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table FragmentEntryLink";
 
@@ -350,6 +352,12 @@ public class FragmentEntryLinkModelImpl
 			"position",
 			(BiConsumer<FragmentEntryLink, Integer>)
 				FragmentEntryLink::setPosition);
+		attributeGetterFunctions.put(
+			"rendererKey", FragmentEntryLink::getRendererKey);
+		attributeSetterBiConsumers.put(
+			"rendererKey",
+			(BiConsumer<FragmentEntryLink, String>)
+				FragmentEntryLink::setRendererKey);
 		attributeGetterFunctions.put(
 			"lastPropagationDate", FragmentEntryLink::getLastPropagationDate);
 		attributeSetterBiConsumers.put(
@@ -692,6 +700,21 @@ public class FragmentEntryLinkModelImpl
 	}
 
 	@Override
+	public String getRendererKey() {
+		if (_rendererKey == null) {
+			return "";
+		}
+		else {
+			return _rendererKey;
+		}
+	}
+
+	@Override
+	public void setRendererKey(String rendererKey) {
+		_rendererKey = rendererKey;
+	}
+
+	@Override
 	public Date getLastPropagationDate() {
 		return _lastPropagationDate;
 	}
@@ -784,6 +807,7 @@ public class FragmentEntryLinkModelImpl
 		fragmentEntryLinkImpl.setJs(getJs());
 		fragmentEntryLinkImpl.setEditableValues(getEditableValues());
 		fragmentEntryLinkImpl.setPosition(getPosition());
+		fragmentEntryLinkImpl.setRendererKey(getRendererKey());
 		fragmentEntryLinkImpl.setLastPropagationDate(getLastPropagationDate());
 		fragmentEntryLinkImpl.setNamespace(getNamespace());
 		fragmentEntryLinkImpl.setLastPublishDate(getLastPublishDate());
@@ -1007,6 +1031,14 @@ public class FragmentEntryLinkModelImpl
 
 		fragmentEntryLinkCacheModel.position = getPosition();
 
+		fragmentEntryLinkCacheModel.rendererKey = getRendererKey();
+
+		String rendererKey = fragmentEntryLinkCacheModel.rendererKey;
+
+		if ((rendererKey != null) && (rendererKey.length() == 0)) {
+			fragmentEntryLinkCacheModel.rendererKey = null;
+		}
+
 		Date lastPropagationDate = getLastPropagationDate();
 
 		if (lastPropagationDate != null) {
@@ -1136,6 +1168,7 @@ public class FragmentEntryLinkModelImpl
 	private String _js;
 	private String _editableValues;
 	private int _position;
+	private String _rendererKey;
 	private Date _lastPropagationDate;
 	private String _namespace;
 	private Date _lastPublishDate;

@@ -64,6 +64,7 @@ public class FragmentEntryLinkWrapper
 		attributes.put("js", getJs());
 		attributes.put("editableValues", getEditableValues());
 		attributes.put("position", getPosition());
+		attributes.put("rendererKey", getRendererKey());
 		attributes.put("lastPropagationDate", getLastPropagationDate());
 		attributes.put("namespace", getNamespace());
 		attributes.put("lastPublishDate", getLastPublishDate());
@@ -174,6 +175,12 @@ public class FragmentEntryLinkWrapper
 
 		if (position != null) {
 			setPosition(position);
+		}
+
+		String rendererKey = (String)attributes.get("rendererKey");
+
+		if (rendererKey != null) {
+			setRendererKey(rendererKey);
 		}
 
 		Date lastPropagationDate = (Date)attributes.get("lastPropagationDate");
@@ -383,6 +390,16 @@ public class FragmentEntryLinkWrapper
 	@Override
 	public long getPrimaryKey() {
 		return model.getPrimaryKey();
+	}
+
+	/**
+	 * Returns the renderer key of this fragment entry link.
+	 *
+	 * @return the renderer key of this fragment entry link
+	 */
+	@Override
+	public String getRendererKey() {
+		return model.getRendererKey();
 	}
 
 	/**
@@ -622,6 +639,16 @@ public class FragmentEntryLinkWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the renderer key of this fragment entry link.
+	 *
+	 * @param rendererKey the renderer key of this fragment entry link
+	 */
+	@Override
+	public void setRendererKey(String rendererKey) {
+		model.setRendererKey(rendererKey);
 	}
 
 	/**

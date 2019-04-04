@@ -67,7 +67,7 @@ public class FragmentEntryLinkCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -103,6 +103,8 @@ public class FragmentEntryLinkCacheModel
 		sb.append(editableValues);
 		sb.append(", position=");
 		sb.append(position);
+		sb.append(", rendererKey=");
+		sb.append(rendererKey);
 		sb.append(", lastPropagationDate=");
 		sb.append(lastPropagationDate);
 		sb.append(", namespace=");
@@ -188,6 +190,13 @@ public class FragmentEntryLinkCacheModel
 
 		fragmentEntryLinkImpl.setPosition(position);
 
+		if (rendererKey == null) {
+			fragmentEntryLinkImpl.setRendererKey("");
+		}
+		else {
+			fragmentEntryLinkImpl.setRendererKey(rendererKey);
+		}
+
 		if (lastPropagationDate == Long.MIN_VALUE) {
 			fragmentEntryLinkImpl.setLastPropagationDate(null);
 		}
@@ -243,6 +252,7 @@ public class FragmentEntryLinkCacheModel
 		editableValues = objectInput.readUTF();
 
 		position = objectInput.readInt();
+		rendererKey = objectInput.readUTF();
 		lastPropagationDate = objectInput.readLong();
 		namespace = objectInput.readUTF();
 		lastPublishDate = objectInput.readLong();
@@ -312,6 +322,14 @@ public class FragmentEntryLinkCacheModel
 		}
 
 		objectOutput.writeInt(position);
+
+		if (rendererKey == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(rendererKey);
+		}
+
 		objectOutput.writeLong(lastPropagationDate);
 
 		if (namespace == null) {
@@ -341,6 +359,7 @@ public class FragmentEntryLinkCacheModel
 	public String js;
 	public String editableValues;
 	public int position;
+	public String rendererKey;
 	public long lastPropagationDate;
 	public String namespace;
 	public long lastPublishDate;

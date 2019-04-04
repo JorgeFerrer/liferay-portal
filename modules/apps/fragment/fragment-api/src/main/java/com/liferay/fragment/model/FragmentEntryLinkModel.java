@@ -350,6 +350,21 @@ public interface FragmentEntryLinkModel
 	public void setPosition(int position);
 
 	/**
+	 * Returns the renderer key of this fragment entry link.
+	 *
+	 * @return the renderer key of this fragment entry link
+	 */
+	@AutoEscape
+	public String getRendererKey();
+
+	/**
+	 * Sets the renderer key of this fragment entry link.
+	 *
+	 * @param rendererKey the renderer key of this fragment entry link
+	 */
+	public void setRendererKey(String rendererKey);
+
+	/**
 	 * Returns the last propagation date of this fragment entry link.
 	 *
 	 * @return the last propagation date of this fragment entry link
