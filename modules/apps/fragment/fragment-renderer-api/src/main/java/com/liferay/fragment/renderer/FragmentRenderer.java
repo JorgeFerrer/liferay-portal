@@ -14,7 +14,7 @@
 
 package com.liferay.fragment.renderer;
 
-import com.liferay.fragment.constants.FragmentEntryTypeConstants;
+import com.liferay.fragment.constants.FragmentConstants;
 
 import java.io.IOException;
 
@@ -39,7 +39,7 @@ public interface FragmentRenderer {
 	public String getLabel(Locale locale);
 
 	public default int getType() {
-		return FragmentEntryTypeConstants.TYPE_COMPONENT;
+		return FragmentConstants.TYPE_COMPONENT;
 	}
 
 	public default boolean isAvailable(HttpServletRequest httpServletRequest) {
