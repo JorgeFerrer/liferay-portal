@@ -63,10 +63,10 @@ public class FragmentEntryLinkWrapper
 		attributes.put("html", getHtml());
 		attributes.put("js", getJs());
 		attributes.put("editableValues", getEditableValues());
+		attributes.put("namespace", getNamespace());
 		attributes.put("position", getPosition());
 		attributes.put("rendererKey", getRendererKey());
 		attributes.put("lastPropagationDate", getLastPropagationDate());
-		attributes.put("namespace", getNamespace());
 		attributes.put("lastPublishDate", getLastPublishDate());
 
 		return attributes;
@@ -171,6 +171,12 @@ public class FragmentEntryLinkWrapper
 			setEditableValues(editableValues);
 		}
 
+		String namespace = (String)attributes.get("namespace");
+
+		if (namespace != null) {
+			setNamespace(namespace);
+		}
+
 		Integer position = (Integer)attributes.get("position");
 
 		if (position != null) {
@@ -187,12 +193,6 @@ public class FragmentEntryLinkWrapper
 
 		if (lastPropagationDate != null) {
 			setLastPropagationDate(lastPropagationDate);
-		}
-
-		String namespace = (String)attributes.get("namespace");
-
-		if (namespace != null) {
-			setNamespace(namespace);
 		}
 
 		Date lastPublishDate = (Date)attributes.get("lastPublishDate");

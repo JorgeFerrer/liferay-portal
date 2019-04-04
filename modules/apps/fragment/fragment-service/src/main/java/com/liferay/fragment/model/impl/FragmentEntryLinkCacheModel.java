@@ -101,14 +101,14 @@ public class FragmentEntryLinkCacheModel
 		sb.append(js);
 		sb.append(", editableValues=");
 		sb.append(editableValues);
+		sb.append(", namespace=");
+		sb.append(namespace);
 		sb.append(", position=");
 		sb.append(position);
 		sb.append(", rendererKey=");
 		sb.append(rendererKey);
 		sb.append(", lastPropagationDate=");
 		sb.append(lastPropagationDate);
-		sb.append(", namespace=");
-		sb.append(namespace);
 		sb.append(", lastPublishDate=");
 		sb.append(lastPublishDate);
 		sb.append("}");
@@ -188,6 +188,13 @@ public class FragmentEntryLinkCacheModel
 			fragmentEntryLinkImpl.setEditableValues(editableValues);
 		}
 
+		if (namespace == null) {
+			fragmentEntryLinkImpl.setNamespace("");
+		}
+		else {
+			fragmentEntryLinkImpl.setNamespace(namespace);
+		}
+
 		fragmentEntryLinkImpl.setPosition(position);
 
 		if (rendererKey == null) {
@@ -203,13 +210,6 @@ public class FragmentEntryLinkCacheModel
 		else {
 			fragmentEntryLinkImpl.setLastPropagationDate(
 				new Date(lastPropagationDate));
-		}
-
-		if (namespace == null) {
-			fragmentEntryLinkImpl.setNamespace("");
-		}
-		else {
-			fragmentEntryLinkImpl.setNamespace(namespace);
 		}
 
 		if (lastPublishDate == Long.MIN_VALUE) {
@@ -250,11 +250,11 @@ public class FragmentEntryLinkCacheModel
 		html = objectInput.readUTF();
 		js = objectInput.readUTF();
 		editableValues = objectInput.readUTF();
+		namespace = objectInput.readUTF();
 
 		position = objectInput.readInt();
 		rendererKey = objectInput.readUTF();
 		lastPropagationDate = objectInput.readLong();
-		namespace = objectInput.readUTF();
 		lastPublishDate = objectInput.readLong();
 	}
 
@@ -321,6 +321,13 @@ public class FragmentEntryLinkCacheModel
 			objectOutput.writeUTF(editableValues);
 		}
 
+		if (namespace == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(namespace);
+		}
+
 		objectOutput.writeInt(position);
 
 		if (rendererKey == null) {
@@ -331,14 +338,6 @@ public class FragmentEntryLinkCacheModel
 		}
 
 		objectOutput.writeLong(lastPropagationDate);
-
-		if (namespace == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(namespace);
-		}
-
 		objectOutput.writeLong(lastPublishDate);
 	}
 
@@ -358,10 +357,10 @@ public class FragmentEntryLinkCacheModel
 	public String html;
 	public String js;
 	public String editableValues;
+	public String namespace;
 	public int position;
 	public String rendererKey;
 	public long lastPropagationDate;
-	public String namespace;
 	public long lastPublishDate;
 
 }
