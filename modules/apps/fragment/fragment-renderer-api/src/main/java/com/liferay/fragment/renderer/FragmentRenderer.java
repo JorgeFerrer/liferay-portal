@@ -18,8 +18,6 @@ import com.liferay.fragment.constants.FragmentConstants;
 
 import java.io.IOException;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface FragmentRenderer {
 
-	public String getCollectionKey();
+	public String getCollectionKey(
+		FragmentRendererContext fragmentRendererContext);
 
 	public default String getKey() {
 		Class<?> clazz = getClass();
@@ -36,7 +35,7 @@ public interface FragmentRenderer {
 		return clazz.getName();
 	}
 
-	public String getLabel(Locale locale);
+	public String getLabel(FragmentRendererContext fragmentRendererContext);
 
 	public default int getType() {
 		return FragmentConstants.TYPE_COMPONENT;
@@ -47,6 +46,7 @@ public interface FragmentRenderer {
 	}
 
 	public void render(
+			FragmentRendererContext fragmentRendererContext,
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
 		throws IOException;
