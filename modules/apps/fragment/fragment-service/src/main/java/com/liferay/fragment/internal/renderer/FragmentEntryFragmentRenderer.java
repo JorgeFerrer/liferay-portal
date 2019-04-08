@@ -37,16 +37,19 @@ import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.taglib.servlet.PipingServletResponse;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.util.tracker.ServiceTracker;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
-import java.util.Optional;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * @author Jorge Ferrer
@@ -108,15 +111,69 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 		}
 	}
 
-	private  PortletRegistry _getPortletRegistry() {
+	private FragmentEntry _getFragmentEntry(
+			FragmentRendererContext fragmentRendererContext)
+		throws PortalException {
+
+		FragmentEntryLink fragmentEntryLink =
+			fragmentRendererContext.getFragmentEntryLink();
+
+		return _fragmentEntryLocalService.getFragmentEntry(
+			fragmentEntryLink.getFragmentEntryId());
+	}
+
+	private PortletRegistry _getPortletRegistry() {
 		return _portletRegistryServiceTracler.getService();
 	}
 
-	private  FragmentEntryProcessorRegistry _getService() {
+	private FragmentEntryProcessorRegistry _getService() {
 		return _serviceTracker.getService();
 	}
 
-	private  String _renderFragmentEntry(
+	private String _processTemplate(
+			String html, FragmentRendererContext fragmentRendererContext,
+			HttpServletRequest request, HttpServletResponse response)
+		throws PortalException {
+
+		html = "[#ftl]\n" + html;
+
+		TemplateResource templateResource = new StringTemplateResource(
+			"template_id", html);
+
+		Template template = TemplateManagerUtil.getTemplate(
+			TemplateConstants.LANG_TYPE_FTL, templateResource, false);
+
+		TemplateManager templateManager =
+			TemplateManagerUtil.getTemplateManager(
+				TemplateConstants.LANG_TYPE_FTL);
+
+		templateManager.addTaglibSupport(template, request, response);
+		templateManager.addTaglibTheme(
+			template, "taglibLiferay", request, response);
+
+		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
+
+		template.put(TemplateConstants.WRITER, unsyncStringWriter);
+
+		Optional<Map<String, Object>> fieldValuesOptional =
+			fragmentRendererContext.getFieldValuesOptional();
+
+		if (fieldValuesOptional.isPresent() &&
+			MapUtil.isNotEmpty(fieldValuesOptional.get())) {
+
+			template.putAll(fieldValuesOptional.get());
+		}
+
+		template.put("contentAccessorUtil", ContentAccessorUtil.getInstance());
+
+		template.prepare(request);
+
+		template.processTemplate(unsyncStringWriter);
+
+		return unsyncStringWriter.toString();
+	}
+
+	private String _renderFragmentEntry(
 		long fragmentEntryId, long fragmentEntryInstanceId, String css,
 		String html, String js) {
 
@@ -155,7 +212,7 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 		return sb.toString();
 	}
 
-	private  String _renderFragmentEntryLink(
+	private String _renderFragmentEntryLink(
 			FragmentRendererContext fragmentRendererContext,
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException {
@@ -194,7 +251,6 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 			fragmentRendererContext.getFragmentEntryLink(), html, request,
 			response);
 
-
 		FragmentEntryLink fragmentEntryLink =
 			fragmentRendererContext.getFragmentEntryLink();
 
@@ -202,60 +258,6 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 			fragmentEntryLink.getFragmentEntryId(),
 			fragmentEntryLink.getPosition(), css, html,
 			fragmentEntryLink.getJs());
-	}
-
-	private FragmentEntry _getFragmentEntry(
-			FragmentRendererContext fragmentRendererContext)
-		throws PortalException {
-
-		FragmentEntryLink fragmentEntryLink =
-			fragmentRendererContext.getFragmentEntryLink();
-
-		return _fragmentEntryLocalService.getFragmentEntry(
-			fragmentEntryLink.getFragmentEntryId());
-	}
-
-	private String _processTemplate(
-		String html, FragmentRendererContext fragmentRendererContext,
-		HttpServletRequest request, HttpServletResponse response)
-		throws PortalException {
-
-		html = "[#ftl]\n" + html;
-
-		TemplateResource templateResource = new StringTemplateResource(
-			"template_id", html);
-
-		Template template = TemplateManagerUtil.getTemplate(
-			TemplateConstants.LANG_TYPE_FTL, templateResource, false);
-
-		TemplateManager templateManager =
-			TemplateManagerUtil.getTemplateManager(
-				TemplateConstants.LANG_TYPE_FTL);
-
-		templateManager.addTaglibSupport(template, request, response);
-		templateManager.addTaglibTheme(
-			template, "taglibLiferay", request, response);
-
-		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
-
-		template.put(TemplateConstants.WRITER, unsyncStringWriter);
-
-		Optional<Map<String, Object>> fieldValuesOptional =
-			fragmentRendererContext.getFieldValuesOptional();
-
-		if (fieldValuesOptional.isPresent() &&
-				MapUtil.isNotEmpty(fieldValuesOptional.get())) {
-
-			template.putAll(fieldValuesOptional.get());
-		}
-
-		template.put("contentAccessorUtil", ContentAccessorUtil.getInstance());
-
-		template.prepare(request);
-
-		template.processTemplate(unsyncStringWriter);
-
-		return unsyncStringWriter.toString();
 	}
 
 	private String _writePortletPaths(
