@@ -24,7 +24,6 @@ import com.liferay.fragment.renderer.FragmentRenderer;
 import com.liferay.fragment.renderer.FragmentRendererContext;
 import com.liferay.fragment.service.FragmentCollectionLocalServiceUtil;
 import com.liferay.fragment.service.FragmentEntryLocalService;
-import com.liferay.osgi.util.ServiceTrackerFactory;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
@@ -49,7 +48,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * @author Jorge Ferrer
@@ -120,14 +118,6 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 
 		return _fragmentEntryLocalService.getFragmentEntry(
 			fragmentEntryLink.getFragmentEntryId());
-	}
-
-	private PortletRegistry _getPortletRegistry() {
-		return _portletRegistryServiceTracler.getService();
-	}
-
-	private FragmentEntryProcessorRegistry _getService() {
-		return _serviceTracker.getService();
 	}
 
 	private String _processTemplate(
@@ -217,17 +207,15 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException {
 
-		FragmentEntryProcessorRegistry fragmentEntryProcessorRegistry =
-			_getService();
-
-		String css = fragmentEntryProcessorRegistry.processFragmentEntryLinkCSS(
-			fragmentRendererContext.getFragmentEntryLink(),
-			fragmentRendererContext.getMode(),
-			fragmentRendererContext.getLocale(),
-			fragmentRendererContext.getSegmentsExperienceIds());
+		String css =
+			_fragmentEntryProcessorRegistry.processFragmentEntryLinkCSS(
+				fragmentRendererContext.getFragmentEntryLink(),
+				fragmentRendererContext.getMode(),
+				fragmentRendererContext.getLocale(),
+				fragmentRendererContext.getSegmentsExperienceIds());
 
 		String html =
-			fragmentEntryProcessorRegistry.processFragmentEntryLinkHTML(
+			_fragmentEntryProcessorRegistry.processFragmentEntryLinkHTML(
 				fragmentRendererContext.getFragmentEntryLink(),
 				fragmentRendererContext.getMode(),
 				fragmentRendererContext.getLocale(),
@@ -266,14 +254,12 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 			HttpServletResponse httpServletResponse)
 		throws PortalException {
 
-		PortletRegistry portletRegistry = _getPortletRegistry();
-
 		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
 
 		HttpServletResponse pipingHttpServletResponse =
 			new PipingServletResponse(httpServletResponse, unsyncStringWriter);
 
-		portletRegistry.writePortletPaths(
+		_portletRegistry.writePortletPaths(
 			fragmentEntryLink, httpServletRequest, pipingHttpServletResponse);
 
 		unsyncStringWriter.append(html);
@@ -284,12 +270,10 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 	@Reference
 	private FragmentEntryLocalService _fragmentEntryLocalService;
 
-	private final ServiceTracker<PortletRegistry, PortletRegistry>
-		_portletRegistryServiceTracler = ServiceTrackerFactory.open(
-			PortletRegistry.class);
-	private final ServiceTracker
-		<FragmentEntryProcessorRegistry, FragmentEntryProcessorRegistry>
-			_serviceTracker = ServiceTrackerFactory.open(
-				FragmentEntryProcessorRegistry.class);
+	@Reference
+	private FragmentEntryProcessorRegistry _fragmentEntryProcessorRegistry;
+
+	@Reference
+	private PortletRegistry _portletRegistry;
 
 }
