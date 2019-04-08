@@ -22,6 +22,7 @@ import com.liferay.fragment.processor.FragmentEntryProcessorRegistry;
 import com.liferay.fragment.processor.PortletRegistry;
 import com.liferay.fragment.renderer.FragmentRenderer;
 import com.liferay.fragment.renderer.FragmentRendererContext;
+import com.liferay.fragment.renderer.constants.FragmentRendererConstants;
 import com.liferay.fragment.service.FragmentCollectionLocalServiceUtil;
 import com.liferay.fragment.service.FragmentEntryLocalService;
 import com.liferay.petra.string.StringBundler;
@@ -73,6 +74,11 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 		catch (PortalException pe) {
 			throw new RuntimeException(pe);
 		}
+	}
+
+	@Override
+	public String getKey() {
+		return FragmentRendererConstants.FRAGMENT_ENTRY_FRAGMENT_RENDERER_KEY;
 	}
 
 	@Override
