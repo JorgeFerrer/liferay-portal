@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.fragment.renderer.internal;
+package com.liferay.fragment.internal.renderer;
 
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.renderer.FragmentRenderer;
