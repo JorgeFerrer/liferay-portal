@@ -8,6 +8,8 @@ Export-Package:\
 	com.liferay.fragment.importer,\
 	com.liferay.fragment.model,\
 	com.liferay.fragment.processor,\
+	com.liferay.fragment.renderer,\
+	com.liferay.fragment.renderer.constants,\
 	com.liferay.fragment.service,\
 	com.liferay.fragment.service.persistence,\
 	com.liferay.fragment.util,\
