@@ -14,7 +14,9 @@
 
 package com.liferay.layout.type.controller.content.internal.controller;
 
+import com.liferay.fragment.constants.FragmentActionKeys;
 import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.info.constants.InfoDisplayWebKeys;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.item.selector.ItemSelector;
@@ -107,6 +109,10 @@ public class ContentLayoutTypeController extends BaseLayoutTypeControllerImpl {
 				InfoDisplayWebKeys.INFO_DISPLAY_CONTRIBUTOR_TRACKER,
 				_infoDisplayContributorTracker);
 		}
+
+		request.setAttribute(
+			FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER,
+			_fragmentRendererController);
 
 		String page = getViewPage();
 
@@ -265,6 +271,9 @@ public class ContentLayoutTypeController extends BaseLayoutTypeControllerImpl {
 	@Reference
 	private FragmentCollectionContributorTracker
 		_fragmentCollectionContributorTracker;
+
+	@Reference
+	private FragmentRendererController _fragmentRendererController;
 
 	@Reference
 	private InfoDisplayContributorTracker _infoDisplayContributorTracker;

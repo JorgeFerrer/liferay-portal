@@ -180,7 +180,7 @@ public class LayoutIndexer extends BaseIndexer<Layout> {
 				LayoutPageTemplateStructureRenderUtil.renderLayoutContent(
 					request, response, layoutPageTemplateStructure,
 					FragmentEntryLinkConstants.VIEW, new HashMap<>(), locale,
-					new long[0]);
+					new long[0], null);
 
 			document.addText(
 				LocalizationUtil.getLocalizedName(Field.CONTENT, languageId),
