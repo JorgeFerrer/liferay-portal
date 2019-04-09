@@ -50,6 +50,8 @@ String ppid = ParamUtil.getString(request, "p_p_id");
 	<c:otherwise>
 
 		<%
+		FragmentRendererController fragmentRendererController = (FragmentRendererController)request.getAttribute(FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER);
+
 		LayoutPageTemplateStructure layoutPageTemplateStructure = LayoutPageTemplateStructureLocalServiceUtil.fetchLayoutPageTemplateStructure(layout.getGroupId(), PortalUtil.getClassNameId(Layout.class.getName()), layout.getPlid(), true);
 
 		long[] segmentsExperienceIds = GetterUtil.getLongValues(request.getAttribute(SegmentsWebKeys.SEGMENTS_EXPERIENCE_IDS), new long[] {SegmentsConstants.SEGMENTS_EXPERIENCE_ID_DEFAULT});
@@ -126,9 +128,15 @@ String ppid = ParamUtil.getString(request, "p_p_id");
 													if (fragmentEntryLink == null) {
 														continue;
 													}
+
+													DefaultFragmentRendererContext fragmentRendererContext = new DefaultFragmentRendererContext(fragmentEntryLink);
+
+													fragmentRendererContext.setLocale(locale);
+													fragmentRendererContext.setMode(FragmentEntryLinkConstants.VIEW);
+													fragmentRendererContext.setSegmentsExperienceIds(segmentsExperienceIds);
 												%>
 
-													<%= FragmentEntryRenderUtil.renderFragmentEntryLink(fragmentEntryLink, FragmentEntryLinkConstants.VIEW, Collections.emptyMap(), locale, segmentsExperienceIds, request, response) %>
+													<%= fragmentRendererController.render(fragmentRendererContext, request, response) %>
 
 												<%
 												}

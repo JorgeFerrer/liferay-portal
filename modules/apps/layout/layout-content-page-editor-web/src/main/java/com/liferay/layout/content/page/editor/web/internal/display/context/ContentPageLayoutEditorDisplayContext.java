@@ -14,6 +14,7 @@
 
 package com.liferay.layout.content.page.editor.web.internal.display.context;
 
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructureRel;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalServiceUtil;
@@ -44,9 +45,12 @@ public class ContentPageLayoutEditorDisplayContext
 
 	public ContentPageLayoutEditorDisplayContext(
 		HttpServletRequest request, RenderResponse renderResponse,
-		String className, long classPK) {
+		String className, long classPK,
+		FragmentRendererController fragmentRendererController) {
 
-		super(request, renderResponse, className, classPK);
+		super(
+			request, renderResponse, className, classPK,
+			fragmentRendererController);
 	}
 
 	@Override

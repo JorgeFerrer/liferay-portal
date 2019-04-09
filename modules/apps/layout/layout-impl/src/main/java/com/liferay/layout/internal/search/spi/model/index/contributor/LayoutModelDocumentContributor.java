@@ -15,6 +15,7 @@
 package com.liferay.layout.internal.search.spi.model.index.contributor;
 
 import com.liferay.fragment.constants.FragmentEntryLinkConstants;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.layout.internal.search.util.LayoutPageTemplateStructureRenderUtil;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalService;
@@ -119,7 +120,8 @@ public class LayoutModelDocumentContributor
 					LayoutPageTemplateStructureRenderUtil.renderLayoutContent(
 						request, response, layoutPageTemplateStructure,
 						FragmentEntryLinkConstants.VIEW, new HashMap<>(),
-						locale, segmentsExperienceIds);
+						locale, segmentsExperienceIds,
+						_fragmentRendererController);
 
 				document.addText(
 					Field.getLocalizedName(locale, Field.CONTENT), content);
@@ -132,6 +134,9 @@ public class LayoutModelDocumentContributor
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
+	private FragmentRendererController _fragmentRendererController;
 
 	@Reference
 	private LayoutPageTemplateStructureLocalService

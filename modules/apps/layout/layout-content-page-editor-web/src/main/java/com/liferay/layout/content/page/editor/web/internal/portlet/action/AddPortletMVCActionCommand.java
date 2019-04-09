@@ -14,10 +14,12 @@
 
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
+import com.liferay.fragment.constants.FragmentEntryLinkConstants;
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.processor.FragmentEntryProcessorRegistry;
+import com.liferay.fragment.renderer.DefaultFragmentRendererContext;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
-import com.liferay.fragment.util.FragmentEntryRenderUtil;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -100,12 +102,18 @@ public class AddPortletMVCActionCommand extends BaseMVCActionCommand {
 					StringPool.BLANK, html, StringPool.BLANK,
 					editableValueJSONObject.toString(), 0, serviceContext);
 
+			DefaultFragmentRendererContext fragmentRendererContext =
+				new DefaultFragmentRendererContext(fragmentEntryLink);
+
+			fragmentRendererContext.setMode(FragmentEntryLinkConstants.EDIT);
+
 			jsonObject.put(
 				"content",
-				FragmentEntryRenderUtil.renderFragmentEntryLink(
-					fragmentEntryLink,
+				_fragmentRendererController.render(
+					fragmentRendererContext,
 					_portal.getHttpServletRequest(actionRequest),
 					_portal.getHttpServletResponse(actionResponse)));
+
 			jsonObject.put(
 				"editableValues", fragmentEntryLink.getEditableValues());
 			jsonObject.put(
@@ -170,6 +178,9 @@ public class AddPortletMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private FragmentEntryProcessorRegistry _fragmentEntryProcessorRegistry;
+
+	@Reference
+	private FragmentRendererController _fragmentRendererController;
 
 	@Reference
 	private Portal _portal;

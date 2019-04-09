@@ -17,6 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
+FragmentRendererController fragmentRendererController = (FragmentRendererController)request.getAttribute(FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER);
+
 AssetEntry assetEntry = assetDisplayLayoutTypeControllerDisplayContext.getAssetEntry();
 AssetRendererFactory assetRendererFactory = null;
 LayoutPageTemplateStructure layoutPageTemplateStructure = null;
@@ -109,9 +111,16 @@ if (assetEntry != null) {
 											if (fragmentEntryLink == null) {
 												continue;
 											}
+
+											DefaultFragmentRendererContext fragmentRendererContext = new DefaultFragmentRendererContext(fragmentEntryLink);
+
+											fragmentRendererContext.setFieldValues(assetDisplayLayoutTypeControllerDisplayContext.getInfoDisplayFieldsValues());
+											fragmentRendererContext.setLocale(locale);
+											fragmentRendererContext.setMode(FragmentEntryLinkConstants.ASSET_DISPLAY_PAGE);
+											fragmentRendererContext.setSegmentsExperienceIds(segmentsExperienceIds);
 										%>
 
-											<%= FragmentEntryRenderUtil.renderFragmentEntryLink(fragmentEntryLink, FragmentEntryLinkConstants.ASSET_DISPLAY_PAGE, assetDisplayLayoutTypeControllerDisplayContext.getInfoDisplayFieldsValues(), locale, segmentsExperienceIds, request, response) %>
+										<%= fragmentRendererController.render(fragmentRendererContext, request, response) %>
 
 										<%
 										}

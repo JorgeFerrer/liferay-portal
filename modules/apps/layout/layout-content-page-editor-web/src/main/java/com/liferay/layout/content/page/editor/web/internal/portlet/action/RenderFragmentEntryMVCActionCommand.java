@@ -15,8 +15,9 @@
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.fragment.model.FragmentEntryLink;
+import com.liferay.fragment.renderer.DefaultFragmentRendererContext;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
-import com.liferay.fragment.util.FragmentEntryRenderUtil;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -59,11 +60,14 @@ public class RenderFragmentEntryMVCActionCommand extends BaseMVCActionCommand {
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
+		DefaultFragmentRendererContext fragmentRendererContext =
+			new DefaultFragmentRendererContext(fragmentEntryLink);
+
 		if (fragmentEntryLink != null) {
 			jsonObject.put(
 				"content",
-				FragmentEntryRenderUtil.renderFragmentEntryLink(
-					fragmentEntryLink,
+				_fragmentRendererController.render(
+					fragmentRendererContext,
 					_portal.getHttpServletRequest(actionRequest),
 					_portal.getHttpServletResponse(actionResponse)));
 		}
@@ -74,6 +78,9 @@ public class RenderFragmentEntryMVCActionCommand extends BaseMVCActionCommand {
 
 	@Reference
 	private FragmentEntryLinkLocalService _fragmentEntryLinkLocalService;
+
+	@Reference
+	private FragmentRendererController _fragmentRendererController;
 
 	@Reference
 	private Portal _portal;

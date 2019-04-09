@@ -15,8 +15,9 @@
 package com.liferay.layout.internal.search.util;
 
 import com.liferay.fragment.model.FragmentEntryLink;
+import com.liferay.fragment.renderer.DefaultFragmentRendererContext;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.fragment.service.FragmentEntryLinkLocalServiceUtil;
-import com.liferay.fragment.util.FragmentEntryRenderUtil;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -26,7 +27,8 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.util.Collections;
+import java.io.IOException;
+
 import java.util.Locale;
 import java.util.Map;
 
@@ -42,8 +44,13 @@ public class LayoutPageTemplateStructureRenderUtil {
 			HttpServletRequest request, HttpServletResponse response,
 			LayoutPageTemplateStructure layoutPageTemplateStructure,
 			String mode, Map<String, Object> parameterMap, Locale locale,
-			long[] segmentsExperienceIds)
+			long[] segmentsExperienceIds,
+			FragmentRendererController fragmentRendererController)
 		throws PortalException {
+
+		if (fragmentRendererController == null) {
+			return StringPool.BLANK;
+		}
 
 		String data = layoutPageTemplateStructure.getData(
 			segmentsExperienceIds);
@@ -93,18 +100,22 @@ public class LayoutPageTemplateStructureRenderUtil {
 
 					String renderFragmentEntryLink = StringPool.BLANK;
 
-					if (parameterMap != null) {
+					DefaultFragmentRendererContext fragmentRendererContext =
+						new DefaultFragmentRendererContext(fragmentEntryLink);
+
+					fragmentRendererContext.setFieldValues(parameterMap);
+					fragmentRendererContext.setLocale(locale);
+					fragmentRendererContext.setMode(mode);
+					fragmentRendererContext.setSegmentsExperienceIds(
+						segmentsExperienceIds);
+
+					try {
 						renderFragmentEntryLink =
-							FragmentEntryRenderUtil.renderFragmentEntryLink(
-								fragmentEntryLink, mode, parameterMap, locale,
-								segmentsExperienceIds, request, response);
+							fragmentRendererController.render(
+								fragmentRendererContext, request, response);
 					}
-					else {
-						renderFragmentEntryLink =
-							FragmentEntryRenderUtil.renderFragmentEntryLink(
-								fragmentEntryLink, mode, Collections.emptyMap(),
-								locale, segmentsExperienceIds, request,
-								response);
+					catch (IOException ioe) {
+						throw new PortalException(ioe);
 					}
 
 					sb.append(renderFragmentEntryLink);
