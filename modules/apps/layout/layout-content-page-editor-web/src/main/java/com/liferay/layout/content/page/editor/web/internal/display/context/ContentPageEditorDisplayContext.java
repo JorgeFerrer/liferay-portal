@@ -23,10 +23,11 @@ import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
 import com.liferay.fragment.model.FragmentCollection;
 import com.liferay.fragment.model.FragmentEntry;
 import com.liferay.fragment.model.FragmentEntryLink;
+import com.liferay.fragment.renderer.DefaultFragmentRendererContext;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.fragment.service.FragmentCollectionServiceUtil;
 import com.liferay.fragment.service.FragmentEntryLinkLocalServiceUtil;
 import com.liferay.fragment.service.FragmentEntryServiceUtil;
-import com.liferay.fragment.util.FragmentEntryRenderUtil;
 import com.liferay.info.constants.InfoDisplayWebKeys;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
@@ -87,6 +88,8 @@ import com.liferay.portal.util.PortletCategoryUtil;
 import com.liferay.portal.util.WebAppPool;
 import com.liferay.segments.constants.SegmentsConstants;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -124,7 +127,8 @@ public class ContentPageEditorDisplayContext {
 
 	public ContentPageEditorDisplayContext(
 		HttpServletRequest request, RenderResponse renderResponse,
-		String className, long classPK) {
+		String className, long classPK,
+		FragmentRendererController fragmentRendererController) {
 
 		this.request = request;
 		_renderResponse = renderResponse;
@@ -136,6 +140,7 @@ public class ContentPageEditorDisplayContext {
 				InfoDisplayWebKeys.INFO_DISPLAY_CONTRIBUTOR_TRACKER);
 		themeDisplay = (ThemeDisplay)request.getAttribute(
 			WebKeys.THEME_DISPLAY);
+		_fragmentRendererController = fragmentRendererController;
 		_fragmentCollectionContributorTracker =
 			(FragmentCollectionContributorTracker)request.getAttribute(
 				ContentPageEditorWebKeys.
@@ -936,12 +941,19 @@ public class ContentPageEditorDisplayContext {
 				SoyContext soyContext =
 					SoyContextFactoryUtil.createSoyContext();
 
-				String content =
-					FragmentEntryRenderUtil.renderFragmentEntryLink(
-						fragmentEntryLink, FragmentEntryLinkConstants.EDIT,
-						new HashMap<>(), themeDisplay.getLocale(),
-						segmentsExperienceIds, request,
-						PortalUtil.getHttpServletResponse(_renderResponse));
+				DefaultFragmentRendererContext fragmentRendererContext =
+					new DefaultFragmentRendererContext(fragmentEntryLink);
+
+				fragmentRendererContext.setLocale(themeDisplay.getLocale());
+				fragmentRendererContext.setMode(
+					FragmentEntryLinkConstants.EDIT);
+				fragmentRendererContext.setSegmentsExperienceIds(
+					segmentsExperienceIds);
+
+				String content = _fragmentRendererController.render(
+					fragmentRendererContext, request,
+					PortalUtil.getHttpServletResponse(_renderResponse));
+
 				JSONObject editableValuesJSONObject =
 					JSONFactoryUtil.createJSONObject(
 						fragmentEntryLink.getEditableValues());
@@ -961,6 +973,9 @@ public class ContentPageEditorDisplayContext {
 					String.valueOf(fragmentEntryLink.getFragmentEntryLinkId()),
 					soyContext);
 			}
+		}
+		catch (IOException ioe) {
+			throw new PortalException(ioe);
 		}
 		finally {
 			themeDisplay.setIsolated(isolated);
@@ -1080,6 +1095,7 @@ public class ContentPageEditorDisplayContext {
 	private Map<String, Object> _defaultConfigurations;
 	private final FragmentCollectionContributorTracker
 		_fragmentCollectionContributorTracker;
+	private final FragmentRendererController _fragmentRendererController;
 	private Long _groupId;
 	private ItemSelectorCriterion _imageItemSelectorCriterion;
 	private final ItemSelector _itemSelector;

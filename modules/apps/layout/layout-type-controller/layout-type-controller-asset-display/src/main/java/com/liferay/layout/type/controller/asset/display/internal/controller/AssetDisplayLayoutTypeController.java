@@ -14,7 +14,9 @@
 
 package com.liferay.layout.type.controller.asset.display.internal.controller;
 
+import com.liferay.fragment.constants.FragmentActionKeys;
 import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.info.constants.InfoDisplayWebKeys;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.item.selector.ItemSelector;
@@ -105,6 +107,10 @@ public class AssetDisplayLayoutTypeController
 			request.setAttribute(
 				ContentPageEditorWebKeys.ITEM_SELECTOR, _itemSelector);
 		}
+
+		request.setAttribute(
+			FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER,
+			_fragmentRendererController);
 
 		String page = getViewPage();
 
@@ -253,6 +259,9 @@ public class AssetDisplayLayoutTypeController
 	@Reference
 	private FragmentCollectionContributorTracker
 		_fragmentCollectionContributorTracker;
+
+	@Reference
+	private FragmentRendererController _fragmentRendererController;
 
 	@Reference
 	private InfoDisplayContributorTracker _infoDisplayContributorTracker;

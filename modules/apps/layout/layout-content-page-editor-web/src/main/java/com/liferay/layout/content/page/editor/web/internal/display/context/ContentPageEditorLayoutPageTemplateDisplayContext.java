@@ -18,6 +18,7 @@ import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.ClassType;
 import com.liferay.asset.kernel.model.ClassTypeReader;
+import com.liferay.fragment.renderer.FragmentRendererController;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServiceUtil;
@@ -42,9 +43,12 @@ public class ContentPageEditorLayoutPageTemplateDisplayContext
 
 	public ContentPageEditorLayoutPageTemplateDisplayContext(
 		HttpServletRequest request, RenderResponse renderResponse,
-		String className, long classPK, boolean showMapping) {
+		String className, long classPK, boolean showMapping,
+		FragmentRendererController fragmentRendererController) {
 
-		super(request, renderResponse, className, classPK);
+		super(
+			request, renderResponse, className, classPK,
+			fragmentRendererController);
 
 		_showMapping = showMapping;
 	}

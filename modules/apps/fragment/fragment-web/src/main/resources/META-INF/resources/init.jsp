@@ -39,6 +39,8 @@ page import="com.liferay.fragment.exception.RequiredFragmentEntryException" %><%
 page import="com.liferay.fragment.model.FragmentCollection" %><%@
 page import="com.liferay.fragment.model.FragmentEntry" %><%@
 page import="com.liferay.fragment.model.FragmentEntryLink" %><%@
+page import="com.liferay.fragment.renderer.DefaultFragmentRendererContext" %><%@
+page import="com.liferay.fragment.renderer.FragmentRendererController" %><%@
 page import="com.liferay.fragment.service.FragmentCollectionLocalServiceUtil" %><%@
 page import="com.liferay.fragment.service.FragmentEntryLinkLocalServiceUtil" %><%@
 page import="com.liferay.fragment.service.FragmentEntryLocalServiceUtil" %><%@
@@ -74,7 +76,8 @@ page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
 page import="com.liferay.taglib.search.ResultRow" %>
 
-<%@ page import="java.util.List" %><%@
+<%@ page import="java.io.IOException" %><%@
+page import="java.util.List" %><%@
 page import="java.util.Objects" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
@@ -87,6 +90,8 @@ page import="java.util.Objects" %>
 
 <%
 FragmentDisplayContext fragmentDisplayContext = new FragmentDisplayContext(renderRequest, renderResponse, request);
+
+FragmentRendererController fragmentRendererController = (FragmentRendererController)request.getAttribute(FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER);
 %>
 
 <%@ include file="/init-ext.jsp" %>
