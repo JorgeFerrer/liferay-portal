@@ -15,6 +15,8 @@
 package com.liferay.fragment.internal.renderer;
 
 import com.liferay.asset.info.display.contributor.util.ContentAccessorUtil;
+import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
+import com.liferay.fragment.model.FragmentEntry;
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.processor.FragmentEntryProcessorRegistry;
 import com.liferay.fragment.processor.PortletRegistry;
@@ -86,6 +88,35 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 		catch (PortalException pe) {
 			throw new IOException(pe);
 		}
+	}
+
+	private FragmentEntry _getContributedFragmentEntry(
+		FragmentEntryLink fragmentEntryLink) {
+
+		Map<String, FragmentEntry> fragmentCollectionContributorEntries =
+			_fragmentCollectionContributorTracker.
+				getFragmentCollectionContributorEntries();
+
+		return fragmentCollectionContributorEntries.get(
+			fragmentEntryLink.getRendererKey());
+	}
+
+	private FragmentEntryLink _getFragmentEntryLink(
+		FragmentRendererContext fragmentRendererContext) {
+
+		FragmentEntryLink fragmentEntryLink =
+			fragmentRendererContext.getFragmentEntryLink();
+
+		FragmentEntry fragmentEntry = _getContributedFragmentEntry(
+			fragmentEntryLink);
+
+		if (fragmentEntry != null) {
+			fragmentEntryLink.setCss(fragmentEntry.getCss());
+			fragmentEntryLink.setHtml(fragmentEntry.getHtml());
+			fragmentEntryLink.setJs(fragmentEntry.getJs());
+		}
+
+		return fragmentEntryLink;
 	}
 
 	private String _processTemplate(
@@ -174,10 +205,12 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 			HttpServletResponse httpServletResponse)
 		throws PortalException {
 
+		FragmentEntryLink fragmentEntryLink = _getFragmentEntryLink(
+			fragmentRendererContext);
+
 		String css =
 			_fragmentEntryProcessorRegistry.processFragmentEntryLinkCSS(
-				fragmentRendererContext.getFragmentEntryLink(),
-				fragmentRendererContext.getMode(),
+				fragmentEntryLink, fragmentRendererContext.getMode(),
 				fragmentRendererContext.getLocale(),
 				fragmentRendererContext.getSegmentsExperienceIds(),
 				fragmentRendererContext.getPreviewClassPK());
@@ -192,8 +225,7 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 
 		String html =
 			_fragmentEntryProcessorRegistry.processFragmentEntryLinkHTML(
-				fragmentRendererContext.getFragmentEntryLink(),
-				fragmentRendererContext.getMode(),
+				fragmentEntryLink, fragmentRendererContext.getMode(),
 				fragmentRendererContext.getLocale(),
 				fragmentRendererContext.getSegmentsExperienceIds(),
 				fragmentRendererContext.getPreviewClassPK());
@@ -207,11 +239,7 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 		}
 
 		html = _writePortletPaths(
-			fragmentRendererContext.getFragmentEntryLink(), html,
-			httpServletRequest, httpServletResponse);
-
-		FragmentEntryLink fragmentEntryLink =
-			fragmentRendererContext.getFragmentEntryLink();
+			fragmentEntryLink, html, httpServletRequest, httpServletResponse);
 
 		return _renderFragmentEntry(
 			fragmentEntryLink.getFragmentEntryId(), css, html,
@@ -234,6 +262,10 @@ public class FragmentEntryFragmentRenderer implements FragmentRenderer {
 
 		return unsyncStringWriter.toString();
 	}
+
+	@Reference
+	private FragmentCollectionContributorTracker
+		_fragmentCollectionContributorTracker;
 
 	@Reference
 	private FragmentEntryProcessorRegistry _fragmentEntryProcessorRegistry;
