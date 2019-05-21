@@ -14,7 +14,6 @@
 
 package com.liferay.info.provider;
 
-import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
@@ -47,16 +46,6 @@ public class DefaultInfoListProviderContext implements InfoListProviderContext {
 		}
 	}
 
-	/**
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 *             #getInfoDisplayObjectProviderOptional()}
-	 */
-	@Deprecated
-	@Override
-	public Optional<AssetEntry> getAssetEntryOptional() {
-		return Optional.ofNullable(_assetEntry);
-	}
-
 	@Override
 	public Company getCompany() {
 		return _company;
@@ -84,15 +73,6 @@ public class DefaultInfoListProviderContext implements InfoListProviderContext {
 		return _user;
 	}
 
-	/**
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 *             #setInfoDisplayObjectProvider(InfoDisplayObjectProvider)}
-	 */
-	@Deprecated
-	public void setAssetEntry(AssetEntry assetEntry) {
-		_assetEntry = assetEntry;
-	}
-
 	public void setInfoDisplayObjectProvider(
 		InfoDisplayObjectProvider infoDisplayObjectProvider) {
 
@@ -103,7 +83,6 @@ public class DefaultInfoListProviderContext implements InfoListProviderContext {
 		_layout = layout;
 	}
 
-	private AssetEntry _assetEntry;
 	private final Company _company;
 	private Group _group;
 	private InfoDisplayObjectProvider _infoDisplayObjectProvider;

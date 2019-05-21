@@ -14,7 +14,6 @@
 
 package com.liferay.info.provider;
 
-import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
@@ -30,13 +29,6 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface InfoListProviderContext {
-
-	/**
-	 * @deprecated As of Mueller (7.2.x), replaced by {@link
-	 *             #getInfoDisplayObjectProviderOptional()}
-	 */
-	@Deprecated
-	public Optional<AssetEntry> getAssetEntryOptional();
 
 	public Company getCompany();
 
