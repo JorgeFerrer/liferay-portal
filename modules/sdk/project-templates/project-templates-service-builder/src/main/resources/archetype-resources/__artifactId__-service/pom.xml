@@ -22,33 +22,7 @@
 			<scope>provided</scope>
 		</dependency>
 #end
-#if (${liferayVersion.startsWith("7.0")})
-		<dependency>
-			<groupId>com.liferay</groupId>
-			<artifactId>com.liferay.portal.spring.extender</artifactId>
-			<version>2.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.portal</groupId>
-			<artifactId>com.liferay.portal.kernel</artifactId>
-			<version>2.6.0</version>
-			<scope>provided</scope>
-		</dependency>
-#elseif (${liferayVersion.startsWith("7.1")})
-		<dependency>
-			<groupId>com.liferay</groupId>
-			<artifactId>com.liferay.portal.spring.extender.api</artifactId>
-			<version>3.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.portal</groupId>
-			<artifactId>com.liferay.portal.kernel</artifactId>
-			<version>3.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-#elseif (${liferayVersion.startsWith("7.2")})
+#if (${liferayVersion.startsWith("7.2")})
 		<dependency>
 			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.petra.lang</artifactId>
@@ -67,6 +41,37 @@
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
+#end
+#if (${liferayVersion.startsWith("7.0")})
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.portal.spring.extender</artifactId>
+			<version>2.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+#elseif (${liferayVersion.startsWith("7.1")} || (${dependencyInjector} != "ds"))
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.portal.spring.extender.api</artifactId>
+			<version>3.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+#end
+#if (${liferayVersion.startsWith("7.0")})
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
+			<version>2.6.0</version>
+			<scope>provided</scope>
+		</dependency>
+#elseif (${liferayVersion.startsWith("7.1")})
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
+			<version>3.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+#elseif (${liferayVersion.startsWith("7.2")})
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>com.liferay.portal.kernel</artifactId>
@@ -117,7 +122,9 @@
 					<osgiModule>true</osgiModule>
 					<propsUtil>${package}.service.util.ServiceProps</propsUtil>
 					<resourcesDirName>src/main/resources</resourcesDirName>
+#if (${liferayVersion.startsWith("7.0")} || ${liferayVersion.startsWith("7.1")} || (${dependencyInjector} != "ds"))
 					<springFileName>src/main/resources/META-INF/spring/module-spring.xml</springFileName>
+#end
 					<sqlDirName>src/main/resources/META-INF/sql</sqlDirName>
 					<sqlFileName>tables.sql</sqlFileName>
 				</configuration>
