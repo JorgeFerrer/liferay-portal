@@ -201,14 +201,14 @@ public class GroupImpl extends GroupBaseImpl {
 		else if (isControlPanel()) {
 			name = LanguageUtil.get(locale, "control-panel");
 		}
-		else if (isGuest()) {
-			Company company = CompanyLocalServiceUtil.getCompany(
-				getCompanyId());
-
-			Account account = company.getAccount();
-
-			name = account.getName();
-		}
+//		else if (isGuest()) {
+//			Company company = CompanyLocalServiceUtil.getCompany(
+//				getCompanyId());
+//
+//			Account account = company.getAccount();
+//
+//			name = account.getName();
+//		}
 		else if (isLayout()) {
 			Layout layout = LayoutLocalServiceUtil.getLayout(getClassPK());
 

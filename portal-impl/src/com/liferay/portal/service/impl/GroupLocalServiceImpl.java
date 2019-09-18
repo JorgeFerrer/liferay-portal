@@ -3701,7 +3701,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 
 		if (PortalUtil.isSystemGroup(group.getGroupKey()) &&
-			!groupKey.equals(group.getGroupKey())) {
+			!groupKey.equals(group.getGroupKey()) &&
+			!group.isGuest()) {
 
 			throw new RequiredGroupException.MustNotDeleteSystemGroup(
 				group.getGroupId());
