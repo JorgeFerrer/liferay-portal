@@ -112,7 +112,14 @@ const Grid = ({
 	return createRows();
 };
 
-const Stack = ({child, collection, collectionFields, collectionId, collectionLength = 3, numberOfItems}) => {
+const Stack = ({
+	child,
+	collection,
+	collectionFields,
+	collectionId,
+	collectionLength = 3,
+	numberOfItems,
+}) => {
 	const maxNumberOfItems = Math.min(collectionLength, numberOfItems);
 
 	return Array.from({length: maxNumberOfItems}).map((_element, idx) => (
