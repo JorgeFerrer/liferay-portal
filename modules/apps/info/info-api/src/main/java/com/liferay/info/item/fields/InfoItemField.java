@@ -14,6 +14,7 @@
 
 package com.liferay.info.item.fields;
 
+import com.liferay.info.item.fields.type.InfoItemFieldType;
 import com.liferay.petra.lang.HashUtil;
 
 import java.util.Locale;
@@ -26,9 +27,12 @@ import java.util.Objects;
  */
 public class InfoItemField {
 
-	public InfoItemField(Map<Locale, String> labels, String name) {
+	public InfoItemField(
+		Map<Locale, String> labels, String name, InfoItemFieldType type) {
+
 		_labels = labels;
 		_name = name;
+		_type = type;
 	}
 
 	@Override
@@ -44,7 +48,8 @@ public class InfoItemField {
 		InfoItemField infoDisplayField = (InfoItemField)obj;
 
 		if (Objects.equals(_labels, infoDisplayField._labels) &&
-			Objects.equals(_name, infoDisplayField._name)) {
+			Objects.equals(_name, infoDisplayField._name) &&
+			Objects.equals(_type, infoDisplayField._type)) {
 
 			return true;
 		}
@@ -60,14 +65,21 @@ public class InfoItemField {
 		return _name;
 	}
 
+	public InfoItemFieldType getType() {
+		return _type;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = HashUtil.hash(0, _labels);
 
-		return HashUtil.hash(hash, _name);
+		hash = HashUtil.hash(hash, _name);
+
+		return HashUtil.hash(hash, _type);
 	}
 
 	private final Map<Locale, String> _labels;
 	private final String _name;
+	private final InfoItemFieldType _type;
 
 }
