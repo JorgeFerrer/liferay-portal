@@ -45,11 +45,17 @@ public class BlogsEntryInfoItemFieldsDescriptor
 		infoItemFields.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				BlogsEntry.class.getName()));
+		infoItemFields.addAll(
+			_expandoInfoItemFieldsProvider.getFields(
+				BlogsEntry.class.getName()));
 
 		return infoItemFields;
 	}
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
+
+	@Reference
+	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
 
 }
