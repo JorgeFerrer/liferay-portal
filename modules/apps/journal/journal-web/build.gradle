@@ -31,6 +31,7 @@ dependencies {
 	compileOnly project(":apps:dynamic-data-lists:dynamic-data-lists-api")
 	compileOnly project(":apps:dynamic-data-mapping:dynamic-data-mapping-api")
 	compileOnly project(":apps:dynamic-data-mapping:dynamic-data-mapping-taglib")
+	compileOnly project(":apps:expando:expando-api")
 	compileOnly project(":apps:expando:expando-taglib")
 	compileOnly project(":apps:export-import:export-import-changeset-api")
 	compileOnly project(":apps:export-import:export-import-changeset-taglib")
