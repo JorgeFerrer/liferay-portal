@@ -15,10 +15,10 @@
 package com.liferay.info.item.fields;
 
 import com.liferay.info.item.fields.type.InfoItemFieldType;
+import com.liferay.info.localized.LocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -28,9 +28,9 @@ import java.util.Objects;
 public class InfoItemField {
 
 	public InfoItemField(
-		Map<Locale, String> labels, String name, InfoItemFieldType type) {
+		LocalizedValue<String> label, String name, InfoItemFieldType type) {
 
-		_labels = labels;
+		_label = label;
 		_name = name;
 		_type = type;
 	}
@@ -47,7 +47,7 @@ public class InfoItemField {
 
 		InfoItemField infoDisplayField = (InfoItemField)obj;
 
-		if (Objects.equals(_labels, infoDisplayField._labels) &&
+		if (Objects.equals(_label, infoDisplayField._label) &&
 			Objects.equals(_name, infoDisplayField._name) &&
 			Objects.equals(_type, infoDisplayField._type)) {
 
@@ -57,8 +57,12 @@ public class InfoItemField {
 		return false;
 	}
 
+	public LocalizedValue getLabel() {
+		return _label;
+	}
+
 	public String getLabel(Locale locale) {
-		return _labels.get(locale);
+		return _label.getValue(locale);
 	}
 
 	public String getName() {
@@ -71,14 +75,14 @@ public class InfoItemField {
 
 	@Override
 	public int hashCode() {
-		int hash = HashUtil.hash(0, _labels);
+		int hash = HashUtil.hash(0, _label);
 
 		hash = HashUtil.hash(hash, _name);
 
 		return HashUtil.hash(hash, _type);
 	}
 
-	private final Map<Locale, String> _labels;
+	private final LocalizedValue<String> _label;
 	private final String _name;
 	private final InfoItemFieldType _type;
 
