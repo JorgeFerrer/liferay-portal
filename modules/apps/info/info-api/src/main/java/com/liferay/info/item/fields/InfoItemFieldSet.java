@@ -34,10 +34,18 @@ public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 		_name = name;
 	}
 
-	public InfoItemFieldSet addFieldSetEntry(
-		InfoItemFieldSetEntry fieldSetEntry) {
-
+	public InfoItemFieldSet add(InfoItemFieldSetEntry fieldSetEntry) {
 		_fieldSetEntries.put(fieldSetEntry.getName(), fieldSetEntry);
+
+		return this;
+	}
+
+	public InfoItemFieldSet addAll(
+		List<InfoItemFieldSetEntry> fieldSetEntries) {
+
+		for (InfoItemFieldSetEntry fieldSetEntry : fieldSetEntries) {
+			add(fieldSetEntry);
+		}
 
 		return this;
 	}

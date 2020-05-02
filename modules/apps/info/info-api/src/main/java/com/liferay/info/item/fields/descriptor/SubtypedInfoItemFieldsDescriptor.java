@@ -15,9 +15,7 @@
 package com.liferay.info.item.fields.descriptor;
 
 import com.liferay.info.item.NoSuchSubtypeException;
-import com.liferay.info.item.fields.InfoItemField;
-
-import java.util.List;
+import com.liferay.info.item.fields.InfoItemFieldSet;
 
 /**
  * @author Jorge Ferrer
@@ -25,7 +23,7 @@ import java.util.List;
 public interface SubtypedInfoItemFieldsDescriptor<T>
 	extends InfoItemFieldsDescriptor {
 
-	public List<InfoItemField> getFields(long subtypeId)
+	public InfoItemFieldSet getFields(long subtypeId)
 		throws NoSuchSubtypeException;
 
 }

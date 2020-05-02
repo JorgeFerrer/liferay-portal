@@ -14,7 +14,7 @@
 
 package com.liferay.info.internal.item.fields.provider;
 
-import com.liferay.info.item.fields.InfoItemField;
+import com.liferay.info.item.fields.InfoItemFieldSetEntry;
 import com.liferay.info.item.fields.provider.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.fields.reader.InfoItemFieldReader;
 import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
@@ -34,8 +34,8 @@ public class ClassNameInfoItemFieldsProviderImpl
 	implements ClassNameInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoItemField> getFields(String className) {
-		List<InfoItemField> infoItemFields = new ArrayList<>();
+	public List<InfoItemFieldSetEntry> getFields(String className) {
+		List<InfoItemFieldSetEntry> infoItemFields = new ArrayList<>();
 
 		List<InfoItemFieldReader> infoItemFieldReaders =
 			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);

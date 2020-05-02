@@ -14,7 +14,7 @@
 
 package com.liferay.info.item.fields.provider;
 
-import com.liferay.info.item.fields.InfoItemField;
+import com.liferay.info.item.fields.InfoItemFieldSetEntry;
 
 import java.util.List;
 
@@ -27,6 +27,6 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ClassNameInfoItemFieldsProvider {
 
-	public List<InfoItemField> getFields(String itemClassName);
+	public List<InfoItemFieldSetEntry> getFields(String itemClassName);
 
 }

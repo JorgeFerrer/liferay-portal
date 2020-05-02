@@ -20,6 +20,7 @@ import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.info.item.fields.InfoItemField;
+import com.liferay.info.item.fields.InfoItemFieldSetEntry;
 import com.liferay.info.item.fields.type.InfoItemFieldType;
 import com.liferay.info.item.fields.type.TextInfoItemFieldType;
 import com.liferay.info.localized.LocalizedValue;
@@ -38,10 +39,10 @@ public class DDMStructureInfoItemFieldsProviderImpl
 	implements DDMStructureInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoItemField> getInfoItemFields(long ddmStructureId)
+	public List<InfoItemFieldSetEntry> getInfoItemFields(long ddmStructureId)
 		throws NoSuchStructureException {
 
-		List<InfoItemField> infoItemFields = new ArrayList<>();
+		List<InfoItemFieldSetEntry> infoItemFields = new ArrayList<>();
 
 		try {
 			DDMStructure ddmStructure = DDMStructureManagerUtil.getStructure(

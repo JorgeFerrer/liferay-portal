@@ -17,12 +17,14 @@ package com.liferay.blogs.web.internal.info.item.fields;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
-import com.liferay.info.item.fields.InfoItemField;
+import com.liferay.info.item.fields.InfoItemFieldSet;
 import com.liferay.info.item.fields.descriptor.InfoItemFieldsDescriptor;
 import com.liferay.info.item.fields.provider.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.localized.LocalizedValue;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -36,21 +38,33 @@ public class BlogsEntryInfoItemFieldsDescriptor
 	implements InfoItemFieldsDescriptor<BlogsEntry> {
 
 	@Override
-	public List<InfoItemField> getFields() {
-		List<InfoItemField> infoItemFields = new ArrayList<>();
+	public InfoItemFieldSet getFieldSet() {
+		Locale locale = LocaleUtil.getDefault();
+		String labelKey =
+			_MODEL_RESOURCE_NAME_PREFIX + BlogsEntry.class.getName();
 
-		infoItemFields.addAll(
+		LocalizedValue<String> label = LocalizedValue.builder(
+		).addValue(
+			locale, LanguageUtil.get(locale, labelKey)
+		).build();
+
+		InfoItemFieldSet infoItemFieldSet = new InfoItemFieldSet(
+			label, BlogsEntry.class.getName());
+
+		infoItemFieldSet.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				AssetEntry.class.getName()));
-		infoItemFields.addAll(
+		infoItemFieldSet.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				BlogsEntry.class.getName()));
-		infoItemFields.addAll(
+		infoItemFieldSet.addAll(
 			_expandoInfoItemFieldsProvider.getFields(
 				BlogsEntry.class.getName()));
 
-		return infoItemFields;
+		return infoItemFieldSet;
 	}
+
+	private static final String _MODEL_RESOURCE_NAME_PREFIX = "model.resource.";
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;

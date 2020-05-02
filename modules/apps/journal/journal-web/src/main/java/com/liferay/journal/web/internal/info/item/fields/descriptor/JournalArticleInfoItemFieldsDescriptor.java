@@ -19,14 +19,16 @@ import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureIn
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.item.NoSuchSubtypeException;
-import com.liferay.info.item.fields.InfoItemField;
+import com.liferay.info.item.fields.InfoItemFieldSet;
 import com.liferay.info.item.fields.descriptor.InfoItemFieldsDescriptor;
 import com.liferay.info.item.fields.descriptor.SubtypedInfoItemFieldsDescriptor;
 import com.liferay.info.item.fields.provider.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.localized.LocalizedValue;
 import com.liferay.journal.model.JournalArticle;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -40,30 +42,13 @@ public class JournalArticleInfoItemFieldsDescriptor
 	implements SubtypedInfoItemFieldsDescriptor<JournalArticle> {
 
 	@Override
-	public List<InfoItemField> getFields() {
-		List<InfoItemField> infoItemFields = new ArrayList<>();
-
-		infoItemFields.addAll(
-			_classNameInfoItemFieldsProvider.getFields(
-				AssetEntry.class.getName()));
-		infoItemFields.addAll(
-			_classNameInfoItemFieldsProvider.getFields(
-				JournalArticle.class.getName()));
-		infoItemFields.addAll(
-			_expandoInfoItemFieldsProvider.getFields(
-				JournalArticle.class.getName()));
-
-		return infoItemFields;
-	}
-
-	@Override
-	public List<InfoItemField> getFields(long ddmStructureId)
+	public InfoItemFieldSet getFields(long ddmStructureId)
 		throws NoSuchSubtypeException {
 
-		List<InfoItemField> infoItemFields = getFields();
+		InfoItemFieldSet infoItemFieldSet = getFieldSet();
 
 		try {
-			infoItemFields.addAll(
+			infoItemFieldSet.addAll(
 				_ddmStructureInfoItemFieldsProvider.getInfoItemFields(
 					ddmStructureId));
 		}
@@ -72,8 +57,37 @@ public class JournalArticleInfoItemFieldsDescriptor
 				noSuchStructureException.getMessage());
 		}
 
-		return infoItemFields;
+		return infoItemFieldSet;
 	}
+
+	@Override
+	public InfoItemFieldSet getFieldSet() {
+		Locale locale = LocaleUtil.getDefault();
+		String labelKey =
+			_MODEL_RESOURCE_NAME_PREFIX + JournalArticle.class.getName();
+
+		LocalizedValue<String> label = LocalizedValue.builder(
+		).addValue(
+			locale, LanguageUtil.get(locale, labelKey)
+		).build();
+
+		InfoItemFieldSet infoItemFieldSet = new InfoItemFieldSet(
+			label, JournalArticle.class.getName());
+
+		infoItemFieldSet.addAll(
+			_classNameInfoItemFieldsProvider.getFields(
+				AssetEntry.class.getName()));
+		infoItemFieldSet.addAll(
+			_classNameInfoItemFieldsProvider.getFields(
+				JournalArticle.class.getName()));
+		infoItemFieldSet.addAll(
+			_expandoInfoItemFieldsProvider.getFields(
+				JournalArticle.class.getName()));
+
+		return infoItemFieldSet;
+	}
+
+	private static final String _MODEL_RESOURCE_NAME_PREFIX = "model.resource.";
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;

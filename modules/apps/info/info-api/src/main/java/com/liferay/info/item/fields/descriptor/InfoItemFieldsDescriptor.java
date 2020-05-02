@@ -14,17 +14,12 @@
 
 package com.liferay.info.item.fields.descriptor;
 
-import com.liferay.info.item.fields.InfoItemField;
 import com.liferay.info.item.fields.InfoItemFieldSet;
-
-import java.util.List;
 
 /**
  * @author Jorge Ferrer
  */
 public interface InfoItemFieldsDescriptor<T> {
-
-	public List<InfoItemField> getFields();
 
 	public InfoItemFieldSet getFieldSet();
 
