@@ -12,20 +12,21 @@
  * details.
  */
 
-package com.liferay.info.item.fields.descriptor;
+package com.liferay.info.item.fields;
 
-import com.liferay.info.item.fields.InfoItemField;
-import com.liferay.info.item.fields.InfoItemFieldSet;
+import com.liferay.info.localized.LocalizedValue;
 
-import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldsDescriptor<T> {
+public interface InfoItemFieldSetEntry {
 
-	public List<InfoItemField> getFields();
+	public LocalizedValue getLabel();
 
-	public InfoItemFieldSet getFieldSet();
+	public String getLabel(Locale locale);
+
+	public String getName();
 
 }

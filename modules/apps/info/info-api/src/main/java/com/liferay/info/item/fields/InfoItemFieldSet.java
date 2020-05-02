@@ -14,25 +14,32 @@
 
 package com.liferay.info.item.fields;
 
-import com.liferay.info.item.fields.type.InfoItemFieldType;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public class InfoItemField implements InfoItemFieldSetEntry {
+public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 
-	public InfoItemField(
-		LocalizedValue<String> label, String name, InfoItemFieldType type) {
-
+	public InfoItemFieldSet(LocalizedValue<String> label, String name) {
 		_label = label;
 		_name = name;
-		_type = type;
+	}
+
+	public InfoItemFieldSet addFieldSetEntry(
+		InfoItemFieldSetEntry fieldSetEntry) {
+
+		_fieldSetEntries.put(fieldSetEntry.getName(), fieldSetEntry);
+
+		return this;
 	}
 
 	@Override
@@ -45,16 +52,23 @@ public class InfoItemField implements InfoItemFieldSetEntry {
 			return false;
 		}
 
-		InfoItemField infoDisplayField = (InfoItemField)obj;
+		InfoItemFieldSet infoItemFieldSet = (InfoItemFieldSet)obj;
 
-		if (Objects.equals(_label, infoDisplayField._label) &&
-			Objects.equals(_name, infoDisplayField._name) &&
-			Objects.equals(_type, infoDisplayField._type)) {
+		if (Objects.equals(_label, infoItemFieldSet._label) &&
+			Objects.equals(_name, infoItemFieldSet._name)) {
 
 			return true;
 		}
 
 		return false;
+	}
+
+	public List<InfoItemFieldSetEntry> getFieldSetEntries() {
+		return new ArrayList<>(_fieldSetEntries.values());
+	}
+
+	public InfoItemFieldSetEntry getFieldSetEntry(String name) {
+		return _fieldSetEntries.get(name);
 	}
 
 	@Override
@@ -72,21 +86,16 @@ public class InfoItemField implements InfoItemFieldSetEntry {
 		return _name;
 	}
 
-	public InfoItemFieldType getType() {
-		return _type;
-	}
-
 	@Override
 	public int hashCode() {
 		int hash = HashUtil.hash(0, _label);
 
-		hash = HashUtil.hash(hash, _name);
-
-		return HashUtil.hash(hash, _type);
+		return HashUtil.hash(hash, _name);
 	}
 
+	private final Map<String, InfoItemFieldSetEntry> _fieldSetEntries =
+		new LinkedHashMap<>();
 	private final LocalizedValue<String> _label;
 	private final String _name;
-	private final InfoItemFieldType _type;
 
 }
