@@ -21,7 +21,7 @@ import java.util.Locale;
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldSetEntry {
+public interface InfoFieldSetEntry {
 
 	public LocalizedValue getLabel();
 

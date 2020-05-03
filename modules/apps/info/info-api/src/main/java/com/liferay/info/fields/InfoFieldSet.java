@@ -27,23 +27,21 @@ import java.util.Objects;
 /**
  * @author Jorge Ferrer
  */
-public class InfoItemFieldSet implements InfoItemFieldSetEntry {
+public class InfoFieldSet implements InfoFieldSetEntry {
 
-	public InfoItemFieldSet(LocalizedValue<String> label, String name) {
+	public InfoFieldSet(LocalizedValue<String> label, String name) {
 		_label = label;
 		_name = name;
 	}
 
-	public InfoItemFieldSet add(InfoItemFieldSetEntry fieldSetEntry) {
+	public InfoFieldSet add(InfoFieldSetEntry fieldSetEntry) {
 		_fieldSetEntries.put(fieldSetEntry.getName(), fieldSetEntry);
 
 		return this;
 	}
 
-	public InfoItemFieldSet addAll(
-		List<InfoItemFieldSetEntry> fieldSetEntries) {
-
-		for (InfoItemFieldSetEntry fieldSetEntry : fieldSetEntries) {
+	public InfoFieldSet addAll(List<InfoFieldSetEntry> fieldSetEntries) {
+		for (InfoFieldSetEntry fieldSetEntry : fieldSetEntries) {
 			add(fieldSetEntry);
 		}
 
@@ -56,11 +54,11 @@ public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 			return true;
 		}
 
-		if (!(obj instanceof InfoItemField)) {
+		if (!(obj instanceof InfoField)) {
 			return false;
 		}
 
-		InfoItemFieldSet infoItemFieldSet = (InfoItemFieldSet)obj;
+		InfoFieldSet infoItemFieldSet = (InfoFieldSet)obj;
 
 		if (Objects.equals(_label, infoItemFieldSet._label) &&
 			Objects.equals(_name, infoItemFieldSet._name)) {
@@ -71,11 +69,11 @@ public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 		return false;
 	}
 
-	public List<InfoItemFieldSetEntry> getFieldSetEntries() {
+	public List<InfoFieldSetEntry> getFieldSetEntries() {
 		return new ArrayList<>(_fieldSetEntries.values());
 	}
 
-	public InfoItemFieldSetEntry getFieldSetEntry(String name) {
+	public InfoFieldSetEntry getFieldSetEntry(String name) {
 		return _fieldSetEntries.get(name);
 	}
 
@@ -101,7 +99,7 @@ public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 		return HashUtil.hash(hash, _name);
 	}
 
-	private final Map<String, InfoItemFieldSetEntry> _fieldSetEntries =
+	private final Map<String, InfoFieldSetEntry> _fieldSetEntries =
 		new LinkedHashMap<>();
 	private final LocalizedValue<String> _label;
 	private final String _name;

@@ -14,7 +14,7 @@
 
 package com.liferay.info.fields.reader;
 
-import com.liferay.info.fields.InfoItemField;
+import com.liferay.info.fields.InfoField;
 
 /**
  * @author Jürgen Kappler
@@ -22,7 +22,7 @@ import com.liferay.info.fields.InfoItemField;
  */
 public interface InfoItemFieldReader<T> {
 
-	public InfoItemField getField();
+	public InfoField getField();
 
 	public default String getKey() {
 		Class<?> clazz = getClass();

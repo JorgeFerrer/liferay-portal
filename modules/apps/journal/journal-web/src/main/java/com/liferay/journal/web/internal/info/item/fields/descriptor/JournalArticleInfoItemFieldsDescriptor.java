@@ -18,7 +18,7 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
-import com.liferay.info.fields.InfoItemFieldSet;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.NoSuchSubtypeException;
 import com.liferay.info.item.descriptor.InfoItemFieldsDescriptor;
 import com.liferay.info.item.descriptor.SubtypedInfoItemFieldsDescriptor;
@@ -42,10 +42,10 @@ public class JournalArticleInfoItemFieldsDescriptor
 	implements SubtypedInfoItemFieldsDescriptor<JournalArticle> {
 
 	@Override
-	public InfoItemFieldSet getFields(long ddmStructureId)
+	public InfoFieldSet getFields(long ddmStructureId)
 		throws NoSuchSubtypeException {
 
-		InfoItemFieldSet infoItemFieldSet = getFieldSet();
+		InfoFieldSet infoItemFieldSet = getFieldSet();
 
 		try {
 			infoItemFieldSet.addAll(
@@ -61,7 +61,7 @@ public class JournalArticleInfoItemFieldsDescriptor
 	}
 
 	@Override
-	public InfoItemFieldSet getFieldSet() {
+	public InfoFieldSet getFieldSet() {
 		Locale locale = LocaleUtil.getDefault();
 		String labelKey =
 			_MODEL_RESOURCE_NAME_PREFIX + JournalArticle.class.getName();
@@ -71,7 +71,7 @@ public class JournalArticleInfoItemFieldsDescriptor
 			locale, LanguageUtil.get(locale, labelKey)
 		).build();
 
-		InfoItemFieldSet infoItemFieldSet = new InfoItemFieldSet(
+		InfoFieldSet infoItemFieldSet = new InfoFieldSet(
 			label, JournalArticle.class.getName());
 
 		infoItemFieldSet.addAll(

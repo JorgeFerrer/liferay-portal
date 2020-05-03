@@ -25,9 +25,9 @@ import java.util.Objects;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public class InfoItemField implements InfoItemFieldSetEntry {
+public class InfoField implements InfoFieldSetEntry {
 
-	public InfoItemField(
+	public InfoField(
 		LocalizedValue<String> label, String name, InfoItemFieldType type) {
 
 		_label = label;
@@ -41,11 +41,11 @@ public class InfoItemField implements InfoItemFieldSetEntry {
 			return true;
 		}
 
-		if (!(obj instanceof InfoItemField)) {
+		if (!(obj instanceof InfoField)) {
 			return false;
 		}
 
-		InfoItemField infoDisplayField = (InfoItemField)obj;
+		InfoField infoDisplayField = (InfoField)obj;
 
 		if (Objects.equals(_label, infoDisplayField._label) &&
 			Objects.equals(_name, infoDisplayField._name) &&

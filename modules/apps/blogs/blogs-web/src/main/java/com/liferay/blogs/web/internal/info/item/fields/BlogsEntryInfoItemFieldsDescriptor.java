@@ -17,7 +17,7 @@ package com.liferay.blogs.web.internal.info.item.fields;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
-import com.liferay.info.fields.InfoItemFieldSet;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.descriptor.InfoItemFieldsDescriptor;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.localized.LocalizedValue;
@@ -38,7 +38,7 @@ public class BlogsEntryInfoItemFieldsDescriptor
 	implements InfoItemFieldsDescriptor<BlogsEntry> {
 
 	@Override
-	public InfoItemFieldSet getFieldSet() {
+	public InfoFieldSet getFieldSet() {
 		Locale locale = LocaleUtil.getDefault();
 		String labelKey =
 			_MODEL_RESOURCE_NAME_PREFIX + BlogsEntry.class.getName();
@@ -48,7 +48,7 @@ public class BlogsEntryInfoItemFieldsDescriptor
 			locale, LanguageUtil.get(locale, labelKey)
 		).build();
 
-		InfoItemFieldSet infoItemFieldSet = new InfoItemFieldSet(
+		InfoFieldSet infoItemFieldSet = new InfoFieldSet(
 			label, BlogsEntry.class.getName());
 
 		infoItemFieldSet.addAll(

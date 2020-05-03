@@ -14,13 +14,13 @@
 
 package com.liferay.info.item.descriptor;
 
-import com.liferay.info.fields.InfoItemFieldSet;
+import com.liferay.info.fields.InfoFieldSet;
 
 /**
  * @author Jorge Ferrer
  */
 public interface InfoItemFieldsDescriptor<T> {
 
-	public InfoItemFieldSet getFieldSet();
+	public InfoFieldSet getFieldSet();
 
 }

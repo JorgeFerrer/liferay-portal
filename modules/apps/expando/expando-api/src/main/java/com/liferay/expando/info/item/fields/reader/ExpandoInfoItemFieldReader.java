@@ -17,7 +17,7 @@ package com.liferay.expando.info.item.fields.reader;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.expando.kernel.util.ExpandoConverterUtil;
-import com.liferay.info.fields.InfoItemField;
+import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.reader.LocalizedInfoItemFieldReader;
 import com.liferay.info.fields.type.InfoItemFieldType;
 import com.liferay.info.fields.type.TextInfoItemFieldType;
@@ -59,7 +59,7 @@ public class ExpandoInfoItemFieldReader
 	}
 
 	@Override
-	public InfoItemField getField() {
+	public InfoField getField() {
 		InfoItemFieldType fieldType = _ITEM_FIELD_TYPE_TEXT;
 
 		LocalizedValue label = LocalizedValue.builder(
@@ -69,7 +69,7 @@ public class ExpandoInfoItemFieldReader
 			LocaleUtil.getDefault()
 		).build();
 
-		return new InfoItemField(label, getName(), fieldType);
+		return new InfoField(label, getName(), fieldType);
 	}
 
 	public String getName() {
