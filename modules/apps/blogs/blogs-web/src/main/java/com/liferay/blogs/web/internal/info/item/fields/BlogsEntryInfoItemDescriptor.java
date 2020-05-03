@@ -18,7 +18,7 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoFieldSet;
-import com.liferay.info.item.descriptor.InfoItemFieldsDescriptor;
+import com.liferay.info.item.descriptor.InfoItemDescriptor;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -33,9 +33,9 @@ import org.osgi.service.component.annotations.Reference;
  * @author Alejandro Tardín
  * @author Jorge Ferrer
  */
-@Component(service = InfoItemFieldsDescriptor.class)
-public class BlogsEntryInfoItemFieldsDescriptor
-	implements InfoItemFieldsDescriptor<BlogsEntry> {
+@Component(service = InfoItemDescriptor.class)
+public class BlogsEntryInfoItemDescriptor
+	implements InfoItemDescriptor<BlogsEntry> {
 
 	@Override
 	public InfoFieldSet getFieldSet() {

@@ -20,8 +20,8 @@ import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.NoSuchSubtypeException;
-import com.liferay.info.item.descriptor.InfoItemFieldsDescriptor;
-import com.liferay.info.item.descriptor.SubtypedInfoItemFieldsDescriptor;
+import com.liferay.info.item.descriptor.InfoItemDescriptor;
+import com.liferay.info.item.descriptor.SubtypedInfoDescriptor;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.journal.model.JournalArticle;
@@ -37,9 +37,9 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@Component(immediate = true, service = InfoItemFieldsDescriptor.class)
-public class JournalArticleInfoItemFieldsDescriptor
-	implements SubtypedInfoItemFieldsDescriptor<JournalArticle> {
+@Component(immediate = true, service = InfoItemDescriptor.class)
+public class JournalArticleInfoDescriptor
+	implements SubtypedInfoDescriptor<JournalArticle> {
 
 	@Override
 	public InfoFieldSet getFields(long ddmStructureId)
