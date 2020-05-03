@@ -21,7 +21,7 @@ import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvid
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.NoSuchSubtypeException;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
-import com.liferay.info.item.descriptor.SubtypedInfoDescriptor;
+import com.liferay.info.item.descriptor.SubtypedInfoItemDescriptor;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.journal.model.JournalArticle;
@@ -38,8 +38,8 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jorge Ferrer
  */
 @Component(immediate = true, service = InfoItemDescriptor.class)
-public class JournalArticleInfoDescriptor
-	implements SubtypedInfoDescriptor<JournalArticle> {
+public class JournalArticleInfoItemDescriptor
+	implements SubtypedInfoItemDescriptor<JournalArticle> {
 
 	@Override
 	public InfoFieldSet getInfoFieldSet() {
