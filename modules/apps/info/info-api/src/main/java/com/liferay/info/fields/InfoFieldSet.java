@@ -77,7 +77,8 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 				allFields.add((InfoField)infoFieldSetEntry);
 			}
 			else if (infoFieldSetEntry instanceof InfoFieldSet) {
-				InfoFieldSet infoFieldSet = (InfoFieldSet) infoFieldSetEntry;
+				InfoFieldSet infoFieldSet = (InfoFieldSet)infoFieldSetEntry;
+
 				allFields.addAll(infoFieldSet.getAllFields());
 			}
 		}
