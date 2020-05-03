@@ -16,8 +16,6 @@ package com.liferay.info.item.descriptor;
 
 import org.osgi.annotation.versioning.ProviderType;
 
-import java.util.List;
-
 /**
  * @author Jürgen Kappler
  * @author Jorge Ferrer
@@ -25,7 +23,6 @@ import java.util.List;
 @ProviderType
 public interface InfoItemDescriptorTracker {
 
-	public InfoItemDescriptor getInfoItemDescriptor(
-		String itemClassName);
+	public InfoItemDescriptor getInfoItemDescriptor(String itemClassName);
 
 }
