@@ -22,6 +22,7 @@ import com.liferay.info.item.NoSuchSubtypeException;
  */
 public interface SubtypedInfoDescriptor<T> extends InfoItemDescriptor {
 
-	public InfoFieldSet getFields(long subtypeId) throws NoSuchSubtypeException;
+	public InfoFieldSet getInfoFieldSet(long subtypeId)
+		throws NoSuchSubtypeException;
 
 }

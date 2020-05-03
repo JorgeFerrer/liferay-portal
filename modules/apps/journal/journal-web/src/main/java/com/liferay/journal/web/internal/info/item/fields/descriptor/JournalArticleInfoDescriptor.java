@@ -42,26 +42,7 @@ public class JournalArticleInfoDescriptor
 	implements SubtypedInfoDescriptor<JournalArticle> {
 
 	@Override
-	public InfoFieldSet getFields(long ddmStructureId)
-		throws NoSuchSubtypeException {
-
-		InfoFieldSet infoItemFieldSet = getFieldSet();
-
-		try {
-			infoItemFieldSet.addAll(
-				_ddmStructureInfoItemFieldsProvider.getInfoItemFields(
-					ddmStructureId));
-		}
-		catch (NoSuchStructureException noSuchStructureException) {
-			throw new NoSuchSubtypeException(
-				noSuchStructureException.getMessage());
-		}
-
-		return infoItemFieldSet;
-	}
-
-	@Override
-	public InfoFieldSet getFieldSet() {
+	public InfoFieldSet getInfoFieldSet() {
 		Locale locale = LocaleUtil.getDefault();
 		String labelKey =
 			_MODEL_RESOURCE_NAME_PREFIX + JournalArticle.class.getName();
@@ -83,6 +64,25 @@ public class JournalArticleInfoDescriptor
 		infoItemFieldSet.addAll(
 			_expandoInfoItemFieldsProvider.getFields(
 				JournalArticle.class.getName()));
+
+		return infoItemFieldSet;
+	}
+
+	@Override
+	public InfoFieldSet getInfoFieldSet(long ddmStructureId)
+		throws NoSuchSubtypeException {
+
+		InfoFieldSet infoItemFieldSet = getInfoFieldSet();
+
+		try {
+			infoItemFieldSet.addAll(
+				_ddmStructureInfoItemFieldsProvider.getInfoItemFields(
+					ddmStructureId));
+		}
+		catch (NoSuchStructureException noSuchStructureException) {
+			throw new NoSuchSubtypeException(
+				noSuchStructureException.getMessage());
+		}
 
 		return infoItemFieldSet;
 	}

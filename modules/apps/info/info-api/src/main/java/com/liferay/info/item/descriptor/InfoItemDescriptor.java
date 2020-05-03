@@ -21,6 +21,6 @@ import com.liferay.info.fields.InfoFieldSet;
  */
 public interface InfoItemDescriptor<T> {
 
-	public InfoFieldSet getFieldSet();
+	public InfoFieldSet getInfoFieldSet();
 
 }

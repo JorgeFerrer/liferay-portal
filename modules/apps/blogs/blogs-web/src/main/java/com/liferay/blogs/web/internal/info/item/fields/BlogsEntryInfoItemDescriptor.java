@@ -38,7 +38,7 @@ public class BlogsEntryInfoItemDescriptor
 	implements InfoItemDescriptor<BlogsEntry> {
 
 	@Override
-	public InfoFieldSet getFieldSet() {
+	public InfoFieldSet getInfoFieldSet() {
 		Locale locale = LocaleUtil.getDefault();
 		String labelKey =
 			_MODEL_RESOURCE_NAME_PREFIX + BlogsEntry.class.getName();
