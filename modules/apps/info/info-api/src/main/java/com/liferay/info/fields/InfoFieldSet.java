@@ -35,7 +35,7 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 	}
 
 	public InfoFieldSet add(InfoFieldSetEntry fieldSetEntry) {
-		_fieldSetEntries.put(fieldSetEntry.getName(), fieldSetEntry);
+		_entries.put(fieldSetEntry.getName(), fieldSetEntry);
 
 		return this;
 	}
@@ -69,12 +69,12 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 		return false;
 	}
 
-	public List<InfoFieldSetEntry> getFieldSetEntries() {
-		return new ArrayList<>(_fieldSetEntries.values());
+	public List<InfoFieldSetEntry> getEntries() {
+		return new ArrayList<>(_entries.values());
 	}
 
-	public InfoFieldSetEntry getFieldSetEntry(String name) {
-		return _fieldSetEntries.get(name);
+	public InfoFieldSetEntry getEntry(String name) {
+		return _entries.get(name);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 		return HashUtil.hash(hash, _name);
 	}
 
-	private final Map<String, InfoFieldSetEntry> _fieldSetEntries =
+	private final Map<String, InfoFieldSetEntry> _entries =
 		new LinkedHashMap<>();
 	private final LocalizedValue<String> _label;
 	private final String _name;
