@@ -12,15 +12,16 @@
  * details.
  */
 
-package com.liferay.info.item.fields.descriptor;
+package com.liferay.info.fields.reader;
 
-import com.liferay.info.item.fields.InfoItemFieldSet;
+import java.util.Locale;
 
 /**
+ * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldsDescriptor<T> {
+public interface LocalizedInfoItemFieldReader<T> extends InfoItemFieldReader {
 
-	public InfoItemFieldSet getFieldSet();
+	public Object getValue(T model, Locale locale);
 
 }

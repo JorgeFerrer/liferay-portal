@@ -12,21 +12,20 @@
  * details.
  */
 
-package com.liferay.info.item.fields;
+package com.liferay.info.fields.reader;
 
-import com.liferay.info.localized.LocalizedValue;
+import java.util.List;
 
-import java.util.Locale;
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
+ * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldSetEntry {
+@ProviderType
+public interface InfoItemFieldReaderTracker {
 
-	public LocalizedValue getLabel();
-
-	public String getLabel(Locale locale);
-
-	public String getName();
+	public List<InfoItemFieldReader> getInfoItemFieldReaders(
+		String itemClassName);
 
 }

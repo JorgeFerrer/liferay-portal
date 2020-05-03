@@ -12,14 +12,14 @@
  * details.
  */
 
-package com.liferay.info.item.fields.type;
+package com.liferay.info.fields.type;
 
 /**
  * @author Jorge Ferrer
  */
-public class TextInfoItemFieldType implements InfoItemFieldType {
+public class URLInfoItemFieldType implements InfoItemFieldType {
 
-	public static final String NAME = "text";
+	public static final String NAME = "url";
 
 	@Override
 	public String getName() {

@@ -12,20 +12,20 @@
  * details.
  */
 
-package com.liferay.info.item.fields.type;
+package com.liferay.info.fields;
 
-import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.info.localized.LocalizedValue;
 
 import java.util.Locale;
 
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldType {
+public interface InfoItemFieldSetEntry {
 
-	public default String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, getName());
-	}
+	public LocalizedValue getLabel();
+
+	public String getLabel(Locale locale);
 
 	public String getName();
 

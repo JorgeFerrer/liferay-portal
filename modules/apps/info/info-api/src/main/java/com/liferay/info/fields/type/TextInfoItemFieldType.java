@@ -12,18 +12,18 @@
  * details.
  */
 
-package com.liferay.info.item.fields.descriptor;
-
-import com.liferay.info.item.NoSuchSubtypeException;
-import com.liferay.info.item.fields.InfoItemFieldSet;
+package com.liferay.info.fields.type;
 
 /**
  * @author Jorge Ferrer
  */
-public interface SubtypedInfoItemFieldsDescriptor<T>
-	extends InfoItemFieldsDescriptor {
+public class TextInfoItemFieldType implements InfoItemFieldType {
 
-	public InfoItemFieldSet getFields(long subtypeId)
-		throws NoSuchSubtypeException;
+	public static final String NAME = "text";
+
+	@Override
+	public String getName() {
+		return NAME;
+	}
 
 }

@@ -12,21 +12,21 @@
  * details.
  */
 
-package com.liferay.info.item.fields.provider;
+package com.liferay.info.fields.type;
 
-import com.liferay.info.item.fields.InfoItemFieldSetEntry;
+import com.liferay.portal.kernel.language.LanguageUtil;
 
-import java.util.List;
-
-import org.osgi.annotation.versioning.ProviderType;
+import java.util.Locale;
 
 /**
- * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@ProviderType
-public interface ClassNameInfoItemFieldsProvider {
+public interface InfoItemFieldType {
 
-	public List<InfoItemFieldSetEntry> getFields(String itemClassName);
+	public default String getLabel(Locale locale) {
+		return LanguageUtil.get(locale, getName());
+	}
+
+	public String getName();
 
 }

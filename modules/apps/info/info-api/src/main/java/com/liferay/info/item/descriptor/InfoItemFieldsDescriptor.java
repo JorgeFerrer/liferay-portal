@@ -12,18 +12,15 @@
  * details.
  */
 
-package com.liferay.info.item.fields.type;
+package com.liferay.info.item.descriptor;
+
+import com.liferay.info.fields.InfoItemFieldSet;
 
 /**
  * @author Jorge Ferrer
  */
-public class URLInfoItemFieldType implements InfoItemFieldType {
+public interface InfoItemFieldsDescriptor<T> {
 
-	public static final String NAME = "url";
-
-	@Override
-	public String getName() {
-		return NAME;
-	}
+	public InfoItemFieldSet getFieldSet();
 
 }

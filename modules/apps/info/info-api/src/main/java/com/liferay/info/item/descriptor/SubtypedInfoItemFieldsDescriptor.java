@@ -12,20 +12,18 @@
  * details.
  */
 
-package com.liferay.info.item.fields.reader;
+package com.liferay.info.item.descriptor;
 
-import java.util.List;
-
-import org.osgi.annotation.versioning.ProviderType;
+import com.liferay.info.fields.InfoItemFieldSet;
+import com.liferay.info.item.NoSuchSubtypeException;
 
 /**
- * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@ProviderType
-public interface InfoItemFieldReaderTracker {
+public interface SubtypedInfoItemFieldsDescriptor<T>
+	extends InfoItemFieldsDescriptor {
 
-	public List<InfoItemFieldReader> getInfoItemFieldReaders(
-		String itemClassName);
+	public InfoItemFieldSet getFields(long subtypeId)
+		throws NoSuchSubtypeException;
 
 }

@@ -18,7 +18,7 @@ import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvid
 import com.liferay.expando.info.item.fields.reader.ExpandoInfoItemFieldReader;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-import com.liferay.info.item.fields.InfoItemFieldSetEntry;
+import com.liferay.info.fields.InfoItemFieldSetEntry;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 
 import java.util.ArrayList;

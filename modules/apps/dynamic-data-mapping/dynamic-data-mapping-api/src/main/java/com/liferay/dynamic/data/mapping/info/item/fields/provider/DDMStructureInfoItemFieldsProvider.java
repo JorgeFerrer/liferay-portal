@@ -17,7 +17,7 @@ package com.liferay.dynamic.data.mapping.info.item.fields.provider;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
-import com.liferay.info.item.fields.InfoItemFieldSetEntry;
+import com.liferay.info.fields.InfoItemFieldSetEntry;
 
 import java.util.List;
 

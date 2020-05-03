@@ -12,24 +12,18 @@
  * details.
  */
 
-package com.liferay.info.item.fields.reader;
-
-import com.liferay.info.item.fields.InfoItemField;
+package com.liferay.info.fields.type;
 
 /**
- * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldReader<T> {
+public class ImageInfoItemFieldType implements InfoItemFieldType {
 
-	public InfoItemField getField();
+	public static final String NAME = "image";
 
-	public default String getKey() {
-		Class<?> clazz = getClass();
-
-		return clazz.getName();
+	@Override
+	public String getName() {
+		return NAME;
 	}
-
-	public Object getValue(T model);
 
 }

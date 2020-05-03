@@ -12,42 +12,27 @@
  * details.
  */
 
-package com.liferay.info.item.fields;
+package com.liferay.info.fields;
 
+import com.liferay.info.fields.type.InfoItemFieldType;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 
 /**
+ * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public class InfoItemFieldSet implements InfoItemFieldSetEntry {
+public class InfoItemField implements InfoItemFieldSetEntry {
 
-	public InfoItemFieldSet(LocalizedValue<String> label, String name) {
+	public InfoItemField(
+		LocalizedValue<String> label, String name, InfoItemFieldType type) {
+
 		_label = label;
 		_name = name;
-	}
-
-	public InfoItemFieldSet add(InfoItemFieldSetEntry fieldSetEntry) {
-		_fieldSetEntries.put(fieldSetEntry.getName(), fieldSetEntry);
-
-		return this;
-	}
-
-	public InfoItemFieldSet addAll(
-		List<InfoItemFieldSetEntry> fieldSetEntries) {
-
-		for (InfoItemFieldSetEntry fieldSetEntry : fieldSetEntries) {
-			add(fieldSetEntry);
-		}
-
-		return this;
+		_type = type;
 	}
 
 	@Override
@@ -60,23 +45,16 @@ public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 			return false;
 		}
 
-		InfoItemFieldSet infoItemFieldSet = (InfoItemFieldSet)obj;
+		InfoItemField infoDisplayField = (InfoItemField)obj;
 
-		if (Objects.equals(_label, infoItemFieldSet._label) &&
-			Objects.equals(_name, infoItemFieldSet._name)) {
+		if (Objects.equals(_label, infoDisplayField._label) &&
+			Objects.equals(_name, infoDisplayField._name) &&
+			Objects.equals(_type, infoDisplayField._type)) {
 
 			return true;
 		}
 
 		return false;
-	}
-
-	public List<InfoItemFieldSetEntry> getFieldSetEntries() {
-		return new ArrayList<>(_fieldSetEntries.values());
-	}
-
-	public InfoItemFieldSetEntry getFieldSetEntry(String name) {
-		return _fieldSetEntries.get(name);
 	}
 
 	@Override
@@ -94,16 +72,21 @@ public class InfoItemFieldSet implements InfoItemFieldSetEntry {
 		return _name;
 	}
 
+	public InfoItemFieldType getType() {
+		return _type;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = HashUtil.hash(0, _label);
 
-		return HashUtil.hash(hash, _name);
+		hash = HashUtil.hash(hash, _name);
+
+		return HashUtil.hash(hash, _type);
 	}
 
-	private final Map<String, InfoItemFieldSetEntry> _fieldSetEntries =
-		new LinkedHashMap<>();
 	private final LocalizedValue<String> _label;
 	private final String _name;
+	private final InfoItemFieldType _type;
 
 }

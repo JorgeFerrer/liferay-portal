@@ -14,7 +14,7 @@
 
 package com.liferay.expando.info.item.fields.provider;
 
-import com.liferay.info.item.fields.InfoItemFieldSetEntry;
+import com.liferay.info.fields.InfoItemFieldSetEntry;
 
 import java.util.List;
 

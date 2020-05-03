@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.liferay.info.internal.item.fields.provider;
+package com.liferay.info.internal.item.fields;
 
-import com.liferay.info.item.fields.InfoItemFieldSetEntry;
-import com.liferay.info.item.fields.provider.ClassNameInfoItemFieldsProvider;
-import com.liferay.info.item.fields.reader.InfoItemFieldReader;
-import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
+import com.liferay.info.fields.InfoItemFieldSetEntry;
+import com.liferay.info.fields.reader.InfoItemFieldReader;
+import com.liferay.info.fields.reader.InfoItemFieldReaderTracker;
+import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 
 import java.util.ArrayList;
 import java.util.List;
