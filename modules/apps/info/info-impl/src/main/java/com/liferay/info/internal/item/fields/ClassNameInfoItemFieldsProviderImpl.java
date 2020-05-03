@@ -15,9 +15,9 @@
 package com.liferay.info.internal.item.fields;
 
 import com.liferay.info.fields.InfoFieldSetEntry;
-import com.liferay.info.fields.reader.InfoItemFieldReader;
-import com.liferay.info.fields.reader.InfoItemFieldReaderTracker;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.item.fields.reader.InfoItemFieldReader;
+import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
 
 import java.util.ArrayList;
 import java.util.List;
