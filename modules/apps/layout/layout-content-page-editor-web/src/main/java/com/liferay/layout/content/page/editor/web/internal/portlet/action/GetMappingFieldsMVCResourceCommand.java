@@ -17,6 +17,11 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.display.contributor.InfoDisplayField;
+import com.liferay.info.fields.InfoField;
+import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.item.descriptor.InfoItemDescriptor;
+import com.liferay.info.item.descriptor.SubtypedInfoItemDescriptor;
+import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -30,6 +35,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import java.util.Locale;
 import java.util.Set;
 
 import javax.portlet.ResourceRequest;
@@ -58,27 +64,36 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
-		InfoDisplayContributor infoDisplayContributor =
-			_infoDisplayContributorTracker.getInfoDisplayContributor(
-				_portal.getClassName(classNameId));
-
-		if (infoDisplayContributor == null) {
-			JSONPortletResponseUtil.writeJSON(
-				resourceRequest, resourceResponse,
-				JSONFactoryUtil.createJSONArray());
-
-			return;
-		}
-
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		long classTypeId = ParamUtil.getLong(resourceRequest, "classTypeId");
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		_addInfoDisplayFields(
+			jsonArray, classNameId, classTypeId, themeDisplay.getLocale());
+		_addInfoItemFields(
+			jsonArray, classNameId, classTypeId, themeDisplay.getLocale());
+
+		JSONPortletResponseUtil.writeJSON(
+			resourceRequest, resourceResponse, jsonArray);
+	}
+
+	private void _addInfoDisplayFields(
+			JSONArray jsonArray, long classNameId, long classTypeId,
+			Locale locale)
+		throws Exception {
+
+		InfoDisplayContributor infoDisplayContributor =
+			_infoDisplayContributorTracker.getInfoDisplayContributor(
+				_portal.getClassName(classNameId));
+
+		if (infoDisplayContributor == null) {
+			return;
+		}
+
 		Set<InfoDisplayField> infoDisplayFields =
-			infoDisplayContributor.getInfoDisplayFields(
-				classTypeId, themeDisplay.getLocale());
+			infoDisplayContributor.getInfoDisplayFields(classTypeId, locale);
 
 		for (InfoDisplayField infoDisplayField : infoDisplayFields) {
 			JSONObject jsonObject = JSONUtil.put(
@@ -91,13 +106,52 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 			jsonArray.put(jsonObject);
 		}
+	}
 
-		JSONPortletResponseUtil.writeJSON(
-			resourceRequest, resourceResponse, jsonArray);
+	private void _addInfoItemFields(
+			JSONArray jsonArray, long classNameId, long classTypeId,
+			Locale locale)
+		throws Exception {
+
+		InfoItemDescriptor infoItemDescriptor =
+			_infoItemDescriptorTracker.getInfoItemDescriptor(
+				_portal.getClassName(classNameId));
+
+		if (infoItemDescriptor == null) {
+			return;
+		}
+
+		InfoFieldSet infoFieldSet = null;
+
+		if (infoItemDescriptor instanceof SubtypedInfoItemDescriptor) {
+			SubtypedInfoItemDescriptor subtypedInfoItemDescriptor =
+				(SubtypedInfoItemDescriptor)infoItemDescriptor;
+
+			infoFieldSet = subtypedInfoItemDescriptor.getInfoFieldSet(
+				classTypeId);
+		}
+		else {
+			infoFieldSet = infoItemDescriptor.getInfoFieldSet();
+		}
+
+		for (InfoField infoField : infoFieldSet.getAllFields()) {
+			JSONObject jsonObject = JSONUtil.put(
+				"key", infoField.getName()
+			).put(
+				"label", infoField.getLabel(locale)
+			).put(
+				"type", infoField.getType().getName()
+			);
+
+			jsonArray.put(jsonObject);
+		}
 	}
 
 	@Reference
 	private InfoDisplayContributorTracker _infoDisplayContributorTracker;
+
+	@Reference
+	private InfoItemDescriptorTracker _infoItemDescriptorTracker;
 
 	@Reference
 	private Portal _portal;
