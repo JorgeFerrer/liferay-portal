@@ -63,9 +63,7 @@ public class InfoItemDescriptorTrackerImpl
 						emitter.emit(className);
 					}
 
-				},
-				Collections.reverseOrder(
-					new PropertyServiceReferenceComparator("service.ranking")));
+				});
 	}
 
 	private ServiceTrackerMap<String, InfoItemDescriptor>
