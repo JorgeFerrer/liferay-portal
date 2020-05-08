@@ -21,8 +21,8 @@ import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
-import com.liferay.info.fields.type.InfoItemFieldType;
-import com.liferay.info.fields.type.TextInfoItemFieldType;
+import com.liferay.info.fields.type.InfoFieldType;
+import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
@@ -73,7 +73,7 @@ public class DDMStructureInfoItemFieldsProviderImpl
 					label.getDefaultLocale()
 				).build();
 
-				InfoItemFieldType itemFieldType = _ITEM_FIELD_TYPE_TEXT;
+				InfoFieldType itemFieldType = _ITEM_FIELD_TYPE_TEXT;
 
 				infoItemFields.add(
 					new InfoField(
@@ -91,8 +91,8 @@ public class DDMStructureInfoItemFieldsProviderImpl
 		return infoItemFields;
 	}
 
-	private static final TextInfoItemFieldType _ITEM_FIELD_TYPE_TEXT =
-		new TextInfoItemFieldType();
+	private static final TextInfoFieldType _ITEM_FIELD_TYPE_TEXT =
+		new TextInfoFieldType();
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
 		"checkbox", "ddm-date", "ddm-decimal", "ddm-image", "ddm-integer",

@@ -14,19 +14,16 @@
 
 package com.liferay.info.fields.type;
 
-import com.liferay.portal.kernel.language.LanguageUtil;
-
-import java.util.Locale;
-
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldType {
+public class URLInfoFieldType implements InfoFieldType {
 
-	public default String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, getName());
+	public static final String NAME = "url";
+
+	@Override
+	public String getName() {
+		return NAME;
 	}
-
-	public String getName();
 
 }

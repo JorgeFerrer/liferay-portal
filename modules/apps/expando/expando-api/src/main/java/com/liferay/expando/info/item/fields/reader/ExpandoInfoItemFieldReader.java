@@ -18,8 +18,8 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.model.ExpandoColumnConstants;
 import com.liferay.expando.kernel.util.ExpandoConverterUtil;
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.type.InfoItemFieldType;
-import com.liferay.info.fields.type.TextInfoItemFieldType;
+import com.liferay.info.fields.type.InfoFieldType;
+import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.item.fields.reader.LocalizedInfoItemFieldReader;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.petra.string.StringBundler;
@@ -60,7 +60,7 @@ public class ExpandoInfoItemFieldReader
 
 	@Override
 	public InfoField getField() {
-		InfoItemFieldType fieldType = _ITEM_FIELD_TYPE_TEXT;
+		InfoFieldType fieldType = _ITEM_FIELD_TYPE_TEXT;
 
 		LocalizedValue label = LocalizedValue.builder(
 		).addValue(
@@ -201,8 +201,8 @@ public class ExpandoInfoItemFieldReader
 
 	private static final String _CUSTOM_FIELD_PREFIX = "_CUSTOM_FIELD_";
 
-	private static final TextInfoItemFieldType _ITEM_FIELD_TYPE_TEXT =
-		new TextInfoItemFieldType();
+	private static final TextInfoFieldType _ITEM_FIELD_TYPE_TEXT =
+		new TextInfoFieldType();
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ExpandoInfoItemFieldReader.class);

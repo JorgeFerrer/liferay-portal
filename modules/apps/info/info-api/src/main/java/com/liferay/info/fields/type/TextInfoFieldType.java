@@ -17,9 +17,9 @@ package com.liferay.info.fields.type;
 /**
  * @author Jorge Ferrer
  */
-public class URLInfoItemFieldType implements InfoItemFieldType {
+public class TextInfoFieldType implements InfoFieldType {
 
-	public static final String NAME = "url";
+	public static final String NAME = "text";
 
 	@Override
 	public String getName() {

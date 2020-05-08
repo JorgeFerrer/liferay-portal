@@ -14,7 +14,7 @@
 
 package com.liferay.info.fields;
 
-import com.liferay.info.fields.type.InfoItemFieldType;
+import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
@@ -28,7 +28,7 @@ import java.util.Objects;
 public class InfoField implements InfoFieldSetEntry {
 
 	public InfoField(
-		LocalizedValue<String> label, String name, InfoItemFieldType type) {
+		LocalizedValue<String> label, String name, InfoFieldType type) {
 
 		_label = label;
 		_name = name;
@@ -72,7 +72,7 @@ public class InfoField implements InfoFieldSetEntry {
 		return _name;
 	}
 
-	public InfoItemFieldType getType() {
+	public InfoFieldType getType() {
 		return _type;
 	}
 
@@ -87,6 +87,6 @@ public class InfoField implements InfoFieldSetEntry {
 
 	private final LocalizedValue<String> _label;
 	private final String _name;
-	private final InfoItemFieldType _type;
+	private final InfoFieldType _type;
 
 }

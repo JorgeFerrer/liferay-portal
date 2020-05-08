@@ -17,7 +17,7 @@ package com.liferay.info.fields.type;
 /**
  * @author Jorge Ferrer
  */
-public class ImageInfoItemFieldType implements InfoItemFieldType {
+public class ImageInfoFieldType implements InfoFieldType {
 
 	public static final String NAME = "image";
 
