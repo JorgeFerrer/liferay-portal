@@ -17,12 +17,9 @@ package com.liferay.info.internal.item.fields;
 import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
 import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
-import com.liferay.osgi.service.tracker.collections.map.PropertyServiceReferenceComparator;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
-
-import java.util.Collections;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
