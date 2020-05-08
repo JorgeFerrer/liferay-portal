@@ -22,7 +22,6 @@ import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
 import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
-import com.liferay.info.item.descriptor.SubtypedInfoItemDescriptor;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -145,18 +144,8 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 			return;
 		}
 
-		InfoFieldSet infoFieldSet = null;
-
-		if (infoItemDescriptor instanceof SubtypedInfoItemDescriptor) {
-			SubtypedInfoItemDescriptor subtypedInfoItemDescriptor =
-				(SubtypedInfoItemDescriptor)infoItemDescriptor;
-
-			infoFieldSet = subtypedInfoItemDescriptor.getInfoFieldSet(
-				classTypeId);
-		}
-		else {
-			infoFieldSet = infoItemDescriptor.getInfoFieldSet();
-		}
+		InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
+			classTypeId);
 
 		for (InfoField infoField : infoFieldSet.getAllFields()) {
 			JSONObject jsonObject = JSONUtil.put(
@@ -164,7 +153,9 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 			).put(
 				"label", infoField.getLabel(locale)
 			).put(
-				"type", infoField.getType().getName()
+				"type",
+				infoField.getType(
+				).getName()
 			);
 
 			jsonArray.put(jsonObject);
@@ -176,4 +167,5 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 
 	@Reference
 	private InfoItemDescriptorTracker _infoItemDescriptorTracker;
+
 }

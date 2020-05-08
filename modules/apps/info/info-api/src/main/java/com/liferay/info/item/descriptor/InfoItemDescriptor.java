@@ -15,6 +15,7 @@
 package com.liferay.info.item.descriptor;
 
 import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.item.NoSuchSubtypeException;
 
 /**
  * @author Jorge Ferrer
@@ -22,5 +23,11 @@ import com.liferay.info.fields.InfoFieldSet;
 public interface InfoItemDescriptor<T> {
 
 	public InfoFieldSet getInfoFieldSet();
+
+	public default InfoFieldSet getInfoFieldSet(long classTypeId)
+		throws NoSuchSubtypeException {
+
+		return getInfoFieldSet();
+	}
 
 }

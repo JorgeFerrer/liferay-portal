@@ -20,7 +20,6 @@ import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
-import com.liferay.info.item.descriptor.SubtypedInfoItemDescriptor;
 import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -35,8 +34,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -123,18 +120,8 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 			return;
 		}
 
-		InfoFieldSet infoFieldSet = null;
-
-		if (infoItemDescriptor instanceof SubtypedInfoItemDescriptor) {
-			SubtypedInfoItemDescriptor subtypedInfoItemDescriptor =
-				(SubtypedInfoItemDescriptor)infoItemDescriptor;
-
-			infoFieldSet = subtypedInfoItemDescriptor.getInfoFieldSet(
-				classTypeId);
-		}
-		else {
-			infoFieldSet = infoItemDescriptor.getInfoFieldSet();
-		}
+		InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
+			classTypeId);
 
 		for (InfoField infoField : infoFieldSet.getAllFields()) {
 			JSONObject jsonObject = JSONUtil.put(
@@ -142,7 +129,9 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 			).put(
 				"label", infoField.getLabel(locale)
 			).put(
-				"type", infoField.getType().getName()
+				"type",
+				infoField.getType(
+				).getName()
 			);
 
 			jsonArray.put(jsonObject);
