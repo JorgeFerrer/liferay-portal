@@ -18,6 +18,7 @@ import com.liferay.info.localized.LocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +41,7 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 		return this;
 	}
 
-	public InfoFieldSet addAll(List<InfoFieldSetEntry> fieldSetEntries) {
+	public InfoFieldSet addAll(Collection<InfoFieldSetEntry> fieldSetEntries) {
 		for (InfoFieldSetEntry fieldSetEntry : fieldSetEntries) {
 			add(fieldSetEntry);
 		}
