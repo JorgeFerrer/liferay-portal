@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- * <p>
+ *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation; either version 2.1 of the License, or (at your option)
  * any later version.
- * <p>
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
@@ -48,12 +48,12 @@ public class InfoDisplayContributorInfoItemDescriptorWrapper
 	public InfoFieldSet getInfoFieldSet() {
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
-		LocalizedValue fieldSetLabel = LocalizedValue.builder().
-			addValue(locale, "default").
-			build();
+		LocalizedValue fieldSetLabel = LocalizedValue.builder(
+		).addValue(
+			locale, "default"
+		).build();
 
-		InfoFieldSet infoFieldSet = new InfoFieldSet(
-			fieldSetLabel, "fields");
+		InfoFieldSet infoFieldSet = new InfoFieldSet(fieldSetLabel, "fields");
 
 		try {
 			Set<InfoDisplayField> infoDisplayFields =
@@ -63,9 +63,11 @@ public class InfoDisplayContributorInfoItemDescriptorWrapper
 				InfoFieldType type = _getInfoFieldTypeType(
 					infoDisplayField.getType());
 
-				LocalizedValue fieldLabel = LocalizedValue.builder().
-					addValue(locale, infoDisplayField.getLabel()).
-					build();
+				LocalizedValue fieldLabel = LocalizedValue.builder(
+				).addValue(
+					locale, infoDisplayField.getLabel()
+				).build();
+
 				InfoField infoField = new InfoField(
 					fieldLabel, infoDisplayField.getKey(), type);
 
@@ -84,16 +86,14 @@ public class InfoDisplayContributorInfoItemDescriptorWrapper
 		return GenericsUtil.getItemClassName(_infoDisplayContributor);
 	}
 
-	private InfoFieldType _getInfoFieldTypeType(
-		String infoDisplayFieldType) {
-
+	private InfoFieldType _getInfoFieldTypeType(String infoDisplayFieldType) {
 		if (infoDisplayFieldType.equals(
-			InfoDisplayContributorFieldType.IMAGE)) {
+				InfoDisplayContributorFieldType.IMAGE)) {
 
 			return new ImageInfoFieldType();
 		}
 		else if (infoDisplayFieldType.equals(
-			InfoDisplayContributorFieldType.URL)) {
+					InfoDisplayContributorFieldType.URL)) {
 
 			return new URLInfoFieldType();
 		}
