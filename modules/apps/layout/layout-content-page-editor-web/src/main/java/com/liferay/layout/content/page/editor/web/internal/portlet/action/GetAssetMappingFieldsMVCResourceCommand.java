@@ -15,7 +15,7 @@
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.info.item.provider.InfoItemProvider;
@@ -102,10 +102,9 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoForm(
-			infoItemObject);
+		InfoForm infoForm = infoItemFormProvider.getInfoForm(infoItemObject);
 
-		for (InfoField infoField : infoFieldSet.getAllFields()) {
+		for (InfoField infoField : infoForm.getAllFields()) {
 			JSONObject jsonObject = JSONUtil.put(
 				"key", infoField.getName()
 			).put(

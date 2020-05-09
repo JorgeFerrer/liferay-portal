@@ -16,7 +16,7 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
@@ -89,10 +89,10 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-			InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoForm(
+			InfoForm infoForm = infoItemFormProvider.getInfoForm(
 				GetterUtil.getLong(itemSubtype));
 
-			for (InfoField infoField : infoFieldSet.getAllFields()) {
+			for (InfoField infoField : infoForm.getAllFields()) {
 				jsonArray.put(
 					JSONUtil.put(
 						"key", infoField.getName()

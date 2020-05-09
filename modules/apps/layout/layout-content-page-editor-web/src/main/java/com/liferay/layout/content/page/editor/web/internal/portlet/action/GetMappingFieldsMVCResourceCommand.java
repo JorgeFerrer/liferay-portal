@@ -16,6 +16,7 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
@@ -76,10 +77,9 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoForm(
-			classTypeId);
+		InfoForm infoForm = infoItemFormProvider.getInfoForm(classTypeId);
 
-		for (InfoField infoField : infoFieldSet.getAllFields()) {
+		for (InfoField infoField : infoForm.getAllFields()) {
 			JSONObject jsonObject = JSONUtil.put(
 				"key", infoField.getName()
 			).put(
