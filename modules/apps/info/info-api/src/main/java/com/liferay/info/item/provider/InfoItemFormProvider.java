@@ -15,7 +15,7 @@
 package com.liferay.info.item.provider;
 
 import com.liferay.info.fields.InfoForm;
-import com.liferay.info.item.NoSuchSubtypeException;
+import com.liferay.info.item.NoSuchClassTypeException;
 
 /**
  * @author Jorge Ferrer
@@ -25,7 +25,7 @@ public interface InfoItemFormProvider<T> {
 	public InfoForm getInfoForm();
 
 	public default InfoForm getInfoForm(long classTypeId)
-		throws NoSuchSubtypeException {
+		throws NoSuchClassTypeException {
 
 		return getInfoForm();
 	}

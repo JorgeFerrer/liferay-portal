@@ -20,7 +20,7 @@ import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoForm;
-import com.liferay.info.item.NoSuchSubtypeException;
+import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.journal.model.JournalArticle;
@@ -63,16 +63,16 @@ public class JournalArticleInfoItemFormProvider
 		try {
 			return getInfoForm(ddmStructureId);
 		}
-		catch (NoSuchSubtypeException noSuchSubtypeException) {
+		catch (NoSuchClassTypeException noSuchClassTypeException) {
 			throw new RuntimeException(
 				"Cannot find structure " + ddmStructureId,
-				noSuchSubtypeException);
+				noSuchClassTypeException);
 		}
 	}
 
 	@Override
 	public InfoForm getInfoForm(long ddmStructureId)
-		throws NoSuchSubtypeException {
+		throws NoSuchClassTypeException {
 
 		InfoForm infoForm = getInfoForm();
 
@@ -82,8 +82,8 @@ public class JournalArticleInfoItemFormProvider
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
-			throw new NoSuchSubtypeException(
-				noSuchStructureException.getMessage());
+			throw new NoSuchClassTypeException(
+				ddmStructureId, noSuchStructureException);
 		}
 
 		return infoForm;

@@ -17,10 +17,10 @@ package com.liferay.info.item;
 /**
  * @author Jorge Ferrer
  */
-public class NoSuchSubtypeException extends Exception {
+public class NoSuchClassTypeException extends Exception {
 
-	public NoSuchSubtypeException(String msg) {
-		super(msg);
+	public NoSuchClassTypeException(long classTypeId, Throwable cause) {
+		super("No class type found with id " + classTypeId, cause);
 	}
 
 }
