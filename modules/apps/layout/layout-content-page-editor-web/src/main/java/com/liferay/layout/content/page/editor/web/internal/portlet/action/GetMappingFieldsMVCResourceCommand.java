@@ -15,7 +15,6 @@
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormProviderTracker;
@@ -60,7 +59,7 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
 		InfoItemFormProvider infoItemFormProvider =
-			_infoItemFormProviderTracker.getInfoItemDescriptor(
+			_infoItemFormProviderTracker.getInfoItemFormProvider(
 				_portal.getClassName(classNameId));
 
 		if (infoItemFormProvider == null) {

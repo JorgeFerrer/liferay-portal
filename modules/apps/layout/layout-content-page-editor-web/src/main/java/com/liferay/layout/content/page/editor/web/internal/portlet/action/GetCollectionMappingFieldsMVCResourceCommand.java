@@ -70,7 +70,7 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		}
 
 		InfoItemFormProvider infoItemFormProvider =
-			_infoItemFormProviderTracker.getInfoItemDescriptor(itemType);
+			_infoItemFormProviderTracker.getInfoItemFormProvider(itemType);
 
 		if (infoItemFormProvider == null) {
 			JSONPortletResponseUtil.writeJSON(

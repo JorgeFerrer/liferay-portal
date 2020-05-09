@@ -81,7 +81,7 @@ public class InfoDisplayContributorTrackerImpl
 					emitter.emit(infoDisplayContributor.getInfoURLSeparator());
 				});
 
-		_infoDisplayContributorInfoItemDescriptorServiceTracker =
+		_infoDisplayContributorInfoItemFormProviderServiceTracker =
 			new ServiceTracker
 				<InfoDisplayContributor,
 				 ServiceRegistration<InfoDisplayContributor>>(
@@ -134,7 +134,7 @@ public class InfoDisplayContributorTrackerImpl
 
 					 });
 
-		_infoDisplayContributorInfoItemDescriptorServiceTracker.open();
+		_infoDisplayContributorInfoItemFormProviderServiceTracker.open();
 
 		_infoDisplayContributorInfoItemProviderServiceTracker =
 			new ServiceTracker
@@ -193,7 +193,7 @@ public class InfoDisplayContributorTrackerImpl
 
 	@Deactivate
 	protected void deactivate() {
-		_infoDisplayContributorInfoItemDescriptorServiceTracker.close();
+		_infoDisplayContributorInfoItemFormProviderServiceTracker.close();
 		_infoDisplayContributorInfoItemProviderServiceTracker.close();
 	}
 
@@ -213,7 +213,7 @@ public class InfoDisplayContributorTrackerImpl
 		_infoDisplayContributorByURLSeparatorMap;
 	private ServiceTracker
 		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
-			_infoDisplayContributorInfoItemDescriptorServiceTracker;
+			_infoDisplayContributorInfoItemFormProviderServiceTracker;
 	private ServiceTracker
 		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
 			_infoDisplayContributorInfoItemProviderServiceTracker;

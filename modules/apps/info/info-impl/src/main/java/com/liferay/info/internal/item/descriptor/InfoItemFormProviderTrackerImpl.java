@@ -35,13 +35,13 @@ public class InfoItemFormProviderTrackerImpl
 	implements InfoItemFormProviderTracker {
 
 	@Override
-	public InfoItemFormProvider getInfoItemDescriptor(String itemClassName) {
-		return _infoItemDescriptorServiceTrackerMap.getService(itemClassName);
+	public InfoItemFormProvider getInfoItemFormProvider(String itemClassName) {
+		return _infoItemFormProviderServiceTrackerMap.getService(itemClassName);
 	}
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
-		_infoItemDescriptorServiceTrackerMap =
+		_infoItemFormProviderServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
 				bundleContext, InfoItemFormProvider.class, null,
 				new ServiceReferenceMapper<String, InfoItemFormProvider>() {
@@ -69,6 +69,6 @@ public class InfoItemFormProviderTrackerImpl
 	}
 
 	private ServiceTrackerMap<String, InfoItemFormProvider>
-		_infoItemDescriptorServiceTrackerMap;
+		_infoItemFormProviderServiceTrackerMap;
 
 }

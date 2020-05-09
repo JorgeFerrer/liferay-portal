@@ -64,7 +64,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 		String itemClassName = _portal.getClassName(classNameId);
 
 		InfoItemFormProvider infoItemFormProvider =
-			_infoItemFormProviderTracker.getInfoItemDescriptor(itemClassName);
+			_infoItemFormProviderTracker.getInfoItemFormProvider(itemClassName);
 
 		if (infoItemFormProvider == null) {
 			JSONPortletResponseUtil.writeJSON(
