@@ -28,19 +28,19 @@ import java.util.Objects;
 /**
  * @author Jorge Ferrer
  */
-public class Form {
+public class InfoForm {
 
-	public Form(String name) {
+	public InfoForm(String name) {
 		_name = name;
 	}
 
-	public Form add(InfoFieldSetEntry fieldSetEntry) {
+	public InfoForm add(InfoFieldSetEntry fieldSetEntry) {
 		_entries.put(fieldSetEntry.getName(), fieldSetEntry);
 
 		return this;
 	}
 
-	public Form addAll(Collection<InfoFieldSetEntry> fieldSetEntries) {
+	public InfoForm addAll(Collection<InfoFieldSetEntry> fieldSetEntries) {
 		for (InfoFieldSetEntry fieldSetEntry : fieldSetEntries) {
 			add(fieldSetEntry);
 		}
@@ -58,7 +58,7 @@ public class Form {
 			return false;
 		}
 
-		Form infoItemFieldSet = (Form)obj;
+		InfoForm infoItemFieldSet = (InfoForm)obj;
 
 		if (Objects.equals(_description, infoItemFieldSet._description) &&
 			Objects.equals(_label, infoItemFieldSet._label) &&
@@ -77,8 +77,8 @@ public class Form {
 			if (infoFieldSetEntry instanceof InfoField) {
 				allFields.add((InfoField)infoFieldSetEntry);
 			}
-			else if (infoFieldSetEntry instanceof Form) {
-				Form infoFieldSet = (Form)infoFieldSetEntry;
+			else if (infoFieldSetEntry instanceof InfoFieldSet) {
+				InfoFieldSet infoFieldSet = (InfoFieldSet)infoFieldSetEntry;
 
 				allFields.addAll(infoFieldSet.getAllFields());
 			}
