@@ -16,7 +16,7 @@ package com.liferay.info.internal.display.contributor;
 
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
+import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemProvider;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -99,12 +99,13 @@ public class InfoDisplayContributorTrackerImpl
 				 			InfoDisplayContributor infoDisplayContributor =
 					 			bundleContext.getService(serviceReference);
 
-				 			InfoItemDescriptor infoItemDescriptor =
-								new InfoDisplayContributorInfoItemDescriptorWrapper(
+				 			InfoItemFormProvider infoItemFormProvider =
+								new InfoDisplayContributorInfoItemFormProviderWrapper(
 									infoDisplayContributor);
 
 				 			return bundleContext.registerService(
-					 			InfoItemDescriptor.class, infoItemDescriptor,
+					 			InfoItemFormProvider.class,
+					 			infoItemFormProvider,
 					 			_getServiceReferenceProperties(
 						 			serviceReference));
 			 			}

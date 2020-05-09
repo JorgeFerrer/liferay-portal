@@ -16,8 +16,8 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
-import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -58,11 +58,11 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
-		InfoItemDescriptor infoItemDescriptor =
-			_infoItemDescriptorTracker.getInfoItemDescriptor(
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemFormProviderTracker.getInfoItemDescriptor(
 				_portal.getClassName(classNameId));
 
-		if (infoItemDescriptor == null) {
+		if (infoItemFormProvider == null) {
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONArray());
@@ -76,7 +76,7 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
+		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoFieldSet(
 			classTypeId);
 
 		for (InfoField infoField : infoFieldSet.getAllFields()) {
@@ -98,7 +98,7 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 	}
 
 	@Reference
-	private InfoItemDescriptorTracker _infoItemDescriptorTracker;
+	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
 
 	@Reference
 	private Portal _portal;

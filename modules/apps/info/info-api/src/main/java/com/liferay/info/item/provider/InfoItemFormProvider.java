@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.item.descriptor;
+package com.liferay.info.item.provider;
 
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.NoSuchSubtypeException;
@@ -20,7 +20,7 @@ import com.liferay.info.item.NoSuchSubtypeException;
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemDescriptor<T> {
+public interface InfoItemFormProvider<T> {
 
 	public InfoFieldSet getInfoFieldSet();
 

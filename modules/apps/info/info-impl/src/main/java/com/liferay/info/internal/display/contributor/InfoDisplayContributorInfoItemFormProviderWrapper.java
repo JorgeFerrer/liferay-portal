@@ -25,7 +25,7 @@ import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.NoSuchSubtypeException;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
+import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.localized.LocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
@@ -36,10 +36,10 @@ import java.util.Set;
 /**
  * @author Jorge Ferrer
  */
-public class InfoDisplayContributorInfoItemDescriptorWrapper
-	implements InfoItemDescriptor {
+public class InfoDisplayContributorInfoItemFormProviderWrapper
+	implements InfoItemFormProvider {
 
-	public InfoDisplayContributorInfoItemDescriptorWrapper(
+	public InfoDisplayContributorInfoItemFormProviderWrapper(
 		InfoDisplayContributor infoDisplayContributor) {
 
 		_infoDisplayContributor = infoDisplayContributor;

@@ -16,8 +16,8 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
-import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.info.item.provider.InfoItemProvider;
 import com.liferay.info.item.provider.InfoItemProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
@@ -63,10 +63,10 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		String itemClassName = _portal.getClassName(classNameId);
 
-		InfoItemDescriptor infoItemDescriptor =
-			_infoItemDescriptorTracker.getInfoItemDescriptor(itemClassName);
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemFormProviderTracker.getInfoItemDescriptor(itemClassName);
 
-		if (infoItemDescriptor == null) {
+		if (infoItemFormProvider == null) {
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONArray());
@@ -102,7 +102,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-		InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
+		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoFieldSet(
 			infoItemObject);
 
 		for (InfoField infoField : infoFieldSet.getAllFields()) {
@@ -124,7 +124,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 	}
 
 	@Reference
-	private InfoItemDescriptorTracker _infoItemDescriptorTracker;
+	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
 
 	@Reference
 	private InfoItemProviderTracker _infoItemProviderTracker;

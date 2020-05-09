@@ -17,8 +17,8 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
-import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -69,10 +69,10 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 			itemType = FileEntry.class.getName();
 		}
 
-		InfoItemDescriptor infoItemDescriptor =
-			_infoItemDescriptorTracker.getInfoItemDescriptor(itemType);
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemFormProviderTracker.getInfoItemDescriptor(itemType);
 
-		if (infoItemDescriptor == null) {
+		if (infoItemFormProvider == null) {
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONArray());
@@ -89,7 +89,7 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-			InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
+			InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoFieldSet(
 				GetterUtil.getLong(itemSubtype));
 
 			for (InfoField infoField : infoFieldSet.getAllFields()) {
@@ -120,6 +120,6 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 	}
 
 	@Reference
-	private InfoItemDescriptorTracker _infoItemDescriptorTracker;
+	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
 
 }

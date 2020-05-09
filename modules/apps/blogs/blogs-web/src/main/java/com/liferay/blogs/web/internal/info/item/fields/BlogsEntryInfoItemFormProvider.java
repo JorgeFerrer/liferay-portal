@@ -12,18 +12,15 @@
  * details.
  */
 
-package com.liferay.journal.web.internal.info.item.fields.descriptor;
+package com.liferay.blogs.web.internal.info.item.fields;
 
 import com.liferay.asset.kernel.model.AssetEntry;
-import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureInfoItemFieldsProvider;
-import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
+import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoFieldSet;
-import com.liferay.info.item.NoSuchSubtypeException;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.localized.LocalizedValue;
-import com.liferay.journal.model.JournalArticle;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
@@ -33,18 +30,18 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Jürgen Kappler
+ * @author Alejandro Tardín
  * @author Jorge Ferrer
  */
-@Component(immediate = true, service = InfoItemDescriptor.class)
-public class JournalArticleInfoItemDescriptor
-	implements InfoItemDescriptor<JournalArticle> {
+@Component(service = InfoItemFormProvider.class)
+public class BlogsEntryInfoItemFormProvider
+	implements InfoItemFormProvider<BlogsEntry> {
 
 	@Override
 	public InfoFieldSet getInfoFieldSet() {
 		Locale locale = LocaleUtil.getDefault();
 		String labelKey =
-			_MODEL_RESOURCE_NAME_PREFIX + JournalArticle.class.getName();
+			_MODEL_RESOURCE_NAME_PREFIX + BlogsEntry.class.getName();
 
 		LocalizedValue<String> label = LocalizedValue.builder(
 		).addValue(
@@ -52,36 +49,17 @@ public class JournalArticleInfoItemDescriptor
 		).build();
 
 		InfoFieldSet infoItemFieldSet = new InfoFieldSet(
-			label, JournalArticle.class.getName());
+			label, BlogsEntry.class.getName());
 
 		infoItemFieldSet.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				AssetEntry.class.getName()));
 		infoItemFieldSet.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
-				JournalArticle.class.getName()));
+				BlogsEntry.class.getName()));
 		infoItemFieldSet.addAll(
 			_expandoInfoItemFieldsProvider.getFields(
-				JournalArticle.class.getName()));
-
-		return infoItemFieldSet;
-	}
-
-	@Override
-	public InfoFieldSet getInfoFieldSet(long ddmStructureId)
-		throws NoSuchSubtypeException {
-
-		InfoFieldSet infoItemFieldSet = getInfoFieldSet();
-
-		try {
-			infoItemFieldSet.addAll(
-				_ddmStructureInfoItemFieldsProvider.getInfoItemFields(
-					ddmStructureId));
-		}
-		catch (NoSuchStructureException noSuchStructureException) {
-			throw new NoSuchSubtypeException(
-				noSuchStructureException.getMessage());
-		}
+				BlogsEntry.class.getName()));
 
 		return infoItemFieldSet;
 	}
@@ -90,10 +68,6 @@ public class JournalArticleInfoItemDescriptor
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
-
-	@Reference
-	private DDMStructureInfoItemFieldsProvider
-		_ddmStructureInfoItemFieldsProvider;
 
 	@Reference
 	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;

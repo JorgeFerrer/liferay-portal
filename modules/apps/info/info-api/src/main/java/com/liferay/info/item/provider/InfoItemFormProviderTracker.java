@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.item.descriptor;
+package com.liferay.info.item.provider;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -21,8 +21,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @author Jorge Ferrer
  */
 @ProviderType
-public interface InfoItemDescriptorTracker {
+public interface InfoItemFormProviderTracker {
 
-	public InfoItemDescriptor getInfoItemDescriptor(String itemClassName);
+	public InfoItemFormProvider getInfoItemDescriptor(String itemClassName);
 
 }

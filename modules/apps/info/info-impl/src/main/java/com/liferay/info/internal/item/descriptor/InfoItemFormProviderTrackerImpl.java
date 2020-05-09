@@ -15,8 +15,8 @@
 package com.liferay.info.internal.item.descriptor;
 
 import com.liferay.info.internal.util.GenericsUtil;
-import com.liferay.info.item.descriptor.InfoItemDescriptor;
-import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -30,12 +30,12 @@ import org.osgi.service.component.annotations.Component;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@Component(immediate = true, service = InfoItemDescriptorTracker.class)
-public class InfoItemDescriptorTrackerImpl
-	implements InfoItemDescriptorTracker {
+@Component(immediate = true, service = InfoItemFormProviderTracker.class)
+public class InfoItemFormProviderTrackerImpl
+	implements InfoItemFormProviderTracker {
 
 	@Override
-	public InfoItemDescriptor getInfoItemDescriptor(String itemClassName) {
+	public InfoItemFormProvider getInfoItemDescriptor(String itemClassName) {
 		return _infoItemDescriptorServiceTrackerMap.getService(itemClassName);
 	}
 
@@ -43,23 +43,23 @@ public class InfoItemDescriptorTrackerImpl
 	protected void activate(BundleContext bundleContext) {
 		_infoItemDescriptorServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
-				bundleContext, InfoItemDescriptor.class, null,
-				new ServiceReferenceMapper<String, InfoItemDescriptor>() {
+				bundleContext, InfoItemFormProvider.class, null,
+				new ServiceReferenceMapper<String, InfoItemFormProvider>() {
 
 					@Override
 					public void map(
-						ServiceReference<InfoItemDescriptor> serviceReference,
+						ServiceReference<InfoItemFormProvider> serviceReference,
 						Emitter<String> emitter) {
 
-						InfoItemDescriptor infoItemDescriptor =
+						InfoItemFormProvider infoItemFormProvider =
 							bundleContext.getService(serviceReference);
 
 						String className =
-							infoItemDescriptor.getItemClassName();
+							infoItemFormProvider.getItemClassName();
 
 						if (className == null) {
 							className = GenericsUtil.getItemClassName(
-								infoItemDescriptor);
+								infoItemFormProvider);
 						}
 
 						emitter.emit(className);
@@ -68,7 +68,7 @@ public class InfoItemDescriptorTrackerImpl
 				});
 	}
 
-	private ServiceTrackerMap<String, InfoItemDescriptor>
+	private ServiceTrackerMap<String, InfoItemFormProvider>
 		_infoItemDescriptorServiceTrackerMap;
 
 }
