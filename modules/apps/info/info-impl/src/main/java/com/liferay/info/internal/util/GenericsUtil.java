@@ -30,9 +30,9 @@ public class GenericsUtil {
 		for (Type genericInterfaceType : genericInterfaceTypes) {
 			if (genericInterfaceType instanceof ParameterizedType) {
 				ParameterizedType parameterizedType =
-					(ParameterizedType) genericInterfaceType;
+					(ParameterizedType)genericInterfaceType;
 
-				return (Class<?>) parameterizedType.getActualTypeArguments()[0];
+				return (Class<?>)parameterizedType.getActualTypeArguments()[0];
 			}
 		}
 
