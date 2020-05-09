@@ -25,6 +25,6 @@ public interface InfoItemProvider<T> {
 
 	public default String getItemClassName() {
 		return null;
-	};
+	}
 
 }

@@ -36,7 +36,7 @@ public class InfoDisplayContributorInfoItemProviderWrapper
 	@Override
 	public Object getInfoItem(long classPK) throws NoSuchInfoItemException {
 		try {
-			InfoDisplayObjectProvider  infoDisplayObjectProvider =
+			InfoDisplayObjectProvider infoDisplayObjectProvider =
 				_infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
 
 			return infoDisplayObjectProvider.getDisplayObject();
