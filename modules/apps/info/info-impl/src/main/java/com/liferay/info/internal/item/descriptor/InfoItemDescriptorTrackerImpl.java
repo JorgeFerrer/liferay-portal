@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.internal.item.fields;
+package com.liferay.info.internal.item.descriptor;
 
 import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
@@ -54,7 +54,8 @@ public class InfoItemDescriptorTrackerImpl
 						InfoItemDescriptor infoItemDescriptor =
 							bundleContext.getService(serviceReference);
 
-						String className = infoItemDescriptor.getItemClassName();
+						String className =
+							infoItemDescriptor.getItemClassName();
 
 						if (className == null) {
 							className = GenericsUtil.getItemClassName(
