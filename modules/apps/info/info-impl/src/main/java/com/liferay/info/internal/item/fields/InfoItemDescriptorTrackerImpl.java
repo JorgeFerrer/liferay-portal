@@ -54,8 +54,12 @@ public class InfoItemDescriptorTrackerImpl
 						InfoItemDescriptor infoItemDescriptor =
 							bundleContext.getService(serviceReference);
 
-						String className = GenericsUtil.getItemClassName(
-							infoItemDescriptor);
+						String className = infoItemDescriptor.getItemClassName();
+
+						if (className == null) {
+							className = GenericsUtil.getItemClassName(
+								infoItemDescriptor);
+						}
 
 						emitter.emit(className);
 					}
