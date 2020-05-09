@@ -14,7 +14,6 @@
 
 package com.liferay.expando.web.internal.info.fields.provider;
 
-import com.liferay.expando.info.item.fields.reader.ExpandoInfoItemFieldReader;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
