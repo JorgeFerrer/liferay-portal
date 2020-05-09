@@ -30,8 +30,12 @@ public interface InfoItemDescriptor<T> {
 		return getInfoFieldSet();
 	}
 
+	public default InfoFieldSet getInfoFieldSet(T t) {
+		return getInfoFieldSet();
+	}
+
 	public default String getItemClassName() {
 		return null;
-	};
+	}
 
 }
