@@ -35,17 +35,15 @@ public class InfoDisplayContributorInfoItemProviderWrapper
 
 	@Override
 	public Object getInfoItem(long classPK) throws NoSuchInfoItemException {
-		InfoDisplayObjectProvider infoDisplayObjectProvider =
-			null;
 		try {
-			infoDisplayObjectProvider =
+			InfoDisplayObjectProvider  infoDisplayObjectProvider =
 				_infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
+
+			return infoDisplayObjectProvider.getDisplayObject();
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
-
-		return infoDisplayObjectProvider.getDisplayObject();
 	}
 
 	@Override

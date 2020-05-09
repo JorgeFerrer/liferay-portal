@@ -33,8 +33,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.Set;
-
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -77,8 +75,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 		}
 
 		InfoItemProvider infoItemProvider =
-			_infoItemProviderTracker.getInfoItemProvider(
-				itemClassName);
+			_infoItemProviderTracker.getInfoItemProvider(itemClassName);
 
 		if (infoItemProvider == null) {
 			JSONPortletResponseUtil.writeJSON(
