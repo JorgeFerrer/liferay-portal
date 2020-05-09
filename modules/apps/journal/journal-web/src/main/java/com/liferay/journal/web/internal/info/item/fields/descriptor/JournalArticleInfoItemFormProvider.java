@@ -18,16 +18,11 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
-import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.NoSuchSubtypeException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
-import com.liferay.info.localized.LocalizedValue;
 import com.liferay.journal.model.JournalArticle;
-import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
-
-import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -41,18 +36,9 @@ public class JournalArticleInfoItemFormProvider
 	implements InfoItemFormProvider<JournalArticle> {
 
 	@Override
-	public InfoFieldSet getInfoFieldSet() {
-		Locale locale = LocaleUtil.getDefault();
-		String labelKey =
-			_MODEL_RESOURCE_NAME_PREFIX + JournalArticle.class.getName();
-
-		LocalizedValue<String> label = LocalizedValue.builder(
-		).addValue(
-			locale, LanguageUtil.get(locale, labelKey)
-		).build();
-
-		InfoFieldSet infoItemFieldSet = new InfoFieldSet(
-			label, JournalArticle.class.getName());
+	public InfoForm getInfoForm() {
+		InfoForm infoItemFieldSet = new InfoForm(
+			JournalArticle.class.getName());
 
 		infoItemFieldSet.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
@@ -68,13 +54,13 @@ public class JournalArticleInfoItemFormProvider
 	}
 
 	@Override
-	public InfoFieldSet getInfoFieldSet(long ddmStructureId)
+	public InfoForm getInfoForm(long ddmStructureId)
 		throws NoSuchSubtypeException {
 
-		InfoFieldSet infoItemFieldSet = getInfoFieldSet();
+		InfoForm infoForm = getInfoForm();
 
 		try {
-			infoItemFieldSet.addAll(
+			infoForm.addAll(
 				_ddmStructureInfoItemFieldsProvider.getInfoItemFields(
 					ddmStructureId));
 		}
@@ -83,10 +69,8 @@ public class JournalArticleInfoItemFormProvider
 				noSuchStructureException.getMessage());
 		}
 
-		return infoItemFieldSet;
+		return infoForm;
 	}
-
-	private static final String _MODEL_RESOURCE_NAME_PREFIX = "model.resource.";
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;

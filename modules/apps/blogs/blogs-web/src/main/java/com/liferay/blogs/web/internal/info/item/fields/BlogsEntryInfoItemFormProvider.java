@@ -17,14 +17,9 @@ package com.liferay.blogs.web.internal.info.item.fields;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
-import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
-import com.liferay.info.localized.LocalizedValue;
-import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.util.LocaleUtil;
-
-import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -38,33 +33,21 @@ public class BlogsEntryInfoItemFormProvider
 	implements InfoItemFormProvider<BlogsEntry> {
 
 	@Override
-	public InfoFieldSet getInfoFieldSet() {
-		Locale locale = LocaleUtil.getDefault();
-		String labelKey =
-			_MODEL_RESOURCE_NAME_PREFIX + BlogsEntry.class.getName();
+	public InfoForm getInfoForm() {
+		InfoForm infoForm = new InfoForm(BlogsEntry.class.getName());
 
-		LocalizedValue<String> label = LocalizedValue.builder(
-		).addValue(
-			locale, LanguageUtil.get(locale, labelKey)
-		).build();
-
-		InfoFieldSet infoItemFieldSet = new InfoFieldSet(
-			label, BlogsEntry.class.getName());
-
-		infoItemFieldSet.addAll(
+		infoForm.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				AssetEntry.class.getName()));
-		infoItemFieldSet.addAll(
+		infoForm.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				BlogsEntry.class.getName()));
-		infoItemFieldSet.addAll(
+		infoForm.addAll(
 			_expandoInfoItemFieldsProvider.getFields(
 				BlogsEntry.class.getName()));
 
-		return infoItemFieldSet;
+		return infoForm;
 	}
-
-	private static final String _MODEL_RESOURCE_NAME_PREFIX = "model.resource.";
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;

@@ -14,7 +14,7 @@
 
 package com.liferay.info.item.provider;
 
-import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.NoSuchSubtypeException;
 
 /**
@@ -22,16 +22,16 @@ import com.liferay.info.item.NoSuchSubtypeException;
  */
 public interface InfoItemFormProvider<T> {
 
-	public InfoFieldSet getInfoFieldSet();
+	public InfoForm getInfoForm();
 
-	public default InfoFieldSet getInfoFieldSet(long classTypeId)
+	public default InfoForm getInfoForm(long classTypeId)
 		throws NoSuchSubtypeException {
 
-		return getInfoFieldSet();
+		return getInfoForm();
 	}
 
-	public default InfoFieldSet getInfoFieldSet(T t) {
-		return getInfoFieldSet();
+	public default InfoForm getInfoForm(T t) {
+		return getInfoForm();
 	}
 
 	public default String getItemClassName() {

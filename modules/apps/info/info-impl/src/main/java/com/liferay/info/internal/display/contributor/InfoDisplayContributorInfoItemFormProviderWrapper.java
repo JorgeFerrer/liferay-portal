@@ -18,7 +18,7 @@ import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.display.contributor.field.InfoDisplayContributorFieldType;
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSet;
+import com.liferay.info.fields.InfoForm;
 import com.liferay.info.fields.type.ImageInfoFieldType;
 import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
@@ -46,14 +46,14 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 	}
 
 	@Override
-	public InfoFieldSet getInfoFieldSet() {
+	public InfoForm getInfoForm() {
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
 		try {
 			Set<InfoDisplayField> infoDisplayFields =
 				_infoDisplayContributor.getInfoDisplayFields(0, locale);
 
-			return _convertToInfoFieldSet(infoDisplayFields);
+			return _convertToInfoForm(infoDisplayFields);
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
@@ -61,13 +61,13 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 	}
 
 	@Override
-	public InfoFieldSet getInfoFieldSet(long classTypeId)
+	public InfoForm getInfoForm(long classTypeId)
 		throws NoSuchSubtypeException {
 
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
 		try {
-			return _convertToInfoFieldSet(
+			return _convertToInfoForm(
 				_infoDisplayContributor.getInfoDisplayFields(
 					classTypeId, locale));
 		}
@@ -79,11 +79,11 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 	}
 
 	@Override
-	public InfoFieldSet getInfoFieldSet(Object infoItemObject) {
+	public InfoForm getInfoForm(Object infoItemObject) {
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
 		try {
-			return _convertToInfoFieldSet(
+			return _convertToInfoForm(
 				_infoDisplayContributor.getInfoDisplayFields(
 					infoItemObject, locale));
 		}
@@ -97,17 +97,12 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 		return GenericsUtil.getItemClassName(_infoDisplayContributor);
 	}
 
-	private InfoFieldSet _convertToInfoFieldSet(
+	private InfoForm _convertToInfoForm(
 		Set<InfoDisplayField> infoDisplayFields) {
 
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
-		LocalizedValue fieldSetLabel = LocalizedValue.builder(
-		).addValue(
-			locale, "fields"
-		).build();
-
-		InfoFieldSet infoFieldSet = new InfoFieldSet(fieldSetLabel, "fields");
+		InfoForm infoForm = new InfoForm("fields");
 
 		for (InfoDisplayField infoDisplayField : infoDisplayFields) {
 			InfoFieldType type = _getInfoFieldTypeType(
@@ -121,10 +116,10 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 			InfoField infoField = new InfoField(
 				fieldLabel, infoDisplayField.getKey(), type);
 
-			infoFieldSet.add(infoField);
+			infoForm.add(infoField);
 		}
 
-		return infoFieldSet;
+		return infoForm;
 	}
 
 	private InfoFieldType _getInfoFieldTypeType(String infoDisplayFieldType) {

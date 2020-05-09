@@ -89,7 +89,7 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-			InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoFieldSet(
+			InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoForm(
 				GetterUtil.getLong(itemSubtype));
 
 			for (InfoField infoField : infoFieldSet.getAllFields()) {

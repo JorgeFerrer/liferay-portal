@@ -76,7 +76,7 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoFieldSet(
+		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoForm(
 			classTypeId);
 
 		for (InfoField infoField : infoFieldSet.getAllFields()) {

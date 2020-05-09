@@ -102,7 +102,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoFieldSet(
+		InfoFieldSet infoFieldSet = infoItemFormProvider.getInfoForm(
 			infoItemObject);
 
 		for (InfoField infoField : infoFieldSet.getAllFields()) {
