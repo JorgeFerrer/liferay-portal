@@ -17,6 +17,7 @@ package com.liferay.journal.web.internal.info.item.fields.descriptor;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
+import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.NoSuchSubtypeException;
@@ -51,6 +52,23 @@ public class JournalArticleInfoItemFormProvider
 				JournalArticle.class.getName()));
 
 		return infoItemFieldSet;
+	}
+
+	@Override
+	public InfoForm getInfoForm(JournalArticle article) {
+		DDMStructure ddmStructure = article.getDDMStructure();
+
+		long ddmStructureId = ddmStructure.getStructureId();
+
+		try {
+			return getInfoForm(ddmStructureId);
+		}
+		catch (NoSuchSubtypeException noSuchSubtypeException) {
+			throw new RuntimeException(
+				"Cannot find structure " + ddmStructureId,
+				noSuchSubtypeException);
+		}
+
 	}
 
 	@Override
