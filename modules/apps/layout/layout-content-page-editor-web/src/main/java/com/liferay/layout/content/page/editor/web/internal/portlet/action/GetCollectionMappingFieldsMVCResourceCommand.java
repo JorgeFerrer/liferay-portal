@@ -15,9 +15,6 @@
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
@@ -25,7 +22,6 @@ import com.liferay.info.item.descriptor.InfoItemDescriptorTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
@@ -37,9 +33,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
@@ -49,6 +43,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Eudaldo Alonso
+ * @author Jorge Ferrer
  */
 @Component(
 	immediate = true,
@@ -74,6 +69,17 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 			itemType = FileEntry.class.getName();
 		}
 
+		InfoItemDescriptor infoItemDescriptor =
+			_infoItemDescriptorTracker.getInfoItemDescriptor(itemType);
+
+		if (infoItemDescriptor == null) {
+			JSONPortletResponseUtil.writeJSON(
+				resourceRequest, resourceResponse,
+				JSONFactoryUtil.createJSONArray());
+
+			return;
+		}
+
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
@@ -83,12 +89,21 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-			long itemSubtypeLong = GetterUtil.getLong(itemSubtype);
+			InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
+				GetterUtil.getLong(itemSubtype));
 
-			_addInfoDisplayFields(
-				jsonArray, itemType, itemSubtypeLong, themeDisplay.getLocale());
-			_addInfoItemFields(
-				jsonArray, itemType, itemSubtypeLong, themeDisplay.getLocale());
+			for (InfoField infoField : infoFieldSet.getAllFields()) {
+				jsonArray.put(
+					JSONUtil.put(
+						"key", infoField.getName()
+					).put(
+						"label", infoField.getLabel(themeDisplay.getLocale())
+					).put(
+						"type",
+						infoField.getType(
+						).getName()
+					));
+			}
 
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse, jsonArray);
@@ -103,67 +118,6 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 						"an-unexpected-error-occurred")));
 		}
 	}
-
-	private void _addInfoDisplayFields(
-			JSONArray jsonArray, String className, long classTypeId,
-			Locale locale)
-		throws Exception {
-
-		InfoDisplayContributor infoDisplayContributor =
-			_infoDisplayContributorTracker.getInfoDisplayContributor(className);
-
-		if (infoDisplayContributor == null) {
-			return;
-		}
-
-		Set<InfoDisplayField> infoDisplayFields =
-			infoDisplayContributor.getInfoDisplayFields(classTypeId, locale);
-
-		for (InfoDisplayField infoDisplayField : infoDisplayFields) {
-			JSONObject jsonObject = JSONUtil.put(
-				"key", infoDisplayField.getKey()
-			).put(
-				"label", infoDisplayField.getLabel()
-			).put(
-				"type", infoDisplayField.getType()
-			);
-
-			jsonArray.put(jsonObject);
-		}
-	}
-
-	private void _addInfoItemFields(
-			JSONArray jsonArray, String className, long classTypeId,
-			Locale locale)
-		throws Exception {
-
-		InfoItemDescriptor infoItemDescriptor =
-			_infoItemDescriptorTracker.getInfoItemDescriptor(className);
-
-		if (infoItemDescriptor == null) {
-			return;
-		}
-
-		InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
-			classTypeId);
-
-		for (InfoField infoField : infoFieldSet.getAllFields()) {
-			JSONObject jsonObject = JSONUtil.put(
-				"key", infoField.getName()
-			).put(
-				"label", infoField.getLabel(locale)
-			).put(
-				"type",
-				infoField.getType(
-				).getName()
-			);
-
-			jsonArray.put(jsonObject);
-		}
-	}
-
-	@Reference
-	private InfoDisplayContributorTracker _infoDisplayContributorTracker;
 
 	@Reference
 	private InfoItemDescriptorTracker _infoItemDescriptorTracker;

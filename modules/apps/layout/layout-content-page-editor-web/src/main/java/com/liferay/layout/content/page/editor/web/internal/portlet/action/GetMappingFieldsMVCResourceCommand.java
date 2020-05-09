@@ -14,9 +14,6 @@
 
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.item.descriptor.InfoItemDescriptor;
@@ -34,9 +31,6 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.Locale;
-import java.util.Set;
-
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -45,6 +39,7 @@ import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jürgen Kappler
+ * @author Jorge Ferrer
  */
 @Component(
 	immediate = true,
@@ -63,62 +58,23 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		long classTypeId = ParamUtil.getLong(resourceRequest, "classTypeId");
-		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		_addInfoDisplayFields(
-			jsonArray, classNameId, classTypeId, themeDisplay.getLocale());
-		_addInfoItemFields(
-			jsonArray, classNameId, classTypeId, themeDisplay.getLocale());
-
-		JSONPortletResponseUtil.writeJSON(
-			resourceRequest, resourceResponse, jsonArray);
-	}
-
-	private void _addInfoDisplayFields(
-			JSONArray jsonArray, long classNameId, long classTypeId,
-			Locale locale)
-		throws Exception {
-
-		InfoDisplayContributor infoDisplayContributor =
-			_infoDisplayContributorTracker.getInfoDisplayContributor(
-				_portal.getClassName(classNameId));
-
-		if (infoDisplayContributor == null) {
-			return;
-		}
-
-		Set<InfoDisplayField> infoDisplayFields =
-			infoDisplayContributor.getInfoDisplayFields(classTypeId, locale);
-
-		for (InfoDisplayField infoDisplayField : infoDisplayFields) {
-			JSONObject jsonObject = JSONUtil.put(
-				"key", infoDisplayField.getKey()
-			).put(
-				"label", infoDisplayField.getLabel()
-			).put(
-				"type", infoDisplayField.getType()
-			);
-
-			jsonArray.put(jsonObject);
-		}
-	}
-
-	private void _addInfoItemFields(
-			JSONArray jsonArray, long classNameId, long classTypeId,
-			Locale locale)
-		throws Exception {
-
 		InfoItemDescriptor infoItemDescriptor =
 			_infoItemDescriptorTracker.getInfoItemDescriptor(
 				_portal.getClassName(classNameId));
 
 		if (infoItemDescriptor == null) {
+			JSONPortletResponseUtil.writeJSON(
+				resourceRequest, resourceResponse,
+				JSONFactoryUtil.createJSONArray());
+
 			return;
 		}
+
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		long classTypeId = ParamUtil.getLong(resourceRequest, "classTypeId");
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		InfoFieldSet infoFieldSet = infoItemDescriptor.getInfoFieldSet(
 			classTypeId);
@@ -127,7 +83,7 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 			JSONObject jsonObject = JSONUtil.put(
 				"key", infoField.getName()
 			).put(
-				"label", infoField.getLabel(locale)
+				"label", infoField.getLabel(themeDisplay.getLocale())
 			).put(
 				"type",
 				infoField.getType(
@@ -136,10 +92,10 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 			jsonArray.put(jsonObject);
 		}
-	}
 
-	@Reference
-	private InfoDisplayContributorTracker _infoDisplayContributorTracker;
+		JSONPortletResponseUtil.writeJSON(
+			resourceRequest, resourceResponse, jsonArray);
+	}
 
 	@Reference
 	private InfoItemDescriptorTracker _infoItemDescriptorTracker;
