@@ -20,6 +20,7 @@ import com.liferay.info.item.provider.InfoItemProviderTracker;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.annotations.Activate;
@@ -30,12 +31,10 @@ import org.osgi.service.component.annotations.Component;
  * @author Jorge Ferrer
  */
 @Component(immediate = true, service = InfoItemProviderTracker.class)
-public class InfoItemProviderTrackerImpl
-	implements InfoItemProviderTracker {
+public class InfoItemProviderTrackerImpl implements InfoItemProviderTracker {
 
 	@Override
-	public InfoItemProvider getInfoItemProvider(
-		String itemClassName) {
+	public InfoItemProvider getInfoItemProvider(String itemClassName) {
 		return _infoItemProviderServiceTrackerMap.getService(itemClassName);
 	}
 

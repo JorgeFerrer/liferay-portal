@@ -158,7 +158,7 @@ public class InfoDisplayContributorTrackerImpl
 									infoDisplayContributor);
 
 				 			return bundleContext.registerService(
-								InfoItemProvider.class, infoItemProvider,
+					 			InfoItemProvider.class, infoItemProvider,
 					 			_getServiceReferenceProperties(
 						 			serviceReference));
 			 			}
@@ -210,13 +210,13 @@ public class InfoDisplayContributorTrackerImpl
 
 	private ServiceTrackerMap<String, InfoDisplayContributor>
 		_infoDisplayContributorByURLSeparatorMap;
+	private ServiceTracker
+		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
+			_infoDisplayContributorInfoItemDescriptorServiceTracker;
+	private ServiceTracker
+		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
+			_infoDisplayContributorInfoItemProviderServiceTracker;
 	private ServiceTrackerMap<String, InfoDisplayContributor>
 		_infoDisplayContributorMap;
-	private ServiceTracker
-		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
-		_infoDisplayContributorInfoItemDescriptorServiceTracker;
-	private ServiceTracker
-		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
-		_infoDisplayContributorInfoItemProviderServiceTracker;
 
 }
