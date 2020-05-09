@@ -12,13 +12,13 @@
  * details.
  */
 
-package com.liferay.journal.web.internal.info.item.fields.descriptor;
+package com.liferay.journal.web.internal.info.item.provider;
 
 import com.liferay.asset.kernel.model.AssetEntry;
-import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureInfoItemFieldsProvider;
+import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
-import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.NoSuchSubtypeException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
@@ -68,7 +68,6 @@ public class JournalArticleInfoItemFormProvider
 				"Cannot find structure " + ddmStructureId,
 				noSuchSubtypeException);
 		}
-
 	}
 
 	@Override

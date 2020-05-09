@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.liferay.dynamic.data.mapping.web.internal.info.item.fields.provider;
+package com.liferay.dynamic.data.mapping.web.internal.info.item.provider;
 
-import com.liferay.dynamic.data.mapping.info.item.fields.provider.DDMStructureInfoItemFieldsProvider;
+import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.DDMFormField;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;

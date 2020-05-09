@@ -16,7 +16,7 @@ package com.liferay.blogs.web.internal.info.item.fields;
 
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
-import com.liferay.expando.info.item.fields.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;

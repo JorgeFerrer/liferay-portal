@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.expando.info.item.fields.provider;
+package com.liferay.expando.info.item.provider;
 
 import com.liferay.info.fields.InfoFieldSetEntry;
 
