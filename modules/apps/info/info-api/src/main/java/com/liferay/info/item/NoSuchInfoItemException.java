@@ -23,4 +23,8 @@ public class NoSuchInfoItemException extends Exception {
 		super(msg);
 	}
 
+	public NoSuchInfoItemException(String msg, Throwable cause) {
+		super(cause);
+	}
+
 }
