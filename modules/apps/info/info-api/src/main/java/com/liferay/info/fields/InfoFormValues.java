@@ -19,6 +19,7 @@ import com.liferay.info.item.InfoItemClassPKReference;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,7 +28,15 @@ import java.util.Map;
  */
 public class InfoFormValues {
 
-	public InfoFormValues addInfoFieldValue(InfoFieldValue infoFieldValue) {
+	public InfoFormValues addAll(List<InfoFieldValue<Object>> infoFieldValues) {
+		for (InfoFieldValue<Object> infoFieldValue : infoFieldValues) {
+			add(infoFieldValue);
+		}
+
+		return this;
+	}
+
+	public InfoFormValues add(InfoFieldValue infoFieldValue) {
 		_infoFieldValues.add(infoFieldValue);
 
 		InfoField infoField = infoFieldValue.getInfoField();
