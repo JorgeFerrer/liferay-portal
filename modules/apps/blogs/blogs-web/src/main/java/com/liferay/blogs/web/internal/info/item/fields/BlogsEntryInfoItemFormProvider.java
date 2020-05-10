@@ -14,11 +14,10 @@
 
 package com.liferay.blogs.web.internal.info.item.fields;
 
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
-import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.fields.InfoFormValues;
 import com.liferay.info.item.InfoItemClassPKReference;
@@ -71,7 +70,7 @@ public class BlogsEntryInfoItemFormProvider
 		}
 		catch (NoSuchInfoItemException noSuchInfoItemException) {
 			throw new RuntimeException(
-				"Unexpected exception. This should never occur",
+				"Unexpected exception which should never occur",
 				noSuchInfoItemException);
 		}
 

@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.liferay.asset.info.internal.item.provider;
+package com.liferay.asset.info.display.internal.item.provider;
 
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.exception.NoSuchEntryException;
 import com.liferay.asset.kernel.model.AssetEntry;
@@ -23,6 +23,7 @@ import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.ArrayList;
@@ -64,8 +65,9 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		}
 		catch (NoSuchEntryException noSuchEntryException) {
 			throw new NoSuchInfoItemException(
-				"Unable to find item with className=" + className + " and " +
-					"classPK=" + classPK,
+				StringBundler.concat(
+					"Unable to find item with className=", className, " and ",
+					"classPK=", classPK),
 				noSuchEntryException);
 		}
 		catch (PortalException portalException) {

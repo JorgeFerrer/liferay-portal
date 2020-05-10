@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.asset.info.item.provider;
+package com.liferay.asset.info.display.item.provider;
 
 import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;

@@ -28,20 +28,20 @@ import java.util.Map;
  */
 public class InfoFormValues {
 
-	public InfoFormValues addAll(List<InfoFieldValue<Object>> infoFieldValues) {
-		for (InfoFieldValue<Object> infoFieldValue : infoFieldValues) {
-			add(infoFieldValue);
-		}
-
-		return this;
-	}
-
 	public InfoFormValues add(InfoFieldValue infoFieldValue) {
 		_infoFieldValues.add(infoFieldValue);
 
 		InfoField infoField = infoFieldValue.getInfoField();
 
 		_infoFieldValuesByName.put(infoField.getName(), infoFieldValue);
+
+		return this;
+	}
+
+	public InfoFormValues addAll(List<InfoFieldValue<Object>> infoFieldValues) {
+		for (InfoFieldValue<Object> infoFieldValue : infoFieldValues) {
+			add(infoFieldValue);
+		}
 
 		return this;
 	}

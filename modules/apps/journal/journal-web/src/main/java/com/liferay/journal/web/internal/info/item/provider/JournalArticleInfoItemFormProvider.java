@@ -14,7 +14,7 @@
 
 package com.liferay.journal.web.internal.info.item.provider;
 
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
@@ -110,7 +110,7 @@ public class JournalArticleInfoItemFormProvider
 		}
 		catch (NoSuchInfoItemException noSuchInfoItemException) {
 			throw new RuntimeException(
-				"Unexpected exception. This should never occur",
+				"Unexpected exception which should never occur",
 				noSuchInfoItemException);
 		}
 
