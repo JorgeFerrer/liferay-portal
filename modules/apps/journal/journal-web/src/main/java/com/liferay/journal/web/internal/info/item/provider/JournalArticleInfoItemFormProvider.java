@@ -21,7 +21,10 @@ import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoForm;
+import com.liferay.info.fields.InfoFormValues;
+import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.NoSuchClassTypeException;
+import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.journal.model.JournalArticle;
@@ -89,6 +92,36 @@ public class JournalArticleInfoItemFormProvider
 		}
 
 		return infoForm;
+	}
+
+	@Override
+	public InfoFormValues getInfoFormValues(JournalArticle journalArticle) {
+		InfoFormValues infoFormValues = new InfoFormValues();
+
+		infoFormValues.setInfoItemClassPKReference(
+			new InfoItemClassPKReference(
+				JournalArticle.class.getName(), journalArticle.getClassPK()));
+
+		try {
+			infoFormValues.addAll(
+				_assetEntryInfoItemFieldsProvider.getFieldValues(
+					JournalArticle.class.getName(),
+					journalArticle.getClassPK()));
+		}
+		catch (NoSuchInfoItemException noSuchInfoItemException) {
+			throw new RuntimeException(
+				"Unexpected exception. This should never occur",
+				noSuchInfoItemException);
+		}
+
+		infoFormValues.addAll(
+			_expandoInfoItemFieldsProvider.getFieldValues(
+				JournalArticle.class.getName(), journalArticle));
+		infoFormValues.addAll(
+			_classNameInfoItemFieldsProvider.getFieldValues(
+				JournalArticle.class.getName(), journalArticle));
+
+		return infoFormValues;
 	}
 
 	@Reference
