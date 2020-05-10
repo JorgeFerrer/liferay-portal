@@ -18,7 +18,9 @@ import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.display.contributor.field.InfoDisplayContributorFieldType;
 import com.liferay.info.fields.InfoField;
+import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.InfoForm;
+import com.liferay.info.fields.InfoFormValues;
 import com.liferay.info.fields.type.ImageInfoFieldType;
 import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
@@ -31,6 +33,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -93,6 +96,20 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 	}
 
 	@Override
+	public InfoFormValues getInfoFormValues(Object infoItemObject) {
+		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+		try {
+			return _convertToInfoFormValues(
+				_infoDisplayContributor.getInfoDisplayFieldsValues(
+					infoItemObject, locale));
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(portalException);
+		}
+	}
+
+	@Override
 	public String getItemClassName() {
 		return GenericsUtil.getItemClassName(_infoDisplayContributor);
 	}
@@ -120,6 +137,35 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 		}
 
 		return infoForm;
+	}
+
+	private InfoFormValues _convertToInfoFormValues(
+		Map<String, Object> infoDisplayFieldsValues) {
+
+		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+		InfoFormValues infoFormValues = new InfoFormValues();
+
+		for (Map.Entry<String, Object> entry :
+				infoDisplayFieldsValues.entrySet()) {
+
+			String fieldName = entry.getKey();
+
+			LocalizedValue<String> fieldLabel = LocalizedValue.builder(
+			).addValue(
+				locale, fieldName
+			).build();
+
+			InfoField infoField = new InfoField(
+				fieldLabel, fieldName, new TextInfoFieldType());
+
+			InfoFieldValue infoFormValue = new InfoFieldValue(
+				infoField, entry.getValue());
+
+			infoFormValues.add(infoFormValue);
+		}
+
+		return infoFormValues;
 	}
 
 	private InfoFieldType _getInfoFieldTypeType(String infoDisplayFieldType) {
