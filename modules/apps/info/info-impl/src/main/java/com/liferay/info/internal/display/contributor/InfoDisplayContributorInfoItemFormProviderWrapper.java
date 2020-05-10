@@ -157,7 +157,7 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 			).build();
 
 			InfoField infoField = new InfoField(
-				fieldLabel, fieldName, new TextInfoFieldType());
+				fieldLabel, fieldName, TextInfoFieldType.INSTANCE);
 
 			InfoFieldValue infoFormValue = new InfoFieldValue(
 				infoField, entry.getValue());
@@ -172,15 +172,15 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 		if (infoDisplayFieldType.equals(
 				InfoDisplayContributorFieldType.IMAGE)) {
 
-			return new ImageInfoFieldType();
+			return ImageInfoFieldType.INSTANCE;
 		}
 		else if (infoDisplayFieldType.equals(
 					InfoDisplayContributorFieldType.URL)) {
 
-			return new URLInfoFieldType();
+			return URLInfoFieldType.INSTANCE;
 		}
 
-		return new TextInfoFieldType();
+		return TextInfoFieldType.INSTANCE;
 	}
 
 	private final InfoDisplayContributor _infoDisplayContributor;

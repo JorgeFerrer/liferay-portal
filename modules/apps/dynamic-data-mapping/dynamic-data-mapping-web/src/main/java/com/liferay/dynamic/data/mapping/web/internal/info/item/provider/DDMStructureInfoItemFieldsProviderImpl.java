@@ -73,7 +73,7 @@ public class DDMStructureInfoItemFieldsProviderImpl
 					label.getDefaultLocale()
 				).build();
 
-				InfoFieldType itemFieldType = _ITEM_FIELD_TYPE_TEXT;
+				InfoFieldType itemFieldType = TextInfoFieldType.INSTANCE;
 
 				infoItemFields.add(
 					new InfoField(
@@ -90,9 +90,6 @@ public class DDMStructureInfoItemFieldsProviderImpl
 
 		return infoItemFields;
 	}
-
-	private static final TextInfoFieldType _ITEM_FIELD_TYPE_TEXT =
-		new TextInfoFieldType();
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
 		"checkbox", "ddm-date", "ddm-decimal", "ddm-image", "ddm-integer",

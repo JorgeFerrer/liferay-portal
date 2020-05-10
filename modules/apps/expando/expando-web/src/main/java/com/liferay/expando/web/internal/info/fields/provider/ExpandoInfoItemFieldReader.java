@@ -60,7 +60,7 @@ public class ExpandoInfoItemFieldReader
 
 	@Override
 	public InfoField getField() {
-		InfoFieldType fieldType = _ITEM_FIELD_TYPE_TEXT;
+		InfoFieldType fieldType = TextInfoFieldType.INSTANCE;
 
 		LocalizedValue label = LocalizedValue.builder(
 		).addValue(
@@ -200,9 +200,6 @@ public class ExpandoInfoItemFieldReader
 	}
 
 	private static final String _CUSTOM_FIELD_PREFIX = "_CUSTOM_FIELD_";
-
-	private static final TextInfoFieldType _ITEM_FIELD_TYPE_TEXT =
-		new TextInfoFieldType();
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ExpandoInfoItemFieldReader.class);

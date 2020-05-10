@@ -19,11 +19,14 @@ package com.liferay.info.fields.type;
  */
 public class URLInfoFieldType implements InfoFieldType {
 
-	public static final String NAME = "url";
+	public static final URLInfoFieldType INSTANCE = new URLInfoFieldType();
 
 	@Override
 	public String getName() {
-		return NAME;
+		return "url";
+	}
+
+	private URLInfoFieldType() {
 	}
 
 }

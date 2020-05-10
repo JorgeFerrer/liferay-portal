@@ -19,11 +19,14 @@ package com.liferay.info.fields.type;
  */
 public class TextInfoFieldType implements InfoFieldType {
 
-	public static final String NAME = "text";
+	public static final TextInfoFieldType INSTANCE = new TextInfoFieldType();
 
 	@Override
 	public String getName() {
-		return NAME;
+		return "text";
+	}
+
+	private TextInfoFieldType() {
 	}
 
 }

@@ -19,11 +19,14 @@ package com.liferay.info.fields.type;
  */
 public class ImageInfoFieldType implements InfoFieldType {
 
-	public static final String NAME = "image";
+	public static final ImageInfoFieldType INSTANCE = new ImageInfoFieldType();
 
 	@Override
 	public String getName() {
-		return NAME;
+		return "image";
+	}
+
+	private ImageInfoFieldType() {
 	}
 
 }
