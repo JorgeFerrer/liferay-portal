@@ -38,13 +38,6 @@ public class BlogsEntryInfoItemFormProvider
 	implements InfoItemFormProvider<BlogsEntry> {
 
 	@Override
-	public InfoFieldValue getInfoFieldValue(
-		BlogsEntry blogsEntry, String fieldName) {
-
-		return null;
-	}
-
-	@Override
 	public InfoForm getInfoForm() {
 		InfoForm infoForm = new InfoForm(BlogsEntry.class.getName());
 
