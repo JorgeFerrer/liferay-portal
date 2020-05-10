@@ -15,15 +15,15 @@
 package com.liferay.info.internal.item.fields;
 
 import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.fields.reader.InfoItemFieldReader;
 import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jürgen Kappler
@@ -45,6 +45,41 @@ public class ClassNameInfoItemFieldsProviderImpl
 		}
 
 		return infoItemFields;
+	}
+
+	@Override
+	public List<InfoFieldValue<Object>> getFieldValues(
+		String className, Object itemObject) {
+
+		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
+
+		List<InfoItemFieldReader> infoItemFieldReaders =
+			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);
+
+		for (InfoItemFieldReader infoItemFieldReader : infoItemFieldReaders) {
+//			ServiceContext serviceContext =
+//				ServiceContextThreadLocal.getServiceContext();
+//
+//			if ((serviceContext != null) &&
+//				!Objects.equals(
+//					InfoDisplayContributorFieldType.URL,
+//					infoDisplayContributorFieldType) &&
+//				(fieldValue instanceof String)) {
+//
+//				fieldValue = SanitizerUtil.sanitize(
+//					serviceContext.getCompanyId(),
+//					serviceContext.getScopeGroupId(),
+//					serviceContext.getUserId(), className, 0,
+//					ContentTypes.TEXT_HTML, Sanitizer.MODE_ALL,
+//					(String)fieldValue, null);
+//			}
+
+			fieldValues.add(new InfoFieldValue<>(
+				infoItemFieldReader.getField(),
+				infoItemFieldReader.getValue(itemObject)));
+		}
+
+		return fieldValues;
 	}
 
 	@Reference
