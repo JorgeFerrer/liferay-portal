@@ -42,7 +42,7 @@ public class InfoFieldValue<T> {
 			return infoAccessor.getValue();
 		}
 		else if (_value instanceof LocalizedValue) {
-			LocalizedValue<T> localizedValue = (LocalizedValue<T>) _value;
+			LocalizedValue<T> localizedValue = (LocalizedValue<T>)_value;
 
 			return localizedValue.getValue(locale);
 		}
