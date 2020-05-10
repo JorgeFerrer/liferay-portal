@@ -16,8 +16,12 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.asset.info.display.contributor.util.ContentAccessor;
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
+import com.liferay.info.fields.InfoField;
+import com.liferay.info.fields.InfoFieldValue;
+import com.liferay.info.fields.InfoFormValues;
+import com.liferay.info.item.InfoItemClassPKReference;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.info.pagination.Pagination;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.layout.list.retriever.DefaultLayoutListRetrieverContext;
@@ -41,7 +45,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 
 import javax.portlet.ResourceRequest;
@@ -145,14 +148,14 @@ public class GetCollectionFieldMVCResourceCommand
 					itemType = FileEntry.class.getName();
 				}
 
-				InfoDisplayContributor infoDisplayContributor =
-					_infoDisplayContributorTracker.getInfoDisplayContributor(
+				InfoItemFormProvider infoItemFormProvider =
+					_infoItemFormProviderTracker.getInfoItemFormProvider(
 						itemType);
 
 				for (Object object : list) {
 					jsonArray.put(
 						_getDisplayObjectJSONObject(
-							infoDisplayContributor, object, locale));
+							infoItemFormProvider, object, locale));
 				}
 
 				jsonObject.put(
@@ -169,41 +172,48 @@ public class GetCollectionFieldMVCResourceCommand
 	}
 
 	private JSONObject _getDisplayObjectJSONObject(
-			InfoDisplayContributor infoDisplayContributor, Object object,
+			InfoItemFormProvider infoItemFormProvider, Object object,
 			Locale locale)
 		throws PortalException {
 
 		JSONObject displayObjectJSONObject = JSONFactoryUtil.createJSONObject();
 
-		Map<String, Object> infoDisplayFieldsValues =
-			infoDisplayContributor.getInfoDisplayFieldsValues(object, locale);
+		InfoFormValues infoFormValues = infoItemFormProvider.getInfoFormValues(
+			object);
 
-		for (Map.Entry<String, Object> entry :
-				infoDisplayFieldsValues.entrySet()) {
+		for (InfoFieldValue infoFieldValue :
+				infoFormValues.getInfoFieldValues()) {
 
-			Object fieldValue = entry.getValue();
+			Object fieldValueObject = infoFieldValue.getValue(locale);
 
-			if (fieldValue instanceof ContentAccessor) {
-				ContentAccessor contentAccessor = (ContentAccessor)fieldValue;
+			if (fieldValueObject instanceof ContentAccessor) {
+				ContentAccessor contentAccessor =
+					(ContentAccessor)fieldValueObject;
 
-				fieldValue = contentAccessor.getContent();
+				fieldValueObject = contentAccessor.getContent();
 			}
 
-			displayObjectJSONObject.put(entry.getKey(), fieldValue);
+			InfoField infoField = infoFieldValue.getInfoField();
+
+			displayObjectJSONObject.put(infoField.getName(), fieldValueObject);
 		}
 
-		displayObjectJSONObject.put(
-			"className", infoDisplayContributor.getClassName()
-		).put(
-			"classPK",
-			infoDisplayContributor.getInfoDisplayObjectClassPK(object)
-		);
+		InfoItemClassPKReference infoItemClassPKReference =
+			infoFormValues.getInfoItemClassPKReference();
+
+		if (infoItemClassPKReference != null) {
+			displayObjectJSONObject.put(
+				"className", infoItemClassPKReference.getClassName()
+			).put(
+				"classPK", infoItemClassPKReference.getClassPK()
+			);
+		}
 
 		return displayObjectJSONObject;
 	}
 
 	@Reference
-	private InfoDisplayContributorTracker _infoDisplayContributorTracker;
+	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
 
 	@Reference
 	private LayoutListRetrieverTracker _layoutListRetrieverTracker;

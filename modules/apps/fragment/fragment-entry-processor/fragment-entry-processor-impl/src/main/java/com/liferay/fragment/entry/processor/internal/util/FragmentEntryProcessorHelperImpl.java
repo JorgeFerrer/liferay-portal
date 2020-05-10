@@ -25,6 +25,10 @@ import com.liferay.fragment.processor.FragmentEntryProcessorContext;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
+import com.liferay.info.fields.InfoFieldValue;
+import com.liferay.info.fields.InfoFormValues;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringWriter;
@@ -109,29 +113,31 @@ public class FragmentEntryProcessorHelperImpl
 			className = FileEntry.class.getName();
 		}
 
-		InfoDisplayContributor infoDisplayContributor =
-			_infoDisplayContributorTracker.getInfoDisplayContributor(className);
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemFormProviderTracker.getInfoItemFormProvider(className);
 
-		if (infoDisplayContributor == null) {
+		if (infoItemFormProvider == null) {
 			return null;
 		}
 
-		Object fieldValue = infoDisplayContributor.getInfoDisplayFieldValue(
+		InfoFieldValue fieldValue = infoItemFormProvider.getInfoFieldValue(
 			displayObjectOptional.get(),
-			jsonObject.getString("collectionFieldId"),
-			fragmentEntryProcessorContext.getLocale());
+			jsonObject.getString("collectionFieldId"));
 
 		if (fieldValue == null) {
 			return null;
 		}
 
-		if (fieldValue instanceof ContentAccessor) {
+		Object fieldValueObject = fieldValue.getValue(
+			fragmentEntryProcessorContext.getLocale());
+
+		if (fieldValueObject instanceof ContentAccessor) {
 			ContentAccessor contentAccessor = (ContentAccessor)fieldValue;
 
-			fieldValue = contentAccessor.getContent();
+			fieldValueObject = contentAccessor.getContent();
 		}
 
-		return fieldValue;
+		return fieldValueObject;
 	}
 
 	@Override
@@ -187,13 +193,23 @@ public class FragmentEntryProcessorHelperImpl
 			return null;
 		}
 
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemFormProviderTracker.getInfoItemFormProvider(className);
+
+		if (infoItemFormProvider == null) {
+			return null;
+		}
+
 		Object object = infoDisplayObjectProvider.getDisplayObject();
 
 		Map<String, Object> fieldsValues = infoDisplaysFieldValues.get(classPK);
 
-		if (MapUtil.isEmpty(fieldsValues)) {
-			fieldsValues = infoDisplayContributor.getInfoDisplayFieldsValues(
-				object, fragmentEntryProcessorContext.getLocale());
+		if (fieldsValues == null) {
+			InfoFormValues infoFormValues =
+				infoItemFormProvider.getInfoFormValues(object);
+
+			fieldsValues = infoFormValues.getMap(
+				fragmentEntryProcessorContext.getLocale());
 
 			infoDisplaysFieldValues.put(classPK, fieldsValues);
 		}
@@ -345,6 +361,9 @@ public class FragmentEntryProcessorHelperImpl
 
 	@Reference
 	private InfoDisplayContributorTracker _infoDisplayContributorTracker;
+
+	@Reference
+	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
 
 	@Reference
 	private Portal _portal;

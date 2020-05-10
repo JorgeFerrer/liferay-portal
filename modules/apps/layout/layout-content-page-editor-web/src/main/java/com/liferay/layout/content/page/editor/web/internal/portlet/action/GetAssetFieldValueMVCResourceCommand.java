@@ -15,9 +15,11 @@
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.asset.info.display.contributor.util.ContentAccessor;
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
+import com.liferay.info.fields.InfoFieldValue;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormProviderTracker;
+import com.liferay.info.item.provider.InfoItemProvider;
+import com.liferay.info.item.provider.InfoItemProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -58,11 +60,11 @@ public class GetAssetFieldValueMVCResourceCommand
 
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
-		InfoDisplayContributor infoDisplayContributor =
-			_infoDisplayContributorTracker.getInfoDisplayContributor(
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemFormProviderTracker.getInfoItemFormProvider(
 				_portal.getClassName(classNameId));
 
-		if (infoDisplayContributor == null) {
+		if (infoItemFormProvider == null) {
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONObject());
@@ -70,16 +72,17 @@ public class GetAssetFieldValueMVCResourceCommand
 			return;
 		}
 
-		long classPK = ParamUtil.getLong(resourceRequest, "classPK");
+		InfoItemProvider infoItemProvider =
+			_infoItemProviderTracker.getInfoItemProvider(
+				_portal.getClassName(classNameId));
 
-		InfoDisplayObjectProvider infoDisplayObjectProvider =
-			infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
-
-		if (infoDisplayObjectProvider == null) {
+		if (infoItemProvider == null) {
 			return;
 		}
 
-		Object object = infoDisplayObjectProvider.getDisplayObject();
+		long classPK = ParamUtil.getLong(resourceRequest, "classPK");
+
+		Object object = infoItemProvider.getInfoItem(classPK);
 
 		if (object == null) {
 			JSONPortletResponseUtil.writeJSON(
@@ -105,23 +108,29 @@ public class GetAssetFieldValueMVCResourceCommand
 		String languageId = ParamUtil.getString(
 			resourceRequest, "languageId", themeDisplay.getLanguageId());
 
-		Object fieldValue = infoDisplayContributor.getInfoDisplayFieldValue(
-			object, fieldId, LocaleUtil.fromLanguageId(languageId));
+		InfoFieldValue fieldValue = infoItemFormProvider.getInfoFieldValue(
+			object, fieldId);
 
-		if (fieldValue instanceof ContentAccessor) {
+		Object fieldValueObject = fieldValue.getValue(
+			LocaleUtil.fromLanguageId(languageId));
+
+		if (fieldValueObject instanceof ContentAccessor) {
 			ContentAccessor contentAccessor = (ContentAccessor)fieldValue;
 
-			fieldValue = contentAccessor.getContent();
+			fieldValueObject = contentAccessor.getContent();
 		}
 
-		jsonObject.put("fieldValue", fieldValue);
+		jsonObject.put("fieldValue", fieldValueObject);
 
 		JSONPortletResponseUtil.writeJSON(
 			resourceRequest, resourceResponse, jsonObject);
 	}
 
 	@Reference
-	private InfoDisplayContributorTracker _infoDisplayContributorTracker;
+	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
+
+	@Reference
+	private InfoItemProviderTracker _infoItemProviderTracker;
 
 	@Reference
 	private Portal _portal;
