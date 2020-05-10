@@ -18,10 +18,15 @@ import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.InfoForm;
+import com.liferay.info.fields.InfoFormValues;
+import com.liferay.info.item.InfoItemClassPKReference;
+import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 
+import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
@@ -31,6 +36,13 @@ import org.osgi.service.component.annotations.Reference;
 @Component(service = InfoItemFormProvider.class)
 public class BlogsEntryInfoItemFormProvider
 	implements InfoItemFormProvider<BlogsEntry> {
+
+	@Override
+	public InfoFieldValue getInfoFieldValue(
+		BlogsEntry blogsEntry, String fieldName) {
+
+		return null;
+	}
 
 	@Override
 	public InfoForm getInfoForm() {
@@ -49,6 +61,35 @@ public class BlogsEntryInfoItemFormProvider
 				BlogsEntry.class.getName()));
 
 		return infoForm;
+	}
+
+	@Override
+	public InfoFormValues getInfoFormValues(BlogsEntry blogsEntry) {
+		InfoFormValues infoFormValues = new InfoFormValues();
+
+		infoFormValues.setInfoItemClassPKReference(
+			new InfoItemClassPKReference(
+				BlogsEntry.class.getName(), blogsEntry.getEntryId()));
+
+		try {
+			infoFormValues.addAll(
+				_assetEntryInfoItemFieldsProvider.getFieldValues(
+					BlogsEntry.class.getName(), blogsEntry.getEntryId()));
+		}
+		catch (NoSuchInfoItemException noSuchInfoItemException) {
+			throw new RuntimeException(
+				"Unexpected exception. This should never occur",
+				noSuchInfoItemException);
+		}
+
+		infoFormValues.addAll(
+			_expandoInfoItemFieldsProvider.getFieldValues(
+				BlogsEntry.class.getName(), blogsEntry));
+		infoFormValues.addAll(
+			_classNameInfoItemFieldsProvider.getFieldValues(
+				BlogsEntry.class.getName(), blogsEntry));
+
+		return infoFormValues;
 	}
 
 	@Reference
