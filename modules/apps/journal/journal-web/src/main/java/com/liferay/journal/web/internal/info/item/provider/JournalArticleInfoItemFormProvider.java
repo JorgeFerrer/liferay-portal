@@ -14,6 +14,7 @@
 
 package com.liferay.journal.web.internal.info.item.provider;
 
+import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
@@ -38,20 +39,21 @@ public class JournalArticleInfoItemFormProvider
 
 	@Override
 	public InfoForm getInfoForm() {
-		InfoForm infoItemFieldSet = new InfoForm(
-			JournalArticle.class.getName());
+		InfoForm infoForm = new InfoForm(JournalArticle.class.getName());
 
-		infoItemFieldSet.addAll(
-			_classNameInfoItemFieldsProvider.getFields(
-				AssetEntry.class.getName()));
-		infoItemFieldSet.addAll(
+		infoForm.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				JournalArticle.class.getName()));
-		infoItemFieldSet.addAll(
+
+		infoForm.addAll(
+			_assetEntryInfoItemFieldsProvider.getFields(
+				AssetEntry.class.getName()));
+
+		infoForm.addAll(
 			_expandoInfoItemFieldsProvider.getFields(
 				JournalArticle.class.getName()));
 
-		return infoItemFieldSet;
+		return infoForm;
 	}
 
 	@Override
@@ -88,6 +90,9 @@ public class JournalArticleInfoItemFormProvider
 
 		return infoForm;
 	}
+
+	@Reference
+	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;

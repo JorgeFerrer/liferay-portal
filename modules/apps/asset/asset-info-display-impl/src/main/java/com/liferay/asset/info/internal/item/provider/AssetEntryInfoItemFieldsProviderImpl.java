@@ -19,6 +19,7 @@ import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.exception.NoSuchEntryException;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
+import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
@@ -36,6 +37,12 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = AssetEntryInfoItemFieldsProvider.class)
 public class AssetEntryInfoItemFieldsProviderImpl
 	implements AssetEntryInfoItemFieldsProvider {
+
+	@Override
+	public List<InfoFieldSetEntry> getFields(String className) {
+		return _classNameInfoItemFieldsProvider.getFields(
+			AssetEntry.class.getName());
+	}
 
 	@Override
 	public List<InfoFieldValue<Object>> getFieldValues(

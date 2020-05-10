@@ -14,6 +14,7 @@
 
 package com.liferay.asset.info.item.provider;
 
+import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.item.NoSuchInfoItemException;
 
@@ -27,6 +28,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface AssetEntryInfoItemFieldsProvider {
+
+	public List<InfoFieldSetEntry> getFields(String className);
 
 	public List<InfoFieldValue<Object>> getFieldValues(
 			String className, long classPK)
