@@ -69,9 +69,8 @@ public class InfoFormValues {
 
 	private final Collection<InfoFieldValue> _infoFieldValues =
 		new LinkedHashSet<>();
-	private Map<String, InfoFieldValue> _infoFieldValuesByName =
+	private final Map<String, InfoFieldValue> _infoFieldValuesByName =
 		new HashMap<>();
-	private InfoItemClassPKReference _infoItemClassPKReference = null;
-
+	private InfoItemClassPKReference _infoItemClassPKReference;
 
 }

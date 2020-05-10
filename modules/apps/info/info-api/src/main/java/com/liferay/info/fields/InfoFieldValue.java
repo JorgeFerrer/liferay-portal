@@ -37,7 +37,7 @@ public class InfoFieldValue<T> {
 		T value = null;
 
 		if (_value instanceof InfoAccessor) {
-			InfoAccessor<T> infoAccessor = (InfoAccessor) value;
+			InfoAccessor<T> infoAccessor = (InfoAccessor)value;
 
 			return infoAccessor.getValue();
 		}
