@@ -14,13 +14,21 @@
 
 package com.liferay.info.item.provider;
 
+import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.InfoForm;
+import com.liferay.info.fields.InfoFormValues;
 import com.liferay.info.item.NoSuchClassTypeException;
 
 /**
  * @author Jorge Ferrer
  */
 public interface InfoItemFormProvider<T> {
+
+	public default InfoFieldValue getInfoFieldValue(T t, String fieldName) {
+		InfoFormValues infoFormValues = getInfoFormValues(t);
+
+		return infoFormValues.getInfoFieldValue(fieldName);
+	}
 
 	public InfoForm getInfoForm();
 
@@ -33,6 +41,8 @@ public interface InfoItemFormProvider<T> {
 	public default InfoForm getInfoForm(T t) {
 		return getInfoForm();
 	}
+
+	public InfoFormValues getInfoFormValues(T t);
 
 	public default String getItemClassName() {
 		return null;
