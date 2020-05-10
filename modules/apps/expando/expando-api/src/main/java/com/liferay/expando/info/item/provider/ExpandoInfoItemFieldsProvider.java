@@ -15,6 +15,7 @@
 package com.liferay.expando.info.item.provider;
 
 import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldValue;
 
 import java.util.List;
 
@@ -28,5 +29,8 @@ import org.osgi.annotation.versioning.ProviderType;
 public interface ExpandoInfoItemFieldsProvider {
 
 	public List<InfoFieldSetEntry> getFields(String itemClassName);
+
+	public List<InfoFieldValue<Object>> getFieldValues(
+		String className, Object itemObject);
 
 }

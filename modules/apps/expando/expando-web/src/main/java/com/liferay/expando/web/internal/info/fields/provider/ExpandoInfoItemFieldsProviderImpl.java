@@ -18,6 +18,7 @@ import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 
 import java.util.ArrayList;
@@ -45,6 +46,25 @@ public class ExpandoInfoItemFieldsProviderImpl
 		}
 
 		return infoItemFields;
+	}
+
+	@Override
+	public List<InfoFieldValue<Object>> getFieldValues(
+		String className, Object itemObject) {
+
+		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
+
+		for (ExpandoInfoItemFieldReader expandoInfoItemFieldReader :
+				_getExpandoFieldReaders(className)) {
+
+			InfoFieldValue<Object> infoFieldValue = new InfoFieldValue<>(
+				expandoInfoItemFieldReader.getField(),
+				expandoInfoItemFieldReader.getValue(itemObject));
+
+			fieldValues.add(infoFieldValue);
+		}
+
+		return fieldValues;
 	}
 
 	private List<ExpandoInfoItemFieldReader> _getExpandoFieldReaders(
