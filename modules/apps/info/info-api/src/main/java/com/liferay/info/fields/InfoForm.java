@@ -14,7 +14,7 @@
 
 package com.liferay.info.fields;
 
-import com.liferay.info.localized.LocalizedValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
 import java.util.ArrayList;
@@ -60,8 +60,12 @@ public class InfoForm {
 
 		InfoForm infoItemFieldSet = (InfoForm)obj;
 
-		if (Objects.equals(_description, infoItemFieldSet._description) &&
-			Objects.equals(_label, infoItemFieldSet._label) &&
+		if (Objects.equals(
+				_descriptionInfoLocalizedValue,
+				infoItemFieldSet._descriptionInfoLocalizedValue) &&
+			Objects.equals(
+				_labelInfoLocalizedValue,
+				infoItemFieldSet._labelInfoLocalizedValue) &&
 			Objects.equals(_name, infoItemFieldSet._name)) {
 
 			return true;
@@ -87,8 +91,8 @@ public class InfoForm {
 		return allFields;
 	}
 
-	public LocalizedValue getDescription() {
-		return _description;
+	public InfoLocalizedValue getDescriptionInfoLocalizedValue() {
+		return _descriptionInfoLocalizedValue;
 	}
 
 	public List<InfoFieldSetEntry> getEntries() {
@@ -99,12 +103,12 @@ public class InfoForm {
 		return _entries.get(name);
 	}
 
-	public LocalizedValue getLabel() {
-		return _label;
+	public String getLabel(Locale locale) {
+		return _labelInfoLocalizedValue.getValue(locale);
 	}
 
-	public String getLabel(Locale locale) {
-		return _label.getValue(locale);
+	public InfoLocalizedValue getLabelInfoLocalizedValue() {
+		return _labelInfoLocalizedValue;
 	}
 
 	public String getName() {
@@ -113,25 +117,29 @@ public class InfoForm {
 
 	@Override
 	public int hashCode() {
-		int hash = HashUtil.hash(0, _description);
+		int hash = HashUtil.hash(0, _descriptionInfoLocalizedValue);
 
-		hash = HashUtil.hash(hash, _label);
+		hash = HashUtil.hash(hash, _labelInfoLocalizedValue);
 
 		return HashUtil.hash(hash, _name);
 	}
 
-	public void setDescription(LocalizedValue<String> description) {
-		_description = description;
+	public void setDescriptionInfoLocalizedValue(
+		InfoLocalizedValue<String> description) {
+
+		_descriptionInfoLocalizedValue = description;
 	}
 
-	public void setLabel(LocalizedValue<String> label) {
-		_label = label;
+	public void setLabelInfoLocalizedValue(
+		InfoLocalizedValue<String> labelInfoLocalizedValue) {
+
+		_labelInfoLocalizedValue = labelInfoLocalizedValue;
 	}
 
-	private LocalizedValue<String> _description;
+	private InfoLocalizedValue<String> _descriptionInfoLocalizedValue;
 	private final Map<String, InfoFieldSetEntry> _entries =
 		new LinkedHashMap<>();
-	private LocalizedValue<String> _label;
+	private InfoLocalizedValue<String> _labelInfoLocalizedValue;
 	private final String _name;
 
 }

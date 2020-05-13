@@ -14,7 +14,7 @@
 
 package com.liferay.info.fields;
 
-import com.liferay.info.localized.LocalizedValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 
 import java.util.ArrayList;
@@ -30,8 +30,10 @@ import java.util.Objects;
  */
 public class InfoFieldSet implements InfoFieldSetEntry {
 
-	public InfoFieldSet(LocalizedValue<String> label, String name) {
-		_label = label;
+	public InfoFieldSet(
+		InfoLocalizedValue<String> labelInfoLocalizedValue, String name) {
+
+		_labelInfoLocalizedValue = labelInfoLocalizedValue;
 		_name = name;
 	}
 
@@ -61,7 +63,9 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 
 		InfoFieldSet infoItemFieldSet = (InfoFieldSet)obj;
 
-		if (Objects.equals(_label, infoItemFieldSet._label) &&
+		if (Objects.equals(
+				_labelInfoLocalizedValue,
+				infoItemFieldSet._labelInfoLocalizedValue) &&
 			Objects.equals(_name, infoItemFieldSet._name)) {
 
 			return true;
@@ -96,13 +100,13 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 	}
 
 	@Override
-	public LocalizedValue getLabel() {
-		return _label;
+	public InfoLocalizedValue getLabelInfoLocalizedValue() {
+		return _labelInfoLocalizedValue;
 	}
 
 	@Override
-	public String getLabel(Locale locale) {
-		return _label.getValue(locale);
+	public String getLabelInfoLocalizedValue(Locale locale) {
+		return _labelInfoLocalizedValue.getValue(locale);
 	}
 
 	@Override
@@ -112,14 +116,14 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 
 	@Override
 	public int hashCode() {
-		int hash = HashUtil.hash(0, _label);
+		int hash = HashUtil.hash(0, _labelInfoLocalizedValue);
 
 		return HashUtil.hash(hash, _name);
 	}
 
 	private final Map<String, InfoFieldSetEntry> _entries =
 		new LinkedHashMap<>();
-	private final LocalizedValue<String> _label;
+	private final InfoLocalizedValue<String> _labelInfoLocalizedValue;
 	private final String _name;
 
 }

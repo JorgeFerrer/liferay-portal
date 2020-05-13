@@ -15,7 +15,7 @@
 package com.liferay.info.fields;
 
 import com.liferay.info.accessor.InfoAccessor;
-import com.liferay.info.localized.LocalizedValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 
 import java.util.Locale;
 
@@ -41,10 +41,11 @@ public class InfoFieldValue<T> {
 
 			return infoAccessor.getValue();
 		}
-		else if (_value instanceof LocalizedValue) {
-			LocalizedValue<T> localizedValue = (LocalizedValue<T>)_value;
+		else if (_value instanceof InfoLocalizedValue) {
+			InfoLocalizedValue<T> infoLocalizedValue =
+				(InfoLocalizedValue<T>)_value;
 
-			return localizedValue.getValue(locale);
+			return infoLocalizedValue.getValue(locale);
 		}
 
 		return value;

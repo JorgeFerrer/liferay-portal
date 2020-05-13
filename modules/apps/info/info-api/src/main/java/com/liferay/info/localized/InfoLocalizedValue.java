@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * @author Jorge Ferrer
  */
-public class LocalizedValue<T> {
+public class InfoLocalizedValue<T> {
 
 	public static Builder builder() {
 		return new Builder();
@@ -38,16 +38,17 @@ public class LocalizedValue<T> {
 			return true;
 		}
 
-		if (!(obj instanceof LocalizedValue)) {
+		if (!(obj instanceof InfoLocalizedValue)) {
 			return false;
 		}
 
-		LocalizedValue localizedValue = (LocalizedValue)obj;
+		InfoLocalizedValue infoLocalizedValue = (InfoLocalizedValue)obj;
 
 		if (Objects.equals(
 				_builder._defaultLocale,
-				localizedValue._builder._defaultLocale) &&
-			Objects.equals(_builder._values, localizedValue._builder._values)) {
+				infoLocalizedValue._builder._defaultLocale) &&
+			Objects.equals(
+				_builder._values, infoLocalizedValue._builder._values)) {
 
 			return true;
 		}
@@ -102,8 +103,8 @@ public class LocalizedValue<T> {
 			return this;
 		}
 
-		public LocalizedValue<T> build() {
-			return new LocalizedValue<>(this);
+		public InfoLocalizedValue<T> build() {
+			return new InfoLocalizedValue<>(this);
 		}
 
 		public Builder defaultLocale(Locale locale) {
@@ -120,7 +121,7 @@ public class LocalizedValue<T> {
 
 	}
 
-	private LocalizedValue(Builder<T> builder) {
+	private InfoLocalizedValue(Builder<T> builder) {
 		_builder = builder;
 	}
 

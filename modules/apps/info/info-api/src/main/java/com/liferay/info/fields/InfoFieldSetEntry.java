@@ -14,7 +14,7 @@
 
 package com.liferay.info.fields;
 
-import com.liferay.info.localized.LocalizedValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 
 import java.util.Locale;
 
@@ -23,9 +23,9 @@ import java.util.Locale;
  */
 public interface InfoFieldSetEntry {
 
-	public LocalizedValue getLabel();
+	public InfoLocalizedValue getLabelInfoLocalizedValue();
 
-	public String getLabel(Locale locale);
+	public String getLabelInfoLocalizedValue(Locale locale);
 
 	public String getName();
 

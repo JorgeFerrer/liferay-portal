@@ -18,12 +18,13 @@ import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemF
 import com.liferay.dynamic.data.mapping.kernel.DDMFormField;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
+import com.liferay.dynamic.data.mapping.kernel.LocalizedValue;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
-import com.liferay.info.localized.LocalizedValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -63,21 +64,21 @@ public class DDMStructureInfoItemFieldsProviderImpl
 					continue;
 				}
 
-				com.liferay.dynamic.data.mapping.kernel.LocalizedValue label =
-					ddmFormField.getLabel();
+				LocalizedValue label = ddmFormField.getLabel();
 
-				LocalizedValue labelLocalizedValue = LocalizedValue.builder(
-				).addValues(
-					label.getValues()
-				).defaultLocale(
-					label.getDefaultLocale()
-				).build();
+				InfoLocalizedValue labelInfoLocalizedValue =
+					InfoLocalizedValue.builder(
+					).addValues(
+						label.getValues()
+					).defaultLocale(
+						label.getDefaultLocale()
+					).build();
 
 				InfoFieldType itemFieldType = TextInfoFieldType.INSTANCE;
 
 				infoItemFields.add(
 					new InfoField(
-						labelLocalizedValue, ddmFormField.getName(),
+						labelInfoLocalizedValue, ddmFormField.getName(),
 						itemFieldType));
 			}
 		}

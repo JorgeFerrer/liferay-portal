@@ -21,7 +21,7 @@ import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.item.fields.reader.LocalizedInfoItemFieldReader;
-import com.liferay.info.localized.LocalizedValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONException;
@@ -62,14 +62,14 @@ public class ExpandoInfoItemFieldReader
 	public InfoField getField() {
 		InfoFieldType fieldType = TextInfoFieldType.INSTANCE;
 
-		LocalizedValue label = LocalizedValue.builder(
+		InfoLocalizedValue labelInfoLocalizedValue = InfoLocalizedValue.builder(
 		).addValue(
 			LocaleUtil.getDefault(), _attributeName
 		).defaultLocale(
 			LocaleUtil.getDefault()
 		).build();
 
-		return new InfoField(label, getName(), fieldType);
+		return new InfoField(labelInfoLocalizedValue, getName(), fieldType);
 	}
 
 	public String getName() {

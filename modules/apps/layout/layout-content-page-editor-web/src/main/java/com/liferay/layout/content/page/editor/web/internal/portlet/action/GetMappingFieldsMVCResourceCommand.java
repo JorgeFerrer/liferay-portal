@@ -82,7 +82,8 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 			JSONObject jsonObject = JSONUtil.put(
 				"key", infoField.getName()
 			).put(
-				"label", infoField.getLabel(themeDisplay.getLocale())
+				"label",
+				infoField.getLabelInfoLocalizedValue(themeDisplay.getLocale())
 			).put(
 				"type",
 				infoField.getType(
