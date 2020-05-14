@@ -14,6 +14,7 @@
 
 package com.liferay.info.localized;
 
+import com.liferay.info.localized.bundle.ResourceBundleInfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
@@ -26,68 +27,31 @@ import java.util.Set;
 /**
  * @author Jorge Ferrer
  */
-public class InfoLocalizedValue<T> {
+public interface InfoLocalizedValue<T> {
 
 	public static Builder builder() {
 		return new Builder();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
+	public static InfoLocalizedValue<String> localize(
+		Class clazz, String valueKey) {
 
-		if (!(obj instanceof InfoLocalizedValue)) {
-			return false;
-		}
-
-		InfoLocalizedValue infoLocalizedValue = (InfoLocalizedValue)obj;
-
-		if (Objects.equals(
-				_builder._defaultLocale,
-				infoLocalizedValue._builder._defaultLocale) &&
-			Objects.equals(
-				_builder._values, infoLocalizedValue._builder._values)) {
-
-			return true;
-		}
-
-		return false;
+		return new ResourceBundleInfoLocalizedValue(clazz, valueKey);
 	}
 
-	public Set<Locale> getAvailableLocales() {
-		return _builder._values.keySet();
+	public static InfoLocalizedValue<String> localize(
+		String symbolicName, String valueKey) {
+
+		return new ResourceBundleInfoLocalizedValue(symbolicName, valueKey);
 	}
 
-	public Locale getDefaultLocale() {
-		if (_builder._defaultLocale == null) {
-			return LocaleUtil.getDefault();
-		}
+	public Set<Locale> getAvailableLocales();
 
-		return _builder._defaultLocale;
-	}
+	public Locale getDefaultLocale();
 
-	public T getValue() {
-		return _builder._values.get(getDefaultLocale());
-	}
+	public T getValue();
 
-	public T getValue(Locale locale) {
-		T value = _builder._values.get(locale);
-
-		if (value == null) {
-			value = _builder._values.get(getDefaultLocale());
-		}
-
-		return value;
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = HashUtil.hash(0, _builder._defaultLocale);
-
-		return HashUtil.hash(hash, _builder._values);
-	}
+	public T getValue(Locale locale);
 
 	public static class Builder<T> {
 
@@ -104,7 +68,7 @@ public class InfoLocalizedValue<T> {
 		}
 
 		public InfoLocalizedValue<T> build() {
-			return new InfoLocalizedValue<>(this);
+			return new BuilderInfoLocalizedValue<>(this);
 		}
 
 		public Builder defaultLocale(Locale locale) {
@@ -121,10 +85,78 @@ public class InfoLocalizedValue<T> {
 
 	}
 
-	private InfoLocalizedValue(Builder<T> builder) {
-		_builder = builder;
-	}
+	public static class BuilderInfoLocalizedValue<T>
+		implements InfoLocalizedValue {
 
-	private final Builder<T> _builder;
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+
+			if (!(obj instanceof BuilderInfoLocalizedValue)) {
+				return false;
+			}
+
+			BuilderInfoLocalizedValue builderInfoLocalizedValue =
+				(BuilderInfoLocalizedValue)obj;
+
+			if (Objects.equals(
+					_builder._defaultLocale,
+					builderInfoLocalizedValue._builder._defaultLocale) &&
+				Objects.equals(
+					_builder._values,
+					builderInfoLocalizedValue._builder._values)) {
+
+				return true;
+			}
+
+			return false;
+		}
+
+		@Override
+		public Set<Locale> getAvailableLocales() {
+			return _builder._values.keySet();
+		}
+
+		@Override
+		public Locale getDefaultLocale() {
+			if (_builder._defaultLocale == null) {
+				return LocaleUtil.getDefault();
+			}
+
+			return _builder._defaultLocale;
+		}
+
+		@Override
+		public T getValue() {
+			return _builder._values.get(getDefaultLocale());
+		}
+
+		@Override
+		public T getValue(Locale locale) {
+			T value = _builder._values.get(locale);
+
+			if (value == null) {
+				value = _builder._values.get(getDefaultLocale());
+			}
+
+			return value;
+		}
+
+		@Override
+		public int hashCode() {
+			int hash = HashUtil.hash(0, _builder._defaultLocale);
+
+			return HashUtil.hash(hash, _builder._values);
+		}
+
+		private BuilderInfoLocalizedValue(Builder<T> builder) {
+			_builder = builder;
+		}
+
+		private final Builder<T> _builder;
+
+	}
 
 }
