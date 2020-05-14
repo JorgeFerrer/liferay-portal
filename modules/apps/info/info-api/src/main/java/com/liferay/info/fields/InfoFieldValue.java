@@ -34,10 +34,8 @@ public class InfoFieldValue<T> {
 	}
 
 	public T getValue(Locale locale) {
-		T value = null;
-
 		if (_value instanceof InfoAccessor) {
-			InfoAccessor<T> infoAccessor = (InfoAccessor)value;
+			InfoAccessor<T> infoAccessor = (InfoAccessor)_value;
 
 			return infoAccessor.getValue();
 		}
@@ -48,7 +46,7 @@ public class InfoFieldValue<T> {
 			return infoLocalizedValue.getValue(locale);
 		}
 
-		return value;
+		return (T)_value;
 	}
 
 	private final InfoField _infoField;
