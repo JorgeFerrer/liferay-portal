@@ -21,6 +21,7 @@ import com.liferay.info.item.provider.InfoItemFormProviderTracker;
 import com.liferay.info.item.provider.InfoItemProvider;
 import com.liferay.info.item.provider.InfoItemProviderTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -111,8 +112,15 @@ public class GetAssetFieldValueMVCResourceCommand
 		InfoFieldValue fieldValue = infoItemFormProvider.getInfoFieldValue(
 			object, fieldId);
 
-		Object fieldValueObject = fieldValue.getValue(
-			LocaleUtil.fromLanguageId(languageId));
+		Object fieldValueObject = null;
+
+		if (fieldValue == null) {
+			fieldValueObject = StringPool.BLANK;
+		}
+		else {
+			fieldValueObject = fieldValue.getValue(
+				LocaleUtil.fromLanguageId(languageId));
+		}
 
 		if (fieldValueObject instanceof ContentAccessor) {
 			ContentAccessor contentAccessor = (ContentAccessor)fieldValue;
