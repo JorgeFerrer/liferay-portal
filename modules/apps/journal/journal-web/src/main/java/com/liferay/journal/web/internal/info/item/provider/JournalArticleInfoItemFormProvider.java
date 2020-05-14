@@ -20,14 +20,22 @@ import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemF
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.info.fields.InfoField;
+import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.fields.InfoFormValues;
+import com.liferay.info.fields.type.ImageInfoFieldType;
+import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.journal.model.JournalArticle;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,6 +51,8 @@ public class JournalArticleInfoItemFormProvider
 	@Override
 	public InfoForm getInfoForm() {
 		InfoForm infoForm = new InfoForm(JournalArticle.class.getName());
+
+		infoForm.addAll(_getJournalArticleFields());
 
 		infoForm.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
@@ -100,7 +110,8 @@ public class JournalArticleInfoItemFormProvider
 
 		infoFormValues.setInfoItemClassPKReference(
 			new InfoItemClassPKReference(
-				JournalArticle.class.getName(), journalArticle.getClassPK()));
+				JournalArticle.class.getName(),
+				journalArticle.getResourcePrimKey()));
 
 		try {
 			infoFormValues.addAll(
@@ -122,6 +133,61 @@ public class JournalArticleInfoItemFormProvider
 				JournalArticle.class.getName(), journalArticle));
 
 		return infoFormValues;
+	}
+
+	private Collection<InfoFieldSetEntry> _getJournalArticleFields() {
+		Collection<InfoFieldSetEntry> journalArticleFields = new ArrayList<>();
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(getClass(), "title"), "title",
+				TextInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(getClass(), "description"),
+				"description", TextInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(getClass(), "summary"), "summary",
+				TextInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(
+					"com.liferay.journal.lang", "small-image"),
+				"smallImage", ImageInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(getClass(), "authorName"),
+				"author-name", TextInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(
+					"com.liferay.journal.lang", "author-profile-image"),
+				"authorProfileImage", ImageInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(
+					"com.liferay.journal.lang", "last-editor-name"),
+				"lastEditorName", TextInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(
+					getClass(), "last-editor-profile-image"),
+				"lastEditorProfileImage", ImageInfoFieldType.INSTANCE));
+
+		journalArticleFields.add(
+			new InfoField(
+				InfoLocalizedValue.localize(getClass(), "publish-date"),
+				"publishDate", TextInfoFieldType.INSTANCE));
+
+		return journalArticleFields;
 	}
 
 	@Reference
