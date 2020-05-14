@@ -248,7 +248,7 @@ public class BlogsEntryInfoItemFormProvider
 	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
 
 	private final InfoField _authorNameInfoField = new InfoField(
-		InfoLocalizedValue.localize(getClass(), "authorName"), "author-name",
+		InfoLocalizedValue.localize(getClass(), "author-name"), "authorName",
 		TextInfoFieldType.INSTANCE);
 	private final InfoField _authorProfileImageInfoField = new InfoField(
 		InfoLocalizedValue.localize(
@@ -262,8 +262,8 @@ public class BlogsEntryInfoItemFormProvider
 		InfoLocalizedValue.localize(getClass(), "content"), "content",
 		TextInfoFieldType.INSTANCE);
 	private final InfoField _coverImageCaptionInfoField = new InfoField(
-		InfoLocalizedValue.localize(getClass(), "coverImageCaption"),
-		"cover-image-caption", TextInfoFieldType.INSTANCE);
+		InfoLocalizedValue.localize(getClass(), "cover-image-caption"),
+		"coverImageCaption", TextInfoFieldType.INSTANCE);
 	private final InfoField _coverImageInfoField = new InfoField(
 		InfoLocalizedValue.localize("com.liferay.journal.lang", "cover-image"),
 		"coverImage", ImageInfoFieldType.INSTANCE);
