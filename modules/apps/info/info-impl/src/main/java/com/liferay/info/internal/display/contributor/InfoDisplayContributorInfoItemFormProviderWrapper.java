@@ -153,13 +153,15 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 
 			String fieldName = entry.getKey();
 
-			InfoLocalizedValue<String> fieldLabel = InfoLocalizedValue.builder(
-			).addValue(
-				locale, fieldName
-			).build();
+			InfoLocalizedValue<String> fieldLabelLocalizedValue =
+				InfoLocalizedValue.builder(
+				).addValue(
+					locale, fieldName
+				).build();
 
 			InfoField infoField = new InfoField(
-				fieldLabel, fieldName, TextInfoFieldType.INSTANCE);
+				fieldLabelLocalizedValue, fieldName,
+				TextInfoFieldType.INSTANCE);
 
 			InfoFieldValue infoFormValue = new InfoFieldValue(
 				infoField, entry.getValue());
