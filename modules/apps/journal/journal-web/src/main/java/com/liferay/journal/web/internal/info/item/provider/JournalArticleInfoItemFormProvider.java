@@ -117,7 +117,7 @@ public class JournalArticleInfoItemFormProvider
 			infoFormValues.addAll(
 				_assetEntryInfoItemFieldsProvider.getFieldValues(
 					JournalArticle.class.getName(),
-					journalArticle.getClassPK()));
+					journalArticle.getResourcePrimKey()));
 		}
 		catch (NoSuchInfoItemException noSuchInfoItemException) {
 			throw new RuntimeException(
