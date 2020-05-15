@@ -22,6 +22,7 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.InfoForm;
 import com.liferay.info.fields.InfoFormValues;
 import com.liferay.info.fields.type.ImageInfoFieldType;
@@ -33,9 +34,27 @@ import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.journal.model.JournalArticle;
+import com.liferay.journal.service.JournalArticleLocalService;
+import com.liferay.journal.util.comparator.ArticleVersionComparator;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.LocaleThreadLocal;
+
+import java.text.Format;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
@@ -46,8 +65,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jorge Ferrer
  */
 @Component(
-	immediate = true,
-	property = Constants.SERVICE_RANKING + ":Integer=10",
+	immediate = true, property = Constants.SERVICE_RANKING + ":Integer=10",
 	service = InfoItemFormProvider.class
 )
 public class JournalArticleInfoItemFormProvider
@@ -113,6 +131,8 @@ public class JournalArticleInfoItemFormProvider
 	public InfoFormValues getInfoFormValues(JournalArticle journalArticle) {
 		InfoFormValues infoFormValues = new InfoFormValues();
 
+		infoFormValues.addAll(_getJournalArticleFormValues(journalArticle));
+
 		infoFormValues.setInfoItemClassPKReference(
 			new InfoItemClassPKReference(
 				JournalArticle.class.getName(),
@@ -140,14 +160,35 @@ public class JournalArticleInfoItemFormProvider
 		return infoFormValues;
 	}
 
+	private String _getDateValue(Date date) {
+		if (date == null) {
+			return StringPool.BLANK;
+		}
+
+		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+		Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(
+			locale);
+
+		return dateFormatDateTime.format(date);
+	}
+
+	private JSONObject _getImageJSONObject(String alt, String url) {
+		JSONObject jsonObject = JSONUtil.put("url", url);
+
+		if (alt != null) {
+			jsonObject = jsonObject.put("alt", alt);
+		}
+
+		return jsonObject;
+	}
+
 	private Collection<InfoFieldSetEntry> _getJournalArticleFields() {
 		Collection<InfoFieldSetEntry> journalArticleFields = new ArrayList<>();
 
 		journalArticleFields.add(_titleInfoField);
 
 		journalArticleFields.add(_descriptionInfoField);
-
-		journalArticleFields.add(_summaryInfoField);
 
 		journalArticleFields.add(_smallImageInfoField);
 
@@ -162,6 +203,95 @@ public class JournalArticleInfoItemFormProvider
 		journalArticleFields.add(_publishDateInfoField);
 
 		return journalArticleFields;
+	}
+
+	private List<InfoFieldValue<Object>> _getJournalArticleFormValues(
+		JournalArticle journalArticle) {
+
+		ThemeDisplay themeDisplay = _getThemeDisplay();
+
+		try {
+			List<InfoFieldValue<Object>> journalArticleFieldValues =
+				new ArrayList<>();
+
+			journalArticleFieldValues.add(
+				new InfoFieldValue<>(
+					_titleInfoField, journalArticle.getTitle()));
+
+			journalArticleFieldValues.add(
+				new InfoFieldValue<>(
+					_descriptionInfoField, journalArticle.getDescription()));
+
+			journalArticleFieldValues.add(
+				new InfoFieldValue<>(
+					_smallImageInfoField,
+					_getImageJSONObject(
+						null,
+						journalArticle.getArticleImageURL(themeDisplay))));
+
+			User user = _getLastVersionUser(journalArticle);
+
+			if (user != null) {
+				journalArticleFieldValues.add(
+					new InfoFieldValue<>(
+						_authorNameInfoField, user.getFullName()));
+
+				journalArticleFieldValues.add(
+					new InfoFieldValue<>(
+						_authorProfileImageInfoField,
+						_getImageJSONObject(
+							user.getFullName(),
+							user.getPortraitURL(themeDisplay))));
+			}
+
+			User lastEditorUser = _userLocalService.fetchUser(
+				journalArticle.getUserId());
+
+			if (lastEditorUser != null) {
+				journalArticleFieldValues.add(
+					new InfoFieldValue<>(
+						_lastEditorNameInfoField,
+						lastEditorUser.getFullName()));
+
+				journalArticleFieldValues.add(
+					new InfoFieldValue<>(
+						_lastEditorProfileImageInfoField,
+						_getImageJSONObject(
+							lastEditorUser.getFullName(),
+							lastEditorUser.getPortraitURL(themeDisplay))));
+			}
+
+			journalArticleFieldValues.add(
+				new InfoFieldValue<>(
+					_publishDateInfoField,
+					_getDateValue(journalArticle.getDisplayDate())));
+
+			return journalArticleFieldValues;
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(portalException);
+		}
+	}
+
+	private User _getLastVersionUser(JournalArticle journalArticle) {
+		List<JournalArticle> articles = _journalArticleLocalService.getArticles(
+			journalArticle.getGroupId(), journalArticle.getArticleId(), 0, 1,
+			new ArticleVersionComparator(true));
+
+		journalArticle = articles.get(0);
+
+		return _userLocalService.fetchUser(journalArticle.getUserId());
+	}
+
+	private ThemeDisplay _getThemeDisplay() {
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if (serviceContext != null) {
+			return serviceContext.getThemeDisplay();
+		}
+
+		return null;
 	}
 
 	@Reference
@@ -189,6 +319,9 @@ public class JournalArticleInfoItemFormProvider
 	@Reference
 	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
 
+	@Reference
+	private JournalArticleLocalService _journalArticleLocalService;
+
 	private final InfoField _lastEditorNameInfoField = new InfoField(
 		InfoLocalizedValue.localize(
 			"com.liferay.journal.lang", "last-editor-name"),
@@ -208,5 +341,8 @@ public class JournalArticleInfoItemFormProvider
 	private final InfoField _titleInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "title"), "title",
 		TextInfoFieldType.INSTANCE);
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }
