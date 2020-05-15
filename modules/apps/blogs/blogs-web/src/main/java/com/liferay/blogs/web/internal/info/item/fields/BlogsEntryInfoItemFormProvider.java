@@ -59,8 +59,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jorge Ferrer
  */
 @Component(
-	immediate = true,
-	property = Constants.SERVICE_RANKING + ":Integer=10",
+	immediate = true, property = Constants.SERVICE_RANKING + ":Integer=10",
 	service = InfoItemFormProvider.class
 )
 public class BlogsEntryInfoItemFormProvider
@@ -198,7 +197,7 @@ public class BlogsEntryInfoItemFormProvider
 						_authorProfileImageInfoField,
 						_getImageJSONObject(
 							user.getFullName(),
-							user.getPortraitURL(_getThemeDisplay()))));
+							user.getPortraitURL(themeDisplay))));
 			}
 
 			blogsEntryFieldValues.add(
