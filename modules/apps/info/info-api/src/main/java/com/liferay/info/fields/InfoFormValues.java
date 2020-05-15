@@ -15,6 +15,7 @@
 package com.liferay.info.fields;
 
 import com.liferay.info.item.InfoItemClassPKReference;
+import com.liferay.petra.string.StringBundler;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -74,6 +75,17 @@ public class InfoFormValues {
 		InfoItemClassPKReference infoItemClassPKReference) {
 
 		_infoItemClassPKReference = infoItemClassPKReference;
+	}
+
+	@Override
+	public String toString() {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("{Form Values: ");
+		sb.append(_infoFieldValues.size());
+		sb.append("}");
+
+		return sb.toString();
 	}
 
 	private final Collection<InfoFieldValue> _infoFieldValues =

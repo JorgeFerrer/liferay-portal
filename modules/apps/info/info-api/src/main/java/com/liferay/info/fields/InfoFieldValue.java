@@ -16,6 +16,7 @@ package com.liferay.info.fields;
 
 import com.liferay.info.accessor.InfoAccessor;
 import com.liferay.info.localized.InfoLocalizedValue;
+import com.liferay.petra.string.StringBundler;
 
 import java.util.Locale;
 
@@ -47,6 +48,19 @@ public class InfoFieldValue<T> {
 		}
 
 		return (T)_value;
+	}
+
+	@Override
+	public String toString() {
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("{");
+		sb.append(_infoField.getName());
+		sb.append(": ");
+		sb.append(_value);
+		sb.append("}");
+
+		return sb.toString();
 	}
 
 	private final InfoField _infoField;
