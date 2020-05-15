@@ -37,6 +37,7 @@ import com.liferay.journal.model.JournalArticle;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -44,7 +45,11 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@Component(immediate = true, service = InfoItemFormProvider.class)
+@Component(
+	immediate = true,
+	property = Constants.SERVICE_RANKING + ":Integer=10",
+	service = InfoItemFormProvider.class
+)
 public class JournalArticleInfoItemFormProvider
 	implements InfoItemFormProvider<JournalArticle> {
 

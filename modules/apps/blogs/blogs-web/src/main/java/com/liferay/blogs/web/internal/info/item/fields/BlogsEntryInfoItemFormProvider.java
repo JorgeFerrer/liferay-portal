@@ -57,7 +57,11 @@ import org.osgi.service.component.annotations.Reference;
  * @author Alejandro Tardín
  * @author Jorge Ferrer
  */
-@Component(service = InfoItemFormProvider.class)
+@Component(
+	immediate = true,
+	property = org.osgi.framework.Constants.SERVICE_RANKING + ":Integer=10",
+	service = InfoItemFormProvider.class
+)
 public class BlogsEntryInfoItemFormProvider
 	implements InfoItemFormProvider<BlogsEntry> {
 
