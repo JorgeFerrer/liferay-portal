@@ -63,11 +63,22 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	}
 
 	@Override
+	public List<InfoFieldValue<Object>> getFieldValues(AssetEntry assetEntry) {
+		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
+
+		fieldValues.addAll(_getAssetEntryFieldValues(assetEntry));
+
+		fieldValues.addAll(
+			_classNameInfoItemFieldsProvider.getFieldValues(
+				AssetEntry.class.getName(), assetEntry));
+
+		return fieldValues;
+	}
+
+	@Override
 	public List<InfoFieldValue<Object>> getFieldValues(
 			String className, long classPK)
 		throws NoSuchInfoItemException {
-
-		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
 
 		AssetRendererFactory assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
@@ -77,11 +88,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 			AssetEntry assetEntry = assetRendererFactory.getAssetEntry(
 				className, classPK);
 
-			fieldValues.addAll(_getAssetEntryFieldValues(assetEntry));
-
-			fieldValues.addAll(
-				_classNameInfoItemFieldsProvider.getFieldValues(
-					AssetEntry.class.getName(), assetEntry));
+			return getFieldValues(assetEntry);
 		}
 		catch (NoSuchEntryException noSuchEntryException) {
 			throw new NoSuchInfoItemException(
@@ -93,8 +100,6 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
-
-		return fieldValues;
 	}
 
 	private Collection<? extends InfoFieldSetEntry> _getAssetEntryFields() {
