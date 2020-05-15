@@ -133,7 +133,7 @@ public class AssetEntryInfoItemFormProvider
 
 		assetEntryFieldValues.add(
 			new InfoFieldValue<>(
-				_urlInfoField, assetEntry.getUserName()));
+				_urlInfoField, assetEntry.getUrl()));
 
 		assetEntryFieldValues.add(
 			new InfoFieldValue<>(
