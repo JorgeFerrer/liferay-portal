@@ -335,9 +335,6 @@ public class JournalArticleInfoItemFormProvider
 	private final InfoField _smallImageInfoField = new InfoField(
 		InfoLocalizedValue.localize("com.liferay.journal.lang", "small-image"),
 		"smallImage", ImageInfoFieldType.INSTANCE);
-	private final InfoField _summaryInfoField = new InfoField(
-		InfoLocalizedValue.localize(getClass(), "summary"), "summary",
-		TextInfoFieldType.INSTANCE);
 	private final InfoField _titleInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "title"), "title",
 		TextInfoFieldType.INSTANCE);
