@@ -35,6 +35,8 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
@@ -89,6 +91,8 @@ public class GetCollectionFieldMVCResourceCommand
 				segmentsExperienceId, size);
 		}
 		catch (Exception exception) {
+			_log.error("Error getting collection field", exception);
+
 			jsonObject.put(
 				"error",
 				LanguageUtil.get(
@@ -211,6 +215,9 @@ public class GetCollectionFieldMVCResourceCommand
 
 		return displayObjectJSONObject;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		GetCollectionFieldMVCResourceCommand.class);
 
 	@Reference
 	private InfoItemFormProviderTracker _infoItemFormProviderTracker;

@@ -24,6 +24,8 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
@@ -111,6 +113,8 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 				resourceRequest, resourceResponse, jsonArray);
 		}
 		catch (Exception exception) {
+			_log.error("Error getting collection mapping fields", exception);
+
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONUtil.put(
@@ -120,6 +124,9 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 						"an-unexpected-error-occurred")));
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		GetCollectionMappingFieldsMVCResourceCommand.class);
 
 	@Reference
 	private InfoItemFormProviderTracker _infoItemFormProviderTracker;
