@@ -17,28 +17,17 @@ package com.liferay.asset.info.display.internal.item.provider;
 import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.exception.NoSuchEntryException;
-import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
-import com.liferay.asset.kernel.model.AssetTag;
-import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;
-import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
-import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.util.Accessor;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.LocaleThreadLocal;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -54,7 +43,6 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	public List<InfoFieldSetEntry> getFields(String className) {
 		List<InfoFieldSetEntry> fields = new ArrayList<>();
 
-		fields.addAll(_getAssetEntryFields());
 		fields.addAll(
 			_classNameInfoItemFieldsProvider.getFields(
 				AssetEntry.class.getName()));
@@ -65,8 +53,6 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	@Override
 	public List<InfoFieldValue<Object>> getFieldValues(AssetEntry assetEntry) {
 		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
-
-		fieldValues.addAll(_getAssetEntryFieldValues(assetEntry));
 
 		fieldValues.addAll(
 			_classNameInfoItemFieldsProvider.getFieldValues(
@@ -102,73 +88,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		}
 	}
 
-	private Collection<? extends InfoFieldSetEntry> _getAssetEntryFields() {
-		Collection<InfoFieldSetEntry> assetEntryFields = new ArrayList<>();
-
-		assetEntryFields.add(_categoriesInfoField);
-		assetEntryFields.add(_tagsInfoField);
-
-		return assetEntryFields;
-	}
-
-	private Collection<? extends InfoFieldValue<Object>>
-		_getAssetEntryFieldValues(AssetEntry assetEntry) {
-
-		List<InfoFieldValue<Object>> assetEntryFieldValues = new ArrayList<>();
-
-		assetEntryFieldValues.add(
-			new InfoFieldValue<>(
-				_categoriesInfoField, _getCategoryNames(assetEntry)));
-
-		assetEntryFieldValues.add(
-			new InfoFieldValue<>(
-				_tagsInfoField,
-				ListUtil.toString(
-					assetEntry.getTags(), AssetTag.NAME_ACCESSOR)));
-
-		return assetEntryFieldValues;
-	}
-
-	private String _getCategoryNames(AssetEntry assetEntry) {
-		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
-
-		return ListUtil.toString(
-			assetEntry.getCategories(),
-			new Accessor<AssetCategory, String>() {
-
-				@Override
-				public String get(AssetCategory assetCategory) {
-					String title = assetCategory.getTitle(locale);
-
-					if (Validator.isNull(title)) {
-						return assetCategory.getName();
-					}
-
-					return title;
-				}
-
-				@Override
-				public Class<String> getAttributeClass() {
-					return String.class;
-				}
-
-				@Override
-				public Class<AssetCategory> getTypeClass() {
-					return AssetCategory.class;
-				}
-
-			});
-	}
-
-	private final InfoField _categoriesInfoField = new InfoField(
-		InfoLocalizedValue.localize(getClass(), "categories"), "categories",
-		TextInfoFieldType.INSTANCE);
-
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
-
-	private final InfoField _tagsInfoField = new InfoField(
-		InfoLocalizedValue.localize(getClass(), "tags"), "tagNames",
-		TextInfoFieldType.INSTANCE);
 
 }
