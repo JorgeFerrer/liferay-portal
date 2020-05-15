@@ -143,60 +143,37 @@ public class JournalArticleInfoItemFormProvider
 	private Collection<InfoFieldSetEntry> _getJournalArticleFields() {
 		Collection<InfoFieldSetEntry> journalArticleFields = new ArrayList<>();
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(getClass(), "title"), "title",
-				TextInfoFieldType.INSTANCE));
+		journalArticleFields.add(_titleInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(getClass(), "description"),
-				"description", TextInfoFieldType.INSTANCE));
+		journalArticleFields.add(_descriptionInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(getClass(), "summary"), "summary",
-				TextInfoFieldType.INSTANCE));
+		journalArticleFields.add(_summaryInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(
-					"com.liferay.journal.lang", "small-image"),
-				"smallImage", ImageInfoFieldType.INSTANCE));
+		journalArticleFields.add(_smallImageInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(getClass(), "author-name"),
-				"authorName", TextInfoFieldType.INSTANCE));
+		journalArticleFields.add(_authorNameInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(
-					"com.liferay.journal.lang", "author-profile-image"),
-				"authorProfileImage", ImageInfoFieldType.INSTANCE));
+		journalArticleFields.add(_authorProfileImageInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(
-					"com.liferay.journal.lang", "last-editor-name"),
-				"lastEditorName", TextInfoFieldType.INSTANCE));
+		journalArticleFields.add(_lastEditorNameInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(
-					getClass(), "last-editor-profile-image"),
-				"lastEditorProfileImage", ImageInfoFieldType.INSTANCE));
+		journalArticleFields.add(_lastEditorProfileImageInfoField);
 
-		journalArticleFields.add(
-			new InfoField(
-				InfoLocalizedValue.localize(getClass(), "publish-date"),
-				"publishDate", TextInfoFieldType.INSTANCE));
+		journalArticleFields.add(_publishDateInfoField);
 
 		return journalArticleFields;
 	}
 
 	@Reference
 	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
+
+	private final InfoField _authorNameInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "author-name"), "authorName",
+		TextInfoFieldType.INSTANCE);
+	private final InfoField _authorProfileImageInfoField = new InfoField(
+		InfoLocalizedValue.localize(
+			"com.liferay.journal.lang", "author-profile-image"),
+		"authorProfileImage", ImageInfoFieldType.INSTANCE);
 
 	@Reference
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
@@ -205,7 +182,31 @@ public class JournalArticleInfoItemFormProvider
 	private DDMStructureInfoItemFieldsProvider
 		_ddmStructureInfoItemFieldsProvider;
 
+	private final InfoField _descriptionInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "description"), "description",
+		TextInfoFieldType.INSTANCE);
+
 	@Reference
 	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
+
+	private final InfoField _lastEditorNameInfoField = new InfoField(
+		InfoLocalizedValue.localize(
+			"com.liferay.journal.lang", "last-editor-name"),
+		"lastEditorName", TextInfoFieldType.INSTANCE);
+	private final InfoField _lastEditorProfileImageInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "last-editor-profile-image"),
+		"lastEditorProfileImage", ImageInfoFieldType.INSTANCE);
+	private final InfoField _publishDateInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "publish-date"), "publishDate",
+		TextInfoFieldType.INSTANCE);
+	private final InfoField _smallImageInfoField = new InfoField(
+		InfoLocalizedValue.localize("com.liferay.journal.lang", "small-image"),
+		"smallImage", ImageInfoFieldType.INSTANCE);
+	private final InfoField _summaryInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "summary"), "summary",
+		TextInfoFieldType.INSTANCE);
+	private final InfoField _titleInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "title"), "title",
+		TextInfoFieldType.INSTANCE);
 
 }
