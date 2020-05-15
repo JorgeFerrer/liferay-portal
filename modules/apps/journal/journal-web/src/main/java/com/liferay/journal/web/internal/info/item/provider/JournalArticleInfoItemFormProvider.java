@@ -161,8 +161,8 @@ public class JournalArticleInfoItemFormProvider
 
 		journalArticleFields.add(
 			new InfoField(
-				InfoLocalizedValue.localize(getClass(), "authorName"),
-				"author-name", TextInfoFieldType.INSTANCE));
+				InfoLocalizedValue.localize(getClass(), "author-name"),
+				"authorName", TextInfoFieldType.INSTANCE));
 
 		journalArticleFields.add(
 			new InfoField(
