@@ -50,6 +50,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -59,7 +60,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	immediate = true,
-	property = org.osgi.framework.Constants.SERVICE_RANKING + ":Integer=10",
+	property = Constants.SERVICE_RANKING + ":Integer=10",
 	service = InfoItemFormProvider.class
 )
 public class BlogsEntryInfoItemFormProvider
