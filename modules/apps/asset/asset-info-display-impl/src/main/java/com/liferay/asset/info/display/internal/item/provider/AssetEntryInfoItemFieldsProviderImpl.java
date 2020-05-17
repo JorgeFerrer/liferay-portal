@@ -70,12 +70,12 @@ public class AssetEntryInfoItemFieldsProviderImpl
 
 		fieldValues.add(
 			new InfoFieldValue<>(
-				_categoriesInfoField, _getCategoryNames(assetEntry)));
+				_categoriesInfoField, () -> _getCategoryNames(assetEntry)));
 
 		fieldValues.add(
 			new InfoFieldValue<>(
 				_tagsInfoField,
-				ListUtil.toString(
+				() -> ListUtil.toString(
 					assetEntry.getTags(), AssetTag.NAME_ACCESSOR)));
 
 		fieldValues.addAll(

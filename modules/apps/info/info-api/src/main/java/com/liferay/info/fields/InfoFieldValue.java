@@ -14,11 +14,11 @@
 
 package com.liferay.info.fields;
 
-import com.liferay.info.accessor.InfoAccessor;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringBundler;
 
 import java.util.Locale;
+import java.util.function.Supplier;
 
 /**
  * @author Jorge Ferrer
@@ -28,6 +28,15 @@ public class InfoFieldValue<T> {
 	public InfoFieldValue(InfoField infoField, T value) {
 		_infoField = infoField;
 		_value = value;
+		_valueSupplier = null;
+	}
+
+	public InfoFieldValue(
+		InfoField infoField, Supplier<T> valueSupplier) {
+
+		_infoField = infoField;
+		_value = null;
+		_valueSupplier = valueSupplier;
 	}
 
 	public InfoField getInfoField() {
@@ -35,19 +44,20 @@ public class InfoFieldValue<T> {
 	}
 
 	public T getValue(Locale locale) {
-		if (_value instanceof InfoAccessor) {
-			InfoAccessor<T> infoAccessor = (InfoAccessor)_value;
+		T value = _value;
 
-			return infoAccessor.getValue();
+		if (_valueSupplier != null) {
+			value = _valueSupplier.get();
 		}
-		else if (_value instanceof InfoLocalizedValue) {
+
+		if (value instanceof InfoLocalizedValue) {
 			InfoLocalizedValue<T> infoLocalizedValue =
-				(InfoLocalizedValue<T>)_value;
+				(InfoLocalizedValue<T>)value;
 
 			return infoLocalizedValue.getValue(locale);
 		}
 
-		return (T)_value;
+		return value;
 	}
 
 	@Override
@@ -64,6 +74,7 @@ public class InfoFieldValue<T> {
 	}
 
 	private final InfoField _infoField;
-	private final Object _value;
+	private final T _value;
+	private final Supplier<T> _valueSupplier;
 
 }
