@@ -34,6 +34,7 @@ import com.liferay.portal.kernel.util.LocaleThreadLocal;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -173,13 +174,15 @@ public class InfoDisplayContributorInfoItemFormProviderWrapper
 	}
 
 	private InfoFieldType _getInfoFieldTypeType(String infoDisplayFieldType) {
-		if (infoDisplayFieldType.equals(
-				InfoDisplayContributorFieldType.IMAGE)) {
+		if (Objects.equals(
+				infoDisplayFieldType,
+				InfoDisplayContributorFieldType.IMAGE.getValue())) {
 
 			return ImageInfoFieldType.INSTANCE;
 		}
-		else if (infoDisplayFieldType.equals(
-					InfoDisplayContributorFieldType.URL)) {
+		else if (Objects.equals(
+					infoDisplayFieldType,
+					InfoDisplayContributorFieldType.URL.getValue())) {
 
 			return URLInfoFieldType.INSTANCE;
 		}
