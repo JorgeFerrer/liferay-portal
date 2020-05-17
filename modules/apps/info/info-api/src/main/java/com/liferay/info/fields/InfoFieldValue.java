@@ -25,18 +25,16 @@ import java.util.function.Supplier;
  */
 public class InfoFieldValue<T> {
 
+	public InfoFieldValue(InfoField infoField, Supplier<T> valueSupplier) {
+		_infoField = infoField;
+		_value = null;
+		_valueSupplier = valueSupplier;
+	}
+
 	public InfoFieldValue(InfoField infoField, T value) {
 		_infoField = infoField;
 		_value = value;
 		_valueSupplier = null;
-	}
-
-	public InfoFieldValue(
-		InfoField infoField, Supplier<T> valueSupplier) {
-
-		_infoField = infoField;
-		_value = null;
-		_valueSupplier = valueSupplier;
 	}
 
 	public InfoField getInfoField() {
