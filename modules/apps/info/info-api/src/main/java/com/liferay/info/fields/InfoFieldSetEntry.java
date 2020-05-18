@@ -23,9 +23,9 @@ import java.util.Locale;
  */
 public interface InfoFieldSetEntry {
 
-	public InfoLocalizedValue getLabelInfoLocalizedValue();
+	public String getLabel(Locale locale);
 
-	public String getLabelInfoLocalizedValue(Locale locale);
+	public InfoLocalizedValue getLabelInfoLocalizedValue();
 
 	public String getName();
 

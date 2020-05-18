@@ -74,7 +74,7 @@ public class InfoForm {
 		return false;
 	}
 
-	public List<InfoField> getAllFields() {
+	public List<InfoField> getAllInfoFields() {
 		List<InfoField> allFields = new ArrayList<>();
 
 		for (InfoFieldSetEntry infoFieldSetEntry : _entries.values()) {
@@ -84,7 +84,7 @@ public class InfoForm {
 			else if (infoFieldSetEntry instanceof InfoFieldSet) {
 				InfoFieldSet infoFieldSet = (InfoFieldSet)infoFieldSetEntry;
 
-				allFields.addAll(infoFieldSet.getAllFields());
+				allFields.addAll(infoFieldSet.getAllInfoFields());
 			}
 		}
 
@@ -95,11 +95,11 @@ public class InfoForm {
 		return _descriptionInfoLocalizedValue;
 	}
 
-	public List<InfoFieldSetEntry> getEntries() {
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries() {
 		return new ArrayList<>(_entries.values());
 	}
 
-	public InfoFieldSetEntry getEntry(String name) {
+	public InfoFieldSetEntry getInfoFieldSetEntry(String name) {
 		return _entries.get(name);
 	}
 

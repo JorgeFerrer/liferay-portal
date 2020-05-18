@@ -104,15 +104,14 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		InfoForm infoForm = infoItemFormProvider.getInfoForm(infoItemObject);
 
-		for (InfoField infoField : infoForm.getAllFields()) {
+		for (InfoField infoField : infoForm.getAllInfoFields()) {
 			JSONObject jsonObject = JSONUtil.put(
 				"key", infoField.getName()
 			).put(
-				"label",
-				infoField.getLabelInfoLocalizedValue(themeDisplay.getLocale())
+				"label", infoField.getLabel(themeDisplay.getLocale())
 			).put(
 				"type",
-				infoField.getType(
+				infoField.getInfoFieldType(
 				).getName()
 			);
 

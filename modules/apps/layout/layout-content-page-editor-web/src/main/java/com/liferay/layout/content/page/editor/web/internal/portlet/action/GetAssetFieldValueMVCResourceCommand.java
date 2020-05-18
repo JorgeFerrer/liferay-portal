@@ -109,26 +109,26 @@ public class GetAssetFieldValueMVCResourceCommand
 		String languageId = ParamUtil.getString(
 			resourceRequest, "languageId", themeDisplay.getLanguageId());
 
-		InfoFieldValue fieldValue = infoItemFormProvider.getInfoFieldValue(
+		InfoFieldValue infoFieldValue = infoItemFormProvider.getInfoFieldValue(
 			object, fieldId);
 
-		Object fieldValueObject = null;
+		Object value = null;
 
-		if (fieldValue == null) {
-			fieldValueObject = StringPool.BLANK;
+		if (infoFieldValue == null) {
+			value = StringPool.BLANK;
 		}
 		else {
-			fieldValueObject = fieldValue.getValue(
+			value = infoFieldValue.getValue(
 				LocaleUtil.fromLanguageId(languageId));
 		}
 
-		if (fieldValueObject instanceof ContentAccessor) {
-			ContentAccessor contentAccessor = (ContentAccessor)fieldValue;
+		if (value instanceof ContentAccessor) {
+			ContentAccessor contentAccessor = (ContentAccessor)infoFieldValue;
 
-			fieldValueObject = contentAccessor.getContent();
+			value = contentAccessor.getContent();
 		}
 
-		jsonObject.put("fieldValue", fieldValueObject);
+		jsonObject.put("fieldValue", value);
 
 		JSONPortletResponseUtil.writeJSON(
 			resourceRequest, resourceResponse, jsonObject);

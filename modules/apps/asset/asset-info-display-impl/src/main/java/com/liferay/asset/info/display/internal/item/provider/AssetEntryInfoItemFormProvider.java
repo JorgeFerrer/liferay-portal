@@ -52,7 +52,7 @@ public class AssetEntryInfoItemFormProvider
 		infoForm.addAll(
 			_assetEntryInfoItemFieldsProvider.getInfoFieldSetEntries(
 				AssetEntry.class.getName()));
-		infoForm.addAll(_getAssetEntryFields());
+		infoForm.addAll(_getAssetEntryFieldSetEntries());
 
 		return infoForm;
 	}
@@ -63,72 +63,72 @@ public class AssetEntryInfoItemFormProvider
 
 		infoFormValues.addAll(
 			_assetEntryInfoItemFieldsProvider.getInfoFieldValues(assetEntry));
-		infoFormValues.addAll(_getAssetEntryFieldValues(assetEntry));
+		infoFormValues.addAll(_getAssetEntryInfoFieldValues(assetEntry));
 
 		return infoFormValues;
 	}
 
-	private List<InfoFieldSetEntry> _getAssetEntryFields() {
-		List<InfoFieldSetEntry> assetEntryFields = new ArrayList<>();
+	private List<InfoFieldSetEntry> _getAssetEntryFieldSetEntries() {
+		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
 
-		assetEntryFields.add(_titleInfoField);
+		infoFieldSetEntries.add(_titleInfoField);
 
-		assetEntryFields.add(_descriptionInfoField);
+		infoFieldSetEntries.add(_descriptionInfoField);
 
-		assetEntryFields.add(_summaryInfoField);
+		infoFieldSetEntries.add(_summaryInfoField);
 
-		assetEntryFields.add(_userNameInfoField);
+		infoFieldSetEntries.add(_userNameInfoField);
 
-		assetEntryFields.add(_createDateInfoField);
+		infoFieldSetEntries.add(_createDateInfoField);
 
-		assetEntryFields.add(_expirationDateInfoField);
+		infoFieldSetEntries.add(_expirationDateInfoField);
 
-		assetEntryFields.add(_viewCountInfoField);
+		infoFieldSetEntries.add(_viewCountInfoField);
 
-		assetEntryFields.add(_urlInfoField);
+		infoFieldSetEntries.add(_urlInfoField);
 
-		return assetEntryFields;
+		return infoFieldSetEntries;
 	}
 
-	private List<InfoFieldValue<Object>> _getAssetEntryFieldValues(
+	private List<InfoFieldValue<Object>> _getAssetEntryInfoFieldValues(
 		AssetEntry assetEntry) {
 
-		List<InfoFieldValue<Object>> assetEntryFieldValues = new ArrayList<>();
+		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(_titleInfoField, assetEntry.getTitle(locale)));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_descriptionInfoField, assetEntry.getDescription(locale)));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_summaryInfoField, assetEntry.getSummary(locale)));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(_userNameInfoField, assetEntry.getUserName()));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_createDateInfoField,
 				_getDateValue(assetEntry.getCreateDate())));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_expirationDateInfoField,
 				_getDateValue(assetEntry.getExpirationDate())));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_viewCountInfoField, assetEntry.getViewCount()));
 
-		assetEntryFieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(_urlInfoField, assetEntry.getUrl()));
 
-		return assetEntryFieldValues;
+		return infoFieldValues;
 	}
 
 	private String _getDateValue(Date date) {

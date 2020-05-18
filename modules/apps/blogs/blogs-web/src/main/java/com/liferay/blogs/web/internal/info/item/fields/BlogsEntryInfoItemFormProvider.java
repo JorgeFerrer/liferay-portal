@@ -71,7 +71,7 @@ public class BlogsEntryInfoItemFormProvider
 	public InfoForm getInfoForm() {
 		InfoForm infoForm = new InfoForm(BlogsEntry.class.getName());
 
-		infoForm.addAll(_getBlogsEntryFields());
+		infoForm.addAll(_getBlogsEntryInfoFieldSetEntries());
 
 		infoForm.addAll(
 			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
@@ -92,7 +92,7 @@ public class BlogsEntryInfoItemFormProvider
 	public InfoFormValues getInfoFormValues(BlogsEntry blogsEntry) {
 		InfoFormValues infoFormValues = new InfoFormValues();
 
-		infoFormValues.addAll(_getBlogsEntryFieldValues(blogsEntry));
+		infoFormValues.addAll(_getBlogsEntryInfoFieldValues(blogsEntry));
 
 		infoFormValues.setInfoItemClassPKReference(
 			new InfoItemClassPKReference(
@@ -119,7 +119,7 @@ public class BlogsEntryInfoItemFormProvider
 		return infoFormValues;
 	}
 
-	private Collection<InfoFieldSetEntry> _getBlogsEntryFields() {
+	private Collection<InfoFieldSetEntry> _getBlogsEntryInfoFieldSetEntries() {
 		Collection<InfoFieldSetEntry> blogsEntryFields = new ArrayList<>();
 
 		blogsEntryFields.add(_titleInfoField);
@@ -147,7 +147,7 @@ public class BlogsEntryInfoItemFormProvider
 		return blogsEntryFields;
 	}
 
-	private List<InfoFieldValue<Object>> _getBlogsEntryFieldValues(
+	private List<InfoFieldValue<Object>> _getBlogsEntryInfoFieldValues(
 		BlogsEntry blogsEntry) {
 
 		List<InfoFieldValue<Object>> blogsEntryFieldValues = new ArrayList<>();

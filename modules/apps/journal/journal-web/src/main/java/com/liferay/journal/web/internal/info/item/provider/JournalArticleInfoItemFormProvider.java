@@ -123,7 +123,7 @@ public class JournalArticleInfoItemFormProvider
 
 		try {
 			infoForm.addAll(
-				_ddmStructureInfoItemFieldsProvider.getInfoItemFields(
+				_ddmStructureInfoItemFieldsProvider.getInfoItemFieldSetEntries(
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {

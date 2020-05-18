@@ -68,7 +68,7 @@ public class InfoDisplayContributorWrapper
 	}
 
 	@Override
-	public InfoForm getInfoForm(long classTypeId)
+	public InfoForm getInfoForm(long itemClassTypeId)
 		throws NoSuchClassTypeException {
 
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
@@ -76,23 +76,23 @@ public class InfoDisplayContributorWrapper
 		try {
 			return _convertToInfoForm(
 				_infoDisplayContributor.getInfoDisplayFields(
-					classTypeId, locale));
+					itemClassTypeId, locale));
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(
-				"Error retrieving fields for classTypeId: " + classTypeId,
+				"Error retrieving fields for classTypeId: " + itemClassTypeId,
 				portalException);
 		}
 	}
 
 	@Override
-	public InfoForm getInfoForm(Object infoItemObject) {
+	public InfoForm getInfoForm(Object itemObject) {
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
 		try {
 			return _convertToInfoForm(
 				_infoDisplayContributor.getInfoDisplayFields(
-					infoItemObject, locale));
+					itemObject, locale));
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
@@ -100,13 +100,13 @@ public class InfoDisplayContributorWrapper
 	}
 
 	@Override
-	public InfoFormValues getInfoFormValues(Object infoItemObject) {
+	public InfoFormValues getInfoFormValues(Object itemObject) {
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
 		try {
 			return _convertToInfoFormValues(
 				_infoDisplayContributor.getInfoDisplayFieldsValues(
-					infoItemObject, locale));
+					itemObject, locale));
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
@@ -114,10 +114,11 @@ public class InfoDisplayContributorWrapper
 	}
 
 	@Override
-	public Object getInfoItem(long classPK) throws NoSuchInfoItemException {
+	public Object getInfoItem(long itemClassPK) throws NoSuchInfoItemException {
 		try {
 			InfoDisplayObjectProvider infoDisplayObjectProvider =
-				_infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
+				_infoDisplayContributor.getInfoDisplayObjectProvider(
+					itemClassPK);
 
 			return infoDisplayObjectProvider.getDisplayObject();
 		}

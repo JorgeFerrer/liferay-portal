@@ -30,11 +30,11 @@ public class InfoField implements InfoFieldSetEntry {
 
 	public InfoField(
 		InfoLocalizedValue<String> labelInfoLocalizedValue, String name,
-		InfoFieldType type) {
+		InfoFieldType infoFieldType) {
 
 		_labelInfoLocalizedValue = labelInfoLocalizedValue;
 		_name = name;
-		_type = type;
+		_infoFieldType = infoFieldType;
 	}
 
 	@Override
@@ -53,12 +53,21 @@ public class InfoField implements InfoFieldSetEntry {
 				_labelInfoLocalizedValue,
 				infoDisplayField._labelInfoLocalizedValue) &&
 			Objects.equals(_name, infoDisplayField._name) &&
-			Objects.equals(_type, infoDisplayField._type)) {
+			Objects.equals(_infoFieldType, infoDisplayField._infoFieldType)) {
 
 			return true;
 		}
 
 		return false;
+	}
+
+	public InfoFieldType getInfoFieldType() {
+		return _infoFieldType;
+	}
+
+	@Override
+	public String getLabel(Locale locale) {
+		return _labelInfoLocalizedValue.getValue(locale);
 	}
 
 	@Override
@@ -67,17 +76,8 @@ public class InfoField implements InfoFieldSetEntry {
 	}
 
 	@Override
-	public String getLabelInfoLocalizedValue(Locale locale) {
-		return _labelInfoLocalizedValue.getValue(locale);
-	}
-
-	@Override
 	public String getName() {
 		return _name;
-	}
-
-	public InfoFieldType getType() {
-		return _type;
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class InfoField implements InfoFieldSetEntry {
 
 		hash = HashUtil.hash(hash, _name);
 
-		return HashUtil.hash(hash, _type);
+		return HashUtil.hash(hash, _infoFieldType);
 	}
 
 	@Override
@@ -96,14 +96,14 @@ public class InfoField implements InfoFieldSetEntry {
 		sb.append("{name: ");
 		sb.append(_name);
 		sb.append(", type: ");
-		sb.append(_type.getName());
+		sb.append(_infoFieldType.getName());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
+	private final InfoFieldType _infoFieldType;
 	private final InfoLocalizedValue<String> _labelInfoLocalizedValue;
 	private final String _name;
-	private final InfoFieldType _type;
 
 }

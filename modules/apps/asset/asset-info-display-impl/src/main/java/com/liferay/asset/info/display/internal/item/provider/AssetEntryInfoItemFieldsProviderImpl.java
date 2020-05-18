@@ -70,28 +70,28 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
 		AssetEntry assetEntry) {
 
-		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
+		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
-		fieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_categoriesInfoField, () -> _getCategoryNames(assetEntry)));
 
-		fieldValues.add(
+		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_tagsInfoField,
 				() -> ListUtil.toString(
 					assetEntry.getTags(), AssetTag.NAME_ACCESSOR)));
 
-		fieldValues.addAll(
+		infoFieldValues.addAll(
 			_classNameInfoItemFieldsProvider.getInfoFieldValues(
 				AssetEntry.class.getName(), assetEntry));
 
-		return fieldValues;
+		return infoFieldValues;
 	}
 
 	@Override
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
-		String itemClassName, long itemClassPK)
+			String itemClassName, long itemClassPK)
 		throws NoSuchInfoItemException {
 
 		AssetRendererFactory assetRendererFactory =
@@ -107,8 +107,8 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		catch (NoSuchEntryException noSuchEntryException) {
 			throw new NoSuchInfoItemException(
 				StringBundler.concat(
-					"Unable to find item with className=", itemClassName, " and ",
-					"classPK=", itemClassPK),
+					"Unable to find item with className=", itemClassName,
+					" and classPK=", itemClassPK),
 				noSuchEntryException);
 		}
 		catch (PortalException portalException) {

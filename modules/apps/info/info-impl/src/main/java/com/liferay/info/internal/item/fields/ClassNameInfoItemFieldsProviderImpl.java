@@ -60,7 +60,7 @@ public class ClassNameInfoItemFieldsProviderImpl
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
 		String className, Object itemObject) {
 
-		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
+		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
 		List<InfoItemFieldReader> infoItemFieldReaders =
 			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);
@@ -69,30 +69,30 @@ public class ClassNameInfoItemFieldsProviderImpl
 			ServiceContext serviceContext =
 				ServiceContextThreadLocal.getServiceContext();
 
-			InfoField field = infoItemFieldReader.getField();
-			Object fieldValue = infoItemFieldReader.getValue(itemObject);
+			InfoField infoField = infoItemFieldReader.getField();
+			Object value = infoItemFieldReader.getValue(itemObject);
 
 			if ((serviceContext != null) &&
-				(field.getType() != URLInfoFieldType.INSTANCE) &&
-				(fieldValue instanceof String)) {
+				(infoField.getInfoFieldType() != URLInfoFieldType.INSTANCE) &&
+				(value instanceof String)) {
 
 				try {
-					fieldValue = SanitizerUtil.sanitize(
+					value = SanitizerUtil.sanitize(
 						serviceContext.getCompanyId(),
 						serviceContext.getScopeGroupId(),
 						serviceContext.getUserId(), className, 0,
 						ContentTypes.TEXT_HTML, Sanitizer.MODE_ALL,
-						(String)fieldValue, null);
+						(String)value, null);
 				}
 				catch (SanitizerException sanitizerException) {
 					throw new RuntimeException(sanitizerException);
 				}
 			}
 
-			fieldValues.add(new InfoFieldValue<>(field, fieldValue));
+			infoFieldValues.add(new InfoFieldValue<>(infoField, value));
 		}
 
-		return fieldValues;
+		return infoFieldValues;
 	}
 
 	@Reference

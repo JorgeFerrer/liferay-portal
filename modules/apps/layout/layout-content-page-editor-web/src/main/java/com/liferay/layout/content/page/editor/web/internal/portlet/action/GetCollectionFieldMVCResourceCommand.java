@@ -188,18 +188,17 @@ public class GetCollectionFieldMVCResourceCommand
 		for (InfoFieldValue infoFieldValue :
 				infoFormValues.getInfoFieldValues()) {
 
-			Object fieldValueObject = infoFieldValue.getValue(locale);
+			Object value = infoFieldValue.getValue(locale);
 
-			if (fieldValueObject instanceof ContentAccessor) {
-				ContentAccessor contentAccessor =
-					(ContentAccessor)fieldValueObject;
+			if (value instanceof ContentAccessor) {
+				ContentAccessor contentAccessor = (ContentAccessor)value;
 
-				fieldValueObject = contentAccessor.getContent();
+				value = contentAccessor.getContent();
 			}
 
 			InfoField infoField = infoFieldValue.getInfoField();
 
-			displayObjectJSONObject.put(infoField.getName(), fieldValueObject);
+			displayObjectJSONObject.put(infoField.getName(), value);
 		}
 
 		InfoItemClassPKReference infoItemClassPKReference =

@@ -28,7 +28,8 @@ import java.util.List;
 @ProviderType
 public interface DDMStructureInfoItemFieldsProvider {
 
-	public List<InfoFieldSetEntry> getInfoItemFields(long ddmStructureId)
+	public List<InfoFieldSetEntry> getInfoItemFieldSetEntries(
+			long ddmStructureId)
 		throws NoSuchStructureException;
 
 }

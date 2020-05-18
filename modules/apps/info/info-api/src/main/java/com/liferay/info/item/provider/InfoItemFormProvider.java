@@ -32,7 +32,7 @@ public interface InfoItemFormProvider<T> {
 
 	public InfoForm getInfoForm();
 
-	public default InfoForm getInfoForm(long classTypeId)
+	public default InfoForm getInfoForm(long itemClassTypeId)
 		throws NoSuchClassTypeException {
 
 		return getInfoForm();

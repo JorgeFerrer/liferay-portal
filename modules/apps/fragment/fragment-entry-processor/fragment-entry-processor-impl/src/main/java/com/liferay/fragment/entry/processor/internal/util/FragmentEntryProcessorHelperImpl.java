@@ -120,24 +120,24 @@ public class FragmentEntryProcessorHelperImpl
 			return null;
 		}
 
-		InfoFieldValue fieldValue = infoItemFormProvider.getInfoFieldValue(
+		InfoFieldValue infoFieldValue = infoItemFormProvider.getInfoFieldValue(
 			displayObjectOptional.get(),
 			jsonObject.getString("collectionFieldId"));
 
-		if (fieldValue == null) {
+		if (infoFieldValue == null) {
 			return null;
 		}
 
-		Object fieldValueObject = fieldValue.getValue(
+		Object value = infoFieldValue.getValue(
 			fragmentEntryProcessorContext.getLocale());
 
-		if (fieldValueObject instanceof ContentAccessor) {
-			ContentAccessor contentAccessor = (ContentAccessor)fieldValue;
+		if (value instanceof ContentAccessor) {
+			ContentAccessor contentAccessor = (ContentAccessor)infoFieldValue;
 
-			fieldValueObject = contentAccessor.getContent();
+			value = contentAccessor.getContent();
 		}
 
-		return fieldValueObject;
+		return value;
 	}
 
 	@Override

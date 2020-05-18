@@ -75,7 +75,7 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 		return false;
 	}
 
-	public List<InfoField> getAllFields() {
+	public List<InfoField> getAllInfoFields() {
 		List<InfoField> allFields = new ArrayList<>();
 
 		for (InfoFieldSetEntry infoFieldSetEntry : _entries.values()) {
@@ -85,29 +85,29 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 			else if (infoFieldSetEntry instanceof InfoFieldSet) {
 				InfoFieldSet infoFieldSet = (InfoFieldSet)infoFieldSetEntry;
 
-				allFields.addAll(infoFieldSet.getAllFields());
+				allFields.addAll(infoFieldSet.getAllInfoFields());
 			}
 		}
 
 		return allFields;
 	}
 
-	public List<InfoFieldSetEntry> getEntries() {
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries() {
 		return new ArrayList<>(_entries.values());
 	}
 
-	public InfoFieldSetEntry getEntry(String name) {
+	public InfoFieldSetEntry getInfoFieldSetEntry(String name) {
 		return _entries.get(name);
+	}
+
+	@Override
+	public String getLabel(Locale locale) {
+		return _labelInfoLocalizedValue.getValue(locale);
 	}
 
 	@Override
 	public InfoLocalizedValue getLabelInfoLocalizedValue() {
 		return _labelInfoLocalizedValue;
-	}
-
-	@Override
-	public String getLabelInfoLocalizedValue(Locale locale) {
-		return _labelInfoLocalizedValue.getValue(locale);
 	}
 
 	@Override

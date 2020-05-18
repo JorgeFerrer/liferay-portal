@@ -43,10 +43,11 @@ public class DDMStructureInfoItemFieldsProviderImpl
 	implements DDMStructureInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoItemFields(long ddmStructureId)
+	public List<InfoFieldSetEntry> getInfoItemFieldSetEntries(
+			long ddmStructureId)
 		throws NoSuchStructureException {
 
-		List<InfoFieldSetEntry> infoItemFields = new ArrayList<>();
+		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
 
 		try {
 			DDMStructure ddmStructure = DDMStructureManagerUtil.getStructure(
@@ -76,7 +77,7 @@ public class DDMStructureInfoItemFieldsProviderImpl
 
 				InfoFieldType itemFieldType = TextInfoFieldType.INSTANCE;
 
-				infoItemFields.add(
+				infoFieldSetEntries.add(
 					new InfoField(
 						labelInfoLocalizedValue, ddmFormField.getName(),
 						itemFieldType));
@@ -89,7 +90,7 @@ public class DDMStructureInfoItemFieldsProviderImpl
 			throw new RuntimeException("Unexpected exception", portalException);
 		}
 
-		return infoItemFields;
+		return infoFieldSetEntries;
 	}
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
