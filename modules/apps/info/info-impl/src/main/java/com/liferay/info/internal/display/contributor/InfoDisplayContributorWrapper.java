@@ -46,19 +46,6 @@ import java.util.Set;
 public class InfoDisplayContributorWrapper
 	implements InfoItemFormProvider, InfoItemProvider {
 
-	@Override
-	public Object getInfoItem(long classPK) throws NoSuchInfoItemException {
-		try {
-			InfoDisplayObjectProvider infoDisplayObjectProvider =
-				_infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
-
-			return infoDisplayObjectProvider.getDisplayObject();
-		}
-		catch (PortalException portalException) {
-			throw new RuntimeException(portalException);
-		}
-	}
-
 	public InfoDisplayContributorWrapper(
 		InfoDisplayContributor infoDisplayContributor) {
 
@@ -120,6 +107,19 @@ public class InfoDisplayContributorWrapper
 			return _convertToInfoFormValues(
 				_infoDisplayContributor.getInfoDisplayFieldsValues(
 					infoItemObject, locale));
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(portalException);
+		}
+	}
+
+	@Override
+	public Object getInfoItem(long classPK) throws NoSuchInfoItemException {
+		try {
+			InfoDisplayObjectProvider infoDisplayObjectProvider =
+				_infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
+
+			return infoDisplayObjectProvider.getDisplayObject();
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);

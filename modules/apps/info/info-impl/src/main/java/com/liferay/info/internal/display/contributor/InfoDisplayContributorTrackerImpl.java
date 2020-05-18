@@ -20,13 +20,13 @@ import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemProvider;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
+import com.liferay.osgi.util.ServiceTrackerFactory;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.liferay.osgi.util.ServiceTrackerFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
@@ -82,60 +82,56 @@ public class InfoDisplayContributorTrackerImpl
 					emitter.emit(infoDisplayContributor.getInfoURLSeparator());
 				});
 
-		_infoDisplayContributorServiceTracker =
-			ServiceTrackerFactory.open(
-				bundleContext, InfoDisplayContributor.class,
-				new ServiceTrackerCustomizer
-					<InfoDisplayContributor,
-						ServiceRegistration<InfoDisplayContributor>>() {
+		_infoDisplayContributorServiceTracker = ServiceTrackerFactory.open(
+			bundleContext, InfoDisplayContributor.class,
+			new ServiceTrackerCustomizer
+				<InfoDisplayContributor,
+				 ServiceRegistration<InfoDisplayContributor>>() {
 
-					@Override
-					public ServiceRegistration<InfoDisplayContributor>
+				@Override
+				public ServiceRegistration<InfoDisplayContributor>
 					addingService(
 						ServiceReference<InfoDisplayContributor>
 							serviceReference) {
 
-						InfoDisplayContributor infoDisplayContributor =
-							bundleContext.getService(serviceReference);
+					InfoDisplayContributor infoDisplayContributor =
+						bundleContext.getService(serviceReference);
 
-						InfoItemFormProvider infoItemFormProvider =
-							new InfoDisplayContributorWrapper(
-								infoDisplayContributor);
+					InfoItemFormProvider infoItemFormProvider =
+						new InfoDisplayContributorWrapper(
+							infoDisplayContributor);
 
-						return bundleContext.registerService(
-							new String[]{
-								InfoItemFormProvider.class.getName(),
-								InfoItemProvider.class.getName()},
-							infoItemFormProvider,
-							_getServiceReferenceProperties(
-								serviceReference));
-					}
+					return bundleContext.registerService(
+						new String[] {
+							InfoItemFormProvider.class.getName(),
+							InfoItemProvider.class.getName()
+						},
+						infoItemFormProvider,
+						_getServiceReferenceProperties(serviceReference));
+				}
 
-					@Override
-					public void modifiedService(
-						ServiceReference<InfoDisplayContributor>
-							serviceReference,
-						ServiceRegistration<InfoDisplayContributor>
-							serviceRegistration) {
+				@Override
+				public void modifiedService(
+					ServiceReference<InfoDisplayContributor> serviceReference,
+					ServiceRegistration<InfoDisplayContributor>
+						serviceRegistration) {
 
-						serviceRegistration.setProperties(
-							_getServiceReferenceProperties(
-								serviceReference));
-					}
+					serviceRegistration.setProperties(
+						_getServiceReferenceProperties(serviceReference));
+				}
 
-					@Override
-					public void removedService(
-						ServiceReference<InfoDisplayContributor>
-							serviceReference,
-						ServiceRegistration<InfoDisplayContributor>
-							serviceRegistration) {
+				@Override
+				public void removedService(
+					ServiceReference<InfoDisplayContributor> serviceReference,
+					ServiceRegistration<InfoDisplayContributor>
+						serviceRegistration) {
 
-						bundleContext.ungetService(serviceReference);
+					bundleContext.ungetService(serviceReference);
 
-						serviceRegistration.unregister();
-					}
+					serviceRegistration.unregister();
+				}
 
-				});
+			});
 	}
 
 	@Deactivate
@@ -157,10 +153,10 @@ public class InfoDisplayContributorTrackerImpl
 
 	private ServiceTrackerMap<String, InfoDisplayContributor>
 		_infoDisplayContributorByURLSeparatorMap;
-	private ServiceTracker
-		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
-		_infoDisplayContributorServiceTracker;
 	private ServiceTrackerMap<String, InfoDisplayContributor>
 		_infoDisplayContributorMap;
+	private ServiceTracker
+		<InfoDisplayContributor, ServiceRegistration<InfoDisplayContributor>>
+			_infoDisplayContributorServiceTracker;
 
 }
