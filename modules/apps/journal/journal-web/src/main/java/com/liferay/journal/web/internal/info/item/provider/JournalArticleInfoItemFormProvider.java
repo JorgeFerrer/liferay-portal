@@ -85,7 +85,7 @@ public class JournalArticleInfoItemFormProvider
 		infoForm.addAll(_getJournalArticleFields());
 
 		infoForm.addAll(
-			_classNameInfoItemFieldsProvider.getFields(
+			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
 				JournalArticle.class.getName()));
 
 		infoForm.addAll(
@@ -161,7 +161,7 @@ public class JournalArticleInfoItemFormProvider
 			_expandoInfoItemFieldsProvider.getFieldValues(
 				JournalArticle.class.getName(), journalArticle));
 		infoFormValues.addAll(
-			_classNameInfoItemFieldsProvider.getFieldValues(
+			_classNameInfoItemFieldsProvider.getInfoFieldValues(
 				JournalArticle.class.getName(), journalArticle));
 		infoFormValues.addAll(_getDDMInfoFieldValues(journalArticle));
 

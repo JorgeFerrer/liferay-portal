@@ -74,7 +74,7 @@ public class BlogsEntryInfoItemFormProvider
 		infoForm.addAll(_getBlogsEntryFields());
 
 		infoForm.addAll(
-			_classNameInfoItemFieldsProvider.getFields(
+			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
 				BlogsEntry.class.getName()));
 
 		infoForm.addAll(
@@ -113,7 +113,7 @@ public class BlogsEntryInfoItemFormProvider
 			_expandoInfoItemFieldsProvider.getFieldValues(
 				BlogsEntry.class.getName(), blogsEntry));
 		infoFormValues.addAll(
-			_classNameInfoItemFieldsProvider.getFieldValues(
+			_classNameInfoItemFieldsProvider.getInfoFieldValues(
 				BlogsEntry.class.getName(), blogsEntry));
 
 		return infoFormValues;

@@ -58,7 +58,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		fields.add(_tagsInfoField);
 
 		fields.addAll(
-			_classNameInfoItemFieldsProvider.getFields(
+			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
 				AssetEntry.class.getName()));
 
 		return fields;
@@ -79,7 +79,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 					assetEntry.getTags(), AssetTag.NAME_ACCESSOR)));
 
 		fieldValues.addAll(
-			_classNameInfoItemFieldsProvider.getFieldValues(
+			_classNameInfoItemFieldsProvider.getInfoFieldValues(
 				AssetEntry.class.getName(), assetEntry));
 
 		return fieldValues;

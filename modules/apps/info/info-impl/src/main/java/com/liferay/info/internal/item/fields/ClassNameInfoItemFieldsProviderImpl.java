@@ -43,7 +43,7 @@ public class ClassNameInfoItemFieldsProviderImpl
 	implements ClassNameInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getFields(String className) {
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String className) {
 		List<InfoFieldSetEntry> infoItemFields = new ArrayList<>();
 
 		List<InfoItemFieldReader> infoItemFieldReaders =
@@ -57,7 +57,7 @@ public class ClassNameInfoItemFieldsProviderImpl
 	}
 
 	@Override
-	public List<InfoFieldValue<Object>> getFieldValues(
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
 		String className, Object itemObject) {
 
 		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
