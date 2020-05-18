@@ -140,7 +140,7 @@ public class BlogsEntryInfoItemFormProvider
 
 		blogsEntryFields.add(_publishDateInfoField);
 
-		blogsEntryFields.add(_displayPageCaptionInfoField);
+		blogsEntryFields.add(_displayPageUrlInfoField);
 
 		blogsEntryFields.add(_contentInfoField);
 
@@ -211,8 +211,7 @@ public class BlogsEntryInfoItemFormProvider
 
 			blogsEntryFieldValues.add(
 				new InfoFieldValue<>(
-					_displayPageCaptionInfoField,
-					_getDisplayPageURL(blogsEntry)));
+					_displayPageUrlInfoField, _getDisplayPageURL(blogsEntry)));
 
 			blogsEntryFieldValues.add(
 				new InfoFieldValue<>(
@@ -295,7 +294,7 @@ public class BlogsEntryInfoItemFormProvider
 	private final InfoField _descriptionInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "description"), "description",
 		TextInfoFieldType.INSTANCE);
-	private final InfoField _displayPageCaptionInfoField = new InfoField(
+	private final InfoField _displayPageUrlInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "display-page-url"),
 		"displayPageURL", URLInfoFieldType.INSTANCE);
 
