@@ -93,7 +93,7 @@ public class JournalArticleInfoItemFormProvider
 				AssetEntry.class.getName()));
 
 		infoForm.addAll(
-			_expandoInfoItemFieldsProvider.getFields(
+			_expandoInfoItemFieldsProvider.getInfoFieldSetEntries(
 				JournalArticle.class.getName()));
 
 		return infoForm;
@@ -158,7 +158,7 @@ public class JournalArticleInfoItemFormProvider
 		}
 
 		infoFormValues.addAll(
-			_expandoInfoItemFieldsProvider.getFieldValues(
+			_expandoInfoItemFieldsProvider.getInfoFieldValues(
 				JournalArticle.class.getName(), journalArticle));
 		infoFormValues.addAll(
 			_classNameInfoItemFieldsProvider.getInfoFieldValues(

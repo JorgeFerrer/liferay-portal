@@ -28,9 +28,9 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface ExpandoInfoItemFieldsProvider {
 
-	public List<InfoFieldSetEntry> getFields(String itemClassName);
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName);
 
-	public List<InfoFieldValue<Object>> getFieldValues(
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
 		String className, Object itemObject);
 
 }

@@ -82,7 +82,7 @@ public class BlogsEntryInfoItemFormProvider
 				AssetEntry.class.getName()));
 
 		infoForm.addAll(
-			_expandoInfoItemFieldsProvider.getFields(
+			_expandoInfoItemFieldsProvider.getInfoFieldSetEntries(
 				BlogsEntry.class.getName()));
 
 		return infoForm;
@@ -110,7 +110,7 @@ public class BlogsEntryInfoItemFormProvider
 		}
 
 		infoFormValues.addAll(
-			_expandoInfoItemFieldsProvider.getFieldValues(
+			_expandoInfoItemFieldsProvider.getInfoFieldValues(
 				BlogsEntry.class.getName(), blogsEntry));
 		infoFormValues.addAll(
 			_classNameInfoItemFieldsProvider.getInfoFieldValues(
