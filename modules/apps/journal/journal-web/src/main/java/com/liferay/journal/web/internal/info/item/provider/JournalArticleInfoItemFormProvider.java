@@ -17,9 +17,11 @@ package com.liferay.journal.web.internal.info.item.provider;
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.dynamic.data.mapping.info.display.field.DDMFormValuesInfoDisplayFieldProvider;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
+import com.liferay.dynamic.data.mapping.util.FieldsToDDMFormValuesConverter;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
@@ -37,7 +39,9 @@ import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.service.JournalArticleLocalService;
+import com.liferay.journal.util.JournalConverter;
 import com.liferay.journal.util.comparator.ArticleVersionComparator;
+import com.liferay.journal.web.internal.asset.JournalArticleDDMFormValuesReader;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -57,6 +61,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
@@ -158,6 +163,7 @@ public class JournalArticleInfoItemFormProvider
 		infoFormValues.addAll(
 			_classNameInfoItemFieldsProvider.getFieldValues(
 				JournalArticle.class.getName(), journalArticle));
+		infoFormValues.addAll(_getDDMInfoFieldValues(journalArticle));
 
 		return infoFormValues;
 	}
@@ -173,6 +179,49 @@ public class JournalArticleInfoItemFormProvider
 			locale);
 
 		return dateFormatDateTime.format(date);
+	}
+
+	private List<InfoFieldValue<Object>> _getDDMInfoFieldValues(
+		JournalArticle article) {
+
+		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
+
+		JournalArticleDDMFormValuesReader journalArticleDDMFormValuesReader =
+			new JournalArticleDDMFormValuesReader(article);
+
+		journalArticleDDMFormValuesReader.setFieldsToDDMFormValuesConverter(
+			_fieldsToDDMFormValuesConverter);
+		journalArticleDDMFormValuesReader.setJournalConverter(
+			_journalConverter);
+
+		try {
+			Map<String, Object> infoDisplayFieldsValues =
+				_ddmFormValuesInfoDisplayFieldProvider.
+					getInfoDisplayFieldsValues(
+						article,
+						journalArticleDDMFormValuesReader.getDDMFormValues(),
+						locale);
+
+			for (Map.Entry<String, Object> entry :
+					infoDisplayFieldsValues.entrySet()) {
+
+				String fieldName = entry.getKey();
+
+				InfoField infoField = new InfoField(
+					InfoLocalizedValue.localize(this.getClass(), fieldName),
+					fieldName, TextInfoFieldType.INSTANCE);
+
+				infoFieldValues.add(
+					new InfoFieldValue<>(infoField, entry.getValue()));
+			}
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(portalException);
+		}
+
+		return infoFieldValues;
 	}
 
 	private String _getDisplayPageURL(JournalArticle journalArticle)
@@ -330,6 +379,10 @@ public class JournalArticleInfoItemFormProvider
 	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
 
 	@Reference
+	private DDMFormValuesInfoDisplayFieldProvider
+		_ddmFormValuesInfoDisplayFieldProvider;
+
+	@Reference
 	private DDMStructureInfoItemFieldsProvider
 		_ddmStructureInfoItemFieldsProvider;
 
@@ -344,7 +397,13 @@ public class JournalArticleInfoItemFormProvider
 	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
 
 	@Reference
+	private FieldsToDDMFormValuesConverter _fieldsToDDMFormValuesConverter;
+
+	@Reference
 	private JournalArticleLocalService _journalArticleLocalService;
+
+	@Reference
+	private JournalConverter _journalConverter;
 
 	private final InfoField _lastEditorNameInfoField = new InfoField(
 		InfoLocalizedValue.localize(
