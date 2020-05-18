@@ -14,6 +14,7 @@
 
 package com.liferay.journal.web.internal.info.item.provider;
 
+import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
@@ -27,6 +28,7 @@ import com.liferay.info.fields.InfoForm;
 import com.liferay.info.fields.InfoFormValues;
 import com.liferay.info.fields.type.ImageInfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
+import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.NoSuchInfoItemException;
@@ -173,6 +175,14 @@ public class JournalArticleInfoItemFormProvider
 		return dateFormatDateTime.format(date);
 	}
 
+	private String _getDisplayPageURL(JournalArticle journalArticle)
+		throws PortalException {
+
+		return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
+			JournalArticle.class.getName(), journalArticle.getResourcePrimKey(),
+			_getThemeDisplay());
+	}
+
 	private JSONObject _getImageJSONObject(String alt, String url) {
 		JSONObject jsonObject = JSONUtil.put("url", url);
 
@@ -201,6 +211,8 @@ public class JournalArticleInfoItemFormProvider
 		journalArticleFields.add(_lastEditorProfileImageInfoField);
 
 		journalArticleFields.add(_publishDateInfoField);
+
+		journalArticleFields.add(_displayPageUrlInfoField);
 
 		return journalArticleFields;
 	}
@@ -266,6 +278,11 @@ public class JournalArticleInfoItemFormProvider
 					_publishDateInfoField,
 					_getDateValue(journalArticle.getDisplayDate())));
 
+			journalArticleFieldValues.add(
+				new InfoFieldValue<>(
+					_displayPageUrlInfoField,
+					_getDisplayPageURL(journalArticle)));
+
 			return journalArticleFieldValues;
 		}
 		catch (PortalException portalException) {
@@ -295,6 +312,10 @@ public class JournalArticleInfoItemFormProvider
 	}
 
 	@Reference
+	private AssetDisplayPageFriendlyURLProvider
+		_assetDisplayPageFriendlyURLProvider;
+
+	@Reference
 	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
 
 	private final InfoField _authorNameInfoField = new InfoField(
@@ -315,6 +336,9 @@ public class JournalArticleInfoItemFormProvider
 	private final InfoField _descriptionInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "description"), "description",
 		TextInfoFieldType.INSTANCE);
+	private final InfoField _displayPageUrlInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "display-page-url"),
+		"displayPageURL", URLInfoFieldType.INSTANCE);
 
 	@Reference
 	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
