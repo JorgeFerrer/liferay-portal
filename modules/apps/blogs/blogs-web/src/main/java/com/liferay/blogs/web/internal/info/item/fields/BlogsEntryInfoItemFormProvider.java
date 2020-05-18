@@ -14,6 +14,7 @@
 
 package com.liferay.blogs.web.internal.info.item.fields;
 
+import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
@@ -25,6 +26,7 @@ import com.liferay.info.fields.InfoForm;
 import com.liferay.info.fields.InfoFormValues;
 import com.liferay.info.fields.type.ImageInfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
+import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
@@ -138,6 +140,8 @@ public class BlogsEntryInfoItemFormProvider
 
 		blogsEntryFields.add(_publishDateInfoField);
 
+		blogsEntryFields.add(_displayPageCaptionInfoField);
+
 		blogsEntryFields.add(_contentInfoField);
 
 		return blogsEntryFields;
@@ -207,6 +211,11 @@ public class BlogsEntryInfoItemFormProvider
 
 			blogsEntryFieldValues.add(
 				new InfoFieldValue<>(
+					_displayPageCaptionInfoField,
+					_getDisplayPageURL(blogsEntry)));
+
+			blogsEntryFieldValues.add(
+				new InfoFieldValue<>(
 					_contentInfoField, blogsEntry.getContent()));
 
 			return blogsEntryFieldValues;
@@ -229,6 +238,14 @@ public class BlogsEntryInfoItemFormProvider
 		return dateFormatDateTime.format(date);
 	}
 
+	private String _getDisplayPageURL(BlogsEntry blogsEntry)
+		throws PortalException {
+
+		return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
+			BlogsEntry.class.getName(), blogsEntry.getEntryId(),
+			_getThemeDisplay());
+	}
+
 	private JSONObject _getImageJSONObject(String alt, String url) {
 		return JSONUtil.put(
 			"alt", alt
@@ -247,6 +264,10 @@ public class BlogsEntryInfoItemFormProvider
 
 		return null;
 	}
+
+	@Reference
+	private AssetDisplayPageFriendlyURLProvider
+		_assetDisplayPageFriendlyURLProvider;
 
 	@Reference
 	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
@@ -274,6 +295,9 @@ public class BlogsEntryInfoItemFormProvider
 	private final InfoField _descriptionInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "description"), "description",
 		TextInfoFieldType.INSTANCE);
+	private final InfoField _displayPageCaptionInfoField = new InfoField(
+		InfoLocalizedValue.localize(getClass(), "display-page-url"),
+		"displayPageURL", URLInfoFieldType.INSTANCE);
 
 	@Reference
 	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
