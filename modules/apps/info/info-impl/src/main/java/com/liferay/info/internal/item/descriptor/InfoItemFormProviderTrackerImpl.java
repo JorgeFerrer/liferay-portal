@@ -17,12 +17,11 @@ package com.liferay.info.internal.item.descriptor;
 import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormProviderTracker;
-import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
+import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 
@@ -44,16 +43,9 @@ public class InfoItemFormProviderTrackerImpl
 		_infoItemFormProviderServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
 				bundleContext, InfoItemFormProvider.class, null,
-				new ServiceReferenceMapper<String, InfoItemFormProvider>() {
-
-					@Override
-					public void map(
-						ServiceReference<InfoItemFormProvider> serviceReference,
-						Emitter<String> emitter) {
-
-						InfoItemFormProvider infoItemFormProvider =
-							bundleContext.getService(serviceReference);
-
+				ServiceReferenceMapperFactory.create(
+					bundleContext,
+					(infoItemFormProvider, emitter) -> {
 						String className =
 							infoItemFormProvider.getItemClassName();
 
@@ -63,9 +55,7 @@ public class InfoItemFormProviderTrackerImpl
 						}
 
 						emitter.emit(className);
-					}
-
-				});
+					}));
 	}
 
 	private ServiceTrackerMap<String, InfoItemFormProvider>
