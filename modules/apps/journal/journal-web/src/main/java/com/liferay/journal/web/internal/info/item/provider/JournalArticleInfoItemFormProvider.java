@@ -210,7 +210,7 @@ public class JournalArticleInfoItemFormProvider
 				String fieldName = entry.getKey();
 
 				InfoField infoField = new InfoField(
-					InfoLocalizedValue.localize(this.getClass(), fieldName),
+					InfoLocalizedValue.localize(getClass(), fieldName),
 					fieldName, TextInfoFieldType.INSTANCE);
 
 				infoFieldValues.add(

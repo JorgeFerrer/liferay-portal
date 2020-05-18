@@ -50,7 +50,9 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	implements AssetEntryInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName) {
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries(
+		String itemClassName) {
+
 		List<InfoFieldSetEntry> fields = new ArrayList<>();
 
 		fields.add(_categoriesInfoField);
@@ -65,7 +67,9 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	}
 
 	@Override
-	public List<InfoFieldValue<Object>> getInfoFieldValues(AssetEntry assetEntry) {
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
+		AssetEntry assetEntry) {
+
 		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
 
 		fieldValues.add(

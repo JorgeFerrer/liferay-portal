@@ -32,7 +32,8 @@ public interface AssetEntryInfoItemFieldsProvider {
 
 	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName);
 
-	public List<InfoFieldValue<Object>> getInfoFieldValues(AssetEntry assetEntry);
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
+		AssetEntry assetEntry);
 
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
 			String className, long classPK)

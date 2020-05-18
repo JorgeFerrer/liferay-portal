@@ -36,7 +36,9 @@ public class ExpandoInfoItemFieldsProviderImpl
 	implements ExpandoInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName) {
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries(
+		String itemClassName) {
+
 		List<InfoFieldSetEntry> infoItemFields = new ArrayList<>();
 
 		for (ExpandoInfoItemFieldReader expandoInfoItemFieldReader :
