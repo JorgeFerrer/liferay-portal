@@ -39,34 +39,34 @@ public class ExpandoInfoItemFieldsProviderImpl
 	public List<InfoFieldSetEntry> getInfoFieldSetEntries(
 		String itemClassName) {
 
-		List<InfoFieldSetEntry> infoItemFields = new ArrayList<>();
+		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
 
 		for (ExpandoInfoItemFieldReader expandoInfoItemFieldReader :
 				_getExpandoFieldReaders(itemClassName)) {
 
-			infoItemFields.add(expandoInfoItemFieldReader.getField());
+			infoFieldSetEntries.add(expandoInfoItemFieldReader.getField());
 		}
 
-		return infoItemFields;
+		return infoFieldSetEntries;
 	}
 
 	@Override
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
-		String className, Object itemObject) {
+		String itemClassName, Object itemObject) {
 
-		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
+		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
 		for (ExpandoInfoItemFieldReader expandoInfoItemFieldReader :
-				_getExpandoFieldReaders(className)) {
+				_getExpandoFieldReaders(itemClassName)) {
 
 			InfoFieldValue<Object> infoFieldValue = new InfoFieldValue<>(
 				expandoInfoItemFieldReader.getField(),
 				expandoInfoItemFieldReader.getValue(itemObject));
 
-			fieldValues.add(infoFieldValue);
+			infoFieldValues.add(infoFieldValue);
 		}
 
-		return fieldValues;
+		return infoFieldValues;
 	}
 
 	private List<ExpandoInfoItemFieldReader> _getExpandoFieldReaders(

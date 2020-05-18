@@ -36,7 +36,7 @@ public interface AssetEntryInfoItemFieldsProvider {
 		AssetEntry assetEntry);
 
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
-			String className, long classPK)
+			String itemClassName, long itemClassPK)
 		throws NoSuchInfoItemException;
 
 }

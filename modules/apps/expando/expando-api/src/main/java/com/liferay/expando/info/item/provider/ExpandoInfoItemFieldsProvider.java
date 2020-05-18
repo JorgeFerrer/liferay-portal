@@ -31,6 +31,6 @@ public interface ExpandoInfoItemFieldsProvider {
 	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName);
 
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
-		String className, Object itemObject);
+		String itemClassName, Object itemObject);
 
 }
