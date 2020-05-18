@@ -16,6 +16,7 @@ package com.liferay.info.internal.display.contributor;
 
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayField;
+import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
 import com.liferay.info.display.contributor.field.InfoDisplayContributorFieldType;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldValue;
@@ -27,7 +28,9 @@ import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.NoSuchClassTypeException;
+import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
@@ -40,10 +43,23 @@ import java.util.Set;
 /**
  * @author Jorge Ferrer
  */
-public class InfoDisplayContributorInfoItemFormProviderWrapper
-	implements InfoItemFormProvider {
+public class InfoDisplayContributorWrapper
+	implements InfoItemFormProvider, InfoItemProvider {
 
-	public InfoDisplayContributorInfoItemFormProviderWrapper(
+	@Override
+	public Object getInfoItem(long classPK) throws NoSuchInfoItemException {
+		try {
+			InfoDisplayObjectProvider infoDisplayObjectProvider =
+				_infoDisplayContributor.getInfoDisplayObjectProvider(classPK);
+
+			return infoDisplayObjectProvider.getDisplayObject();
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(portalException);
+		}
+	}
+
+	public InfoDisplayContributorWrapper(
 		InfoDisplayContributor infoDisplayContributor) {
 
 		_infoDisplayContributor = infoDisplayContributor;
