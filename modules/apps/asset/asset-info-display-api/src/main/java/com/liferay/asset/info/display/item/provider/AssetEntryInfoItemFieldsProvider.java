@@ -30,11 +30,11 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface AssetEntryInfoItemFieldsProvider {
 
-	public List<InfoFieldSetEntry> getFields(String className);
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName);
 
-	public List<InfoFieldValue<Object>> getFieldValues(AssetEntry assetEntry);
+	public List<InfoFieldValue<Object>> getInfoFieldValues(AssetEntry assetEntry);
 
-	public List<InfoFieldValue<Object>> getFieldValues(
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
 			String className, long classPK)
 		throws NoSuchInfoItemException;
 

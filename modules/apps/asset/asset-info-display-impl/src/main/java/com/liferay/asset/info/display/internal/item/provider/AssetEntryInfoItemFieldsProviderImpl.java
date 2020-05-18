@@ -50,7 +50,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	implements AssetEntryInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getFields(String className) {
+	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String itemClassName) {
 		List<InfoFieldSetEntry> fields = new ArrayList<>();
 
 		fields.add(_categoriesInfoField);
@@ -65,7 +65,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	}
 
 	@Override
-	public List<InfoFieldValue<Object>> getFieldValues(AssetEntry assetEntry) {
+	public List<InfoFieldValue<Object>> getInfoFieldValues(AssetEntry assetEntry) {
 		List<InfoFieldValue<Object>> fieldValues = new ArrayList<>();
 
 		fieldValues.add(
@@ -86,7 +86,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	}
 
 	@Override
-	public List<InfoFieldValue<Object>> getFieldValues(
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
 			String className, long classPK)
 		throws NoSuchInfoItemException {
 
@@ -98,7 +98,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 			AssetEntry assetEntry = assetRendererFactory.getAssetEntry(
 				className, classPK);
 
-			return getFieldValues(assetEntry);
+			return getInfoFieldValues(assetEntry);
 		}
 		catch (NoSuchEntryException noSuchEntryException) {
 			throw new NoSuchInfoItemException(

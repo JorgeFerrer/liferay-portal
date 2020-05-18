@@ -78,7 +78,7 @@ public class BlogsEntryInfoItemFormProvider
 				BlogsEntry.class.getName()));
 
 		infoForm.addAll(
-			_assetEntryInfoItemFieldsProvider.getFields(
+			_assetEntryInfoItemFieldsProvider.getInfoFieldSetEntries(
 				AssetEntry.class.getName()));
 
 		infoForm.addAll(
@@ -100,7 +100,7 @@ public class BlogsEntryInfoItemFormProvider
 
 		try {
 			infoFormValues.addAll(
-				_assetEntryInfoItemFieldsProvider.getFieldValues(
+				_assetEntryInfoItemFieldsProvider.getInfoFieldValues(
 					BlogsEntry.class.getName(), blogsEntry.getEntryId()));
 		}
 		catch (NoSuchInfoItemException noSuchInfoItemException) {

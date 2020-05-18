@@ -50,7 +50,7 @@ public class AssetEntryInfoItemFormProvider
 		InfoForm infoForm = new InfoForm(AssetEntry.class.getName());
 
 		infoForm.addAll(
-			_assetEntryInfoItemFieldsProvider.getFields(
+			_assetEntryInfoItemFieldsProvider.getInfoFieldSetEntries(
 				AssetEntry.class.getName()));
 		infoForm.addAll(_getAssetEntryFields());
 
@@ -62,7 +62,7 @@ public class AssetEntryInfoItemFormProvider
 		InfoFormValues infoFormValues = new InfoFormValues();
 
 		infoFormValues.addAll(
-			_assetEntryInfoItemFieldsProvider.getFieldValues(assetEntry));
+			_assetEntryInfoItemFieldsProvider.getInfoFieldValues(assetEntry));
 		infoFormValues.addAll(_getAssetEntryFieldValues(assetEntry));
 
 		return infoFormValues;
