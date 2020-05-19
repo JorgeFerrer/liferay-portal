@@ -15,12 +15,13 @@
 package com.liferay.info.internal.item.fields;
 
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
 import com.liferay.info.item.fields.reader.InfoItemFieldReader;
 import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.sanitizer.Sanitizer;
 import com.liferay.portal.kernel.sanitizer.SanitizerException;
 import com.liferay.portal.kernel.sanitizer.SanitizerUtil;
@@ -43,17 +44,18 @@ public class ClassNameInfoItemFieldsProviderImpl
 	implements ClassNameInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoFieldSetEntries(String className) {
-		List<InfoFieldSetEntry> infoItemFields = new ArrayList<>();
+	public InfoFieldSet getInfoFieldSet(String className) {
+		InfoFieldSet infoFieldSet = new InfoFieldSet(
+			InfoLocalizedValue.localize(getClass(), "fields"), "fields");
 
 		List<InfoItemFieldReader> infoItemFieldReaders =
 			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);
 
 		for (InfoItemFieldReader infoItemFieldReader : infoItemFieldReaders) {
-			infoItemFields.add(infoItemFieldReader.getField());
+			infoFieldSet.add(infoItemFieldReader.getField());
 		}
 
-		return infoItemFields;
+		return infoFieldSet;
 	}
 
 	@Override

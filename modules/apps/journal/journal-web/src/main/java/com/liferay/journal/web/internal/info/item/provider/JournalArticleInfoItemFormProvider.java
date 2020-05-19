@@ -90,16 +90,16 @@ public class JournalArticleInfoItemFormProvider
 
 		infoForm.addAll(_getJournalArticleFields());
 
-		infoForm.addAll(
-			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoForm.add(
+			_classNameInfoItemFieldsProvider.getInfoFieldSet(
 				JournalArticle.class.getName()));
 
-		infoForm.addAll(
-			_assetEntryInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoForm.add(
+			_assetEntryInfoItemFieldsProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 
-		infoForm.addAll(
-			_expandoInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoForm.add(
+			_expandoInfoItemFieldsProvider.getInfoFieldSet(
 				JournalArticle.class.getName()));
 
 		return infoForm;
@@ -129,11 +129,11 @@ public class JournalArticleInfoItemFormProvider
 
 		try {
 			infoForm.addAll(
-				_ddmStructureInfoItemFieldsProvider.getInfoItemFieldSetEntries(
+				_ddmStructureInfoItemFieldsProvider.getInfoItemFieldSet(
 					ddmStructureId));
 
-			infoForm.addAll(
-				_ddmTemplateInfoItemFieldsProvider.getInfoItemFieldSetEntries(
+			infoForm.add(
+				_ddmTemplateInfoItemFieldsProvider.getInfoItemFieldSet(
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {

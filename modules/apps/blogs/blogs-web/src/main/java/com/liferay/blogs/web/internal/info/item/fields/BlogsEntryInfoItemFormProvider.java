@@ -73,16 +73,16 @@ public class BlogsEntryInfoItemFormProvider
 
 		infoForm.addAll(_getBlogsEntryInfoFieldSetEntries());
 
-		infoForm.addAll(
-			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoForm.add(
+			_classNameInfoItemFieldsProvider.getInfoFieldSet(
 				BlogsEntry.class.getName()));
 
-		infoForm.addAll(
-			_assetEntryInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoForm.add(
+			_assetEntryInfoItemFieldsProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 
-		infoForm.addAll(
-			_expandoInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoForm.add(
+			_expandoInfoItemFieldsProvider.getInfoFieldSet(
 				BlogsEntry.class.getName()));
 
 		return infoForm;

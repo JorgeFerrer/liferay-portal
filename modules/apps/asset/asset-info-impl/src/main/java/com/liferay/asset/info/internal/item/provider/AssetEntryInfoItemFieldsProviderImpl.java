@@ -22,7 +22,7 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.item.NoSuchInfoItemException;
@@ -50,20 +50,19 @@ public class AssetEntryInfoItemFieldsProviderImpl
 	implements AssetEntryInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoFieldSetEntries(
-		String itemClassName) {
+	public InfoFieldSet getInfoFieldSet(String itemClassName) {
+		InfoFieldSet infoFieldSet = new InfoFieldSet(
+			InfoLocalizedValue.localize(getClass(), "asset"), "asset");
 
-		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
+		infoFieldSet.add(_categoriesInfoField);
 
-		infoFieldSetEntries.add(_categoriesInfoField);
+		infoFieldSet.add(_tagsInfoField);
 
-		infoFieldSetEntries.add(_tagsInfoField);
-
-		infoFieldSetEntries.addAll(
-			_classNameInfoItemFieldsProvider.getInfoFieldSetEntries(
+		infoFieldSet.add(
+			_classNameInfoItemFieldsProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 
-		return infoFieldSetEntries;
+		return infoFieldSet;
 	}
 
 	@Override

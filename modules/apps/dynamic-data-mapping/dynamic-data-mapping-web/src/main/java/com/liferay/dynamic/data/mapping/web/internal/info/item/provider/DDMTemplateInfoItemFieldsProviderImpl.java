@@ -20,7 +20,7 @@ import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringPool;
@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portlet.display.template.PortletDisplayTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -46,15 +45,19 @@ public class DDMTemplateInfoItemFieldsProviderImpl
 	implements DDMTemplateInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoItemFieldSetEntries(
-			long ddmStructureId)
+	public InfoFieldSet getInfoItemFieldSet(long ddmStructureId)
 		throws NoSuchStructureException {
-
-		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
 
 		try {
 			DDMStructure ddmStructure =
 				_ddmStructureLocalService.getDDMStructure(ddmStructureId);
+
+			InfoFieldSet infoFieldSet = new InfoFieldSet(
+				InfoLocalizedValue.builder(
+				).addValues(
+					ddmStructure.getNameMap()
+				).build(),
+				ddmStructure.getStructureKey());
 
 			List<DDMTemplate> ddmTemplates = ddmStructure.getTemplates();
 
@@ -62,7 +65,7 @@ public class DDMTemplateInfoItemFieldsProviderImpl
 
 			Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
-			infoFieldSetEntries.addAll(
+			infoFieldSet.addAll(
 				stream.map(
 					ddmTemplate -> new InfoField(
 						InfoLocalizedValue.localize(
@@ -74,6 +77,8 @@ public class DDMTemplateInfoItemFieldsProviderImpl
 				).collect(
 					Collectors.toList()
 				));
+
+			return infoFieldSet;
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
 			throw noSuchStructureException;
@@ -81,8 +86,6 @@ public class DDMTemplateInfoItemFieldsProviderImpl
 		catch (PortalException portalException) {
 			throw new RuntimeException("Unexpected exception", portalException);
 		}
-
-		return infoFieldSetEntries;
 	}
 
 	private String _getTemplateFieldName(DDMTemplate ddmTemplate) {

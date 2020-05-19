@@ -17,8 +17,9 @@ package com.liferay.expando.web.internal.info.fields.provider;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
-import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoFieldValue;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 
 import java.util.ArrayList;
@@ -36,18 +37,18 @@ public class ExpandoInfoItemFieldsProviderImpl
 	implements ExpandoInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoFieldSetEntries(
-		String itemClassName) {
-
-		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
+	public InfoFieldSet getInfoFieldSet(String itemClassName) {
+		InfoFieldSet infoFieldSet = new InfoFieldSet(
+			InfoLocalizedValue.localize(getClass(), "custom-fields"),
+			"expando");
 
 		for (ExpandoInfoItemFieldReader expandoInfoItemFieldReader :
 				_getExpandoFieldReaders(itemClassName)) {
 
-			infoFieldSetEntries.add(expandoInfoItemFieldReader.getField());
+			infoFieldSet.add(expandoInfoItemFieldReader.getField());
 		}
 
-		return infoFieldSetEntries;
+		return infoFieldSet;
 	}
 
 	@Override

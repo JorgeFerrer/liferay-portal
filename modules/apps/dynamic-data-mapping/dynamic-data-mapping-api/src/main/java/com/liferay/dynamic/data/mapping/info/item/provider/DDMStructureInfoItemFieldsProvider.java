@@ -17,9 +17,7 @@ package com.liferay.dynamic.data.mapping.info.item.provider;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
-import com.liferay.info.fields.InfoFieldSetEntry;
-
-import java.util.List;
+import com.liferay.info.fields.InfoFieldSet;
 
 /**
  * @author Jürgen Kappler
@@ -28,8 +26,7 @@ import java.util.List;
 @ProviderType
 public interface DDMStructureInfoItemFieldsProvider {
 
-	public List<InfoFieldSetEntry> getInfoItemFieldSetEntries(
-			long ddmStructureId)
+	public InfoFieldSet getInfoItemFieldSet(long ddmStructureId)
 		throws NoSuchStructureException;
 
 }

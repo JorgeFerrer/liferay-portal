@@ -21,7 +21,7 @@ import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
 import com.liferay.dynamic.data.mapping.kernel.LocalizedValue;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.info.fields.InfoField;
-import com.liferay.info.fields.InfoFieldSetEntry;
+import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.localized.InfoLocalizedValue;
@@ -29,7 +29,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -43,15 +42,19 @@ public class DDMStructureInfoItemFieldsProviderImpl
 	implements DDMStructureInfoItemFieldsProvider {
 
 	@Override
-	public List<InfoFieldSetEntry> getInfoItemFieldSetEntries(
-			long ddmStructureId)
+	public InfoFieldSet getInfoItemFieldSet(long ddmStructureId)
 		throws NoSuchStructureException {
-
-		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
 
 		try {
 			DDMStructure ddmStructure = DDMStructureManagerUtil.getStructure(
 				ddmStructureId);
+
+			InfoFieldSet infoFieldSet = new InfoFieldSet(
+				InfoLocalizedValue.builder(
+				).addValues(
+					ddmStructure.getNameMap()
+				).build(),
+				ddmStructure.getStructureKey());
 
 			List<DDMFormField> ddmFormFields = ddmStructure.getDDMFormFields(
 				false);
@@ -77,11 +80,13 @@ public class DDMStructureInfoItemFieldsProviderImpl
 
 				InfoFieldType itemFieldType = TextInfoFieldType.INSTANCE;
 
-				infoFieldSetEntries.add(
+				infoFieldSet.add(
 					new InfoField(
 						labelInfoLocalizedValue, ddmFormField.getName(),
 						itemFieldType));
 			}
+
+			return infoFieldSet;
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
 			throw noSuchStructureException;
@@ -89,8 +94,6 @@ public class DDMStructureInfoItemFieldsProviderImpl
 		catch (PortalException portalException) {
 			throw new RuntimeException("Unexpected exception", portalException);
 		}
-
-		return infoFieldSetEntries;
 	}
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
