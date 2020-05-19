@@ -94,10 +94,12 @@ public class ResourceBundleInfoLocalizedValue
 			}
 		}
 		catch (MissingResourceException missingResourceException) {
-			_log.debug(
-				"Cannot find resource bundle for " + locale +
-					"reverting to default resource bundle",
-				missingResourceException);
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Cannot find resource bundle for " + locale +
+						"reverting to default resource bundle",
+					missingResourceException);
+			}
 
 			return LanguageUtil.get(locale, _valueKey);
 		}
@@ -110,11 +112,11 @@ public class ResourceBundleInfoLocalizedValue
 		return HashUtil.hash(0, _valueKey);
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		ResourceBundleInfoLocalizedValue.class);
+
 	private final Class _class;
 	private final String _symbolicName;
 	private final String _valueKey;
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		ResourceBundleInfoLocalizedValue.class);
 
 }

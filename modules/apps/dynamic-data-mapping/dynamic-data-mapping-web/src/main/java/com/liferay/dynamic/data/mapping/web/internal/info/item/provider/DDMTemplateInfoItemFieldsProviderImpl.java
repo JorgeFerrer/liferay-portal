@@ -27,14 +27,15 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portlet.display.template.PortletDisplayTemplate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jürgen Kappler
@@ -53,8 +54,7 @@ public class DDMTemplateInfoItemFieldsProviderImpl
 
 		try {
 			DDMStructure ddmStructure =
-				_ddmStructureLocalService.getDDMStructure(
-					ddmStructureId);
+				_ddmStructureLocalService.getDDMStructure(ddmStructureId);
 
 			List<DDMTemplate> ddmTemplates = ddmStructure.getTemplates();
 
@@ -89,10 +89,10 @@ public class DDMTemplateInfoItemFieldsProviderImpl
 		String templateKey = ddmTemplate.getTemplateKey();
 
 		return PortletDisplayTemplate.DISPLAY_STYLE_PREFIX +
-			   templateKey.replaceAll("\\W", "_");
+			templateKey.replaceAll("\\W", "_");
 	}
 
 	@Reference
-	protected DDMStructureLocalService _ddmStructureLocalService;
+	private DDMStructureLocalService _ddmStructureLocalService;
 
 }

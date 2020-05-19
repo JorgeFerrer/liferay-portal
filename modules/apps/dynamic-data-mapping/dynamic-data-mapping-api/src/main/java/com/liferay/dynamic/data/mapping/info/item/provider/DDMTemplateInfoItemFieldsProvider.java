@@ -15,6 +15,7 @@
 package com.liferay.dynamic.data.mapping.info.item.provider;
 
 import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.info.fields.InfoFieldSetEntry;
 
