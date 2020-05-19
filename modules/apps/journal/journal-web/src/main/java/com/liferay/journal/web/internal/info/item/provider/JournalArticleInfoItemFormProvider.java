@@ -19,6 +19,7 @@ import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.display.field.DDMFormValuesInfoDisplayFieldProvider;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
+import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldsProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.util.FieldsToDDMFormValuesConverter;
@@ -124,6 +125,10 @@ public class JournalArticleInfoItemFormProvider
 		try {
 			infoForm.addAll(
 				_ddmStructureInfoItemFieldsProvider.getInfoItemFieldSetEntries(
+					ddmStructureId));
+
+			infoForm.addAll(
+				_ddmTemplateInfoItemFieldsProvider.getInfoItemFieldSetEntries(
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
@@ -385,6 +390,10 @@ public class JournalArticleInfoItemFormProvider
 	@Reference
 	private DDMStructureInfoItemFieldsProvider
 		_ddmStructureInfoItemFieldsProvider;
+
+	@Reference
+	private DDMTemplateInfoItemFieldsProvider
+		_ddmTemplateInfoItemFieldsProvider;
 
 	private final InfoField _descriptionInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "description"), "description",
