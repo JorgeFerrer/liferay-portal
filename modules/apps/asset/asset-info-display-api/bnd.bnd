@@ -5,5 +5,4 @@ Export-Package:\
 	com.liferay.asset.info.display.contributor,\
 	com.liferay.asset.info.display.contributor.util,\
 	com.liferay.asset.info.display.field,\
-	com.liferay.asset.info.display.item.provider,\
 	com.liferay.asset.info.display.url.provider
