@@ -14,7 +14,7 @@
 
 package com.liferay.asset.info.internal.item.provider;
 
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.exception.NoSuchEntryException;
 import com.liferay.asset.kernel.model.AssetCategory;
@@ -26,7 +26,7 @@ import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.item.NoSuchInfoItemException;
-import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.item.fields.ClassNameInfoItemFieldSetProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -45,9 +45,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jürgen Kappler
  */
-@Component(immediate = true, service = AssetEntryInfoItemFieldsProvider.class)
-public class AssetEntryInfoItemFieldsProviderImpl
-	implements AssetEntryInfoItemFieldsProvider {
+@Component(immediate = true, service = AssetEntryInfoItemFieldSetProvider.class)
+public class AssetEntryInfoItemFieldSetProviderImpl
+	implements AssetEntryInfoItemFieldSetProvider {
 
 	@Override
 	public InfoFieldSet getInfoFieldSet(String itemClassName) {
@@ -59,7 +59,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		infoFieldSet.add(_tagsInfoField);
 
 		infoFieldSet.add(
-			_classNameInfoItemFieldsProvider.getInfoFieldSet(
+			_classNameInfoItemFieldSetProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 
 		return infoFieldSet;
@@ -82,7 +82,7 @@ public class AssetEntryInfoItemFieldsProviderImpl
 					assetEntry.getTags(), AssetTag.NAME_ACCESSOR)));
 
 		infoFieldValues.addAll(
-			_classNameInfoItemFieldsProvider.getInfoFieldValues(
+			_classNameInfoItemFieldSetProvider.getInfoFieldValues(
 				AssetEntry.class.getName(), assetEntry));
 
 		return infoFieldValues;
@@ -151,7 +151,8 @@ public class AssetEntryInfoItemFieldsProviderImpl
 		TextInfoFieldType.INSTANCE);
 
 	@Reference
-	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
+	private ClassNameInfoItemFieldSetProvider
+		_classNameInfoItemFieldSetProvider;
 
 	private final InfoField _tagsInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "tags"), "tagNames",

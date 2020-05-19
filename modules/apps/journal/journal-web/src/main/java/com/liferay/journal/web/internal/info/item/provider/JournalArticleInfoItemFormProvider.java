@@ -15,16 +15,16 @@
 package com.liferay.journal.web.internal.info.item.provider;
 
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.dynamic.data.mapping.info.display.field.DDMFormValuesInfoDisplayFieldProvider;
-import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
-import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldsProvider;
+import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldSetProvider;
+import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.kernel.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.util.FieldsToDDMFormValuesConverter;
-import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;
@@ -36,7 +36,7 @@ import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.NoSuchInfoItemException;
-import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.item.fields.ClassNameInfoItemFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.journal.model.JournalArticle;
@@ -91,15 +91,15 @@ public class JournalArticleInfoItemFormProvider
 		infoForm.addAll(_getJournalArticleFields());
 
 		infoForm.add(
-			_classNameInfoItemFieldsProvider.getInfoFieldSet(
+			_classNameInfoItemFieldSetProvider.getInfoFieldSet(
 				JournalArticle.class.getName()));
 
 		infoForm.add(
-			_assetEntryInfoItemFieldsProvider.getInfoFieldSet(
+			_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 
 		infoForm.add(
-			_expandoInfoItemFieldsProvider.getInfoFieldSet(
+			_expandoInfoItemFieldSetProvider.getInfoFieldSet(
 				JournalArticle.class.getName()));
 
 		return infoForm;
@@ -129,11 +129,11 @@ public class JournalArticleInfoItemFormProvider
 
 		try {
 			infoForm.addAll(
-				_ddmStructureInfoItemFieldsProvider.getInfoItemFieldSet(
+				_ddmStructureInfoItemFieldSetProvider.getInfoItemFieldSet(
 					ddmStructureId));
 
 			infoForm.add(
-				_ddmTemplateInfoItemFieldsProvider.getInfoItemFieldSet(
+				_ddmTemplateInfoItemFieldSetProvider.getInfoItemFieldSet(
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
@@ -157,7 +157,7 @@ public class JournalArticleInfoItemFormProvider
 
 		try {
 			infoFormValues.addAll(
-				_assetEntryInfoItemFieldsProvider.getInfoFieldValues(
+				_assetEntryInfoItemFieldSetProvider.getInfoFieldValues(
 					JournalArticle.class.getName(),
 					journalArticle.getResourcePrimKey()));
 		}
@@ -168,11 +168,11 @@ public class JournalArticleInfoItemFormProvider
 		}
 
 		infoFormValues.addAll(
-			_expandoInfoItemFieldsProvider.getInfoFieldValues(
+			_expandoInfoItemFieldSetProvider.getInfoFieldValues(
 				JournalArticle.class.getName(), journalArticle));
 
 		infoFormValues.addAll(
-			_classNameInfoItemFieldsProvider.getInfoFieldValues(
+			_classNameInfoItemFieldSetProvider.getInfoFieldValues(
 				JournalArticle.class.getName(), journalArticle));
 
 		infoFormValues.addAll(_getDDMStructureInfoFieldValues(journalArticle));
@@ -443,7 +443,8 @@ public class JournalArticleInfoItemFormProvider
 		_assetDisplayPageFriendlyURLProvider;
 
 	@Reference
-	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
+	private AssetEntryInfoItemFieldSetProvider
+		_assetEntryInfoItemFieldSetProvider;
 
 	private final InfoField _authorNameInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "author-name"), "authorName",
@@ -454,19 +455,20 @@ public class JournalArticleInfoItemFormProvider
 		"authorProfileImage", ImageInfoFieldType.INSTANCE);
 
 	@Reference
-	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
+	private ClassNameInfoItemFieldSetProvider
+		_classNameInfoItemFieldSetProvider;
 
 	@Reference
 	private DDMFormValuesInfoDisplayFieldProvider
 		_ddmFormValuesInfoDisplayFieldProvider;
 
 	@Reference
-	private DDMStructureInfoItemFieldsProvider
-		_ddmStructureInfoItemFieldsProvider;
+	private DDMStructureInfoItemFieldSetProvider
+		_ddmStructureInfoItemFieldSetProvider;
 
 	@Reference
-	private DDMTemplateInfoItemFieldsProvider
-		_ddmTemplateInfoItemFieldsProvider;
+	private DDMTemplateInfoItemFieldSetProvider
+		_ddmTemplateInfoItemFieldSetProvider;
 
 	private final InfoField _descriptionInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "description"), "description",
@@ -476,7 +478,7 @@ public class JournalArticleInfoItemFormProvider
 		"displayPageURL", URLInfoFieldType.INSTANCE);
 
 	@Reference
-	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
+	private ExpandoInfoItemFieldSetProvider _expandoInfoItemFieldSetProvider;
 
 	@Reference
 	private FieldsToDDMFormValuesConverter _fieldsToDDMFormValuesConverter;

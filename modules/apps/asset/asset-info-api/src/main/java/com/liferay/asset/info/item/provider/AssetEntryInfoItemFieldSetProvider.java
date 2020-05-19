@@ -12,10 +12,12 @@
  * details.
  */
 
-package com.liferay.info.item.fields;
+package com.liferay.asset.info.item.provider;
 
+import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoFieldValue;
+import com.liferay.info.item.NoSuchInfoItemException;
 
 import java.util.List;
 
@@ -26,11 +28,15 @@ import org.osgi.annotation.versioning.ProviderType;
  * @author Jorge Ferrer
  */
 @ProviderType
-public interface ClassNameInfoItemFieldsProvider {
+public interface AssetEntryInfoItemFieldSetProvider {
 
 	public InfoFieldSet getInfoFieldSet(String itemClassName);
 
 	public List<InfoFieldValue<Object>> getInfoFieldValues(
-		String className, Object itemObject);
+		AssetEntry assetEntry);
+
+	public List<InfoFieldValue<Object>> getInfoFieldValues(
+			String itemClassName, long itemClassPK)
+		throws NoSuchInfoItemException;
 
 }

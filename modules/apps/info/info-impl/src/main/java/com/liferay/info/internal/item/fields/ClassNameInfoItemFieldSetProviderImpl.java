@@ -18,7 +18,7 @@ import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSet;
 import com.liferay.info.fields.InfoFieldValue;
 import com.liferay.info.fields.type.URLInfoFieldType;
-import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.item.fields.ClassNameInfoItemFieldSetProvider;
 import com.liferay.info.item.fields.reader.InfoItemFieldReader;
 import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
 import com.liferay.info.localized.InfoLocalizedValue;
@@ -39,9 +39,9 @@ import org.osgi.service.component.annotations.Reference;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@Component(immediate = true, service = ClassNameInfoItemFieldsProvider.class)
-public class ClassNameInfoItemFieldsProviderImpl
-	implements ClassNameInfoItemFieldsProvider {
+@Component(immediate = true, service = ClassNameInfoItemFieldSetProvider.class)
+public class ClassNameInfoItemFieldSetProviderImpl
+	implements ClassNameInfoItemFieldSetProvider {
 
 	@Override
 	public InfoFieldSet getInfoFieldSet(String className) {

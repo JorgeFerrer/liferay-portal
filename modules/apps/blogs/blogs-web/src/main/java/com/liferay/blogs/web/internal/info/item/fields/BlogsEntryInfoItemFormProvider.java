@@ -15,10 +15,10 @@
 package com.liferay.blogs.web.internal.info.item.fields;
 
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
-import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
 import com.liferay.info.fields.InfoFieldValue;
@@ -29,7 +29,7 @@ import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.fields.type.URLInfoFieldType;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.NoSuchInfoItemException;
-import com.liferay.info.item.fields.ClassNameInfoItemFieldsProvider;
+import com.liferay.info.item.fields.ClassNameInfoItemFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringPool;
@@ -74,15 +74,15 @@ public class BlogsEntryInfoItemFormProvider
 		infoForm.addAll(_getBlogsEntryInfoFieldSetEntries());
 
 		infoForm.add(
-			_classNameInfoItemFieldsProvider.getInfoFieldSet(
+			_classNameInfoItemFieldSetProvider.getInfoFieldSet(
 				BlogsEntry.class.getName()));
 
 		infoForm.add(
-			_assetEntryInfoItemFieldsProvider.getInfoFieldSet(
+			_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 
 		infoForm.add(
-			_expandoInfoItemFieldsProvider.getInfoFieldSet(
+			_expandoInfoItemFieldSetProvider.getInfoFieldSet(
 				BlogsEntry.class.getName()));
 
 		return infoForm;
@@ -100,7 +100,7 @@ public class BlogsEntryInfoItemFormProvider
 
 		try {
 			infoFormValues.addAll(
-				_assetEntryInfoItemFieldsProvider.getInfoFieldValues(
+				_assetEntryInfoItemFieldSetProvider.getInfoFieldValues(
 					BlogsEntry.class.getName(), blogsEntry.getEntryId()));
 		}
 		catch (NoSuchInfoItemException noSuchInfoItemException) {
@@ -110,10 +110,10 @@ public class BlogsEntryInfoItemFormProvider
 		}
 
 		infoFormValues.addAll(
-			_expandoInfoItemFieldsProvider.getInfoFieldValues(
+			_expandoInfoItemFieldSetProvider.getInfoFieldValues(
 				BlogsEntry.class.getName(), blogsEntry));
 		infoFormValues.addAll(
-			_classNameInfoItemFieldsProvider.getInfoFieldValues(
+			_classNameInfoItemFieldSetProvider.getInfoFieldValues(
 				BlogsEntry.class.getName(), blogsEntry));
 
 		return infoFormValues;
@@ -269,7 +269,8 @@ public class BlogsEntryInfoItemFormProvider
 		_assetDisplayPageFriendlyURLProvider;
 
 	@Reference
-	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
+	private AssetEntryInfoItemFieldSetProvider
+		_assetEntryInfoItemFieldSetProvider;
 
 	private final InfoField _authorNameInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "author-name"), "authorName",
@@ -280,7 +281,8 @@ public class BlogsEntryInfoItemFormProvider
 		"authorProfileImage", ImageInfoFieldType.INSTANCE);
 
 	@Reference
-	private ClassNameInfoItemFieldsProvider _classNameInfoItemFieldsProvider;
+	private ClassNameInfoItemFieldSetProvider
+		_classNameInfoItemFieldSetProvider;
 
 	private final InfoField _contentInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "content"), "content",
@@ -299,7 +301,7 @@ public class BlogsEntryInfoItemFormProvider
 		"displayPageURL", URLInfoFieldType.INSTANCE);
 
 	@Reference
-	private ExpandoInfoItemFieldsProvider _expandoInfoItemFieldsProvider;
+	private ExpandoInfoItemFieldSetProvider _expandoInfoItemFieldSetProvider;
 
 	private final InfoField _publishDateInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "publish-date"), "publishDate",

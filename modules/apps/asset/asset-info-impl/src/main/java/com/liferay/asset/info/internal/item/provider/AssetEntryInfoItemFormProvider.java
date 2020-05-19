@@ -14,7 +14,7 @@
 
 package com.liferay.asset.info.internal.item.provider;
 
-import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.info.fields.InfoField;
 import com.liferay.info.fields.InfoFieldSetEntry;
@@ -50,7 +50,7 @@ public class AssetEntryInfoItemFormProvider
 		InfoForm infoForm = new InfoForm(AssetEntry.class.getName());
 
 		infoForm.addAll(
-			_assetEntryInfoItemFieldsProvider.getInfoFieldSet(
+			_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
 		infoForm.addAll(_getAssetEntryFieldSetEntries());
 
@@ -62,7 +62,7 @@ public class AssetEntryInfoItemFormProvider
 		InfoFormValues infoFormValues = new InfoFormValues();
 
 		infoFormValues.addAll(
-			_assetEntryInfoItemFieldsProvider.getInfoFieldValues(assetEntry));
+			_assetEntryInfoItemFieldSetProvider.getInfoFieldValues(assetEntry));
 		infoFormValues.addAll(_getAssetEntryInfoFieldValues(assetEntry));
 
 		return infoFormValues;
@@ -145,7 +145,8 @@ public class AssetEntryInfoItemFormProvider
 	}
 
 	@Reference
-	private AssetEntryInfoItemFieldsProvider _assetEntryInfoItemFieldsProvider;
+	private AssetEntryInfoItemFieldSetProvider
+		_assetEntryInfoItemFieldSetProvider;
 
 	private final InfoField _createDateInfoField = new InfoField(
 		InfoLocalizedValue.localize(getClass(), "create-date"), "createDate",

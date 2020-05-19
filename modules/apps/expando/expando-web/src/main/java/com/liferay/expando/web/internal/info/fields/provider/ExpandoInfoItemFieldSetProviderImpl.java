@@ -14,7 +14,7 @@
 
 package com.liferay.expando.web.internal.info.fields.provider;
 
-import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;
+import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.info.fields.InfoFieldSet;
@@ -32,9 +32,9 @@ import org.osgi.service.component.annotations.Component;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@Component(immediate = true, service = ExpandoInfoItemFieldsProvider.class)
-public class ExpandoInfoItemFieldsProviderImpl
-	implements ExpandoInfoItemFieldsProvider {
+@Component(immediate = true, service = ExpandoInfoItemFieldSetProvider.class)
+public class ExpandoInfoItemFieldSetProviderImpl
+	implements ExpandoInfoItemFieldSetProvider {
 
 	@Override
 	public InfoFieldSet getInfoFieldSet(String itemClassName) {

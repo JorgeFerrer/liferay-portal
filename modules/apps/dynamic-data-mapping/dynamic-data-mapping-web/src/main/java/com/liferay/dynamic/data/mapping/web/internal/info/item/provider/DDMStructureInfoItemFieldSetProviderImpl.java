@@ -14,7 +14,7 @@
 
 package com.liferay.dynamic.data.mapping.web.internal.info.item.provider;
 
-import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldsProvider;
+import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.kernel.DDMFormField;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
@@ -37,9 +37,9 @@ import org.osgi.service.component.annotations.Component;
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-@Component(service = DDMStructureInfoItemFieldsProvider.class)
-public class DDMStructureInfoItemFieldsProviderImpl
-	implements DDMStructureInfoItemFieldsProvider {
+@Component(service = DDMStructureInfoItemFieldSetProvider.class)
+public class DDMStructureInfoItemFieldSetProviderImpl
+	implements DDMStructureInfoItemFieldSetProvider {
 
 	@Override
 	public InfoFieldSet getInfoItemFieldSet(long ddmStructureId)
