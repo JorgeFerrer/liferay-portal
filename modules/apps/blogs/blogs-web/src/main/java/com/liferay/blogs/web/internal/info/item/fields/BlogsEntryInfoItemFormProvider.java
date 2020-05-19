@@ -15,7 +15,7 @@
 package com.liferay.blogs.web.internal.info.item.fields;
 
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
-import com.liferay.asset.info.display.item.provider.AssetEntryInfoItemFieldsProvider;
+import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldsProvider;

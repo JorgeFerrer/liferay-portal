@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.asset.info.display.internal.item.provider;
+package com.liferay.asset.info.internal.item.provider;
 
 import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldsProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
