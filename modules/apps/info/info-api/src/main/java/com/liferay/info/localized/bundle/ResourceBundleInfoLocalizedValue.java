@@ -17,10 +17,13 @@ package com.liferay.info.localized.bundle;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -81,12 +84,22 @@ public class ResourceBundleInfoLocalizedValue
 	public String getValue(Locale locale) {
 		ResourceBundle resourceBundle = null;
 
-		if (_class != null) {
-			resourceBundle = ResourceBundleUtil.getBundle(locale, _class);
+		try {
+			if (_class != null) {
+				resourceBundle = ResourceBundleUtil.getBundle(locale, _class);
+			}
+			else {
+				resourceBundle = ResourceBundleUtil.getBundle(
+					locale, _symbolicName);
+			}
 		}
-		else {
-			resourceBundle = ResourceBundleUtil.getBundle(
-				locale, _symbolicName);
+		catch (MissingResourceException missingResourceException) {
+			_log.debug(
+				"Cannot find resource bundle for " + locale +
+					"reverting to default resource bundle",
+				missingResourceException);
+
+			return LanguageUtil.get(locale, _valueKey);
 		}
 
 		return LanguageUtil.get(resourceBundle, _valueKey);
@@ -100,5 +113,8 @@ public class ResourceBundleInfoLocalizedValue
 	private final Class _class;
 	private final String _symbolicName;
 	private final String _valueKey;
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ResourceBundleInfoLocalizedValue.class);
 
 }
