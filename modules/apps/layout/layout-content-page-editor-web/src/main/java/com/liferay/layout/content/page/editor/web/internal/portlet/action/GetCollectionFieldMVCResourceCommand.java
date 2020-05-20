@@ -187,8 +187,7 @@ public class GetCollectionFieldMVCResourceCommand
 
 	private JSONObject _getDisplayObjectJSONObject(
 			InfoItemFormProvider infoItemFormProvider, Object object,
-			Locale locale)
-		throws PortalException {
+			Locale locale) {
 
 		JSONObject displayObjectJSONObject = JSONFactoryUtil.createJSONObject();
 
