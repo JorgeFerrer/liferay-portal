@@ -14,10 +14,9 @@
 
 package com.liferay.info.internal.item.descriptor;
 
-import com.liferay.info.internal.util.GenericsUtil;
+import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormProviderTracker;
-import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 
@@ -43,19 +42,7 @@ public class InfoItemFormProviderTrackerImpl
 		_infoItemFormProviderServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
 				bundleContext, InfoItemFormProvider.class, null,
-				ServiceReferenceMapperFactory.create(
-					bundleContext,
-					(infoItemFormProvider, emitter) -> {
-						String className =
-							infoItemFormProvider.getItemClassName();
-
-						if (className == null) {
-							className = GenericsUtil.getItemClassName(
-								infoItemFormProvider);
-						}
-
-						emitter.emit(className);
-					}));
+				new ItemClassNameServiceReferenceMapper(bundleContext));
 	}
 
 	private ServiceTrackerMap<String, InfoItemFormProvider>

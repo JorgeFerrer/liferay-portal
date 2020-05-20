@@ -26,7 +26,6 @@ import com.liferay.info.fields.type.ImageInfoFieldType;
 import com.liferay.info.fields.type.InfoFieldType;
 import com.liferay.info.fields.type.TextInfoFieldType;
 import com.liferay.info.fields.type.URLInfoFieldType;
-import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.provider.InfoItemFormProvider;
@@ -125,11 +124,6 @@ public class InfoDisplayContributorWrapper
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
-	}
-
-	@Override
-	public String getItemClassName() {
-		return GenericsUtil.getItemClassName(_infoDisplayContributor);
 	}
 
 	private InfoForm _convertToInfoForm(

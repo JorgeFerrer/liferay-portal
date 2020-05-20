@@ -16,6 +16,7 @@ package com.liferay.info.internal.display.contributor;
 
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
+import com.liferay.info.internal.util.GenericsUtil;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemProvider;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
@@ -97,17 +98,23 @@ public class InfoDisplayContributorTrackerImpl
 					InfoDisplayContributor infoDisplayContributor =
 						bundleContext.getService(serviceReference);
 
-					InfoItemFormProvider infoItemFormProvider =
-						new InfoDisplayContributorWrapper(
-							infoDisplayContributor);
+					try {
+						InfoItemFormProvider infoItemFormProvider =
+							new InfoDisplayContributorWrapper(
+								infoDisplayContributor);
 
-					return bundleContext.registerService(
-						new String[] {
-							InfoItemFormProvider.class.getName(),
-							InfoItemProvider.class.getName()
-						},
-						infoItemFormProvider,
-						_getServiceReferenceProperties(serviceReference));
+						return bundleContext.registerService(
+							new String[] {
+								InfoItemFormProvider.class.getName(),
+								InfoItemProvider.class.getName()
+							},
+							infoItemFormProvider,
+							_getServiceReferenceProperties(
+								bundleContext, serviceReference));
+					}
+					finally {
+						bundleContext.ungetService(serviceReference);
+					}
 				}
 
 				@Override
@@ -117,7 +124,8 @@ public class InfoDisplayContributorTrackerImpl
 						serviceRegistration) {
 
 					serviceRegistration.setProperties(
-						_getServiceReferenceProperties(serviceReference));
+						_getServiceReferenceProperties(
+							bundleContext, serviceReference));
 				}
 
 				@Override
@@ -140,12 +148,25 @@ public class InfoDisplayContributorTrackerImpl
 	}
 
 	private Dictionary _getServiceReferenceProperties(
-		ServiceReference serviceReference) {
+		BundleContext bundleContext,
+		ServiceReference<InfoDisplayContributor> serviceReference) {
 
 		Dictionary dictionary = new Hashtable();
 
 		for (String key : serviceReference.getPropertyKeys()) {
 			dictionary.put(key, serviceReference.getProperty(key));
+		}
+
+		InfoDisplayContributor infoDisplayContributor =
+			bundleContext.getService(serviceReference);
+
+		try {
+			dictionary.put(
+				"item.class.name",
+				GenericsUtil.getItemClassName(infoDisplayContributor));
+		}
+		finally {
+			bundleContext.ungetService(serviceReference);
 		}
 
 		return dictionary;

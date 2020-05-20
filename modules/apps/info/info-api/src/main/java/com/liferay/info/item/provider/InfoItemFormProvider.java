@@ -44,8 +44,4 @@ public interface InfoItemFormProvider<T> {
 
 	public InfoFormValues getInfoFormValues(T t);
 
-	public default String getItemClassName() {
-		return null;
-	}
-
 }
