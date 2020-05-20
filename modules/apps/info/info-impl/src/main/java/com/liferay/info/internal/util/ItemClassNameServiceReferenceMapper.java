@@ -16,6 +16,7 @@ package com.liferay.info.internal.util;
 
 import com.liferay.osgi.service.tracker.collections.map.PropertyServiceReferenceMapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
@@ -31,11 +32,9 @@ public class ItemClassNameServiceReferenceMapper
 
 	@Override
 	public void map(
-		ServiceReference<Object> serviceReference,
-		Emitter<String> emitter) {
+		ServiceReference<Object> serviceReference, Emitter<String> emitter) {
 
-		Object itemClassName = serviceReference.getProperty(
-			_PROPERTY_NAME);
+		Object itemClassName = serviceReference.getProperty(_PROPERTY_NAME);
 
 		if (itemClassName != null) {
 			_propertyServiceReferenceMapper.map(serviceReference, emitter);
@@ -43,12 +42,10 @@ public class ItemClassNameServiceReferenceMapper
 			return;
 		}
 
-		Object serviceObject =
-			_bundleContext.getService(serviceReference);
+		Object serviceObject = _bundleContext.getService(serviceReference);
 
 		try {
-			emitter.emit(GenericsUtil.getItemClassName(
-				serviceObject));
+			emitter.emit(GenericsUtil.getItemClassName(serviceObject));
 		}
 		finally {
 			_bundleContext.ungetService(serviceReference);
@@ -60,6 +57,6 @@ public class ItemClassNameServiceReferenceMapper
 	private final BundleContext _bundleContext;
 	private PropertyServiceReferenceMapper<String, Object>
 		_propertyServiceReferenceMapper = new PropertyServiceReferenceMapper<>(
-		_PROPERTY_NAME);
+			_PROPERTY_NAME);
 
 }
