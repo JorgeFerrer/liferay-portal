@@ -133,8 +133,6 @@ public class GetCollectionFieldMVCResourceCommand
 					setSegmentsExperienceIdsOptional(
 						new long[] {segmentsExperienceId});
 
-				JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
 				ListObjectReference listObjectReference =
 					listObjectReferenceFactory.getListObjectReference(
 						layoutObjectReferenceJSONObject);
@@ -155,6 +153,18 @@ public class GetCollectionFieldMVCResourceCommand
 				InfoItemFormProvider infoItemFormProvider =
 					_infoItemFormProviderTracker.getInfoItemFormProvider(
 						itemType);
+
+				if (infoItemFormProvider == null) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Could not find InfoItemFormProvider for " +
+							itemType);
+					}
+
+					return JSONFactoryUtil.createJSONObject();
+				}
+
+				JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 				for (Object object : list) {
 					jsonArray.put(

@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
@@ -58,11 +60,17 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
+		String className = _portal.getClassName(classNameId);
+
 		InfoItemFormProvider infoItemFormProvider =
-			_infoItemFormProviderTracker.getInfoItemFormProvider(
-				_portal.getClassName(classNameId));
+			_infoItemFormProviderTracker.getInfoItemFormProvider(className);
 
 		if (infoItemFormProvider == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Could not find InfoItemFormProvider for " + className);
+			}
+
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONArray());
@@ -95,6 +103,9 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 		JSONPortletResponseUtil.writeJSON(
 			resourceRequest, resourceResponse, jsonArray);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		GetMappingFieldsMVCResourceCommand.class);
 
 	@Reference
 	private InfoItemFormProviderTracker _infoItemFormProviderTracker;

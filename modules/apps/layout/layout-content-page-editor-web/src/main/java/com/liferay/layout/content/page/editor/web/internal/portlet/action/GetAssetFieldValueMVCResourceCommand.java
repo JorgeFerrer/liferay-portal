@@ -25,6 +25,8 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
@@ -61,11 +63,17 @@ public class GetAssetFieldValueMVCResourceCommand
 
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
+		String className = _portal.getClassName(classNameId);
+
 		InfoItemFormProvider infoItemFormProvider =
-			_infoItemFormProviderTracker.getInfoItemFormProvider(
-				_portal.getClassName(classNameId));
+			_infoItemFormProviderTracker.getInfoItemFormProvider(className);
 
 		if (infoItemFormProvider == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Could not find InfoItemFormProvider for " + className);
+			}
+
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONObject());
@@ -74,8 +82,7 @@ public class GetAssetFieldValueMVCResourceCommand
 		}
 
 		InfoItemProvider infoItemProvider =
-			_infoItemProviderTracker.getInfoItemProvider(
-				_portal.getClassName(classNameId));
+			_infoItemProviderTracker.getInfoItemProvider(className);
 
 		if (infoItemProvider == null) {
 			return;
@@ -133,6 +140,9 @@ public class GetAssetFieldValueMVCResourceCommand
 		JSONPortletResponseUtil.writeJSON(
 			resourceRequest, resourceResponse, jsonObject);
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		GetAssetFieldValueMVCResourceCommand.class);
 
 	@Reference
 	private InfoItemFormProviderTracker _infoItemFormProviderTracker;

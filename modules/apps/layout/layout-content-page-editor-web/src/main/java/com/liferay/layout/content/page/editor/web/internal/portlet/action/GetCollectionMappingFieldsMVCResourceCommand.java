@@ -75,6 +75,11 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 			_infoItemFormProviderTracker.getInfoItemFormProvider(itemType);
 
 		if (infoItemFormProvider == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Could not find InfoItemFormProvider for " + itemType);
+			}
+
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
 				JSONFactoryUtil.createJSONArray());
