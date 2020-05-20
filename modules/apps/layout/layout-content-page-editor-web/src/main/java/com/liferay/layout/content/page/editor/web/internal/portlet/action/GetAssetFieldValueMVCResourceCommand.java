@@ -123,7 +123,7 @@ public class GetAssetFieldValueMVCResourceCommand
 		}
 
 		if (value instanceof ContentAccessor) {
-			ContentAccessor contentAccessor = (ContentAccessor)infoFieldValue;
+			ContentAccessor contentAccessor = (ContentAccessor)value;
 
 			value = contentAccessor.getContent();
 		}
