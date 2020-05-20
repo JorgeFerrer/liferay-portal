@@ -474,7 +474,8 @@ public class JournalArticleInfoItemFormProvider
 		InfoLocalizedValue.localize(getClass(), "description"), "description",
 		TextInfoFieldType.INSTANCE);
 	private final InfoField _displayPageUrlInfoField = new InfoField(
-		InfoLocalizedValue.localize(getClass(), "display-page-url"),
+		InfoLocalizedValue.localize(
+			"com.liferay.asset.info.display.impl", "display-page-url"),
 		"displayPageURL", URLInfoFieldType.INSTANCE);
 
 	@Reference
