@@ -137,9 +137,6 @@ public class GetCollectionFieldMVCResourceCommand
 					listObjectReferenceFactory.getListObjectReference(
 						layoutObjectReferenceJSONObject);
 
-				List<Object> list = layoutListRetriever.getList(
-					listObjectReference, defaultLayoutListRetrieverContext);
-
 				// LPS-111037
 
 				String itemType = listObjectReference.getItemType();
@@ -165,6 +162,9 @@ public class GetCollectionFieldMVCResourceCommand
 				}
 
 				JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+				List<Object> list = layoutListRetriever.getList(
+					listObjectReference, defaultLayoutListRetrieverContext);
 
 				for (Object object : list) {
 					jsonArray.put(
