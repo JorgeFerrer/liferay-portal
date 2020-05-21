@@ -96,8 +96,8 @@ public class ResourceBundleInfoLocalizedValue
 		catch (MissingResourceException missingResourceException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Cannot find resource bundle for " + locale +
-						"reverting to default resource bundle",
+					"Unable to find resource bundle for " + locale +
+						", reverting to default resource bundle",
 					missingResourceException);
 			}
 

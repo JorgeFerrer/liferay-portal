@@ -123,7 +123,7 @@ public class FragmentEntryProcessorHelperImpl
 				_log.warn(
 					"Could not find InfoItemFormProvider for " + className);
 			}
-			
+
 			return null;
 		}
 
@@ -204,7 +204,7 @@ public class FragmentEntryProcessorHelperImpl
 			_infoItemFormProviderTracker.getInfoItemFormProvider(className);
 
 		if (infoItemFormProvider == null) {
-			_log.warn("Could not find InfoItemFormProvider for " + className);
+			_log.warn("Unable to find InfoItemFormProvider for " + className);
 
 			return null;
 		}

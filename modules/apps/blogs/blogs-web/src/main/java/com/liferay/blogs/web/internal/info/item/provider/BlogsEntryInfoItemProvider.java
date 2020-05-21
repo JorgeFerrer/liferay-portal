@@ -38,7 +38,7 @@ public class BlogsEntryInfoItemProvider
 			blogsEntry.isInTrash()) {
 
 			throw new NoSuchInfoItemException(
-				"Cannot find blogs entry with primary key " + classPK);
+				"Unable to find blogs entry with entryId: " + classPK);
 		}
 
 		return blogsEntry;

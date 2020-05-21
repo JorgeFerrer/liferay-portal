@@ -77,7 +77,7 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		if (infoItemFormProvider == null) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Could not find InfoItemFormProvider for " + itemType);
+					"Unable to find InfoItemFormProvider for " + itemType);
 			}
 
 			JSONPortletResponseUtil.writeJSON(

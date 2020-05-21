@@ -105,8 +105,7 @@ public class BlogsEntryInfoItemFormProvider
 		}
 		catch (NoSuchInfoItemException noSuchInfoItemException) {
 			throw new RuntimeException(
-				"Unexpected exception which should never occur",
-				noSuchInfoItemException);
+				"Caught unexpected exception", noSuchInfoItemException);
 		}
 
 		infoFormValues.addAll(

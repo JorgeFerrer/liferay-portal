@@ -92,7 +92,8 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 			throw noSuchStructureException;
 		}
 		catch (PortalException portalException) {
-			throw new RuntimeException("Unexpected exception", portalException);
+			throw new RuntimeException(
+				"Caught unexpected exception", portalException);
 		}
 	}
 

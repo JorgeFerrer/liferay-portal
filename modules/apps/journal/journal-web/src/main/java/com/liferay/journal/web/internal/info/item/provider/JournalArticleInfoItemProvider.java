@@ -38,7 +38,8 @@ public class JournalArticleInfoItemProvider
 
 		if ((article == null) || article.isInTrash()) {
 			throw new NoSuchInfoItemException(
-				"Cannot find article with primary key " + classPK);
+				"Unable to find journal article with resourcePrimKey: " +
+					classPK);
 		}
 
 		return article;

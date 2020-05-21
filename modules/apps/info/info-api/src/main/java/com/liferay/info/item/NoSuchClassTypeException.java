@@ -20,7 +20,9 @@ package com.liferay.info.item;
 public class NoSuchClassTypeException extends Exception {
 
 	public NoSuchClassTypeException(long classTypeId, Throwable cause) {
-		super("No class type found with id " + classTypeId, cause);
+		super(
+			"Unable to find class type found with classTypeId " + classTypeId,
+			cause);
 	}
 
 }

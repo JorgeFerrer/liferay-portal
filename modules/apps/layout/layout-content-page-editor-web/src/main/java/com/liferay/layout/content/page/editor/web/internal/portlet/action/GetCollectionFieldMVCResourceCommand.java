@@ -157,8 +157,8 @@ public class GetCollectionFieldMVCResourceCommand
 				if (infoItemFormProvider == null) {
 					if (_log.isWarnEnabled()) {
 						_log.warn(
-							"Could not find InfoItemFormProvider for " +
-							itemType);
+							"Unable to find InfoItemFormProvider for " +
+								itemType);
 					}
 
 					return JSONFactoryUtil.createJSONObject();
@@ -186,8 +186,8 @@ public class GetCollectionFieldMVCResourceCommand
 	}
 
 	private JSONObject _getDisplayObjectJSONObject(
-			InfoItemFormProvider infoItemFormProvider, Object object,
-			Locale locale) {
+		InfoItemFormProvider infoItemFormProvider, Object object,
+		Locale locale) {
 
 		JSONObject displayObjectJSONObject = JSONFactoryUtil.createJSONObject();
 
