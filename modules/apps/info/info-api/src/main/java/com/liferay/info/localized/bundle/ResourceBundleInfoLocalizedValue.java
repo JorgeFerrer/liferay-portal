@@ -34,7 +34,7 @@ import java.util.Set;
 public class ResourceBundleInfoLocalizedValue
 	implements InfoLocalizedValue<String> {
 
-	public ResourceBundleInfoLocalizedValue(Class clazz, String valueKey) {
+	public ResourceBundleInfoLocalizedValue(Class<?> clazz, String valueKey) {
 		_class = clazz;
 		_symbolicName = null;
 		_valueKey = valueKey;
@@ -115,7 +115,7 @@ public class ResourceBundleInfoLocalizedValue
 	private static final Log _log = LogFactoryUtil.getLog(
 		ResourceBundleInfoLocalizedValue.class);
 
-	private final Class _class;
+	private final Class<?> _class;
 	private final String _symbolicName;
 	private final String _valueKey;
 

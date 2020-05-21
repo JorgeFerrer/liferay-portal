@@ -35,7 +35,7 @@ public interface InfoLocalizedValue<T> {
 	}
 
 	public static InfoLocalizedValue<String> localize(
-		Class clazz, String valueKey) {
+		Class<?> clazz, String valueKey) {
 
 		return new ResourceBundleInfoLocalizedValue(clazz, valueKey);
 	}
