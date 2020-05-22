@@ -14,6 +14,7 @@
 
 package com.liferay.dynamic.data.mapping.internal.info.display.field;
 
+import aQute.bnd.annotation.component.Component;
 import com.liferay.document.library.kernel.service.DLAppService;
 import com.liferay.document.library.util.DLURLHelper;
 import com.liferay.dynamic.data.mapping.info.display.field.DDMFormValuesInfoDisplayFieldProvider;
