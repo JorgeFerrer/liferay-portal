@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.item.fields.reader;
+package com.liferay.info.item.field.reader;
 
 import java.util.List;
 

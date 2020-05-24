@@ -12,11 +12,11 @@
  * details.
  */
 
-package com.liferay.info.internal.item.fields.reader;
+package com.liferay.info.internal.item.field.reader;
 
 import com.liferay.info.internal.util.GenericsUtil;
-import com.liferay.info.item.fields.reader.InfoItemFieldReader;
-import com.liferay.info.item.fields.reader.InfoItemFieldReaderTracker;
+import com.liferay.info.item.field.reader.InfoItemFieldReader;
+import com.liferay.info.item.field.reader.InfoItemFieldReaderTracker;
 import com.liferay.osgi.service.tracker.collections.map.PropertyServiceReferenceComparator;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapper;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
