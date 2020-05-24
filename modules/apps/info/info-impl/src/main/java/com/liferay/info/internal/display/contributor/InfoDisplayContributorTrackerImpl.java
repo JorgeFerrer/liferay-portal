@@ -71,7 +71,12 @@ public class InfoDisplayContributorTrackerImpl
 					InfoDisplayContributor infoDisplayContributor =
 						bundleContext.getService(serviceReference);
 
-					emitter.emit(infoDisplayContributor.getClassName());
+					try {
+						emitter.emit(infoDisplayContributor.getClassName());
+					}
+					finally {
+						bundleContext.ungetService(serviceReference);
+					}
 				});
 		_infoDisplayContributorByURLSeparatorMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
@@ -80,7 +85,13 @@ public class InfoDisplayContributorTrackerImpl
 					InfoDisplayContributor infoDisplayContributor =
 						bundleContext.getService(serviceReference);
 
-					emitter.emit(infoDisplayContributor.getInfoURLSeparator());
+					try {
+						emitter.emit(
+							infoDisplayContributor.getInfoURLSeparator());
+					}
+					finally {
+						bundleContext.ungetService(serviceReference);
+					}
 				});
 
 		_infoDisplayContributorServiceTracker = ServiceTrackerFactory.open(
@@ -113,8 +124,10 @@ public class InfoDisplayContributorTrackerImpl
 								_getServiceReferenceProperties(
 									bundleContext, serviceReference));
 					}
-					finally {
+					catch (Exception exception) {
 						bundleContext.ungetService(serviceReference);
+
+						throw exception;
 					}
 				}
 
