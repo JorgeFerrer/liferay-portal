@@ -12,21 +12,21 @@
  * details.
  */
 
-package com.liferay.info.fields.type;
+package com.liferay.info.field.type;
+
+import com.liferay.portal.kernel.language.LanguageUtil;
+
+import java.util.Locale;
 
 /**
  * @author Jorge Ferrer
  */
-public class ImageInfoFieldType implements InfoFieldType {
+public interface InfoFieldType {
 
-	public static final ImageInfoFieldType INSTANCE = new ImageInfoFieldType();
-
-	@Override
-	public String getName() {
-		return "image";
+	public default String getLabel(Locale locale) {
+		return LanguageUtil.get(locale, getName());
 	}
 
-	private ImageInfoFieldType() {
-	}
+	public String getName();
 
 }

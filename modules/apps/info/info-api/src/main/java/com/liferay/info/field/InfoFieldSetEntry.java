@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.fields;
+package com.liferay.info.field;
 
 import com.liferay.info.localized.InfoLocalizedValue;
 

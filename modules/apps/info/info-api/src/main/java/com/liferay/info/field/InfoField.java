@@ -12,9 +12,9 @@
  * details.
  */
 
-package com.liferay.info.fields;
+package com.liferay.info.field;
 
-import com.liferay.info.fields.type.InfoFieldType;
+import com.liferay.info.field.type.InfoFieldType;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.petra.string.StringBundler;

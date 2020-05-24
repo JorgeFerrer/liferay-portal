@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.fields.type;
+package com.liferay.info.field.type;
 
 /**
  * @author Jorge Ferrer

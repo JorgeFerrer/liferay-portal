@@ -14,7 +14,7 @@
 
 package com.liferay.info.item.fields.reader;
 
-import com.liferay.info.fields.InfoField;
+import com.liferay.info.field.InfoField;
 
 /**
  * @author Jürgen Kappler

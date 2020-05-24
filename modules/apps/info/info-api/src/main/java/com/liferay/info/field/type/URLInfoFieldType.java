@@ -12,21 +12,21 @@
  * details.
  */
 
-package com.liferay.info.fields.type;
-
-import com.liferay.portal.kernel.language.LanguageUtil;
-
-import java.util.Locale;
+package com.liferay.info.field.type;
 
 /**
  * @author Jorge Ferrer
  */
-public interface InfoFieldType {
+public class URLInfoFieldType implements InfoFieldType {
 
-	public default String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, getName());
+	public static final URLInfoFieldType INSTANCE = new URLInfoFieldType();
+
+	@Override
+	public String getName() {
+		return "url";
 	}
 
-	public String getName();
+	private URLInfoFieldType() {
+	}
 
 }

@@ -14,9 +14,9 @@
 
 package com.liferay.info.item.provider;
 
-import com.liferay.info.fields.InfoFieldValue;
-import com.liferay.info.fields.InfoForm;
-import com.liferay.info.fields.InfoFormValues;
+import com.liferay.info.field.InfoFieldValue;
+import com.liferay.info.field.InfoForm;
+import com.liferay.info.field.InfoFormValues;
 import com.liferay.info.item.NoSuchClassTypeException;
 
 /**

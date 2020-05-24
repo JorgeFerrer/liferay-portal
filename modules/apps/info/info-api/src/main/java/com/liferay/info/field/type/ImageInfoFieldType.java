@@ -12,21 +12,21 @@
  * details.
  */
 
-package com.liferay.info.fields.type;
+package com.liferay.info.field.type;
 
 /**
  * @author Jorge Ferrer
  */
-public class URLInfoFieldType implements InfoFieldType {
+public class ImageInfoFieldType implements InfoFieldType {
 
-	public static final URLInfoFieldType INSTANCE = new URLInfoFieldType();
+	public static final ImageInfoFieldType INSTANCE = new ImageInfoFieldType();
 
 	@Override
 	public String getName() {
-		return "url";
+		return "image";
 	}
 
-	private URLInfoFieldType() {
+	private ImageInfoFieldType() {
 	}
 
 }
