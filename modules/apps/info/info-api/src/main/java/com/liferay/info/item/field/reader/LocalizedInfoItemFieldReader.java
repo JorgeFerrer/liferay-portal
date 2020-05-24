@@ -12,24 +12,16 @@
  * details.
  */
 
-package com.liferay.info.item.fields.reader;
+package com.liferay.info.item.field.reader;
 
-import com.liferay.info.field.InfoField;
+import java.util.Locale;
 
 /**
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldReader<T> {
+public interface LocalizedInfoItemFieldReader<T> extends InfoItemFieldReader {
 
-	public InfoField getField();
-
-	public default String getKey() {
-		Class<?> clazz = getClass();
-
-		return clazz.getName();
-	}
-
-	public Object getValue(T model);
+	public Object getValue(T model, Locale locale);
 
 }
