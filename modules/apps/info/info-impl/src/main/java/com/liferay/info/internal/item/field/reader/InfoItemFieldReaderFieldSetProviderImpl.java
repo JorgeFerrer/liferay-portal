@@ -69,10 +69,10 @@ public class InfoItemFieldReaderFieldSetProviderImpl
 		List<InfoItemFieldReader> infoItemFieldReaders =
 			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);
 
-		for (InfoItemFieldReader infoItemFieldReader : infoItemFieldReaders) {
-			ServiceContext serviceContext =
-				ServiceContextThreadLocal.getServiceContext();
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
 
+		for (InfoItemFieldReader infoItemFieldReader : infoItemFieldReaders) {
 			InfoField infoField = infoItemFieldReader.getField();
 			Object value = infoItemFieldReader.getValue(itemObject);
 
