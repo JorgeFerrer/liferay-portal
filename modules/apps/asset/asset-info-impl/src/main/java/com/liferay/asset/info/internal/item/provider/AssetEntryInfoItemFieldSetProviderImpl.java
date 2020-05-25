@@ -55,9 +55,7 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 			InfoLocalizedValue.localize(getClass(), "asset"), "asset");
 
 		infoFieldSet.add(_categoriesInfoField);
-
 		infoFieldSet.add(_tagsInfoField);
-
 		infoFieldSet.add(
 			_infoItemFieldReaderFieldSetProvider.getInfoFieldSet(
 				AssetEntry.class.getName()));
@@ -74,13 +72,11 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_categoriesInfoField, () -> _getCategoryNames(assetEntry)));
-
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_tagsInfoField,
 				() -> ListUtil.toString(
 					assetEntry.getTags(), AssetTag.NAME_ACCESSOR)));
-
 		infoFieldValues.addAll(
 			_infoItemFieldReaderFieldSetProvider.getInfoFieldValues(
 				AssetEntry.class.getName(), assetEntry));
