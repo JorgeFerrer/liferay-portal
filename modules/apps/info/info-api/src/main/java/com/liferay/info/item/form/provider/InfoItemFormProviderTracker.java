@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.item.provider;
+package com.liferay.info.item.form.provider;
 
 import org.osgi.annotation.versioning.ProviderType;
 

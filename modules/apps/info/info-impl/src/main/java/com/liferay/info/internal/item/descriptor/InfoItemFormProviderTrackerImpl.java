@@ -15,8 +15,8 @@
 package com.liferay.info.internal.item.descriptor;
 
 import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
-import com.liferay.info.item.provider.InfoItemFormProvider;
-import com.liferay.info.item.provider.InfoItemFormProviderTracker;
+import com.liferay.info.item.form.provider.InfoItemFormProvider;
+import com.liferay.info.item.form.provider.InfoItemFormProviderTracker;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 

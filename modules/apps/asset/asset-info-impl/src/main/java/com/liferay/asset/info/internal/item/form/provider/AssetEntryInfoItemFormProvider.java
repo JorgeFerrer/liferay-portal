@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.asset.info.internal.item.provider;
+package com.liferay.asset.info.internal.item.form.provider;
 
 import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
@@ -22,7 +22,7 @@ import com.liferay.info.field.InfoFieldValue;
 import com.liferay.info.field.InfoForm;
 import com.liferay.info.field.InfoFormValues;
 import com.liferay.info.field.type.TextInfoFieldType;
-import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.form.provider.InfoItemFormProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
