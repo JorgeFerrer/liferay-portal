@@ -47,25 +47,23 @@ public class AssetEntryInfoItemFormProvider
 
 	@Override
 	public InfoForm getInfoForm() {
-		InfoForm infoForm = new InfoForm(AssetEntry.class.getName());
-
-		infoForm.add(
+		return new InfoForm(
+			AssetEntry.class.getName()
+		).add(
 			_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
-				AssetEntry.class.getName()));
-		infoForm.addAll(_getAssetEntryFieldSetEntries());
-
-		return infoForm;
+				AssetEntry.class.getName())
+		).addAll(
+			_getAssetEntryFieldSetEntries()
+		);
 	}
 
 	@Override
 	public InfoFormValues getInfoFormValues(AssetEntry assetEntry) {
-		InfoFormValues infoFormValues = new InfoFormValues();
-
-		infoFormValues.addAll(
-			_assetEntryInfoItemFieldSetProvider.getInfoFieldValues(assetEntry));
-		infoFormValues.addAll(_getAssetEntryInfoFieldValues(assetEntry));
-
-		return infoFormValues;
+		return new InfoFormValues().addAll(
+			_assetEntryInfoItemFieldSetProvider.getInfoFieldValues(assetEntry)
+		).addAll(
+			_getAssetEntryInfoFieldValues(assetEntry)
+		);
 	}
 
 	private List<InfoFieldSetEntry> _getAssetEntryFieldSetEntries() {
