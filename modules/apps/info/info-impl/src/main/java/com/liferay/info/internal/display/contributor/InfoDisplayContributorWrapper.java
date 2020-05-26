@@ -28,7 +28,7 @@ import com.liferay.info.field.type.TextInfoFieldType;
 import com.liferay.info.field.type.URLInfoFieldType;
 import com.liferay.info.item.NoSuchInfoItemException;
 import com.liferay.info.item.provider.InfoItemFormProvider;
-import com.liferay.info.item.provider.InfoItemProvider;
+import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
@@ -42,7 +42,7 @@ import java.util.Set;
  * @author Jorge Ferrer
  */
 public class InfoDisplayContributorWrapper
-	implements InfoItemFormProvider, InfoItemProvider {
+	implements InfoItemFormProvider, InfoItemObjectProvider {
 
 	public InfoDisplayContributorWrapper(
 		InfoDisplayContributor<Object> infoDisplayContributor) {
