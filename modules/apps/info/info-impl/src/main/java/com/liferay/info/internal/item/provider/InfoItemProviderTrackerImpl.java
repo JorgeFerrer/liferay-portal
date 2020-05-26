@@ -32,7 +32,9 @@ import org.osgi.service.component.annotations.Component;
 public class InfoItemProviderTrackerImpl implements InfoItemProviderTracker {
 
 	@Override
-	public InfoItemObjectProvider getInfoItemProvider(String itemClassName) {
+	public InfoItemObjectProvider getInfoItemObjectProvider(
+		String itemClassName) {
+
 		return _infoItemProviderServiceTrackerMap.getService(itemClassName);
 	}
 
