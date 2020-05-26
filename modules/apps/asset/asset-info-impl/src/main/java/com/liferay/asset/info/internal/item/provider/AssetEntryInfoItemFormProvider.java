@@ -72,12 +72,19 @@ public class AssetEntryInfoItemFormProvider
 		List<InfoFieldSetEntry> infoFieldSetEntries = new ArrayList<>();
 
 		infoFieldSetEntries.add(_titleInfoField);
+
 		infoFieldSetEntries.add(_descriptionInfoField);
+
 		infoFieldSetEntries.add(_summaryInfoField);
+
 		infoFieldSetEntries.add(_userNameInfoField);
+
 		infoFieldSetEntries.add(_createDateInfoField);
+
 		infoFieldSetEntries.add(_expirationDateInfoField);
+
 		infoFieldSetEntries.add(_viewCountInfoField);
+
 		infoFieldSetEntries.add(_urlInfoField);
 
 		return infoFieldSetEntries;
@@ -92,26 +99,32 @@ public class AssetEntryInfoItemFormProvider
 
 		infoFieldValues.add(
 			new InfoFieldValue<>(_titleInfoField, assetEntry.getTitle(locale)));
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_descriptionInfoField, assetEntry.getDescription(locale)));
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_summaryInfoField, assetEntry.getSummary(locale)));
 
 		infoFieldValues.add(
 			new InfoFieldValue<>(_userNameInfoField, assetEntry.getUserName()));
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_createDateInfoField,
 				_getDateValue(assetEntry.getCreateDate())));
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_expirationDateInfoField,
 				_getDateValue(assetEntry.getExpirationDate())));
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_viewCountInfoField, assetEntry.getViewCount()));
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(_urlInfoField, assetEntry.getUrl()));
 
