@@ -15,7 +15,7 @@
 package com.liferay.info.internal.item.provider;
 
 import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
-import com.liferay.info.item.provider.InfoItemProvider;
+import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.item.provider.InfoItemProviderTracker;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -32,7 +32,7 @@ import org.osgi.service.component.annotations.Component;
 public class InfoItemProviderTrackerImpl implements InfoItemProviderTracker {
 
 	@Override
-	public InfoItemProvider getInfoItemProvider(String itemClassName) {
+	public InfoItemObjectProvider getInfoItemProvider(String itemClassName) {
 		return _infoItemProviderServiceTrackerMap.getService(itemClassName);
 	}
 
@@ -40,11 +40,11 @@ public class InfoItemProviderTrackerImpl implements InfoItemProviderTracker {
 	protected void activate(BundleContext bundleContext) {
 		_infoItemProviderServiceTrackerMap =
 			ServiceTrackerMapFactory.openSingleValueMap(
-				bundleContext, InfoItemProvider.class, null,
+				bundleContext, InfoItemObjectProvider.class, null,
 				new ItemClassNameServiceReferenceMapper(bundleContext));
 	}
 
-	private ServiceTrackerMap<String, InfoItemProvider>
+	private ServiceTrackerMap<String, InfoItemObjectProvider>
 		_infoItemProviderServiceTrackerMap;
 
 }
