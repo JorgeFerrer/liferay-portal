@@ -216,10 +216,16 @@ public class JournalArticleInfoItemFormProvider
 			for (DDMFormFieldValue ddmFormFieldValue :
 					ddmFormValues.getDDMFormFieldValues()) {
 
+				// This convertion is too naive.
+				// DDMFormValuesInfoDisplayFieldProvider was doing much more
+
 				InfoLocalizedValue.Builder builder =
 					InfoLocalizedValue.builder();
 
 				Value value = ddmFormFieldValue.getValue();
+
+				// We need to check ddmFormFieldValue.getDDMFormField().isLocalizable()
+				// and propagate that information in the InfoField
 
 				builder.defaultLocale(value.getDefaultLocale());
 				builder.addValues(value.getValues());
@@ -227,6 +233,7 @@ public class JournalArticleInfoItemFormProvider
 				String fieldName = ddmFormFieldValue.getName();
 
 				InfoField infoField = new InfoField(
+					// This type should match that of the DDM Value
 					TextInfoFieldType.INSTANCE,
 					InfoLocalizedValue.localize(getClass(), fieldName),
 					fieldName);
