@@ -8832,7 +8832,7 @@ public class JournalArticleLocalServiceImpl
 			infoDisplayContributor.getInfoDisplayObjectProvider(
 				article.getResourcePrimKey());
 
-		if ((infoDisplayObjectProvider == null) ||
+		if ((themeDisplay == null) || (infoDisplayObjectProvider == null) ||
 			(themeDisplay.getSiteGroup() == null) ||
 			!AssetDisplayPageUtil.hasAssetDisplayPage(
 				themeDisplay.getScopeGroupId(),
