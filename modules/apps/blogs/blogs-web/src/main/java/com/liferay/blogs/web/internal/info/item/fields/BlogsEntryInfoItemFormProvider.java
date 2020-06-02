@@ -177,12 +177,14 @@ public class BlogsEntryInfoItemFormProvider
 					new InfoFieldValue<>(
 						_authorNameInfoField, user.getFullName()));
 
-				blogsEntryFieldValues.add(
-					new InfoFieldValue<>(
-						_authorProfileImageInfoField,
-						_getImageJSONObject(
-							user.getFullName(),
-							user.getPortraitURL(themeDisplay))));
+				if (themeDisplay != null) {
+					blogsEntryFieldValues.add(
+						new InfoFieldValue<>(
+							_authorProfileImageInfoField,
+							_getImageJSONObject(
+								user.getFullName(),
+								user.getPortraitURL(themeDisplay))));
+				}
 			}
 
 			blogsEntryFieldValues.add(
@@ -190,9 +192,12 @@ public class BlogsEntryInfoItemFormProvider
 					_publishDateInfoField,
 					_getDateValue(blogsEntry.getDisplayDate())));
 
-			blogsEntryFieldValues.add(
-				new InfoFieldValue<>(
-					_displayPageUrlInfoField, _getDisplayPageURL(blogsEntry)));
+			if (themeDisplay != null) {
+				blogsEntryFieldValues.add(
+					new InfoFieldValue<>(
+						_displayPageUrlInfoField,
+						_getDisplayPageURL(blogsEntry)));
+			}
 
 			blogsEntryFieldValues.add(
 				new InfoFieldValue<>(
