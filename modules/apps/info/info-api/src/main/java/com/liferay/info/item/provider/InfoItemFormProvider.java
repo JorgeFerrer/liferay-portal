@@ -22,7 +22,7 @@ import com.liferay.info.item.NoSuchClassTypeException;
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemFormProvider<T> {
+public interface InfoItemFormProvider<T> extends InfoItemProvider {
 
 	public default InfoFieldValue getInfoFieldValue(T t, String fieldName) {
 		InfoFormValues infoFormValues = getInfoFormValues(t);
