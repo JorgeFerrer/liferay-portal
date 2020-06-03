@@ -217,14 +217,6 @@ public class JournalArticleInfoItemFormProvider
 			for (DDMFormFieldValue ddmFormFieldValue :
 					ddmFormValues.getDDMFormFieldValues()) {
 
-				InfoLocalizedValue.Builder builder =
-					InfoLocalizedValue.builder();
-
-				Value value = ddmFormFieldValue.getValue();
-
-				builder.defaultLocale(value.getDefaultLocale());
-				builder.addValues(value.getValues());
-
 				String fieldName = ddmFormFieldValue.getName();
 
 				InfoField infoField = new InfoField(
@@ -232,8 +224,17 @@ public class JournalArticleInfoItemFormProvider
 					InfoLocalizedValue.localize(getClass(), fieldName),
 					fieldName);
 
+				Value value = ddmFormFieldValue.getValue();
+
 				infoFieldValues.add(
-					new InfoFieldValue<>(infoField, builder.build()));
+					new InfoFieldValue<>(
+						infoField,
+						InfoLocalizedValue.builder(
+						).defaultLocale(
+							value.getDefaultLocale()
+						).addValues(
+							value.getValues()
+						).build()));
 			}
 		}
 		catch (PortalException portalException) {
