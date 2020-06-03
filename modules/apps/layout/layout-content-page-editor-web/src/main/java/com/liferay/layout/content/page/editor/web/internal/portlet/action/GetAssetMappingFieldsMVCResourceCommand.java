@@ -66,10 +66,9 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		String itemClassName = _portal.getClassName(classNameId);
 
-		InfoItemFormProvider<Object> infoItemFormProvider =
-			(InfoItemFormProvider<Object>)
-				_infoItemProviderTracker.getInfoItemProvider(
-					InfoItemFormProvider.class, itemClassName);
+		InfoItemFormProvider infoItemFormProvider =
+			_infoItemProviderTracker.getInfoItemProvider(
+				InfoItemFormProvider.class, itemClassName);
 
 		if (infoItemFormProvider == null) {
 			if (_log.isWarnEnabled()) {
@@ -85,10 +84,9 @@ public class GetAssetMappingFieldsMVCResourceCommand
 			return;
 		}
 
-		InfoItemObjectProvider<Object> infoItemObjectProvider =
-			(InfoItemObjectProvider<Object>)
-				_infoItemProviderTracker.getInfoItemProvider(
-					InfoItemObjectProvider.class, itemClassName);
+		InfoItemObjectProvider infoItemObjectProvider =
+			_infoItemProviderTracker.getInfoItemProvider(
+				InfoItemObjectProvider.class, itemClassName);
 
 		if (infoItemObjectProvider == null) {
 			JSONPortletResponseUtil.writeJSON(

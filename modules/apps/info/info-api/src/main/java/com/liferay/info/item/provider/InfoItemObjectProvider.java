@@ -19,7 +19,7 @@ import com.liferay.info.item.NoSuchInfoItemException;
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemObjectProvider<T> {
+public interface InfoItemObjectProvider<T> extends InfoItemProvider {
 
 	public T getInfoItem(long classPK) throws NoSuchInfoItemException;
 

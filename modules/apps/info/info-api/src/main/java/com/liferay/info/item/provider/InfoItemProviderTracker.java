@@ -27,7 +27,7 @@ public interface InfoItemProviderTracker {
 
 	public List<String> getInfoItemClassNames();
 
-	public InfoItemProvider getInfoItemProvider(
-		Class providerClass, String itemClassName);
+	public <P extends InfoItemProvider> P getInfoItemProvider(
+		Class<P> providerClass, String itemClassName);
 
 }

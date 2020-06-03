@@ -43,14 +43,14 @@ public class InfoItemProviderTrackerImpl implements InfoItemProviderTracker {
 	}
 
 	@Override
-	public InfoItemProvider getInfoItemProvider(
-		Class providerClass, String itemClassName) {
+	public <P extends InfoItemProvider> P getInfoItemProvider(
+		Class<P> providerClass, String itemClassName) {
 
 		ServiceTrackerMap<String, InfoItemProvider>
 			infoItemProviderServiceTrackerMap =
 			_infoItemProvidersServiceTrackerMap.get(providerClass.getName());
 
-		return infoItemProviderServiceTrackerMap.getService(itemClassName);
+		return (P)infoItemProviderServiceTrackerMap.getService(itemClassName);
 	}
 
 	@Activate
