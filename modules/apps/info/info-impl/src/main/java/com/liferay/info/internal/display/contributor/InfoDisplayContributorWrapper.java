@@ -183,16 +183,12 @@ public class InfoDisplayContributorWrapper
 	}
 
 	private InfoFieldType _getInfoFieldTypeType(String infoDisplayFieldType) {
-		if (Objects.equals(
-				infoDisplayFieldType,
-				InfoDisplayContributorFieldType.IMAGE.getValue()) ||
+		if (Objects.equals(infoDisplayFieldType, "image") ||
 			Objects.equals(infoDisplayFieldType, "ddm-image")) {
 
 			return ImageInfoFieldType.INSTANCE;
 		}
-		else if (Objects.equals(
-					infoDisplayFieldType,
-					InfoDisplayContributorFieldType.URL.getValue())) {
+		else if (Objects.equals(infoDisplayFieldType, "url")) {
 
 			return URLInfoFieldType.INSTANCE;
 		}
