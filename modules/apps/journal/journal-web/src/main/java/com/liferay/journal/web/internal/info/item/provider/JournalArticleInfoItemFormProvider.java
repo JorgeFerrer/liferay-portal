@@ -206,7 +206,7 @@ public class JournalArticleInfoItemFormProvider
 			_journalConverter);
 
 		try {
-			return _ddmFormValuesInfoFieldSetProvider.getInfoFieldValues(
+			return _ddmFormValuesInfoFieldValuesProvider.getInfoFieldValues(
 				article, journalArticleDDMFormValuesReader.getDDMFormValues());
 		}
 		catch (PortalException portalException) {
@@ -426,8 +426,8 @@ public class JournalArticleInfoItemFormProvider
 		"authorProfileImage");
 
 	@Reference
-	private DDMFormValuesInfoFieldSetProvider
-		_ddmFormValuesInfoFieldSetProvider;
+	private DDMFormValuesInfoFieldValuesProvider
+		_ddmFormValuesInfoFieldValuesProvider;
 
 	@Reference
 	private DDMStructureInfoItemFieldSetProvider

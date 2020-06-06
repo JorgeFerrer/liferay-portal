@@ -56,8 +56,8 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Alejandro Tardín
  */
-@Component(service = DDMFormValuesInfoFieldSetProvider.class)
-public class DDMFormValuesInfoFieldSetProvider<T extends GroupedModel> {
+@Component(service = DDMFormValuesInfoFieldValuesProvider.class)
+public class DDMFormValuesInfoFieldValuesProvider<T extends GroupedModel> {
 
 	public List<InfoFieldValue> getInfoFieldValues(
 		T t, DDMFormValues ddmFormValues) {
@@ -232,7 +232,7 @@ public class DDMFormValuesInfoFieldSetProvider<T extends GroupedModel> {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		DDMFormValuesInfoFieldSetProvider.class);
+		DDMFormValuesInfoFieldValuesProvider.class);
 
 	@Reference
 	private DLAppService _dlAppService;
