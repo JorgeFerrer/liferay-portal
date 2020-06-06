@@ -286,7 +286,7 @@ public class JournalArticleInfoItemFormProvider
 						}
 						catch (Exception exception) {
 							throw new RuntimeException(
-								"Ynable to render dynamic data mapping " +
+								"Unable to render dynamic data mapping " +
 									"template" + ddmTemplate.getTemplateId(),
 								exception);
 						}
