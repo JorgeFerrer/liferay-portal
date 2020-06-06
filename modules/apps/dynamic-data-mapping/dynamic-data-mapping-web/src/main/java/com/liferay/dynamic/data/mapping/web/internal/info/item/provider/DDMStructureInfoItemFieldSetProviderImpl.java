@@ -22,6 +22,8 @@ import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.info.field.InfoField;
 import com.liferay.info.field.InfoFieldSet;
+import com.liferay.info.field.type.ImageInfoFieldType;
+import com.liferay.info.field.type.InfoFieldType;
 import com.liferay.info.field.type.TextInfoFieldType;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -29,6 +31,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -80,8 +83,8 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 
 				infoFieldSet.add(
 					new InfoField(
-						TextInfoFieldType.INSTANCE, labelInfoLocalizedValue,
-						ddmFormField.getName()));
+						_getInfoFieldType(ddmFormField),
+						labelInfoLocalizedValue, ddmFormField.getName()));
 			}
 
 			return infoFieldSet;
@@ -93,6 +96,18 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 			throw new RuntimeException(
 				"Caught unexpected exception", portalException);
 		}
+	}
+
+	private InfoFieldType _getInfoFieldType(DDMFormField ddmFormField) {
+		String ddmFormFieldType = ddmFormField.getType();
+
+		if (Objects.equals(ddmFormFieldType, "ddm-image") ||
+			Objects.equals(ddmFormFieldType, "image")) {
+
+			return ImageInfoFieldType.INSTANCE;
+		}
+
+		return TextInfoFieldType.INSTANCE;
 	}
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
