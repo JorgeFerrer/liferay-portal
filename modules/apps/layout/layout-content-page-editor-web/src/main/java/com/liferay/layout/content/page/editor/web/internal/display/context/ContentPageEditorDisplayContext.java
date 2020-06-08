@@ -34,7 +34,8 @@ import com.liferay.fragment.util.comparator.FragmentCollectionContributorNameCom
 import com.liferay.fragment.util.configuration.FragmentEntryConfigurationParser;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
-import com.liferay.info.item.provider.InfoItemFormProviderTracker;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemServiceTracker;
 import com.liferay.info.list.provider.item.selector.criterion.InfoListProviderItemSelectorCriterion;
 import com.liferay.info.list.provider.item.selector.criterion.InfoListProviderItemSelectorReturnType;
 import com.liferay.item.selector.ItemSelector;
@@ -173,7 +174,7 @@ public class ContentPageEditorDisplayContext {
 		FragmentRendererTracker fragmentRendererTracker,
 		HttpServletRequest httpServletRequest,
 		InfoDisplayContributorTracker infoDisplayContributorTracker,
-		InfoItemFormProviderTracker infoItemFormProviderTracker,
+		InfoItemServiceTracker infoItemServiceTracker,
 		ItemSelector itemSelector, PortletRequest portletRequest,
 		RenderResponse renderResponse) {
 
@@ -192,7 +193,7 @@ public class ContentPageEditorDisplayContext {
 
 		this.httpServletRequest = httpServletRequest;
 		this.infoDisplayContributorTracker = infoDisplayContributorTracker;
-		this.infoItemFormProviderTracker = infoItemFormProviderTracker;
+		this.infoItemServiceTracker = infoItemServiceTracker;
 
 		themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -592,7 +593,7 @@ public class ContentPageEditorDisplayContext {
 
 	protected final HttpServletRequest httpServletRequest;
 	protected final InfoDisplayContributorTracker infoDisplayContributorTracker;
-	protected final InfoItemFormProviderTracker infoItemFormProviderTracker;
+	protected final InfoItemServiceTracker infoItemServiceTracker;
 	protected final ThemeDisplay themeDisplay;
 
 	private Map<String, Object> _getAvailableLanguages() {
@@ -659,7 +660,7 @@ public class ContentPageEditorDisplayContext {
 			new InfoListItemSelectorCriterion();
 
 		infoListItemSelectorCriterion.setItemTypes(
-			_getInfoDisplayContributorsClassNames());
+			_getInfoItemFormProviderClassNames());
 
 		infoListItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
 			new InfoListItemSelectorReturnType());
@@ -669,7 +670,7 @@ public class ContentPageEditorDisplayContext {
 				new InfoListProviderItemSelectorCriterion();
 
 		infoListProviderItemSelectorCriterion.setItemTypes(
-			_getInfoDisplayContributorsClassNames());
+			_getInfoItemFormProviderClassNames());
 
 		infoListProviderItemSelectorCriterion.setDesiredItemSelectorReturnTypes(
 			new InfoListProviderItemSelectorReturnType());
@@ -1333,19 +1334,20 @@ public class ContentPageEditorDisplayContext {
 		return _imageItemSelectorCriterion;
 	}
 
-	private List<String> _getInfoDisplayContributorsClassNames() {
-		List<String> infoDisplayContributorsClassNames =
-			infoItemFormProviderTracker.getInfoItemClassNames();
+	private List<String> _getInfoItemFormProviderClassNames() {
+		List<String> infoItemClassNames =
+			infoItemServiceTracker.getInfoItemClassNames(
+				InfoItemFormProvider.class);
 
-		if (infoDisplayContributorsClassNames.contains(
+		if (infoItemClassNames.contains(
 				FileEntry.class.getName())) {
 
-			infoDisplayContributorsClassNames.add(
+			infoItemClassNames.add(
 				DLFileEntryConstants.getClassName());
-			infoDisplayContributorsClassNames.remove(FileEntry.class.getName());
+			infoItemClassNames.remove(FileEntry.class.getName());
 		}
 
-		return infoDisplayContributorsClassNames;
+		return infoItemClassNames;
 	}
 
 	private String _getInfoItemSelectorURL() {
