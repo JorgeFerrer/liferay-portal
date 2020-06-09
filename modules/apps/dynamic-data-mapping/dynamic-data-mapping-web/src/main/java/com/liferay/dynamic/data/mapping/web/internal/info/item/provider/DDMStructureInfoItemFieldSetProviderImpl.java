@@ -52,43 +52,45 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 			DDMStructure ddmStructure =
 				_ddmStructureLocalService.getDDMStructure(ddmStructureId);
 
-			InfoFieldSet infoFieldSet = new InfoFieldSet(
+			return new InfoFieldSet.Builder(
 				InfoLocalizedValue.builder(
 				).addValues(
 					ddmStructure.getNameMap()
 				).build(),
-				ddmStructure.getStructureKey());
+				ddmStructure.getStructureKey()
+			).add(
+				consumer -> {
+					List<DDMFormField> ddmFormFields =
+						ddmStructure.getDDMFormFields(false);
 
-			List<DDMFormField> ddmFormFields = ddmStructure.getDDMFormFields(
-				false);
+					for (DDMFormField ddmFormField : ddmFormFields) {
+						if (Validator.isNull(ddmFormField.getIndexType()) ||
+							!ArrayUtil.contains(
+								_SELECTABLE_DDM_STRUCTURE_FIELDS,
+								ddmFormField.getType())) {
 
-			for (DDMFormField ddmFormField : ddmFormFields) {
-				if (Validator.isNull(ddmFormField.getIndexType()) ||
-					!ArrayUtil.contains(
-						_SELECTABLE_DDM_STRUCTURE_FIELDS,
-						ddmFormField.getType())) {
+							continue;
+						}
 
-					continue;
+						LocalizedValue label = ddmFormField.getLabel();
+
+						InfoLocalizedValue<String> labelInfoLocalizedValue =
+							InfoLocalizedValue.builder(
+							).addValues(
+								label.getValues()
+							).defaultLocale(
+								label.getDefaultLocale()
+							).build();
+
+						consumer.accept(
+							new InfoField(
+								_getInfoFieldType(ddmFormField),
+								labelInfoLocalizedValue,
+								ddmFormField.isLocalizable(),
+								ddmFormField.getName()));
+					}
 				}
-
-				LocalizedValue label = ddmFormField.getLabel();
-
-				InfoLocalizedValue<String> labelInfoLocalizedValue =
-					InfoLocalizedValue.builder(
-					).addValues(
-						label.getValues()
-					).defaultLocale(
-						label.getDefaultLocale()
-					).build();
-
-				infoFieldSet.add(
-					new InfoField(
-						_getInfoFieldType(ddmFormField),
-						labelInfoLocalizedValue, ddmFormField.isLocalizable(),
-						ddmFormField.getName()));
-			}
-
-			return infoFieldSet;
+			).build();
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
 			throw noSuchStructureException;
