@@ -129,19 +129,18 @@ public class DDMFormValuesInfoFieldValuesProvider<T extends GroupedModel> {
 					InfoLocalizedValue.localize(
 						getClass(), ddmFormFieldValue.getName()),
 					ddmFormField.isLocalizable(), ddmFormFieldValue.getName()),
-				InfoLocalizedValue.builder(
+				InfoLocalizedValue.<String>builder(
+				).put(
+					consumer -> {
+						for (Locale locale : value.getAvailableLocales()) {
+							consumer.accept(
+								locale,
+								(String)_sanitizeDDMFormFieldValue(
+									t, ddmFormFieldValue, locale));
+						}
+					}
 				).defaultLocale(
 					value.getDefaultLocale()
-				).addValues(
-					value.getValues(
-					).entrySet(
-					).stream(
-					).collect(
-						Collectors.toMap(
-							Map.Entry::getKey,
-							entry -> _sanitizeDDMFormFieldValue(
-								t, ddmFormFieldValue, entry.getKey()))
-					)
 				).build()));
 	}
 
