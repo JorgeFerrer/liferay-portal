@@ -53,8 +53,8 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 				_ddmStructureLocalService.getDDMStructure(ddmStructureId);
 
 			return new InfoFieldSet.Builder(
-				InfoLocalizedValue.builder(
-				).addValues(
+				InfoLocalizedValue.<String>builder(
+				).putAll(
 					ddmStructure.getNameMap()
 				).build(),
 				ddmStructure.getStructureKey()
@@ -75,8 +75,8 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 						LocalizedValue label = ddmFormField.getLabel();
 
 						InfoLocalizedValue<String> labelInfoLocalizedValue =
-							InfoLocalizedValue.builder(
-							).addValues(
+							InfoLocalizedValue.<String>builder(
+							).putAll(
 								label.getValues()
 							).defaultLocale(
 								label.getDefaultLocale()
