@@ -17,6 +17,7 @@ package com.liferay.info.internal.item.provider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.info.type.Keyed;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -42,10 +43,8 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	public <P> List<P> getAllInfoItemServices(
 		Class<P> serviceClass, String itemClassName) {
 
-		ServiceTrackerMap<String, ? extends List<?>>
-			infoItemServiceTrackerMap =
-				_itemClassNameInfoItemServiceTrackerMap.get(
-					serviceClass.getName());
+		ServiceTrackerMap<String, ? extends List<?>> infoItemServiceTrackerMap =
+			_itemClassNameInfoItemServiceTrackerMap.get(serviceClass.getName());
 
 		return (List<P>)infoItemServiceTrackerMap.getService(itemClassName);
 	}
@@ -53,9 +52,19 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	@Override
 	public <P> List<String> getInfoItemClassNames(Class<P> serviceClass) {
 		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
-			_infoItemServiceTrackerMap.get(serviceClass.getName());
+			_itemClassNameInfoItemServiceTrackerMap.get(serviceClass.getName());
 
 		return new ArrayList<>(infoItemProviderServiceTrackerMap.keySet());
+	}
+
+	@Override
+	public <P> P getInfoItemProviderByKey(
+		Class<P> serviceClass, String serviceKey) {
+
+		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
+			_keyedInfoItemServiceTrackerMap.get(serviceClass.getName());
+
+		return (P)infoItemProviderServiceTrackerMap.getService(serviceKey);
 	}
 
 	@Override
@@ -91,10 +100,29 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 			_itemClassNameInfoItemServiceTrackerMap.put(
 				serviceClass.getName(), itemClassNameInfoItemServiceTrackerMap);
 
+			Class<Keyed> keyedClass = Keyed.class;
+
+			if (keyedClass.isAssignableFrom(serviceClass)) {
+				ServiceTrackerMap<String, ?> infoItemServiceTrackerMap =
+					ServiceTrackerMapFactory.openSingleValueMap(
+						bundleContext, serviceClass, null,
+						ServiceReferenceMapperFactory.create(
+							bundleContext,
+							(service, emitter) -> {
+								Keyed keyed = (Keyed)service;
+
+								emitter.emit(keyed.getKey());
+							}));
+
+				_keyedInfoItemServiceTrackerMap.put(
+					serviceClass.getName(), infoItemServiceTrackerMap);
+			}
 		}
 	}
 
 	private final Map<String, ServiceTrackerMap<String, ? extends List<?>>>
 		_itemClassNameInfoItemServiceTrackerMap = new HashMap<>();
+	private final Map<String, ServiceTrackerMap<String, ?>>
+		_keyedInfoItemServiceTrackerMap = new HashMap<>();
 
 }
