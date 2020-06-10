@@ -14,14 +14,16 @@
 
 package com.liferay.info.internal.item.provider;
 
-import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
+import com.liferay.petra.reflect.GenericUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,24 @@ import org.osgi.service.component.annotations.Component;
 public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 
 	@Override
+	public <P> List<P> getAllInfoItemServices(
+		Class<P> serviceClass, String itemClassName) {
+
+		ServiceTrackerMap<String, List<P>> infoItemServiceTrackerMap =
+			(ServiceTrackerMap<String, List<P>>)
+				_itemClassNameInfoItemServiceTrackerMap.get(
+					serviceClass.getName());
+
+		List<P> services = infoItemServiceTrackerMap.getService(itemClassName);
+
+		if (services != null) {
+			return new ArrayList<>((List<P>)services);
+		}
+
+		return Collections.emptyList();
+	}
+
+	@Override
 	public <P> List<String> getInfoItemClassNames(Class<P> serviceClass) {
 		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
 			_infoItemServiceTrackerMap.get(serviceClass.getName());
@@ -49,30 +69,39 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	public <P> P getInfoItemService(
 		Class<P> serviceClass, String itemClassName) {
 
-		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
-			_infoItemServiceTrackerMap.get(serviceClass.getName());
+		List<?> infoItemServices = getAllInfoItemServices(
+			serviceClass, itemClassName);
 
-		return (P)infoItemProviderServiceTrackerMap.getService(itemClassName);
+		if ((infoItemServices == null) || infoItemServices.isEmpty()) {
+			return null;
+		}
+
+		return (P)infoItemServices.get(0);
 	}
 
 	@Activate
 	protected void activate(BundleContext bundleContext) {
-		Class<?>[] infoItemProviderClasses = new Class<?>[] {
+		Class<?>[] serviceClasses = new Class<?>[] {
 			InfoItemFormProvider.class, InfoItemObjectProvider.class
 		};
 
-		for (Class<?> infoItemProviderClass : infoItemProviderClasses) {
-			ServiceTrackerMap<String, ?> serviceTrackerMap =
-				ServiceTrackerMapFactory.openSingleValueMap(
-					bundleContext, infoItemProviderClass, null,
-					new ItemClassNameServiceReferenceMapper(bundleContext));
+		for (Class<?> serviceClass : serviceClasses) {
+			ServiceTrackerMap<String, ? extends List<?>>
+				itemClassNameInfoItemServiceTrackerMap =
+					ServiceTrackerMapFactory.openMultiValueMap(
+						bundleContext, serviceClass, null,
+						ServiceReferenceMapperFactory.create(
+							bundleContext,
+							(service, emitter) -> emitter.emit(
+								GenericUtil.getGenericClassName(service))));
 
-			_infoItemServiceTrackerMap.put(
-				infoItemProviderClass.getName(), serviceTrackerMap);
+			_itemClassNameInfoItemServiceTrackerMap.put(
+				serviceClass.getName(), itemClassNameInfoItemServiceTrackerMap);
+
 		}
 	}
 
-	private final Map<String, ServiceTrackerMap<String, ?>>
-		_infoItemServiceTrackerMap = new HashMap<>();
+	private final Map<String, ServiceTrackerMap<String, ? extends List<?>>>
+		_itemClassNameInfoItemServiceTrackerMap = new HashMap<>();
 
 }
