@@ -124,11 +124,14 @@ public class DDMFormValuesInfoFieldValuesProvider<T extends GroupedModel> {
 
 		return Optional.of(
 			new InfoFieldValue<>(
-				new InfoField(
+				new InfoField.Builder(
 					TextInfoFieldType.INSTANCE,
 					InfoLocalizedValue.localize(
 						getClass(), ddmFormFieldValue.getName()),
-					ddmFormField.isLocalizable(), ddmFormFieldValue.getName()),
+					ddmFormFieldValue.getName()
+				).setLocalizable(
+					ddmFormField.isLocalizable()
+				).build(),
 				InfoLocalizedValue.<String>builder(
 				).put(
 					consumer -> {
