@@ -17,8 +17,8 @@ package com.liferay.info.field;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.util.ListUtil;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,16 +47,13 @@ public class InfoFormValues {
 		Collection<InfoFieldValue<Object>> infoFieldValues =
 			_infoFieldValuesByName.get(fieldName);
 
-		if (infoFieldValues != null) {
-			Iterator<InfoFieldValue<Object>> iterator =
-				infoFieldValues.iterator();
-
-			if (iterator.hasNext()) {
-				return iterator.next();
-			}
+		if ((infoFieldValues == null) || infoFieldValues.isEmpty()) {
+			return null;
 		}
 
-		return null;
+		Iterator<InfoFieldValue<Object>> iterator = infoFieldValues.iterator();
+
+		return iterator.next();
 	}
 
 	public Collection<InfoFieldValue<Object>> getInfoFieldValues() {
@@ -104,11 +101,8 @@ public class InfoFormValues {
 
 			InfoField infoField = infoFieldValue.getInfoField();
 
-			Collection<InfoFieldValue<Object>> infoFieldValues =
-				_infoFieldValuesByName.computeIfAbsent(
-					infoField.getName(), key -> new ArrayList<>());
-
-			infoFieldValues.add(infoFieldValue);
+			_infoFieldValuesByName.computeIfAbsent(
+				infoField.getName(), key -> ListUtil.toList(infoFieldValue));
 
 			return this;
 		}
