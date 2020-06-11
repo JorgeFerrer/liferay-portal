@@ -17,6 +17,10 @@ package com.liferay.info.internal.item.provider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.info.item.renderer.InfoItemRenderer;
+import com.liferay.info.item.selector.InfoItemSelector;
+import com.liferay.info.list.provider.InfoListProvider;
+import com.liferay.info.list.renderer.InfoListRenderer;
 import com.liferay.info.type.Keyed;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
@@ -98,7 +102,9 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	@Activate
 	protected void activate(BundleContext bundleContext) {
 		Class<?>[] serviceClasses = new Class<?>[] {
-			InfoItemFormProvider.class, InfoItemObjectProvider.class
+			InfoItemFormProvider.class, InfoItemObjectProvider.class,
+			InfoItemRenderer.class, InfoItemSelector.class,
+			InfoListRenderer.class, InfoListProvider.class
 		};
 
 		for (Class<?> serviceClass : serviceClasses) {
