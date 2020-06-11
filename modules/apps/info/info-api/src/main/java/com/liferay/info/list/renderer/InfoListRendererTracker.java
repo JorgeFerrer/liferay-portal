@@ -24,10 +24,10 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface InfoListRendererTracker {
 
-	public InfoListRenderer getInfoListRenderer(String key);
+	public InfoListRenderer<?> getInfoListRenderer(String key);
 
-	public List<InfoListRenderer> getInfoListRenderers();
+	public List<InfoListRenderer<?>> getInfoListRenderers();
 
-	public List<InfoListRenderer> getInfoListRenderers(String itemClassName);
+	public List<InfoListRenderer<?>> getInfoListRenderers(String itemClassName);
 
 }
