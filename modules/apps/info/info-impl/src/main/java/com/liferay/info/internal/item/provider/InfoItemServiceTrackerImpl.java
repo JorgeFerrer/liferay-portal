@@ -46,6 +46,14 @@ import org.osgi.service.component.annotations.Component;
 public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 
 	@Override
+	public <P> List<P> getAllInfoItemServices(Class<P> serviceClass) {
+		ServiceTrackerMap<String, ?> serviceTrackerMap =
+			_keyedInfoItemServiceTrackerMap.get(serviceClass.getName());
+
+		return (List<P>)serviceTrackerMap.values();
+	}
+
+	@Override
 	public <P> List<P> getAllInfoItemServices(
 		Class<P> serviceClass, String itemClassName) {
 
