@@ -83,11 +83,12 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 							).build();
 
 						consumer.accept(
-							new InfoField(
+							new InfoField.Builder(
 								_getInfoFieldType(ddmFormField),
-								labelInfoLocalizedValue,
-								ddmFormField.isLocalizable(),
-								ddmFormField.getName()));
+								labelInfoLocalizedValue, ddmFormField.getName()
+							).setLocalizable(
+								ddmFormField.isLocalizable()
+							).build());
 					}
 				}
 			).build();
