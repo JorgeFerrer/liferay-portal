@@ -155,8 +155,8 @@ public class ContentObjectFragmentRenderer implements FragmentRenderer {
 
 			if (tuple.getSize() > 1) {
 				infoItemTemplatedRenderer.render(
-					displayObject, (String)tuple.getObject(1), httpServletRequest,
-					httpServletResponse);
+					displayObject, (String)tuple.getObject(1),
+					httpServletRequest, httpServletResponse);
 			}
 			else {
 				infoItemTemplatedRenderer.render(
