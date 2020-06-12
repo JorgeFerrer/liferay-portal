@@ -65,7 +65,7 @@ public class GetAvailableListRenderersMVCResourceCommand
 			className = FileEntry.class.getName();
 		}
 
-		List<InfoListRenderer> infoListRenderers =
+		List<InfoListRenderer<?>> infoListRenderers =
 			_infoListRendererTracker.getInfoListRenderers(className);
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
