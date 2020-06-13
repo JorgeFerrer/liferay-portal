@@ -65,7 +65,7 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 		List<P> services = infoItemServiceTrackerMap.getService(itemClassName);
 
 		if (services != null) {
-			return new ArrayList<>((List<P>)services);
+			return new ArrayList<>(services);
 		}
 
 		return Collections.emptyList();
