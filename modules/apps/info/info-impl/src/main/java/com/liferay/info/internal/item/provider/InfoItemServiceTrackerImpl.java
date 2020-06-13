@@ -14,6 +14,7 @@
 
 package com.liferay.info.internal.item.provider;
 
+import com.liferay.info.item.field.reader.InfoItemFieldReader;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.item.provider.InfoItemServiceTracker;
@@ -113,7 +114,8 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 		Class<?>[] serviceClasses = new Class<?>[] {
 			InfoItemFormProvider.class, InfoItemObjectProvider.class,
 			InfoItemRenderer.class, InfoItemSelector.class,
-			InfoListRenderer.class, InfoListProvider.class
+			InfoListRenderer.class, InfoListProvider.class,
+			InfoItemFieldReader.class
 		};
 
 		for (Class<?> serviceClass : serviceClasses) {
