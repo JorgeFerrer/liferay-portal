@@ -26,6 +26,7 @@ import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFa
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.petra.reflect.GenericUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 		List<?> infoItemServices = getAllInfoItemServices(
 			serviceClass, itemClassName);
 
-		if ((infoItemServices == null) || infoItemServices.isEmpty()) {
+		if (ListUtil.isEmpty(infoItemServices)) {
 			return null;
 		}
 
