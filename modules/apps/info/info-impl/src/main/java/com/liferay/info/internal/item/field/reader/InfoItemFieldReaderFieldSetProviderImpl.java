@@ -50,7 +50,7 @@ public class InfoItemFieldReaderFieldSetProviderImpl
 		InfoFieldSet infoFieldSet = new InfoFieldSet(
 			InfoLocalizedValue.localize(getClass(), "fields"), "fields");
 
-		List<InfoItemFieldReader> infoItemFieldReaders =
+		List<InfoItemFieldReader<?>> infoItemFieldReaders =
 			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);
 
 		for (InfoItemFieldReader infoItemFieldReader : infoItemFieldReaders) {
@@ -66,7 +66,7 @@ public class InfoItemFieldReaderFieldSetProviderImpl
 
 		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
-		List<InfoItemFieldReader> infoItemFieldReaders =
+		List<InfoItemFieldReader<?>> infoItemFieldReaders =
 			_infoItemFieldReaderTracker.getInfoItemFieldReaders(className);
 
 		ServiceContext serviceContext =

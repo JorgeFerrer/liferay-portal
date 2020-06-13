@@ -16,19 +16,12 @@ package com.liferay.info.internal.item.field.reader;
 
 import com.liferay.info.item.field.reader.InfoItemFieldReader;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderTracker;
-import com.liferay.osgi.service.tracker.collections.map.PropertyServiceReferenceComparator;
-import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
-import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
-import com.liferay.petra.reflect.GenericUtil;
+import com.liferay.info.item.provider.InfoItemServiceTracker;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Jürgen Kappler
@@ -39,35 +32,15 @@ public class InfoItemFieldReaderTrackerImpl
 	implements InfoItemFieldReaderTracker {
 
 	@Override
-	public List<InfoItemFieldReader> getInfoItemFieldReaders(
+	public List<InfoItemFieldReader<?>> getInfoItemFieldReaders(
 		String itemClassName) {
 
-		List<InfoItemFieldReader> infoItemRenderers =
-			_itemClassNameInfoItemFieldReaderServiceTrackerMap.getService(
-				itemClassName);
-
-		if (infoItemRenderers != null) {
-			return new ArrayList<>(infoItemRenderers);
-		}
-
-		return Collections.emptyList();
+		return (List<InfoItemFieldReader<?>>)
+			(List<?>)_infoItemServiceTracker.getAllInfoItemServices(
+				InfoItemFieldReader.class, itemClassName);
 	}
 
-	@Activate
-	protected void activate(BundleContext bundleContext) {
-		_itemClassNameInfoItemFieldReaderServiceTrackerMap =
-			ServiceTrackerMapFactory.openMultiValueMap(
-				bundleContext, InfoItemFieldReader.class, null,
-				ServiceReferenceMapperFactory.create(
-					bundleContext,
-					(infoItemFieldReader, emitter) -> emitter.emit(
-						GenericUtil.getGenericClassName(infoItemFieldReader))),
-				Collections.reverseOrder(
-					new PropertyServiceReferenceComparator<>(
-						"info.item.field.order")));
-	}
-
-	private ServiceTrackerMap<String, List<InfoItemFieldReader>>
-		_itemClassNameInfoItemFieldReaderServiceTrackerMap;
+	@Reference
+	private InfoItemServiceTracker _infoItemServiceTracker;
 
 }
