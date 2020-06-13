@@ -15,20 +15,15 @@
 package com.liferay.info.item.field.reader;
 
 import com.liferay.info.field.InfoField;
+import com.liferay.info.type.Keyed;
 
 /**
  * @author Jürgen Kappler
  * @author Jorge Ferrer
  */
-public interface InfoItemFieldReader<T> {
+public interface InfoItemFieldReader<T> extends Keyed {
 
 	public InfoField getField();
-
-	public default String getKey() {
-		Class<?> clazz = getClass();
-
-		return clazz.getName();
-	}
 
 	public Object getValue(T model);
 
