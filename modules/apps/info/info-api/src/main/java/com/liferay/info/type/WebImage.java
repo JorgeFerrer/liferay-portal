@@ -14,10 +14,12 @@
 
 package com.liferay.info.type;
 
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.LocaleUtil;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -29,8 +31,10 @@ public class WebImage {
 		_url = url;
 	}
 
-	public Optional<String> getAltOptional() {
-		return Optional.of(_alt);
+	public Optional<InfoLocalizedValue<String>>
+		getAltInfoLocalizedValueOptional() {
+
+		return Optional.of(_altInfoLocalizedValue);
 	}
 
 	public String getUrl() {
@@ -38,22 +42,35 @@ public class WebImage {
 	}
 
 	public WebImage setAlt(String alt) {
-		_alt = alt;
+		_altInfoLocalizedValue = InfoLocalizedValue.singleValue(alt);
+
+		return this;
+	}
+
+	public WebImage setAltInfoLocalizedValue(
+		InfoLocalizedValue<String> altInfoLocalizedValue) {
+
+		_altInfoLocalizedValue = altInfoLocalizedValue;
 
 		return this;
 	}
 
 	public JSONObject toJSONObject() {
+		return toJSONObject(LocaleUtil.getDefault());
+	}
+
+	public JSONObject toJSONObject(Locale locale) {
 		JSONObject jsonObject = JSONUtil.put("url", _url);
 
-		if (Validator.isNotNull(_alt)) {
-			jsonObject = jsonObject.put("alt", _alt);
+		if (_altInfoLocalizedValue != null) {
+			jsonObject = jsonObject.put(
+				"alt", _altInfoLocalizedValue.getValue(locale));
 		}
 
 		return jsonObject;
 	}
 
-	private String _alt;
+	private InfoLocalizedValue<String> _altInfoLocalizedValue;
 	private final String _url;
 
 }
