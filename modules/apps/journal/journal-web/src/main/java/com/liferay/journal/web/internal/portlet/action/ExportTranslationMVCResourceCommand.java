@@ -14,8 +14,8 @@
 
 package com.liferay.journal.web.internal.portlet.action;
 
+import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFormProvider;
-import com.liferay.info.item.provider.InfoItemServiceTracker;
 import com.liferay.journal.constants.JournalPortletKeys;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.service.JournalArticleLocalService;
