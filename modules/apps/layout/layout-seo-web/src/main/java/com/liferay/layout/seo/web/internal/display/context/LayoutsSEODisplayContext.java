@@ -30,7 +30,7 @@ import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.provider.InfoItemFormProvider;
-import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorCriterion;
 import com.liferay.item.selector.criteria.FileEntryItemSelectorReturnType;
