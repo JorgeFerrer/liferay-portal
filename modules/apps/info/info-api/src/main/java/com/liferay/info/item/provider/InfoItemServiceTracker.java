@@ -34,7 +34,7 @@ public interface InfoItemServiceTracker {
 
 	public <P> P getInfoItemProvider(Class<P> serviceClass, String serviceKey);
 
-	public <P> P getInfoItemService(
+	public <P> P getFirstInfoItemService(
 		Class<P> serviceClass, String itemClassName);
 
 }
