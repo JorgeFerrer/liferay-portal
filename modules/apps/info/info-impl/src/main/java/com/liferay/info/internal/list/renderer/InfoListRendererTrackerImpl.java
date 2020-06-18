@@ -31,7 +31,7 @@ public class InfoListRendererTrackerImpl implements InfoListRendererTracker {
 
 	@Override
 	public InfoListRenderer<?> getInfoListRenderer(String key) {
-		return _infoItemServiceTracker.getInfoItemProvider(
+		return _infoItemServiceTracker.getInfoItemService(
 			InfoListRenderer.class, key);
 	}
 

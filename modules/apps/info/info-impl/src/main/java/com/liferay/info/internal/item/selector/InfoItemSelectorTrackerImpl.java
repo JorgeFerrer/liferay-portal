@@ -34,7 +34,7 @@ public class InfoItemSelectorTrackerImpl implements InfoItemSelectorTracker {
 
 	@Override
 	public InfoItemSelector<?> getInfoItemSelector(String key) {
-		return _infoItemServiceTracker.getInfoItemProvider(
+		return _infoItemServiceTracker.getInfoItemService(
 			InfoItemSelector.class, key);
 	}
 
