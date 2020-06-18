@@ -31,7 +31,7 @@ public class InfoListProviderTrackerImpl implements InfoListProviderTracker {
 
 	@Override
 	public InfoListProvider<?> getInfoListProvider(String key) {
-		return _infoItemServiceTracker.getInfoItemProvider(
+		return _infoItemServiceTracker.getInfoItemService(
 			InfoListProvider.class, key);
 	}
 
