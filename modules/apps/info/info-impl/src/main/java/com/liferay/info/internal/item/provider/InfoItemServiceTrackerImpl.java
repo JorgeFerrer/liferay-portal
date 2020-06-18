@@ -88,10 +88,10 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 
 	@Override
 	public <P> List<String> getInfoItemClassNames(Class<P> serviceClass) {
-		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
+		ServiceTrackerMap<String, ?> infoItemServiceTrackerMap =
 			_itemClassNameInfoItemServiceTrackerMap.get(serviceClass.getName());
 
-		return new ArrayList<>(infoItemProviderServiceTrackerMap.keySet());
+		return new ArrayList<>(infoItemServiceTrackerMap.keySet());
 	}
 
 	@Override
@@ -100,10 +100,10 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 			return null;
 		}
 
-		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
+		ServiceTrackerMap<String, ?> infoItemServiceTrackerMap =
 			_keyedInfoItemServiceTrackerMap.get(serviceClass.getName());
 
-		return (P)infoItemProviderServiceTrackerMap.getService(serviceKey);
+		return (P)infoItemServiceTrackerMap.getService(serviceKey);
 	}
 
 	@Activate
