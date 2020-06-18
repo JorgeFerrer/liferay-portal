@@ -19,7 +19,7 @@ import com.liferay.info.field.InfoFieldValue;
 import com.liferay.info.field.InfoFormValues;
 import com.liferay.info.field.type.TextInfoFieldType;
 import com.liferay.info.item.InfoItemClassPKReference;
-import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.FileUtil;
