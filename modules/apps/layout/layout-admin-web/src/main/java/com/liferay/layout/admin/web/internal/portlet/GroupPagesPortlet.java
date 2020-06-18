@@ -17,7 +17,7 @@ package com.liferay.layout.admin.web.internal.portlet;
 import com.liferay.application.list.GroupProvider;
 import com.liferay.asset.kernel.exception.AssetCategoryException;
 import com.liferay.dynamic.data.mapping.validator.DDMFormValuesValidationException;
-import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.list.provider.InfoListProviderTracker;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
 import com.liferay.layout.admin.web.internal.configuration.LayoutConverterConfiguration;

@@ -14,7 +14,7 @@
 
 package com.liferay.info.internal.item.selector;
 
-import com.liferay.info.item.provider.InfoItemServiceTracker;
+import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.selector.InfoItemSelector;
 import com.liferay.info.item.selector.InfoItemSelectorTracker;
 import com.liferay.info.list.provider.InfoListProvider;
