@@ -30,11 +30,11 @@ public interface InfoItemServiceTracker {
 	public <P> List<P> getAllInfoItemServices(
 		Class<P> serviceClass, String itemClassName);
 
+	public <P> P getFirstInfoItemService(
+		Class<P> serviceClass, String itemClassName);
+
 	public <P> List<String> getInfoItemClassNames(Class<P> serviceClass);
 
 	public <P> P getInfoItemProvider(Class<P> serviceClass, String serviceKey);
-
-	public <P> P getFirstInfoItemService(
-		Class<P> serviceClass, String itemClassName);
 
 }

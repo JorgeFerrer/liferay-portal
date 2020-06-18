@@ -73,6 +73,20 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	}
 
 	@Override
+	public <P> P getFirstInfoItemService(
+		Class<P> serviceClass, String itemClassName) {
+
+		List<?> infoItemServices = getAllInfoItemServices(
+			serviceClass, itemClassName);
+
+		if (ListUtil.isEmpty(infoItemServices)) {
+			return null;
+		}
+
+		return (P)infoItemServices.get(0);
+	}
+
+	@Override
 	public <P> List<String> getInfoItemClassNames(Class<P> serviceClass) {
 		ServiceTrackerMap<String, ?> infoItemProviderServiceTrackerMap =
 			_itemClassNameInfoItemServiceTrackerMap.get(serviceClass.getName());
@@ -90,20 +104,6 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 			_keyedInfoItemServiceTrackerMap.get(serviceClass.getName());
 
 		return (P)infoItemProviderServiceTrackerMap.getService(serviceKey);
-	}
-
-	@Override
-	public <P> P getFirstInfoItemService(
-		Class<P> serviceClass, String itemClassName) {
-
-		List<?> infoItemServices = getAllInfoItemServices(
-			serviceClass, itemClassName);
-
-		if (ListUtil.isEmpty(infoItemServices)) {
-			return null;
-		}
-
-		return (P)infoItemServices.get(0);
 	}
 
 	@Activate
