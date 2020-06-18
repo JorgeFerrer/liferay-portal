@@ -72,7 +72,7 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		}
 
 		InfoItemFormProvider<?> infoItemFormProvider =
-			_infoItemServiceTracker.getInfoItemService(
+			_infoItemServiceTracker.getFirstInfoItemService(
 				InfoItemFormProvider.class, itemType);
 
 		if (infoItemFormProvider == null) {

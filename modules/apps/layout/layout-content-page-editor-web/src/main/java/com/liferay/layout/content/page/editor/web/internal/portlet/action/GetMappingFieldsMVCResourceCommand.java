@@ -63,7 +63,7 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 		String className = _portal.getClassName(classNameId);
 
 		InfoItemFormProvider<?> infoItemFormProvider =
-			_infoItemServiceTracker.getInfoItemService(
+			_infoItemServiceTracker.getFirstInfoItemService(
 				InfoItemFormProvider.class, className);
 
 		if (infoItemFormProvider == null) {
