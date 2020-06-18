@@ -170,7 +170,7 @@ public class GetCollectionFieldMVCResourceCommand
 
 				InfoItemFormProvider<Object> infoItemFormProvider =
 					(InfoItemFormProvider<Object>)
-						_infoItemServiceTracker.getInfoItemService(
+						_infoItemServiceTracker.getFirstInfoItemService(
 							InfoItemFormProvider.class, itemType);
 
 				if (infoItemFormProvider == null) {

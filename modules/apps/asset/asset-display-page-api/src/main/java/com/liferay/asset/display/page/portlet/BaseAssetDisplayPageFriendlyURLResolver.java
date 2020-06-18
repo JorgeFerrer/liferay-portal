@@ -302,7 +302,7 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 
 		if (infoDisplayObjectProvider != null) {
 			InfoItemFormProvider<Object> infoItemFormProvider =
-				infoItemServiceTracker.getInfoItemService(
+				infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class,
 					portal.getClassName(
 						infoDisplayObjectProvider.getClassNameId()));

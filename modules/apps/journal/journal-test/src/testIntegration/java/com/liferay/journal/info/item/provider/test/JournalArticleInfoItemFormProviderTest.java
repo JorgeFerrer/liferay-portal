@@ -78,7 +78,7 @@ public class JournalArticleInfoItemFormProviderTest {
 	public void testGetInfoForm() throws Exception {
 		InfoItemFormProvider<JournalArticle> infoItemFormProvider =
 			(InfoItemFormProvider<JournalArticle>)
-				_infoItemServiceTracker.getInfoItemService(
+				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class, JournalArticle.class.getName());
 
 		JournalArticle journalArticle = _getJournalArticle();
@@ -205,7 +205,7 @@ public class JournalArticleInfoItemFormProviderTest {
 	public void testGetInfoFormValues() throws Exception {
 		InfoItemFormProvider<JournalArticle> infoItemFormProvider =
 			(InfoItemFormProvider<JournalArticle>)
-				_infoItemServiceTracker.getInfoItemService(
+				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class, JournalArticle.class.getName());
 
 		JournalArticle journalArticle = _getJournalArticle();
