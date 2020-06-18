@@ -93,7 +93,7 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	}
 
 	@Override
-	public <P> P getInfoItemService(
+	public <P> P getFirstInfoItemService(
 		Class<P> serviceClass, String itemClassName) {
 
 		List<?> infoItemServices = getAllInfoItemServices(
