@@ -35,6 +35,6 @@ public interface InfoItemServiceTracker {
 
 	public <P> List<String> getInfoItemClassNames(Class<P> serviceClass);
 
-	public <P> P getInfoItemProvider(Class<P> serviceClass, String serviceKey);
+	public <P> P getInfoItemService(Class<P> serviceClass, String serviceKey);
 
 }
