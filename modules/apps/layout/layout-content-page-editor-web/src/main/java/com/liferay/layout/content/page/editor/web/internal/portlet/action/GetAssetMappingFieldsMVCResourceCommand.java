@@ -16,9 +16,9 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
 import com.liferay.info.field.InfoField;
 import com.liferay.info.form.InfoForm;
+import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
-import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
