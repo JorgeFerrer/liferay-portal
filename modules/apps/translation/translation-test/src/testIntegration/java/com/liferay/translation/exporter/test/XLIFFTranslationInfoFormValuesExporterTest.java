@@ -21,8 +21,8 @@ import com.liferay.dynamic.data.mapping.io.DDMFormDeserializerDeserializeRespons
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.test.util.DDMStructureTestUtil;
-import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.InfoItemServiceTracker;
+import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.test.util.JournalTestUtil;
 import com.liferay.petra.io.StreamUtil;
