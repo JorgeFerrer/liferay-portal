@@ -72,7 +72,7 @@ public class ExportTranslationMVCResourceCommand implements MVCResourceCommand {
 
 			InfoItemFormProvider<JournalArticle> infoItemFormProvider =
 				(InfoItemFormProvider<JournalArticle>)
-					_infoItemServiceTracker.getInfoItemService(
+					_infoItemServiceTracker.getFirstInfoItemService(
 						InfoItemFormProvider.class,
 						JournalArticle.class.getName());
 

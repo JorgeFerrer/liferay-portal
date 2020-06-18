@@ -66,7 +66,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 
 		InfoItemFormProvider<Object> infoItemFormProvider =
 			(InfoItemFormProvider<Object>)
-				_infoItemServiceTracker.getInfoItemService(
+				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class, itemClassName);
 
 		if (infoItemFormProvider == null) {
@@ -84,7 +84,7 @@ public class GetAssetMappingFieldsMVCResourceCommand
 		}
 
 		InfoItemObjectProvider<Object> infoItemObjectProvider =
-			_infoItemServiceTracker.getInfoItemService(
+			_infoItemServiceTracker.getFirstInfoItemService(
 				InfoItemObjectProvider.class, itemClassName);
 
 		if (infoItemObjectProvider == null) {

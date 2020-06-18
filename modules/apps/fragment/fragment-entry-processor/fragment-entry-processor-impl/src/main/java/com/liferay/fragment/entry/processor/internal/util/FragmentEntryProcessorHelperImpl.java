@@ -118,7 +118,7 @@ public class FragmentEntryProcessorHelperImpl
 
 		InfoItemFormProvider<Object> infoItemFormProvider =
 			(InfoItemFormProvider<Object>)
-				_infoItemServiceTracker.getInfoItemService(
+				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class, className);
 
 		if (infoItemFormProvider == null) {
@@ -209,7 +209,7 @@ public class FragmentEntryProcessorHelperImpl
 
 		InfoItemFormProvider<Object> infoItemFormProvider =
 			(InfoItemFormProvider<Object>)
-				_infoItemServiceTracker.getInfoItemService(
+				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class, className);
 
 		if (infoItemFormProvider == null) {

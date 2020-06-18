@@ -404,7 +404,7 @@ public class LayoutsSEODisplayContext {
 				LocaleUtil.fromLanguageId(_selLayout.getDefaultLanguageId()))
 		).put(
 			"fields",
-			_infoItemServiceTracker.getInfoItemService(
+			_infoItemServiceTracker.getFirstInfoItemService(
 				InfoItemFormProvider.class,
 				layoutPageTemplateEntry.getClassName()
 			).getInfoForm(
