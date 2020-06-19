@@ -14,6 +14,7 @@
 
 package com.liferay.info.internal.item;
 
+import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
 import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
@@ -25,7 +26,6 @@ import com.liferay.info.type.Keyed;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
-import com.liferay.petra.reflect.GenericUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -119,10 +119,7 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 				itemClassNameInfoItemServiceTrackerMap =
 					ServiceTrackerMapFactory.openMultiValueMap(
 						bundleContext, serviceClass, null,
-						ServiceReferenceMapperFactory.create(
-							bundleContext,
-							(service, emitter) -> emitter.emit(
-								GenericUtil.getGenericClassName(service))));
+						new ItemClassNameServiceReferenceMapper(bundleContext));
 
 			_itemClassNameInfoItemServiceTrackerMap.put(
 				serviceClass.getName(), itemClassNameInfoItemServiceTrackerMap);
