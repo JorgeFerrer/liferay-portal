@@ -329,7 +329,7 @@ public class OpenGraphTopHeadDynamicInclude extends BaseDynamicInclude {
 			(infoDisplayObjectProvider != null)) {
 
 			InfoItemFormProvider<Object> infoItemFormProvider =
-				_infoItemServiceTracker.getInfoItemService(
+				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class,
 					_portal.getClassName(
 						infoDisplayObjectProvider.getClassNameId()));
