@@ -17,9 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%
-AssetListContentDisplayContext assetListContentDisplayContext = (AssetListContentDisplayContext)request.getAttribute(AssetListWebKeys.ASSET_LIST_CONTENT_DISPLAY_CONTEXT);
-
 AssetListContentActionDropdownItems assetListContentActionDropdownItems = (AssetListContentActionDropdownItems)request.getAttribute(AssetListWebKeys.ASSET_LIST_CONTENT_ACTION_DROPDOWN_ITEMS);
+AssetListContentDisplayContext assetListContentDisplayContext = (AssetListContentDisplayContext)request.getAttribute(AssetListWebKeys.ASSET_LIST_CONTENT_DISPLAY_CONTEXT);
 %>
 
 <clay:container-fluid
