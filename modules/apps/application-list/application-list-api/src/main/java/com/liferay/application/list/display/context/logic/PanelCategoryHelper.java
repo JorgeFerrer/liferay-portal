@@ -144,8 +144,8 @@ public class PanelCategoryHelper {
 	}
 
 	public boolean hasPanelApp(String portletId) {
-		if (containsPortlet(portletId, PanelCategoryKeys.ROOT) ||
-			containsPortlet(portletId, PanelCategoryKeys.GLOBAL_MENU)) {
+		if (containsPortlet(portletId, PanelCategoryKeys.GLOBAL_MENU) ||
+			containsPortlet(portletId, PanelCategoryKeys.ROOT)) {
 
 			return true;
 		}
