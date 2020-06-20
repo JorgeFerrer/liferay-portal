@@ -17,7 +17,7 @@ package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 import com.liferay.asset.info.display.contributor.util.ContentAccessor;
 import com.liferay.info.field.InfoFieldValue;
 import com.liferay.info.item.InfoItemServiceTracker;
-import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.petra.string.StringPool;
@@ -64,12 +64,11 @@ public class GetAssetFieldValueMVCResourceCommand
 
 		String className = _portal.getClassName(classNameId);
 
-		InfoItemFormProvider<Object> infoItemFormProvider =
-			(InfoItemFormProvider<Object>)
-				_infoItemServiceTracker.getFirstInfoItemService(
-					InfoItemFormProvider.class, className);
+		InfoItemFieldValuesProvider<Object> infoItemFieldValuesProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemFieldValuesProvider.class, className);
 
-		if (infoItemFormProvider == null) {
+		if (infoItemFieldValuesProvider == null) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Unable to get info item form provider for class " +
@@ -120,7 +119,7 @@ public class GetAssetFieldValueMVCResourceCommand
 			resourceRequest, "languageId", themeDisplay.getLanguageId());
 
 		InfoFieldValue<Object> infoFieldValue =
-			infoItemFormProvider.getInfoFieldValue(object, fieldId);
+			infoItemFieldValuesProvider.getInfoItemFieldValue(object, fieldId);
 
 		Object value = StringPool.BLANK;
 
