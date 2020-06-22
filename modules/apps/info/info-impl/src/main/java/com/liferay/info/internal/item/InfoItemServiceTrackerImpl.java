@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,8 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 		ServiceTrackerMap<String, ?> serviceTrackerMap =
 			_keyedInfoItemServiceTrackerMap.get(serviceClass.getName());
 
-		return (List<P>)serviceTrackerMap.values();
+		return new ArrayList<>(
+			(Collection<? extends P>)serviceTrackerMap.values());
 	}
 
 	@Override
