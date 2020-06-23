@@ -21,7 +21,7 @@ import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemF
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
-import com.liferay.info.exception.NoSuchClassTypeException;
+import com.liferay.info.exception.NoSuchFormStructureException;
 import com.liferay.info.field.InfoFieldSetEntry;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
@@ -77,17 +77,17 @@ public class JournalArticleInfoItemFormProvider
 		try {
 			return getInfoForm(ddmStructureId);
 		}
-		catch (NoSuchClassTypeException noSuchClassTypeException) {
+		catch (NoSuchFormStructureException noSuchFormStructureException) {
 			throw new RuntimeException(
 				"Unable to get dynamic data mapping structure " +
 					ddmStructureId,
-				noSuchClassTypeException);
+				noSuchFormStructureException);
 		}
 	}
 
 	@Override
 	public InfoForm getInfoForm(long ddmStructureId)
-		throws NoSuchClassTypeException {
+		throws NoSuchFormStructureException {
 
 		InfoForm infoForm = getInfoForm();
 
@@ -105,7 +105,7 @@ public class JournalArticleInfoItemFormProvider
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
-			throw new NoSuchClassTypeException(
+			throw new NoSuchFormStructureException(
 				ddmStructureId, noSuchStructureException);
 		}
 

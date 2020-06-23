@@ -19,11 +19,14 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Jorge Ferrer
  */
-public class NoSuchClassTypeException extends PortalException {
+public class NoSuchFormStructureException extends PortalException {
 
-	public NoSuchClassTypeException(long classTypeId, Throwable cause) {
+	public NoSuchFormStructureException(
+		long noSuchFormStructure, Throwable cause) {
+
 		super(
-			"Unable to get class type found with class type ID " + classTypeId,
+			"Unable to get class type found with form structure ID " +
+				noSuchFormStructure,
 			cause);
 	}
 
