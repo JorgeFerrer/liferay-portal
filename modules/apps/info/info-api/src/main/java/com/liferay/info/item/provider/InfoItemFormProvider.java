@@ -24,7 +24,7 @@ public interface InfoItemFormProvider<T> {
 
 	public InfoForm getInfoForm();
 
-	public default InfoForm getInfoForm(long itemClassTypeId)
+	public default InfoForm getInfoForm(long formStructureId)
 		throws NoSuchClassTypeException {
 
 		return getInfoForm();
