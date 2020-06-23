@@ -15,7 +15,6 @@
 package com.liferay.info.item.provider;
 
 import com.liferay.info.form.InfoForm;
-import com.liferay.info.item.NoSuchClassTypeException;
 
 /**
  * @author Jorge Ferrer
@@ -24,7 +23,7 @@ public interface InfoItemFormProvider<T> {
 
 	public InfoForm getInfoForm();
 
-	public default InfoForm getInfoForm(long itemClassTypeId)
+	public default InfoForm getInfoForm(long formStructureId)
 		throws NoSuchClassTypeException {
 
 		return getInfoForm();

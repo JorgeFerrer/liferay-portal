@@ -70,18 +70,18 @@ public class InfoDisplayContributorWrapper
 	}
 
 	@Override
-	public InfoForm getInfoForm(long itemClassTypeId) {
+	public InfoForm getInfoForm(long formStructureId) {
 		Locale locale = _getLocale();
 
 		try {
 			return _convertToInfoForm(
 				_infoDisplayContributor.getInfoDisplayFields(
-					itemClassTypeId, locale));
+					formStructureId, locale));
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(
 				"Unable to get info form with item class type ID " +
-					itemClassTypeId,
+					formStructureId,
 				portalException);
 		}
 	}
