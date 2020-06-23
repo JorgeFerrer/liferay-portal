@@ -14,6 +14,7 @@
 
 package com.liferay.info.item.provider;
 
+import com.liferay.info.exception.NoSuchClassTypeException;
 import com.liferay.info.form.InfoForm;
 
 /**

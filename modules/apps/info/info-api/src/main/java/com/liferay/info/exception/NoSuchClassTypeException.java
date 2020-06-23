@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.info.item;
+package com.liferay.info.exception;
 
 /**
  * @author Jorge Ferrer

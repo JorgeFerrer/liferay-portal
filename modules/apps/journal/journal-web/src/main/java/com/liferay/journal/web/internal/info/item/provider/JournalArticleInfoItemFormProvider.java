@@ -21,9 +21,9 @@ import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemF
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
+import com.liferay.info.exception.NoSuchClassTypeException;
 import com.liferay.info.field.InfoFieldSetEntry;
 import com.liferay.info.form.InfoForm;
-import com.liferay.info.item.NoSuchClassTypeException;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.journal.model.JournalArticle;
