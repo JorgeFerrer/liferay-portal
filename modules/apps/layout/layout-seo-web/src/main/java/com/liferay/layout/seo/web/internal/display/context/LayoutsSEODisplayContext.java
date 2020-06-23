@@ -27,7 +27,7 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.storage.StorageEngine;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.exception.NoSuchClassTypeException;
+import com.liferay.info.exception.NoSuchFormStructureException;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFormProvider;
@@ -509,7 +509,7 @@ public class LayoutsSEODisplayContext {
 
 	private InfoForm _getInfoForm(
 			LayoutPageTemplateEntry layoutPageTemplateEntry)
-		throws NoSuchClassTypeException {
+		throws NoSuchFormStructureException {
 
 		InfoItemFormProvider<?> infoItemFormProvider =
 			_infoItemServiceTracker.getFirstInfoItemService(
