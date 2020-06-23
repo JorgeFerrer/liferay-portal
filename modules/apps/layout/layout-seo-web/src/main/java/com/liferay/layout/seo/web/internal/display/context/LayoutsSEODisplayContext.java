@@ -29,7 +29,7 @@ import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.InfoItemServiceTracker;
-import com.liferay.info.exception.NoSuchClassTypeException;
+import com.liferay.info.exception.NoSuchFormStructureException;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorCriterion;
@@ -330,7 +330,7 @@ public class LayoutsSEODisplayContext {
 	}
 
 	public HashMap<String, Object> getOpenGraphMappingData()
-		throws NoSuchClassTypeException, PortalException {
+		throws NoSuchFormStructureException, PortalException {
 
 		return HashMapBuilder.<String, Object>putAll(
 			_getBaseSEOMappingData(
@@ -418,7 +418,7 @@ public class LayoutsSEODisplayContext {
 	}
 
 	public HashMap<String, Object> getSEOMappingData()
-		throws NoSuchClassTypeException, PortalException {
+		throws NoSuchFormStructureException, PortalException {
 
 		return HashMapBuilder.<String, Object>putAll(
 			_getBaseSEOMappingData(
@@ -512,7 +512,7 @@ public class LayoutsSEODisplayContext {
 
 	private InfoForm _getInfoForm(
 			LayoutPageTemplateEntry layoutPageTemplateEntry)
-		throws NoSuchClassTypeException {
+		throws NoSuchFormStructureException {
 
 		InfoItemFormProvider<?> infoItemFormProvider =
 			_infoItemServiceTracker.getFirstInfoItemService(
