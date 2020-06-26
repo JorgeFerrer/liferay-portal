@@ -14,22 +14,18 @@
 
 package com.liferay.journal.web.internal.info.item.provider;
 
+import com.liferay.dynamic.data.mapping.info.localized.DDMStructureNameInfoLocalizedValue;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
 import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
 import com.liferay.info.item.InfoItemFormVariation;
 import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
-import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.journal.model.JournalArticle;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import org.osgi.service.component.annotations.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 
 /**
  * @author Jorge Ferrer
@@ -57,48 +53,6 @@ public class JournalArticleInfoItemFormVariationsProvider
 		}
 
 		return infoItemFormVariations;
-	}
-
-	private class DDMStructureNameInfoLocalizedValue
-		implements InfoLocalizedValue<String> {
-
-		public DDMStructureNameInfoLocalizedValue(DDMStructure ddmStructure) {
-			_ddmStructure = ddmStructure;
-		}
-
-		@Override
-		public Set<Locale> getAvailableLocales() {
-			String[] availableLanguageIds =
-				_ddmStructure.getAvailableLanguageIds();
-
-			Set<Locale> availableLocales = new HashSet<>(
-				availableLanguageIds.length);
-
-			for (String availableLanguageId : availableLanguageIds) {
-				availableLocales.add(
-					LanguageUtil.getLocale(availableLanguageId));
-			}
-
-			return availableLocales;
-		}
-
-		@Override
-		public Locale getDefaultLocale() {
-			return LanguageUtil.getLocale(_ddmStructure.getDefaultLanguageId());
-		}
-
-		@Override
-		public String getValue() {
-			return getValue(getDefaultLocale());
-		}
-
-		@Override
-		public String getValue(Locale locale) {
-			return _ddmStructure.getName(locale);
-		}
-
-		private final DDMStructure _ddmStructure;
-
 	}
 
 }
