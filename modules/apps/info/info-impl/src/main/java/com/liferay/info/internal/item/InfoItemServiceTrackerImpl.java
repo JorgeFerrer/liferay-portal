@@ -18,6 +18,7 @@ import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
 import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.item.renderer.InfoItemRenderer;
 import com.liferay.info.item.selector.InfoItemSelector;
@@ -113,9 +114,9 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	protected void activate(BundleContext bundleContext) {
 		Class<?>[] serviceClasses = new Class<?>[] {
 			InfoItemFieldValuesProvider.class, InfoItemFormProvider.class,
-			InfoItemObjectProvider.class, InfoItemRenderer.class,
-			InfoItemSelector.class, InfoListRenderer.class,
-			InfoListProvider.class
+			InfoItemFormVariationsProvider.class, InfoItemObjectProvider.class,
+			InfoItemRenderer.class, InfoItemSelector.class,
+			InfoListRenderer.class, InfoListProvider.class
 		};
 
 		for (Class<?> serviceClass : serviceClasses) {
