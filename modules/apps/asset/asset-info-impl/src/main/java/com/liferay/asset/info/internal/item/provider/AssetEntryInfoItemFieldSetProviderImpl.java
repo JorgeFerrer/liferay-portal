@@ -150,6 +150,23 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 
 		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
+		Set<AssetVocabulary> assetVocabularies = _getAssetVocabularies(
+			assetEntry);
+
+		for (AssetVocabulary assetVocabulary : assetVocabularies) {
+			infoFieldValues.add(
+				new InfoFieldValue<>(
+					new InfoField(
+						TextInfoFieldType.INSTANCE,
+						InfoLocalizedValue.builder(
+						).addValues(
+							assetVocabulary.getTitleMap()
+						).build(),
+						assetVocabulary.getName()),
+					() -> _getCategoryNames(
+						assetEntry, assetVocabulary.getVocabularyId())));
+		}
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_categoriesInfoField, () -> _getCategoryNames(assetEntry, 0)));
