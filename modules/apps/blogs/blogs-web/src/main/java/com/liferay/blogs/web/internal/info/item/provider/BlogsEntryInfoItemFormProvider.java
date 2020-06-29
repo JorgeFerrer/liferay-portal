@@ -17,6 +17,7 @@ package com.liferay.blogs.web.internal.info.item.provider;
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.blogs.web.internal.info.item.BlogsEntryInfoItemFields;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
@@ -64,6 +65,22 @@ public class BlogsEntryInfoItemFormProvider
 		return infoForm;
 	}
 
+	@Override
+	public InfoForm getInfoForm(BlogsEntry blogsEntry) {
+		InfoForm infoForm = getInfoForm();
+
+		AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
+			BlogsEntry.class.getName(), blogsEntry.getEntryId());
+
+		if (assetEntry != null) {
+			infoForm.add(
+				_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
+					assetEntry));
+		}
+
+		return infoForm;
+	}
+
 	private Collection<InfoFieldSetEntry> _getBlogsEntryInfoFieldSetEntries() {
 		return Arrays.asList(
 			BlogsEntryInfoItemFields.titleInfoField,
@@ -86,6 +103,9 @@ public class BlogsEntryInfoItemFormProvider
 	@Reference
 	private AssetEntryInfoItemFieldSetProvider
 		_assetEntryInfoItemFieldSetProvider;
+
+	@Reference
+	private AssetEntryLocalService _assetEntryLocalService;
 
 	@Reference
 	private ExpandoInfoItemFieldSetProvider _expandoInfoItemFieldSetProvider;
