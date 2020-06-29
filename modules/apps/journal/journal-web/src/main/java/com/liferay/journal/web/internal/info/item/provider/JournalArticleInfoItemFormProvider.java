@@ -16,6 +16,7 @@ package com.liferay.journal.web.internal.info.item.provider;
 
 import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.dynamic.data.mapping.exception.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldSetProvider;
@@ -72,10 +73,21 @@ public class JournalArticleInfoItemFormProvider
 	public InfoForm getInfoForm(JournalArticle article) {
 		DDMStructure ddmStructure = article.getDDMStructure();
 
+		AssetEntry assetEntry = _assetEntryLocalService.fetchEntry(
+			JournalArticle.class.getName(), article.getResourcePrimKey());
+
 		long ddmStructureId = ddmStructure.getStructureId();
 
 		try {
-			return getInfoForm(ddmStructureId);
+			InfoForm infoForm = getInfoForm(ddmStructureId);
+
+			if (assetEntry != null) {
+				infoForm.add(
+					_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
+						assetEntry));
+			}
+
+			return infoForm;
 		}
 		catch (NoSuchClassTypeException noSuchClassTypeException) {
 			throw new RuntimeException(
@@ -128,6 +140,9 @@ public class JournalArticleInfoItemFormProvider
 	@Reference
 	private AssetEntryInfoItemFieldSetProvider
 		_assetEntryInfoItemFieldSetProvider;
+
+	@Reference
+	private AssetEntryLocalService _assetEntryLocalService;
 
 	@Reference
 	private DDMStructureInfoItemFieldSetProvider
