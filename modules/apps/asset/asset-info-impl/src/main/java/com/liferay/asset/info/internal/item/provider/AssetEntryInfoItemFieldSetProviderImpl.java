@@ -103,6 +103,23 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 
 		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
 
+		Set<AssetVocabulary> assetVocabularies = _getAssetVocabularies(
+			assetEntry);
+
+		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
+
+		for (AssetVocabulary assetVocabulary : assetVocabularies) {
+			infoFieldValues.add(
+				new InfoFieldValue<>(
+					new InfoField(
+						TextInfoFieldType.INSTANCE,
+						InfoLocalizedValue.localize(
+							getClass(), assetVocabulary.getTitle(locale)),
+						assetVocabulary.getName()),
+					() -> _getCategoryNames(
+						assetEntry, assetVocabulary.getVocabularyId())));
+		}
+
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_categoriesInfoField, () -> _getCategoryNames(assetEntry, 0)));
