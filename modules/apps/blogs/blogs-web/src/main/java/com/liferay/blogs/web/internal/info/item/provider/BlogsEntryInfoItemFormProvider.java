@@ -17,6 +17,7 @@ package com.liferay.blogs.web.internal.info.item.provider;
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.blogs.model.BlogsEntry;
 import com.liferay.blogs.web.internal.info.item.BlogsEntryInfoItemFields;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
@@ -24,6 +25,7 @@ import com.liferay.info.field.InfoFieldSetEntry;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -55,13 +57,35 @@ public class BlogsEntryInfoItemFormProvider
 
 		infoForm.add(
 			_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
-				AssetEntry.class.getName()));
+				BlogsEntry.class.getName()));
 
 		infoForm.add(
 			_expandoInfoItemFieldSetProvider.getInfoFieldSet(
 				BlogsEntry.class.getName()));
 
 		return infoForm;
+	}
+
+	@Override
+	public InfoForm getInfoForm(BlogsEntry blogsEntry) {
+		InfoForm infoForm = getInfoForm();
+
+		try {
+			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
+				BlogsEntry.class.getName(), blogsEntry.getEntryId());
+
+			infoForm.add(
+				_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
+					assetEntry));
+
+			return infoForm;
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(
+				"Unable to get asset entry for blogs entry " +
+					blogsEntry.getEntryId(),
+				portalException);
+		}
 	}
 
 	private Collection<InfoFieldSetEntry> _getBlogsEntryInfoFieldSetEntries() {
@@ -86,6 +110,9 @@ public class BlogsEntryInfoItemFormProvider
 	@Reference
 	private AssetEntryInfoItemFieldSetProvider
 		_assetEntryInfoItemFieldSetProvider;
+
+	@Reference
+	private AssetEntryLocalService _assetEntryLocalService;
 
 	@Reference
 	private ExpandoInfoItemFieldSetProvider _expandoInfoItemFieldSetProvider;
