@@ -39,7 +39,7 @@ public class InfoFieldSet implements InfoFieldSetEntry {
 	}
 
 	public InfoFieldSet add(InfoFieldSetEntry fieldSetEntry) {
-		_entries.put(fieldSetEntry.getName(), fieldSetEntry);
+		_entries.putIfAbsent(fieldSetEntry.getName(), fieldSetEntry);
 
 		return this;
 	}

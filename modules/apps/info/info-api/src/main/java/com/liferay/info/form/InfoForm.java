@@ -48,14 +48,14 @@ public class InfoForm {
 			infoFieldSet.addAll(fieldSet.getInfoFieldSetEntries());
 		}
 		else {
-			_entries.put(fieldSet.getName(), fieldSet);
+			_entries.putIfAbsent(fieldSet.getName(), fieldSet);
 		}
 
 		return this;
 	}
 
 	public InfoForm add(InfoFieldSetEntry fieldSetEntry) {
-		_entries.put(fieldSetEntry.getName(), fieldSetEntry);
+		_entries.putIfAbsent(fieldSetEntry.getName(), fieldSetEntry);
 
 		return this;
 	}
