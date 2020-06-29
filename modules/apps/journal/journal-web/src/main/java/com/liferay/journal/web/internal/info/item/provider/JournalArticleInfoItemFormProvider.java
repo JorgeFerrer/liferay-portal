@@ -16,6 +16,7 @@ package com.liferay.journal.web.internal.info.item.provider;
 
 import com.liferay.asset.info.item.provider.AssetEntryInfoItemFieldSetProvider;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.dynamic.data.mapping.exception.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFieldSetProvider;
@@ -28,6 +29,7 @@ import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.web.internal.info.item.JournalArticleInfoItemFields;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -59,7 +61,7 @@ public class JournalArticleInfoItemFormProvider
 
 		infoForm.add(
 			_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
-				AssetEntry.class.getName()));
+				JournalArticle.class.getName()));
 
 		infoForm.add(
 			_expandoInfoItemFieldSetProvider.getInfoFieldSet(
@@ -75,13 +77,28 @@ public class JournalArticleInfoItemFormProvider
 		long ddmStructureId = ddmStructure.getStructureId();
 
 		try {
-			return getInfoForm(ddmStructureId);
+			InfoForm infoForm = getInfoForm(ddmStructureId);
+
+			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
+				JournalArticle.class.getName(), article.getResourcePrimKey());
+
+			infoForm.add(
+				_assetEntryInfoItemFieldSetProvider.getInfoFieldSet(
+					assetEntry));
+
+			return infoForm;
 		}
 		catch (NoSuchClassTypeException noSuchClassTypeException) {
 			throw new RuntimeException(
 				"Unable to get dynamic data mapping structure " +
 					ddmStructureId,
 				noSuchClassTypeException);
+		}
+		catch (PortalException portalException) {
+			throw new RuntimeException(
+				"Unable to get asset entry for journal article " +
+					article.getResourcePrimKey(),
+				portalException);
 		}
 	}
 
@@ -128,6 +145,9 @@ public class JournalArticleInfoItemFormProvider
 	@Reference
 	private AssetEntryInfoItemFieldSetProvider
 		_assetEntryInfoItemFieldSetProvider;
+
+	@Reference
+	private AssetEntryLocalService _assetEntryLocalService;
 
 	@Reference
 	private DDMStructureInfoItemFieldSetProvider
