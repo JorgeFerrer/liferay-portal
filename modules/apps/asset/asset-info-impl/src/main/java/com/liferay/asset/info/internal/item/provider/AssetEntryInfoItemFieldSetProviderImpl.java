@@ -172,7 +172,7 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 							assetVocabulary.getTitleMap()
 						).build(),
 						assetVocabulary.getName()),
-					() -> _getCategoryNames(
+					() -> _getAssetCategoryNames(
 						_filterByVocabularyId(
 							assetEntry.getCategories(),
 							assetVocabulary.getVocabularyId()))));
@@ -181,7 +181,7 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 		infoFieldValues.add(
 			new InfoFieldValue<>(
 				_categoriesInfoField,
-				() -> _getCategoryNames(assetEntry.getCategories())));
+				() -> _getAssetCategoryNames(assetEntry.getCategories())));
 
 		infoFieldValues.add(
 			new InfoFieldValue<>(
@@ -231,22 +231,7 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 			assetCategory -> assetCategory.getVocabularyId() == vocabularyId);
 	}
 
-	private Set<AssetVocabulary> _getAssetVocabularies(AssetEntry assetEntry) {
-		List<AssetCategory> assetCategories = assetEntry.getCategories();
-		Set<AssetVocabulary> assetVocabularies = new HashSet<>();
-
-		for (AssetCategory assetCategory : assetCategories) {
-			AssetVocabulary assetVocabulary =
-				_assetVocabularyLocalService.fetchAssetVocabulary(
-					assetCategory.getVocabularyId());
-
-			assetVocabularies.add(assetVocabulary);
-		}
-
-		return assetVocabularies;
-	}
-
-	private String _getCategoryNames(List<AssetCategory> assetCategories) {
+	private String _getAssetCategoryNames(List<AssetCategory> assetCategories) {
 		Locale locale = LocaleThreadLocal.getThemeDisplayLocale();
 
 		Stream<AssetCategory> stream = assetCategories.stream();
@@ -264,6 +249,21 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 		).collect(
 			Collectors.joining(StringPool.COMMA_AND_SPACE)
 		);
+	}
+
+	private Set<AssetVocabulary> _getAssetVocabularies(AssetEntry assetEntry) {
+		List<AssetCategory> assetCategories = assetEntry.getCategories();
+		Set<AssetVocabulary> assetVocabularies = new HashSet<>();
+
+		for (AssetCategory assetCategory : assetCategories) {
+			AssetVocabulary assetVocabulary =
+				_assetVocabularyLocalService.fetchAssetVocabulary(
+					assetCategory.getVocabularyId());
+
+			assetVocabularies.add(assetVocabulary);
+		}
+
+		return assetVocabularies;
 	}
 
 	@Reference
