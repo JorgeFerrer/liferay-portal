@@ -33,8 +33,6 @@ import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.Portal;
@@ -86,11 +84,18 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 
 	@Override
 	public InfoFieldSet getInfoFieldSet(String itemClassName) {
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
+		InfoFieldSet infoFieldSet = new InfoFieldSet(
+			InfoLocalizedValue.localize(getClass(), "asset"), "asset");
 
-		return getInfoFieldSet(
-			itemClassName, 0, serviceContext.getScopeGroupId());
+		infoFieldSet.add(_categoriesInfoField);
+
+		infoFieldSet.add(_tagsInfoField);
+
+		infoFieldSet.add(
+			_infoItemFieldReaderFieldSetProvider.getInfoFieldSet(
+				AssetEntry.class.getName()));
+
+		return infoFieldSet;
 	}
 
 	@Override
