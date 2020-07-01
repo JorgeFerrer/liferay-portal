@@ -108,9 +108,8 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 			"categorization");
 
 		try {
-			List<AssetVocabulary> assetVocabularies =
-				_getAssetVocabularies(
-					itemClassName, itemClassTypeId, scopeGroupId);
+			List<AssetVocabulary> assetVocabularies = _getAssetVocabularies(
+				itemClassName, itemClassTypeId, scopeGroupId);
 
 			for (AssetVocabulary assetVocabulary : assetVocabularies) {
 				infoFieldSet.add(
