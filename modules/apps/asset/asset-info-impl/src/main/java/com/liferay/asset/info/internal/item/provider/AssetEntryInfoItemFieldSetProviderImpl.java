@@ -85,7 +85,8 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 	@Override
 	public InfoFieldSet getInfoFieldSet(String itemClassName) {
 		InfoFieldSet infoFieldSet = new InfoFieldSet(
-			InfoLocalizedValue.localize(getClass(), "asset"), "asset");
+			InfoLocalizedValue.localize(getClass(), "categorization"),
+			"categorization");
 
 		infoFieldSet.add(_categoriesInfoField);
 
@@ -103,27 +104,16 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 		String itemClassName, long itemClassTypeId, long scopeGroupId) {
 
 		InfoFieldSet infoFieldSet = new InfoFieldSet(
-			InfoLocalizedValue.localize(getClass(), "asset"), "asset");
-
-		infoFieldSet.add(_categoriesInfoField);
-
-		infoFieldSet.add(_tagsInfoField);
-
-		infoFieldSet.add(
-			_infoItemFieldReaderFieldSetProvider.getInfoFieldSet(
-				AssetEntry.class.getName()));
+			InfoLocalizedValue.localize(getClass(), "categorization"),
+			"categorization");
 
 		try {
 			List<AssetVocabulary> assetVocabularies =
 				_getAssetVocabularies(
 					itemClassName, itemClassTypeId, scopeGroupId);
 
-			InfoFieldSet categorizationInfoFieldSet = new InfoFieldSet(
-				InfoLocalizedValue.localize(getClass(), "categorization"),
-				"categorization");
-
 			for (AssetVocabulary assetVocabulary : assetVocabularies) {
-				categorizationInfoFieldSet.add(
+				infoFieldSet.add(
 					new InfoField(
 						TextInfoFieldType.INSTANCE,
 						InfoLocalizedValue.builder(
@@ -132,12 +122,18 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 						).build(),
 						assetVocabulary.getName()));
 			}
-
-			infoFieldSet.add(categorizationInfoFieldSet);
 		}
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
+
+		infoFieldSet.add(_categoriesInfoField);
+
+		infoFieldSet.add(_tagsInfoField);
+
+		infoFieldSet.add(
+			_infoItemFieldReaderFieldSetProvider.getInfoFieldSet(
+				AssetEntry.class.getName()));
 
 		return infoFieldSet;
 	}
