@@ -114,20 +114,9 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 				AssetEntry.class.getName()));
 
 		try {
-			List<AssetVocabulary> assetVocabularies = null;
-
-			if (itemClassTypeId > 0) {
-				assetVocabularies =
-					_assetVocabularyLocalService.getGroupsVocabularies(
-						_portal.getCurrentAndAncestorSiteGroupIds(scopeGroupId),
-						itemClassName, itemClassTypeId);
-			}
-			else {
-				assetVocabularies =
-					_assetVocabularyLocalService.getGroupsVocabularies(
-						_portal.getCurrentAndAncestorSiteGroupIds(scopeGroupId),
-						itemClassName);
-			}
+			List<AssetVocabulary> assetVocabularies =
+				_getAssetVocabularies(
+					itemClassName, itemClassTypeId, scopeGroupId);
 
 			InfoFieldSet categorizationInfoFieldSet = new InfoFieldSet(
 				InfoLocalizedValue.localize(getClass(), "categorization"),
@@ -261,6 +250,28 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 					assetCategory.getVocabularyId());
 
 			assetVocabularies.add(assetVocabulary);
+		}
+
+		return assetVocabularies;
+	}
+
+	private List<AssetVocabulary> _getAssetVocabularies(
+			String itemClassName, long itemClassTypeId, long scopeGroupId)
+		throws PortalException {
+
+		List<AssetVocabulary> assetVocabularies;
+
+		if (itemClassTypeId > 0) {
+			assetVocabularies =
+				_assetVocabularyLocalService.getGroupsVocabularies(
+					_portal.getCurrentAndAncestorSiteGroupIds(scopeGroupId),
+					itemClassName, itemClassTypeId);
+		}
+		else {
+			assetVocabularies =
+				_assetVocabularyLocalService.getGroupsVocabularies(
+					_portal.getCurrentAndAncestorSiteGroupIds(scopeGroupId),
+					itemClassName);
 		}
 
 		return assetVocabularies;
