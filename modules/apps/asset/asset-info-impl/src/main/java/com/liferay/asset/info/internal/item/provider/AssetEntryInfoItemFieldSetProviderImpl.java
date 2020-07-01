@@ -278,7 +278,8 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 
 	private final InfoField _categoriesInfoField = new InfoField(
 		TextInfoFieldType.INSTANCE,
-		InfoLocalizedValue.localize(getClass(), "categories"), "categories");
+		InfoLocalizedValue.localize(getClass(), "all-categories"),
+		"categories");
 
 	@Reference
 	private InfoItemFieldReaderFieldSetProvider
