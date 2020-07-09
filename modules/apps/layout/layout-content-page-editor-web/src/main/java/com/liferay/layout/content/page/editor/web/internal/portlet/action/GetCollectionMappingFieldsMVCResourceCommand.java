@@ -92,14 +92,14 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		String itemSubtype = ParamUtil.getString(
+		String formVariationKey = ParamUtil.getString(
 			resourceRequest, "itemSubtype");
 
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 			InfoForm infoForm = infoItemFormProvider.getInfoForm(
-				GetterUtil.getLong(itemSubtype));
+				formVariationKey);
 
 			for (InfoField infoField : infoForm.getAllInfoFields()) {
 				jsonArray.put(

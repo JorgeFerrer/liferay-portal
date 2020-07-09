@@ -28,6 +28,7 @@ import com.liferay.dynamic.data.mapping.storage.StorageEngine;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.exception.NoSuchClassTypeException;
+import com.liferay.info.exception.NoSuchFormVariationException;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFormProvider;
@@ -509,7 +510,7 @@ public class LayoutsSEODisplayContext {
 
 	private InfoForm _getInfoForm(
 			LayoutPageTemplateEntry layoutPageTemplateEntry)
-		throws NoSuchClassTypeException {
+		throws NoSuchFormVariationException {
 
 		InfoItemFormProvider<?> infoItemFormProvider =
 			_infoItemServiceTracker.getFirstInfoItemService(
@@ -517,7 +518,7 @@ public class LayoutsSEODisplayContext {
 				layoutPageTemplateEntry.getClassName());
 
 		return infoItemFormProvider.getInfoForm(
-			layoutPageTemplateEntry.getClassTypeId());
+			String.valueOf(layoutPageTemplateEntry.getClassTypeId()));
 	}
 
 	private LayoutPageTemplateEntry _getLayoutPageTemplateEntry() {
