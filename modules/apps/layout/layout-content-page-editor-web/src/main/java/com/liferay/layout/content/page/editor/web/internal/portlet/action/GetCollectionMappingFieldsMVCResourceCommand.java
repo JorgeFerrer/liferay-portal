@@ -31,7 +31,6 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -92,14 +91,14 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		String itemSubtype = ParamUtil.getString(
+		String formVariationKey = ParamUtil.getString(
 			resourceRequest, "itemSubtype");
 
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 			InfoForm infoForm = infoItemFormProvider.getInfoForm(
-				GetterUtil.getLong(itemSubtype));
+				formVariationKey);
 
 			for (InfoField infoField : infoForm.getAllInfoFields()) {
 				jsonArray.put(

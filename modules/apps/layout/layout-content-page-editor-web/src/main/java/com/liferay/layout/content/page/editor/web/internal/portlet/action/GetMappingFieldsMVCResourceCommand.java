@@ -82,11 +82,12 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-		long classTypeId = ParamUtil.getLong(resourceRequest, "classTypeId");
+		String formVariationKey = ParamUtil.getString(
+			resourceRequest, "classTypeId");
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		InfoForm infoForm = infoItemFormProvider.getInfoForm(classTypeId);
+		InfoForm infoForm = infoItemFormProvider.getInfoForm(formVariationKey);
 
 		for (InfoField infoField : infoForm.getAllInfoFields()) {
 			JSONObject jsonObject = JSONUtil.put(
