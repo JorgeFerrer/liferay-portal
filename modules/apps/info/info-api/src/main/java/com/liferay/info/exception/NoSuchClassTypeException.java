@@ -25,6 +25,14 @@ public class NoSuchClassTypeException extends PortalException {
 		super(
 			"Unable to get class type found with class type ID " + classTypeId,
 			cause);
+
+		_classTypeId = classTypeId;
 	}
+
+	public long getClassTypeId() {
+		return _classTypeId;
+	}
+
+	private final long _classTypeId;
 
 }
