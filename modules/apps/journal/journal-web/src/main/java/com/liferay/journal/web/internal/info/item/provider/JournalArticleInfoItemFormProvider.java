@@ -23,6 +23,7 @@ import com.liferay.dynamic.data.mapping.info.item.provider.DDMTemplateInfoItemFi
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.expando.info.item.provider.ExpandoInfoItemFieldSetProvider;
 import com.liferay.info.exception.NoSuchClassTypeException;
+import com.liferay.info.exception.NoSuchFormVariationException;
 import com.liferay.info.field.InfoFieldSetEntry;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
@@ -34,6 +35,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -77,7 +79,7 @@ public class JournalArticleInfoItemFormProvider
 		long ddmStructureId = ddmStructure.getStructureId();
 
 		try {
-			InfoForm infoForm = getInfoForm(ddmStructureId);
+			InfoForm infoForm = getInfoForm(String.valueOf(ddmStructureId));
 
 			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
 				JournalArticle.class.getName(), article.getResourcePrimKey());
@@ -103,10 +105,12 @@ public class JournalArticleInfoItemFormProvider
 	}
 
 	@Override
-	public InfoForm getInfoForm(long ddmStructureId)
-		throws NoSuchClassTypeException {
+	public InfoForm getInfoForm(String formVariationKey)
+		throws NoSuchFormVariationException {
 
 		InfoForm infoForm = getInfoForm();
+
+		long ddmStructureId = GetterUtil.getLong(formVariationKey, 0L);
 
 		if (ddmStructureId == 0) {
 			return infoForm;
@@ -122,8 +126,8 @@ public class JournalArticleInfoItemFormProvider
 					ddmStructureId));
 		}
 		catch (NoSuchStructureException noSuchStructureException) {
-			throw new NoSuchClassTypeException(
-				ddmStructureId, noSuchStructureException);
+			throw new NoSuchFormVariationException(
+				String.valueOf(ddmStructureId), noSuchStructureException);
 		}
 
 		return infoForm;
