@@ -12,33 +12,29 @@
  * details.
  */
 
-package com.liferay.info.item.provider;
+package com.liferay.info.exception;
 
-import com.liferay.info.exception.NoSuchClassTypeException;
-import com.liferay.info.exception.NoSuchFormVariationException;
-import com.liferay.info.form.InfoForm;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemFormProvider<T> {
+public class NoSuchFormVariationException extends PortalException {
 
-	public InfoForm getInfoForm();
+	public NoSuchFormVariationException(
+		String formVariationKey, Throwable cause) {
 
-	public default InfoForm getInfoForm(long itemClassTypeId)
-		throws NoSuchClassTypeException {
+		super(
+			"Unable to get form variation with key " + formVariationKey,
+			cause);
 
-		return getInfoForm();
+		_formVariationKey = formVariationKey;
 	}
 
-	public default InfoForm getInfoForm(String formVariationKey)
-		throws NoSuchFormVariationException {
-
-		return getInfoForm();
+	public String getFormVariationKey() {
+		return _formVariationKey;
 	}
 
-	public default InfoForm getInfoForm(T t) {
-		return getInfoForm();
-	}
+	private final String _formVariationKey;
 
 }
