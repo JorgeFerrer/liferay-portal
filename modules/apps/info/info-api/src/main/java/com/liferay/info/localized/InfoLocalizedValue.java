@@ -14,6 +14,7 @@
 
 package com.liferay.info.localized;
 
+import com.liferay.info.localized.bundle.ModelResourceLocalizedValue;
 import com.liferay.info.localized.bundle.ResourceBundleInfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
@@ -44,6 +45,10 @@ public interface InfoLocalizedValue<T> {
 		String symbolicName, String valueKey) {
 
 		return new ResourceBundleInfoLocalizedValue(symbolicName, valueKey);
+	}
+
+	public static InfoLocalizedValue<String> modelResource(String name) {
+		return new ModelResourceLocalizedValue(name);
 	}
 
 	public static InfoLocalizedValue<String> singleValue(String value) {
