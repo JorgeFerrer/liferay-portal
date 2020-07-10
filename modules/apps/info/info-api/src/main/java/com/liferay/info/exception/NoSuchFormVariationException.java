@@ -25,8 +25,7 @@ public class NoSuchFormVariationException extends PortalException {
 		String formVariationKey, Throwable cause) {
 
 		super(
-			"Unable to get form variation with key " + formVariationKey,
-			cause);
+			"Unable to get form variation with key " + formVariationKey, cause);
 
 		_formVariationKey = formVariationKey;
 	}

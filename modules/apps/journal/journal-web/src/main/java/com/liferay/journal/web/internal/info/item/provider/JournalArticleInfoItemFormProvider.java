@@ -31,11 +31,11 @@ import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.web.internal.info.item.JournalArticleInfoItemFields;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.GetterUtil;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.liferay.portal.kernel.util.GetterUtil;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -110,7 +110,7 @@ public class JournalArticleInfoItemFormProvider
 
 		InfoForm infoForm = getInfoForm();
 
-		long ddmStructureId = GetterUtil.getLong(formVariationKey, 0L);
+		long ddmStructureId = GetterUtil.getLong(formVariationKey);
 
 		if (ddmStructureId == 0) {
 			return infoForm;
