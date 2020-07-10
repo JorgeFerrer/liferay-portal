@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.liferay.portal.kernel.util.PortalUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -45,8 +44,8 @@ public class JournalArticleInfoItemFormVariationsProvider
 		List<InfoItemFormVariation> infoItemFormVariations = new ArrayList<>();
 
 		try {
-			long[] groupIds =
-				_portal.getCurrentAndAncestorSiteGroupIds(groupId);
+			long[] groupIds = _portal.getCurrentAndAncestorSiteGroupIds(
+				groupId);
 
 			List<DDMStructure> ddmStructures =
 				_ddmStructureLocalService.getStructures(
