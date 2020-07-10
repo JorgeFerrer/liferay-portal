@@ -33,6 +33,6 @@ public class NoSuchClassTypeException extends PortalException {
 		return _classTypeId;
 	}
 
-	private long _classTypeId;
+	private final long _classTypeId;
 
 }
