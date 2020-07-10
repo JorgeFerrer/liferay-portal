@@ -14,29 +14,31 @@
 
 package com.liferay.layout.page.template.admin.web.internal.display.context;
 
-import com.liferay.asset.kernel.model.ClassType;
 import com.liferay.info.constants.InfoDisplayWebKeys;
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
+import com.liferay.info.item.InfoItemClassDetails;
+import com.liferay.info.item.InfoItemFormVariation;
+import com.liferay.info.item.InfoItemServiceTracker;
+import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
+import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.layout.page.template.constants.LayoutPageTemplateEntryTypeConstants;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServiceUtil;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +53,9 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 
 		_httpServletRequest = httpServletRequest;
 
-		_infoDisplayContributorTracker =
-			(InfoDisplayContributorTracker)httpServletRequest.getAttribute(
-				InfoDisplayWebKeys.INFO_DISPLAY_CONTRIBUTOR_TRACKER);
+		_infoItemServiceTracker =
+			(InfoItemServiceTracker)httpServletRequest.getAttribute(
+				InfoDisplayWebKeys.INFO_ITEM_SERVICE_TRACKER);
 		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}
@@ -61,19 +63,28 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 	public JSONArray getMappingTypesJSONArray() {
 		JSONArray mappingTypesJSONArray = JSONFactoryUtil.createJSONArray();
 
-		for (InfoDisplayContributor<?> infoDisplayContributor :
-				_infoDisplayContributorTracker.getInfoDisplayContributors()) {
+		for (String itemClassName :
+				_infoItemServiceTracker.getInfoItemClassNames(
+					InfoItemFormProvider.class)) {
+
+			InfoItemClassDetailsProvider infoItemClassDetailsProvider =
+				_infoItemServiceTracker.getFirstInfoItemService(
+					InfoItemClassDetailsProvider.class, itemClassName);
+
+			InfoItemClassDetails infoItemClassDetails =
+				infoItemClassDetailsProvider.getInfoItemClassDetails();
 
 			JSONObject jsonObject = JSONUtil.put(
 				"id",
 				String.valueOf(
 					PortalUtil.getClassNameId(
-						infoDisplayContributor.getClassName()))
+						infoItemClassDetails.getClassName()))
 			).put(
 				"label",
-				infoDisplayContributor.getLabel(_themeDisplay.getLocale())
+				infoItemClassDetails.getLabel(_themeDisplay.getLocale())
 			).put(
-				"subtypes", _getMappingSubtypesJSONArray(infoDisplayContributor)
+				"subtypes",
+				_getMappingFormVariationsJSONArray(infoItemClassDetails)
 			);
 
 			mappingTypesJSONArray.put(jsonObject);
@@ -106,37 +117,45 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 		return masterLayoutPageTemplateEntries;
 	}
 
-	private JSONArray _getMappingSubtypesJSONArray(
-		InfoDisplayContributor<?> infoDisplayContributor) {
+	private JSONArray _getMappingFormVariationsJSONArray(
+		InfoItemClassDetails infoItemClassDetails) {
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
-		try {
-			List<ClassType> classTypes = infoDisplayContributor.getClassTypes(
-				_themeDisplay.getScopeGroupId(), _themeDisplay.getLocale());
+		InfoItemFormVariationsProvider<?> infoItemFormVariationsProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemFormVariationsProvider.class,
+				infoItemClassDetails.getClassName());
 
-			for (ClassType classType : classTypes) {
-				JSONObject jsonObject = JSONUtil.put(
-					"id", String.valueOf(classType.getClassTypeId())
-				).put(
-					"label", classType.getName()
-				);
-
-				jsonArray.put(jsonObject);
-			}
+		if (infoItemFormVariationsProvider == null) {
+			return jsonArray;
 		}
-		catch (PortalException portalException) {
-			_log.error("Unable to get mapping subtypes", portalException);
+
+		Collection<InfoItemFormVariation> infoItemFormVariations =
+			infoItemFormVariationsProvider.getInfoItemFormVariations(
+				new long[] {_themeDisplay.getScopeGroupId()});
+
+		for (InfoItemFormVariation infoItemFormVariation :
+				infoItemFormVariations) {
+
+			InfoLocalizedValue<String> labelInfoLocalizedValue =
+				infoItemFormVariation.getLabelInfoLocalizedValue();
+
+			JSONObject jsonObject = JSONUtil.put(
+				"id", String.valueOf(infoItemFormVariation.getKey())
+			).put(
+				"label",
+				labelInfoLocalizedValue.getValue(_themeDisplay.getLocale())
+			);
+
+			jsonArray.put(jsonObject);
 		}
 
 		return jsonArray;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
-		SelectDisplayPageMasterLayoutDisplayContext.class);
-
 	private final HttpServletRequest _httpServletRequest;
-	private final InfoDisplayContributorTracker _infoDisplayContributorTracker;
+	private final InfoItemServiceTracker _infoItemServiceTracker;
 	private final ThemeDisplay _themeDisplay;
 
 }
