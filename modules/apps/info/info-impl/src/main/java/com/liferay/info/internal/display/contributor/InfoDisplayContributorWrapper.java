@@ -14,6 +14,7 @@
 
 package com.liferay.info.internal.display.contributor;
 
+import com.liferay.asset.kernel.model.ClassType;
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
@@ -29,15 +30,20 @@ import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.InfoItemClassDetails;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.InfoItemFieldValues;
+import com.liferay.info.item.InfoItemFormVariation;
 import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -49,7 +55,9 @@ import java.util.Set;
 public class InfoDisplayContributorWrapper
 	implements InfoItemClassDetailsProvider<Object>,
 			   InfoItemFieldValuesProvider<Object>,
-			   InfoItemFormProvider<Object>, InfoItemObjectProvider<Object> {
+			   InfoItemFormProvider<Object>,
+			   InfoItemFormVariationsProvider<Object>,
+			   InfoItemObjectProvider<Object> {
 
 	public InfoDisplayContributorWrapper(
 		InfoDisplayContributor<Object> infoDisplayContributor) {
@@ -118,6 +126,14 @@ public class InfoDisplayContributorWrapper
 	}
 
 	@Override
+	public InfoItemClassDetails getInfoItemClassDetails() {
+		return new InfoItemClassDetails(
+			_infoDisplayContributor.getClassName(),
+			(InfoLocalizedValue<String>)InfoLocalizedValue.function(
+				locale -> _infoDisplayContributor.getLabel(locale)));
+	}
+
+	@Override
 	public InfoItemFieldValues getInfoItemFieldValues(Object itemObject) {
 		Locale locale = _getLocale();
 
@@ -133,6 +149,39 @@ public class InfoDisplayContributorWrapper
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
+	}
+
+	@Override
+	public Collection<InfoItemFormVariation> getInfoItemFormVariations(
+		long[] scopeGroupIds) {
+
+		Collection<InfoItemFormVariation> itemFormVariations = new HashSet<>();
+
+		for (long scopeGroupId : scopeGroupIds) {
+			try {
+				List<ClassType> classTypes =
+					_infoDisplayContributor.getClassTypes(
+						scopeGroupId, _getLocale());
+
+				if (classTypes != null) {
+					for (ClassType classType : classTypes) {
+						itemFormVariations.add(
+							new InfoItemFormVariation(
+								String.valueOf(classType.getClassTypeId()),
+								InfoLocalizedValue.singleValue(
+									classType.getName())));
+					}
+				}
+			}
+			catch (PortalException portalException) {
+				throw new RuntimeException(
+					"Cannot obtain class types for item class " +
+						_infoDisplayContributor.getClassName(),
+					portalException);
+			}
+		}
+
+		return itemFormVariations;
 	}
 
 	private InfoForm _convertToInfoForm(
@@ -225,11 +274,4 @@ public class InfoDisplayContributorWrapper
 
 	private final InfoDisplayContributor<Object> _infoDisplayContributor;
 
-	@Override
-	public InfoItemClassDetails getInfoItemClassDetails() {
-		return new InfoItemClassDetails(
-			_infoDisplayContributor.getClassName(),
-			(InfoLocalizedValue<String>)InfoLocalizedValue.function(
-				(locale) -> _infoDisplayContributor.getLabel(locale)));
-	}
 }
