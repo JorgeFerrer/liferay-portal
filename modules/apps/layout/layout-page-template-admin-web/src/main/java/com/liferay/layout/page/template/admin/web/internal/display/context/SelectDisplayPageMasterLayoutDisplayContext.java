@@ -18,7 +18,6 @@ import com.liferay.info.constants.InfoDisplayWebKeys;
 import com.liferay.info.item.InfoItemClassDetails;
 import com.liferay.info.item.InfoItemFormVariation;
 import com.liferay.info.item.InfoItemServiceTracker;
-import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
@@ -63,28 +62,18 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 	public JSONArray getMappingTypesJSONArray() {
 		JSONArray mappingTypesJSONArray = JSONFactoryUtil.createJSONArray();
 
-		for (String itemClassName :
-				_infoItemServiceTracker.getInfoItemClassNames(
+		for (InfoItemClassDetails itemClassDetails :
+				_infoItemServiceTracker.getInfoItemClassDetails(
 					InfoItemFormProvider.class)) {
-
-			InfoItemClassDetailsProvider infoItemClassDetailsProvider =
-				_infoItemServiceTracker.getFirstInfoItemService(
-					InfoItemClassDetailsProvider.class, itemClassName);
-
-			InfoItemClassDetails infoItemClassDetails =
-				infoItemClassDetailsProvider.getInfoItemClassDetails();
 
 			JSONObject jsonObject = JSONUtil.put(
 				"id",
 				String.valueOf(
-					PortalUtil.getClassNameId(
-						infoItemClassDetails.getClassName()))
+					PortalUtil.getClassNameId(itemClassDetails.getClassName()))
 			).put(
-				"label",
-				infoItemClassDetails.getLabel(_themeDisplay.getLocale())
+				"label", itemClassDetails.getLabel(_themeDisplay.getLocale())
 			).put(
-				"subtypes",
-				_getMappingFormVariationsJSONArray(infoItemClassDetails)
+				"subtypes", _getMappingFormVariationsJSONArray(itemClassDetails)
 			);
 
 			mappingTypesJSONArray.put(jsonObject);
