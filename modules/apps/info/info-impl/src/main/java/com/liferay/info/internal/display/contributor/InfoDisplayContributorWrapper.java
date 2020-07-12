@@ -26,8 +26,10 @@ import com.liferay.info.field.type.InfoFieldType;
 import com.liferay.info.field.type.TextInfoFieldType;
 import com.liferay.info.field.type.URLInfoFieldType;
 import com.liferay.info.form.InfoForm;
+import com.liferay.info.item.InfoItemClassDetails;
 import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.InfoItemFieldValues;
+import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
@@ -45,7 +47,8 @@ import java.util.Set;
  * @author Jorge Ferrer
  */
 public class InfoDisplayContributorWrapper
-	implements InfoItemFieldValuesProvider<Object>,
+	implements InfoItemClassDetailsProvider<Object>,
+			   InfoItemFieldValuesProvider<Object>,
 			   InfoItemFormProvider<Object>, InfoItemObjectProvider<Object> {
 
 	public InfoDisplayContributorWrapper(
@@ -112,6 +115,14 @@ public class InfoDisplayContributorWrapper
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
+	}
+
+	@Override
+	public InfoItemClassDetails getInfoItemClassDetails() {
+		return new InfoItemClassDetails(
+			_infoDisplayContributor.getClassName(),
+			(InfoLocalizedValue<String>)InfoLocalizedValue.function(
+				locale -> _infoDisplayContributor.getLabel(locale)));
 	}
 
 	@Override
