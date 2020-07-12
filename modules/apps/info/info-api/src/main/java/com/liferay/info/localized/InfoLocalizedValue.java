@@ -14,6 +14,7 @@
 
 package com.liferay.info.localized;
 
+import com.liferay.info.localized.bundle.FunctionInfoLocalizedValue;
 import com.liferay.info.localized.bundle.ModelResourceLocalizedValue;
 import com.liferay.info.localized.bundle.ResourceBundleInfoLocalizedValue;
 import com.liferay.petra.lang.HashUtil;
@@ -25,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * @author Jorge Ferrer
@@ -33,6 +35,10 @@ public interface InfoLocalizedValue<T> {
 
 	public static Builder builder() {
 		return new Builder();
+	}
+
+	public static InfoLocalizedValue<?> function(Function<Locale, ?> function) {
+		return new FunctionInfoLocalizedValue(function);
 	}
 
 	public static InfoLocalizedValue<String> localize(
