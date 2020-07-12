@@ -15,10 +15,9 @@
 package com.liferay.layout.page.template.admin.web.internal.display.context;
 
 import com.liferay.info.constants.InfoDisplayWebKeys;
+import com.liferay.info.item.InfoItemClassDetails;
 import com.liferay.info.item.InfoItemFormVariation;
 import com.liferay.info.item.InfoItemServiceTracker;
-import com.liferay.info.item.InfoItemClassDetails;
-import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
@@ -32,8 +31,6 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -56,7 +53,7 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 		_httpServletRequest = httpServletRequest;
 
 		_infoItemServiceTracker =
-			(InfoItemServiceTracker) httpServletRequest.getAttribute(
+			(InfoItemServiceTracker)httpServletRequest.getAttribute(
 				InfoDisplayWebKeys.INFO_ITEM_SERVICE_TRACKER);
 		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -65,28 +62,18 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 	public JSONArray getMappingTypesJSONArray() {
 		JSONArray mappingTypesJSONArray = JSONFactoryUtil.createJSONArray();
 
-		for (String itemClassName :
-				_infoItemServiceTracker.getInfoItemClassNames(
+		for (InfoItemClassDetails itemClassDetails :
+				_infoItemServiceTracker.getInfoItemClassDetails(
 					InfoItemFormProvider.class)) {
-
-			InfoItemClassDetailsProvider infoItemClassDetailsProvider =
-				_infoItemServiceTracker.getFirstInfoItemService(
-					InfoItemClassDetailsProvider.class, itemClassName);
-
-			InfoItemClassDetails infoItemClassDetails =
-				infoItemClassDetailsProvider.getInfoItemClassDetails();
 
 			JSONObject jsonObject = JSONUtil.put(
 				"id",
 				String.valueOf(
-					PortalUtil.getClassNameId(
-						infoItemClassDetails.getClassName()))
+					PortalUtil.getClassNameId(itemClassDetails.getClassName()))
 			).put(
-				"label",
-				infoItemClassDetails.getLabel(_themeDisplay.getLocale())
+				"label", itemClassDetails.getLabel(_themeDisplay.getLocale())
 			).put(
-				"subtypes",
-				_getMappingFormVariationsJSONArray(infoItemClassDetails)
+				"subtypes", _getMappingFormVariationsJSONArray(itemClassDetails)
 			);
 
 			mappingTypesJSONArray.put(jsonObject);

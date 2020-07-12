@@ -15,6 +15,7 @@
 package com.liferay.info.internal.item;
 
 import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
+import com.liferay.info.item.InfoItemClassDetails;
 import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
@@ -25,6 +26,7 @@ import com.liferay.info.item.renderer.InfoItemRenderer;
 import com.liferay.info.item.selector.InfoItemSelector;
 import com.liferay.info.list.provider.InfoListProvider;
 import com.liferay.info.list.renderer.InfoListRenderer;
+import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.info.type.Keyed;
 import com.liferay.osgi.service.tracker.collections.map.ServiceReferenceMapperFactory;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
@@ -89,6 +91,38 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 		}
 
 		return (P)infoItemServices.get(0);
+	}
+
+	@Override
+	public <P> List<InfoItemClassDetails> getInfoItemClassDetails(
+		Class<P> serviceClass) {
+
+		List<String> itemClassNames = getInfoItemClassNames(serviceClass);
+
+		List<InfoItemClassDetails> infoItemClassDetailsList = new ArrayList<>(
+			itemClassNames.size());
+
+		for (String itemClassName : itemClassNames) {
+			InfoItemClassDetailsProvider infoItemClassDetailsProvider =
+				getFirstInfoItemService(
+					InfoItemClassDetailsProvider.class, itemClassName);
+
+			InfoItemClassDetails infoItemClassDetails;
+
+			if (infoItemClassDetailsProvider != null) {
+				infoItemClassDetails =
+					infoItemClassDetailsProvider.getInfoItemClassDetails();
+			}
+			else {
+				infoItemClassDetails = new InfoItemClassDetails(
+					itemClassName,
+					InfoLocalizedValue.modelResource(itemClassName));
+			}
+
+			infoItemClassDetailsList.add(infoItemClassDetails);
+		}
+
+		return infoItemClassDetailsList;
 	}
 
 	@Override
