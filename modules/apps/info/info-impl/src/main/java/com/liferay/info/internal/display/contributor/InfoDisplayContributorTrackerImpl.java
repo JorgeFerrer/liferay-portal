@@ -19,6 +19,7 @@ import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
 import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -135,6 +136,8 @@ public class InfoDisplayContributorTrackerImpl
 										getName(),
 									InfoItemFieldValuesProvider.class.getName(),
 									InfoItemFormProvider.class.getName(),
+									InfoItemFormVariationsProvider.class.
+										getName(),
 									InfoItemObjectProvider.class.getName()
 								},
 								infoDisplayContributorWrapper,
