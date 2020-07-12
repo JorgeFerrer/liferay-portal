@@ -15,6 +15,9 @@
 package com.liferay.info.item;
 
 import com.liferay.info.localized.InfoLocalizedValue;
+import com.liferay.petra.lang.HashUtil;
+
+import java.util.Objects;
 
 /**
  * @author Jorge Ferrer
@@ -28,12 +31,36 @@ public class InfoItemFormVariation {
 		_labelInfoLocalizedValue = labelInfoLocalizedValue;
 	}
 
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+
+		if (!(object instanceof InfoItemFormVariation)) {
+			return false;
+		}
+
+		InfoItemFormVariation infoItemFormVariation =
+			(InfoItemFormVariation)object;
+
+		if (Objects.equals(_key, infoItemFormVariation._key)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public String getKey() {
 		return _key;
 	}
 
 	public InfoLocalizedValue<String> getLabelInfoLocalizedValue() {
 		return _labelInfoLocalizedValue;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, _key);
 	}
 
 	private final String _key;
