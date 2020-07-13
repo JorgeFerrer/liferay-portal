@@ -62,18 +62,21 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 	public JSONArray getMappingTypesJSONArray() {
 		JSONArray mappingTypesJSONArray = JSONFactoryUtil.createJSONArray();
 
-		for (InfoItemClassDetails itemClassDetails :
+		for (InfoItemClassDetails infoItemClassDetails :
 				_infoItemServiceTracker.getInfoItemClassDetails(
 					InfoItemFormProvider.class)) {
 
 			JSONObject jsonObject = JSONUtil.put(
 				"id",
 				String.valueOf(
-					PortalUtil.getClassNameId(itemClassDetails.getClassName()))
+					PortalUtil.getClassNameId(
+						infoItemClassDetails.getClassName()))
 			).put(
-				"label", itemClassDetails.getLabel(_themeDisplay.getLocale())
+				"label",
+				infoItemClassDetails.getLabel(_themeDisplay.getLocale())
 			).put(
-				"subtypes", _getMappingFormVariationsJSONArray(itemClassDetails)
+				"subtypes",
+				_getMappingFormVariationsJSONArray(infoItemClassDetails)
 			);
 
 			mappingTypesJSONArray.put(jsonObject);
