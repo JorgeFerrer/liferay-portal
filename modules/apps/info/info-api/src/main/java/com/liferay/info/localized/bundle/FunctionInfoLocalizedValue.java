@@ -43,11 +43,10 @@ public class FunctionInfoLocalizedValue<T> implements InfoLocalizedValue<T> {
 			return false;
 		}
 
-		FunctionInfoLocalizedValue resourceBundleInfoLocalizedValue =
+		FunctionInfoLocalizedValue functionInfoLocalizedValue =
 			(FunctionInfoLocalizedValue)object;
 
-		return Objects.equals(
-			resourceBundleInfoLocalizedValue._function, _function);
+		return Objects.equals(functionInfoLocalizedValue._function, _function);
 	}
 
 	@Override
