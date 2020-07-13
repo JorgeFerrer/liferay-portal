@@ -14,8 +14,8 @@
 
 package com.liferay.journal.web.internal.info.item.provider;
 
-import com.liferay.dynamic.data.mapping.kernel.DDMStructure;
-import com.liferay.dynamic.data.mapping.kernel.DDMStructureManagerUtil;
+import com.liferay.dynamic.data.mapping.model.DDMStructure;
+import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.info.item.InfoItemFormVariation;
 import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
@@ -49,7 +49,7 @@ public class JournalArticleInfoItemFormVariationsProvider
 				_portal.getCurrentAndAncestorSiteGroupIds(groupId);
 
 			List<DDMStructure> ddmStructures =
-				DDMStructureManagerUtil.getStructures(
+				_ddmStructureLocalService.getStructures(
 					groupIds,
 					_portal.getClassNameId(JournalArticle.class.getName()));
 
@@ -70,6 +70,9 @@ public class JournalArticleInfoItemFormVariationsProvider
 				"An unexpected error occurred", portalException);
 		}
 	}
+
+	@Reference
+	private DDMStructureLocalService _ddmStructureLocalService;
 
 	@Reference
 	private Portal _portal;
