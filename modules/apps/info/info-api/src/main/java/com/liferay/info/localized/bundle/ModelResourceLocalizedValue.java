@@ -43,10 +43,10 @@ public class ModelResourceLocalizedValue implements InfoLocalizedValue<String> {
 			return false;
 		}
 
-		ModelResourceLocalizedValue resourceBundleInfoLocalizedValue =
+		ModelResourceLocalizedValue modelResourceLocalizedValue =
 			(ModelResourceLocalizedValue)object;
 
-		return Objects.equals(resourceBundleInfoLocalizedValue._name, _name);
+		return Objects.equals(modelResourceLocalizedValue._name, _name);
 	}
 
 	@Override
