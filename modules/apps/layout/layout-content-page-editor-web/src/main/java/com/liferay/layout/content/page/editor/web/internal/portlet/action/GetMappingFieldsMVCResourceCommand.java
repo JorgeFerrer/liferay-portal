@@ -14,15 +14,12 @@
 
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
-import com.liferay.info.field.InfoField;
-import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.InfoItemServiceTracker;
-import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
+import com.liferay.layout.content.page.editor.web.internal.util.MappingContentUtil;
 import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
@@ -58,53 +55,34 @@ public class GetMappingFieldsMVCResourceCommand extends BaseMVCResourceCommand {
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
+		String classTypeId = ParamUtil.getString(
+			resourceRequest, "classTypeId");
 		long classNameId = ParamUtil.getLong(resourceRequest, "classNameId");
 
-		String className = _portal.getClassName(classNameId);
+		try {
+			JSONArray mappingFieldsJSONArray =
+				MappingContentUtil.getMappingFieldsJSONArray(
+					classTypeId, _infoItemServiceTracker,
+					_portal.getClassName(classNameId), resourceRequest);
 
-		InfoItemFormProvider<?> infoItemFormProvider =
-			_infoItemServiceTracker.getFirstInfoItemService(
-				InfoItemFormProvider.class, className);
+			JSONPortletResponseUtil.writeJSON(
+				resourceRequest, resourceResponse, mappingFieldsJSONArray);
+		}
+		catch (Exception exception) {
+			_log.error("Unable to get mapping fields", exception);
 
-		if (infoItemFormProvider == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					"Unable to get info item form provider for class " +
-						className);
-			}
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)resourceRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
 
 			JSONPortletResponseUtil.writeJSON(
 				resourceRequest, resourceResponse,
-				JSONFactoryUtil.createJSONArray());
-
-			return;
+				JSONUtil.put(
+					"error",
+					LanguageUtil.get(
+						themeDisplay.getRequest(),
+						"an-unexpected-error-occurred")));
 		}
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		String formVariationKey = ParamUtil.getString(
-			resourceRequest, "classTypeId");
-		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		InfoForm infoForm = infoItemFormProvider.getInfoForm(formVariationKey);
-
-		for (InfoField infoField : infoForm.getAllInfoFields()) {
-			JSONObject jsonObject = JSONUtil.put(
-				"key", infoField.getName()
-			).put(
-				"label", infoField.getLabel(themeDisplay.getLocale())
-			).put(
-				"type",
-				infoField.getInfoFieldType(
-				).getName()
-			);
-
-			jsonArray.put(jsonObject);
-		}
-
-		JSONPortletResponseUtil.writeJSON(
-			resourceRequest, resourceResponse, jsonArray);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
