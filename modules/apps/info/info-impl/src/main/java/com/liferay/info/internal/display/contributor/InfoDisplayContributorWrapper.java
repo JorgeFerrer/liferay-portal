@@ -153,15 +153,15 @@ public class InfoDisplayContributorWrapper
 
 	@Override
 	public Collection<InfoItemFormVariation> getInfoItemFormVariations(
-		long[] scopeGroupIds) {
+		long[] groupIds) {
 
 		Collection<InfoItemFormVariation> itemFormVariations = new HashSet<>();
 
-		for (long scopeGroupId : scopeGroupIds) {
+		for (long groupId : groupIds) {
 			try {
 				List<ClassType> classTypes =
 					_infoDisplayContributor.getClassTypes(
-						scopeGroupId, _getLocale());
+						groupId, _getLocale());
 
 				if (classTypes == null) {
 					continue;
