@@ -163,14 +163,16 @@ public class InfoDisplayContributorWrapper
 					_infoDisplayContributor.getClassTypes(
 						scopeGroupId, _getLocale());
 
-				if (classTypes != null) {
-					for (ClassType classType : classTypes) {
-						itemFormVariations.add(
-							new InfoItemFormVariation(
-								String.valueOf(classType.getClassTypeId()),
-								InfoLocalizedValue.singleValue(
-									classType.getName())));
-					}
+				if (classTypes == null) {
+					continue;
+				}
+
+				for (ClassType classType : classTypes) {
+					itemFormVariations.add(
+						new InfoItemFormVariation(
+							String.valueOf(classType.getClassTypeId()),
+							InfoLocalizedValue.singleValue(
+								classType.getName())));
 				}
 			}
 			catch (PortalException portalException) {
