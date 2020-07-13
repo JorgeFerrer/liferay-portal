@@ -26,6 +26,7 @@ import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServiceUtil;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryServiceUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -59,7 +60,7 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 			WebKeys.THEME_DISPLAY);
 	}
 
-	public JSONArray getMappingTypesJSONArray() {
+	public JSONArray getMappingTypesJSONArray() throws PortalException {
 		JSONArray mappingTypesJSONArray = JSONFactoryUtil.createJSONArray();
 
 		for (InfoItemClassDetails infoItemClassDetails :
@@ -110,7 +111,8 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 	}
 
 	private JSONArray _getMappingFormVariationsJSONArray(
-		InfoItemClassDetails infoItemClassDetails) {
+			InfoItemClassDetails infoItemClassDetails)
+		throws PortalException {
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
@@ -125,7 +127,8 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 
 		Collection<InfoItemFormVariation> infoItemFormVariations =
 			infoItemFormVariationsProvider.getInfoItemFormVariations(
-				new long[] {_themeDisplay.getScopeGroupId()});
+				PortalUtil.getCurrentAndAncestorSiteGroupIds(
+					_themeDisplay.getScopeGroupId()));
 
 		for (InfoItemFormVariation infoItemFormVariation :
 				infoItemFormVariations) {
