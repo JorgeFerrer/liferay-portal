@@ -316,10 +316,15 @@ public class FragmentEntryProcessorHelperImpl
 
 			fieldValue = contentAccessor.getContent();
 		}
-		else if (fieldValue instanceof WebImage) {
+
+		if (fieldValue instanceof WebImage) {
 			WebImage webImage = (WebImage)fieldValue;
 
 			fieldValue = webImage.toJSONObject();
+		}
+		else {
+			fieldValue = formatMappedValue(
+				fieldValue, fragmentEntryProcessorContext.getLocale());
 		}
 
 		return fieldValue;
