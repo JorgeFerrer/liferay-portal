@@ -255,6 +255,8 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 			"categories"
 		).labelInfoLocalizedValue(
 			InfoLocalizedValue.localize(getClass(), "all-categories")
+		).multivalued(
+			true
 		).build();
 
 	@Reference
@@ -272,6 +274,8 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 			"tagNames"
 		).labelInfoLocalizedValue(
 			InfoLocalizedValue.localize(getClass(), "tags")
+		).multivalued(
+			true
 		).build();
 
 }
