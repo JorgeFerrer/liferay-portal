@@ -249,16 +249,6 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 		).build();
 	}
 
-	private List<String> _getTags(List<AssetTag> assetTags) {
-		List<String> tags = new ArrayList<>(assetTags.size());
-
-		for (AssetTag assetTag : assetTags) {
-			tags.add(assetTag.getName());
-		}
-
-		return tags;
-	}
-
 	private Set<AssetVocabulary> _getNonsystemAssetVocabularies(
 		AssetEntry assetEntry) {
 
@@ -307,6 +297,16 @@ public class AssetEntryInfoItemFieldSetProviderImpl
 		catch (PortalException portalException) {
 			throw new RuntimeException(portalException);
 		}
+	}
+
+	private List<String> _getTags(List<AssetTag> assetTags) {
+		List<String> tags = new ArrayList<>(assetTags.size());
+
+		for (AssetTag assetTag : assetTags) {
+			tags.add(assetTag.getName());
+		}
+
+		return tags;
 	}
 
 	@Reference
