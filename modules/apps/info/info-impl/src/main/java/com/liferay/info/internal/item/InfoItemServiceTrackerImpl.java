@@ -19,7 +19,7 @@ import com.liferay.info.formatter.InfoTextFormatter;
 import com.liferay.info.internal.util.ItemClassNameServiceReferenceMapper;
 import com.liferay.info.item.InfoItemClassDetails;
 import com.liferay.info.item.InfoItemServiceTracker;
-import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
+import com.liferay.info.item.provider.InfoItemDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
@@ -106,15 +106,15 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 			itemClassNames.size());
 
 		for (String itemClassName : itemClassNames) {
-			InfoItemClassDetailsProvider infoItemClassDetailsProvider =
+			InfoItemDetailsProvider infoItemDetailsProvider =
 				getFirstInfoItemService(
-					InfoItemClassDetailsProvider.class, itemClassName);
+					InfoItemDetailsProvider.class, itemClassName);
 
 			InfoItemClassDetails infoItemClassDetails;
 
-			if (infoItemClassDetailsProvider != null) {
+			if (infoItemDetailsProvider != null) {
 				infoItemClassDetails =
-					infoItemClassDetailsProvider.getInfoItemClassDetails();
+					infoItemDetailsProvider.getInfoItemClassDetails();
 			}
 			else {
 				infoItemClassDetails = new InfoItemClassDetails(
@@ -152,12 +152,11 @@ public class InfoItemServiceTrackerImpl implements InfoItemServiceTracker {
 	protected void activate(BundleContext bundleContext) {
 		Class<?>[] serviceClasses = new Class<?>[] {
 			InfoCollectionTextFormatter.class, InfoTextFormatter.class,
-			InfoItemClassDetailsProvider.class,
-			InfoItemFieldValuesProvider.class, InfoItemFormProvider.class,
-			InfoItemFormVariationsProvider.class, InfoItemObjectProvider.class,
-			InfoItemPermissionProvider.class, InfoItemRenderer.class,
-			InfoItemSelector.class, InfoListRenderer.class,
-			InfoListProvider.class
+			InfoItemDetailsProvider.class, InfoItemFieldValuesProvider.class,
+			InfoItemFormProvider.class, InfoItemFormVariationsProvider.class,
+			InfoItemObjectProvider.class, InfoItemPermissionProvider.class,
+			InfoItemRenderer.class, InfoItemSelector.class,
+			InfoListRenderer.class, InfoListProvider.class
 		};
 
 		for (Class<?> serviceClass : serviceClasses) {

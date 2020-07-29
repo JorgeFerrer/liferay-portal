@@ -33,7 +33,7 @@ import com.liferay.info.item.InfoItemDetails;
 import com.liferay.info.item.InfoItemFieldValues;
 import com.liferay.info.item.InfoItemFormVariation;
 import com.liferay.info.item.InfoItemReference;
-import com.liferay.info.item.provider.InfoItemClassDetailsProvider;
+import com.liferay.info.item.provider.InfoItemDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 import com.liferay.info.item.provider.InfoItemFormVariationsProvider;
@@ -55,7 +55,7 @@ import java.util.Set;
  * @author Jorge Ferrer
  */
 public class InfoDisplayContributorWrapper
-	implements InfoItemClassDetailsProvider<Object>,
+	implements InfoItemDetailsProvider<Object>,
 			   InfoItemFieldValuesProvider<Object>,
 			   InfoItemFormProvider<Object>,
 			   InfoItemFormVariationsProvider<Object>,
