@@ -110,6 +110,7 @@ public class AnalyticsReportsPortlet extends MVCPortlet {
 				(AnalyticsReportsInfoItem<Object>)
 					_analyticsReportsInfoItemTracker.
 						getAnalyticsReportsInfoItem(className);
+
 			try {
 				analyticsReportsInfoItemObject =
 					infoItemObjectProvider.getInfoItem(classPK);
