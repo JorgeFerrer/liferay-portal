@@ -24,14 +24,12 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
-import com.liferay.asset.taglib.internal.info.display.contributor.InfoDisplayContributorTrackerUtil;
 import com.liferay.asset.taglib.internal.item.selector.ItemSelectorUtil;
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.item.selector.ItemSelectorCriterion;
 import com.liferay.item.selector.criteria.UUIDItemSelectorReturnType;
+import com.liferay.layout.display.page.LayoutDisplayPageProvider;
+import com.liferay.layout.display.page.LayoutDisplayPageProviderTracker;
 import com.liferay.layout.item.selector.criterion.LayoutItemSelectorCriterion;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServiceUtil;
@@ -312,30 +310,30 @@ public class SelectAssetDisplayPageDisplayContext {
 				WebKeys.THEME_DISPLAY);
 
 		try {
-			InfoDisplayContributorTracker infoDisplayContributorTracker =
-				InfoDisplayContributorTrackerUtil.
-					getInfoDisplayContributorTracker();
+			LayoutDisplayPageProviderTracker layoutDisplayPageProviderTracker =
+				LayoutDisplayPageProviderTrackerUtil.
+					getLayoutDisplayPageProviderTracker();
 
-			InfoDisplayContributor<?> infoDisplayContributor =
-				infoDisplayContributorTracker.getInfoDisplayContributor(
+			LayoutDisplayPageProvider<?> layoutDisplayPageProvider =
+				layoutDisplayPageProviderTracker.getLayoutDisplayPageProvider(
 					PortalUtil.getClassName(_classNameId));
 
-			if (infoDisplayContributor == null) {
+			if (layoutDisplayPageProvider == null) {
 				return false;
 			}
 
-			InfoDisplayObjectProvider<?> infoDisplayObjectProvider =
-				infoDisplayContributor.getInfoDisplayObjectProvider(_classPK);
+			LayoutDisplayPageProvider<?> layoutDisplayPageProvider =
+				layoutDisplayPageProvider.getLayoutDisplayPageProvider(_classPK);
 
-			if (infoDisplayObjectProvider == null) {
+			if (layoutDisplayPageProvider == null) {
 				return false;
 			}
 
 			if (!AssetDisplayPageUtil.hasAssetDisplayPage(
 					themeDisplay.getScopeGroupId(),
-					infoDisplayObjectProvider.getClassNameId(),
-					infoDisplayObjectProvider.getClassPK(),
-					infoDisplayObjectProvider.getClassTypeId())) {
+					layoutDisplayPageProvider.getClassNameId(),
+					layoutDisplayPageProvider.getClassPK(),
+					layoutDisplayPageProvider.getClassTypeId())) {
 
 				return false;
 			}
