@@ -14,9 +14,9 @@
 
 package com.liferay.fragment.util.configuration;
 
-import com.liferay.info.display.contributor.InfoDisplayContributor;
-import com.liferay.info.display.contributor.InfoDisplayContributorTracker;
-import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
+import com.liferay.layout.display.page.LayoutDisplayPageObjectProvider;
+import com.liferay.layout.display.page.LayoutDisplayPageProvider;
+import com.liferay.layout.display.page.LayoutDisplayPageProviderTracker;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -107,26 +107,28 @@ public class FragmentConfigurationField {
 				String className = defaultValueJSONObject.getString(
 					"className");
 
-				InfoDisplayContributorTracker infoDisplayContributorTracker =
-					_serviceTracker.getService();
+				LayoutDisplayPageProviderTracker
+					layoutDisplayPageProviderTracker =
+						_serviceTracker.getService();
 
-				InfoDisplayContributor<?> infoDisplayContributor =
-					infoDisplayContributorTracker.getInfoDisplayContributor(
-						className);
+				LayoutDisplayPageProvider<?> layoutDisplayPageProvider =
+					layoutDisplayPageProviderTracker.
+						getLayoutDisplayPageProvider(className);
 
-				if (infoDisplayContributor == null) {
+				if (layoutDisplayPageProvider == null) {
 					return _defaultValue;
 				}
 
 				long classPK = defaultValueJSONObject.getLong("classPK");
 
-				InfoDisplayObjectProvider<?> infoDisplayObjectProvider =
-					infoDisplayContributor.getInfoDisplayObjectProvider(
-						classPK);
+				LayoutDisplayPageObjectProvider<?>
+					layoutDisplayPageObjectProvider =
+						layoutDisplayPageProvider.
+							getLayoutDisplayPageObjectProvider(classPK);
 
 				defaultValueJSONObject.put(
 					"title",
-					infoDisplayObjectProvider.getTitle(
+					layoutDisplayPageObjectProvider.getTitle(
 						LocaleUtil.getMostRelevantLocale()));
 
 				return defaultValueJSONObject.toString();
@@ -144,7 +146,7 @@ public class FragmentConfigurationField {
 		FragmentConfigurationField.class);
 
 	private static final ServiceTracker
-		<InfoDisplayContributorTracker, InfoDisplayContributorTracker>
+		<LayoutDisplayPageProviderTracker, LayoutDisplayPageProviderTracker>
 			_serviceTracker;
 
 	static {
@@ -152,7 +154,7 @@ public class FragmentConfigurationField {
 			FragmentConfigurationField.class);
 
 		_serviceTracker = new ServiceTracker<>(
-			bundle.getBundleContext(), InfoDisplayContributorTracker.class,
+			bundle.getBundleContext(), LayoutDisplayPageProviderTracker.class,
 			null);
 
 		_serviceTracker.open();
