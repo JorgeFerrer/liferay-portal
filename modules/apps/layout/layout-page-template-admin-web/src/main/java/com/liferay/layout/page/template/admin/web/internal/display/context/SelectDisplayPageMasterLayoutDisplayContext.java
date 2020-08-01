@@ -64,7 +64,7 @@ public class SelectDisplayPageMasterLayoutDisplayContext {
 
 		for (InfoItemClassDetails infoItemClassDetails :
 				_infoItemServiceTracker.getInfoItemClassDetails(
-					DisplayPageInfoItemCapability.INSTANCE)) {
+					DisplayPageInfoItemCapability.KEY)) {
 
 			JSONObject jsonObject = JSONUtil.put(
 				"id",
