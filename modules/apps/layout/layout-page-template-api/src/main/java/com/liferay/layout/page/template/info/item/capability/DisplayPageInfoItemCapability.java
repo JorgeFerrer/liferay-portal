@@ -18,27 +18,18 @@ import com.liferay.info.item.capability.InfoItemCapability;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 
-import java.util.Locale;
-
 /**
  * @author Jorge Ferrer
  */
-public class DisplayPageInfoItemCapability implements InfoItemCapability {
+public interface DisplayPageInfoItemCapability extends InfoItemCapability {
 
-	public static final DisplayPageInfoItemCapability INSTANCE =
-		new DisplayPageInfoItemCapability();
+	public static final String KEY =
+		DisplayPageInfoItemCapability.class.getName();
 
-	@Override
-	public String getLabel(Locale locale) {
-		return "display-page";
-	}
-
-	@Override
-	public Class<?>[] getRequiredServiceClasses() {
-		return new Class<?>[] {
+	public static final Class<?>[] REQUIRED_INFO_ITEM_SERVICE_CLASSES =
+		new Class<?>[] {
 			InfoItemFormProvider.class, InfoItemFieldValuesProvider.class
 		};
-	}
 
 	private DisplayPageInfoItemCapability() {
 	}

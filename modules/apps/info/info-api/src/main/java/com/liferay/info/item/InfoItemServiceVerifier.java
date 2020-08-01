@@ -12,23 +12,22 @@
  * details.
  */
 
-package com.liferay.info.item.capability;
+package com.liferay.info.item;
 
 import com.liferay.info.exception.CapabilityVerificationException;
-import com.liferay.info.type.Keyed;
-import com.liferay.info.type.Labeled;
 
-import java.util.Locale;
+import java.util.List;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Jorge Ferrer
  */
-public interface InfoItemCapability extends Keyed, Labeled {
+@ProviderType
+public interface InfoItemServiceVerifier {
 
-	@Override
-	public String getLabel(Locale locale);
-
-	public void verify(String itemClassName)
+	public List<Class<?>> getMissingServiceClasses(
+			Class<?>[] requiredInfoItemServiceClasses, String itemClassName)
 		throws CapabilityVerificationException;
 
 }
