@@ -361,7 +361,7 @@ public class SubscriptionLocalServiceImpl
 	 * @param      className the entity's class name
 	 * @return     the subscriptions to the class name
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement  Returns
-	 *             all the subscriptions to the class name.
+	 *             all the subscriptions to the class name
 	 */
 	@Deprecated
 	@Override
@@ -382,7 +382,7 @@ public class SubscriptionLocalServiceImpl
 	 * @param      className the entity's class name
 	 * @return     the subscriptions to the class name
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement  Returns
-	 *             the number of the subscriptions to the class name.
+	 *             the number of the subscriptions to the class name
 	 */
 	@Deprecated
 	@Override
