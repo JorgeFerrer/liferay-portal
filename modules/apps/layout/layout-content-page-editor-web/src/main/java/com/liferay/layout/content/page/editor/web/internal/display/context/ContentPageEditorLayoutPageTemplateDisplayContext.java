@@ -153,8 +153,6 @@ public class ContentPageEditorLayoutPageTemplateDisplayContext
 						themeDisplay.getLocale());
 				}
 			}
-
-			return null;
 		}
 
 		return null;
