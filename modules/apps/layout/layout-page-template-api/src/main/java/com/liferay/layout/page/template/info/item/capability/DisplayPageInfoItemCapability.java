@@ -15,6 +15,7 @@
 package com.liferay.layout.page.template.info.item.capability;
 
 import com.liferay.info.item.capability.InfoItemCapability;
+import com.liferay.info.item.provider.InfoItemDetailsProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
 
@@ -28,7 +29,8 @@ public interface DisplayPageInfoItemCapability extends InfoItemCapability {
 
 	public static final Class<?>[] REQUIRED_INFO_ITEM_SERVICE_CLASSES =
 		new Class<?>[] {
-			InfoItemFormProvider.class, InfoItemFieldValuesProvider.class
+			InfoItemDetailsProvider.class, InfoItemFormProvider.class,
+			InfoItemFieldValuesProvider.class
 		};
 
 }
