@@ -263,12 +263,9 @@ public class LayoutPageTemplatesExporter {
 			layoutPageTemplateEntry.getPlid());
 
 		if (layout != null) {
-			PageDefinition pageDefinition = _pageDefinitionDTOConverter.toDTO(
-				layout);
-
 			zipWriter.addEntry(
 				displayPagePath + "/page-definition.json",
-				objectWriter.writeValueAsString(pageDefinition));
+				_toPageDefinitionJSONString(layout));
 		}
 
 		FileEntry previewFileEntry = _getPreviewFileEntry(
@@ -330,12 +327,9 @@ public class LayoutPageTemplatesExporter {
 			layoutPageTemplateEntry.getPlid());
 
 		if (layout != null) {
-			PageDefinition pageDefinition = _pageDefinitionDTOConverter.toDTO(
-				layout);
-
 			zipWriter.addEntry(
 				masterLayoutPath + "/page-definition.json",
-				objectWriter.writeValueAsString(pageDefinition));
+				_toPageDefinitionJSONString(layout));
 		}
 
 		FileEntry previewFileEntry = _getPreviewFileEntry(
@@ -396,12 +390,9 @@ public class LayoutPageTemplatesExporter {
 			layoutPageTemplateEntry.getPlid());
 
 		if (layout != null) {
-			PageDefinition pageDefinition = _pageDefinitionDTOConverter.toDTO(
-				layout);
-
 			zipWriter.addEntry(
 				layoutPageTemplateEntryPath + "/page-definition.json",
-				objectWriter.writeValueAsString(pageDefinition));
+				_toPageDefinitionJSONString(layout));
 		}
 
 		FileEntry previewFileEntry = _getPreviewFileEntry(
@@ -413,6 +404,20 @@ public class LayoutPageTemplatesExporter {
 					previewFileEntry.getExtension(),
 				previewFileEntry.getContentStream());
 		}
+	}
+
+	private String _toPageDefinitionJSONString(Layout layout) throws Exception {
+		SimpleFilterProvider simpleFilterProvider = new SimpleFilterProvider();
+
+		FilterProvider filterProvider = simpleFilterProvider.addFilter(
+			"Liferay.Vulcan", SimpleBeanPropertyFilter.serializeAll());
+
+		ObjectWriter objectWriter = _objectMapper.writer(filterProvider);
+
+		PageDefinition pageDefinition = _pageDefinitionDTOConverter.toDTO(
+			layout);
+
+		return objectWriter.writeValueAsString(pageDefinition);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
