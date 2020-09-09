@@ -61,7 +61,9 @@ public class LayoutStructureItemJSONSerializerImpl
 			FilterProvider filterProvider = simpleFilterProvider.addFilter(
 				"Liferay.Vulcan", SimpleBeanPropertyFilter.serializeAll());
 
-			ObjectWriter objectWriter = _objectMapper.writer(filterProvider);
+			ObjectMapper objectMapper = _getObjectMapper(false);
+
+			ObjectWriter objectWriter = objectMapper.writer(filterProvider);
 
 			return objectWriter.writeValueAsString(pageElement);
 		}
@@ -70,18 +72,27 @@ public class LayoutStructureItemJSONSerializerImpl
 		}
 	}
 
-	private static final ObjectMapper _objectMapper = new ObjectMapper() {
-		{
-			configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
-			configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
-			setDateFormat(new ISO8601DateFormat());
-			setSerializationInclusion(JsonInclude.Include.NON_NULL);
-			setVisibility(
-				PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-			setVisibility(
-				PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+	private static ObjectMapper _getObjectMapper(boolean indentOutput) {
+		ObjectMapper objectMapper = new ObjectMapper() {
+			{
+				configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
+				configure(
+					SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
+				setDateFormat(new ISO8601DateFormat());
+				setSerializationInclusion(JsonInclude.Include.NON_NULL);
+				setVisibility(
+					PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+				setVisibility(
+					PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+			}
+		};
+
+		if (indentOutput) {
+			objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 		}
-	};
+
+		return objectMapper;
+	}
 
 	@Reference
 	private PageElementDTOConverter _pageElementDTOConverter;
