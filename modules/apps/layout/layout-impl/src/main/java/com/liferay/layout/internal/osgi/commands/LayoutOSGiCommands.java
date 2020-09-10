@@ -34,19 +34,18 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
 	immediate = true,
 	property = {
-		"osgi.command.function=exportPageDefinition",
-		"osgi.command.scope=layout"
+		"osgi.command.function=exportAsJSON", "osgi.command.scope=layout"
 	},
 	service = LayoutOSGiCommands.class
 )
 public class LayoutOSGiCommands {
 
-	@Descriptor("Get page definition for a given page specified by its plid")
-	public String exportPageDefinition(long plid) throws PortalException {
+	@Descriptor("Get Page Definition JSON for a given layout by its plid")
+	public String exportAsJSON(long plid) throws PortalException {
 		Layout layout = _layoutLocalService.fetchLayout(plid);
 
 		if (layout == null) {
-			return "Page with plid " + plid + " cannot be found";
+			return "Layout with plid " + plid + " cannot be found";
 		}
 
 		LayoutPageTemplateStructure layoutPageTemplateStructure =
@@ -54,7 +53,7 @@ public class LayoutOSGiCommands {
 				fetchLayoutPageTemplateStructure(layout.getGroupId(), plid);
 
 		if (layoutPageTemplateStructure == null) {
-			return "Page with plid " + plid + " does not have a structure";
+			return "Layout with plid " + plid + " does not have a structure";
 		}
 
 		long segmentsExperienceId = SegmentsExperienceConstants.ID_DEFAULT;
