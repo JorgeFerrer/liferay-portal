@@ -17,6 +17,7 @@ package com.liferay.asset.info.internal.item;
 import com.liferay.asset.info.internal.item.provider.AssetCategoryInfoItemFormProvider;
 import com.liferay.info.field.InfoField;
 import com.liferay.info.field.type.TextInfoFieldType;
+import com.liferay.info.field.type.URLInfoFieldType;
 import com.liferay.info.localized.InfoLocalizedValue;
 
 /**
@@ -33,6 +34,16 @@ public class CategoryInfoItemFields {
 		).labelInfoLocalizedValue(
 			InfoLocalizedValue.localize(
 				AssetCategoryInfoItemFormProvider.class, "description")
+		).build();
+	public static final InfoField<URLInfoFieldType> displayPageUrlInfoField =
+		InfoField.builder(
+		).infoFieldType(
+			URLInfoFieldType.INSTANCE
+		).name(
+			"displayPageURL"
+		).labelInfoLocalizedValue(
+			InfoLocalizedValue.localize(
+				"com.liferay.asset.info.display.impl", "display-page-url")
 		).build();
 	public static final InfoField<TextInfoFieldType> titleInfoField =
 		InfoField.builder(

@@ -14,18 +14,24 @@
 
 package com.liferay.asset.info.internal.item.provider;
 
+import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.info.internal.item.CategoryInfoItemFields;
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetVocabularyLocalService;
 import com.liferay.info.field.InfoFieldValue;
-import com.liferay.info.item.InfoItemClassPKReference;
 import com.liferay.info.item.InfoItemFieldValues;
 import com.liferay.info.item.InfoItemReference;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -49,6 +55,8 @@ public class AssetCategoryInfoItemFieldValuesProvider
 				).values(
 					assetCategory.getDescriptionMap()
 				).build())
+		).infoFieldValues(
+			_getDisplayPageUrlInfoFieldValues(assetCategory)
 		).infoFieldValue(
 			new InfoFieldValue<>(
 				CategoryInfoItemFields.titleInfoField,
@@ -88,6 +96,52 @@ public class AssetCategoryInfoItemFieldValuesProvider
 				portalException);
 		}
 	}
+
+	private String _getDisplayPageURL(AssetCategory assetCategory)
+		throws PortalException {
+
+		return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
+			AssetCategory.class.getName(), assetCategory.getCategoryId(),
+			_getThemeDisplay());
+	}
+
+	private List<InfoFieldValue<Object>> _getDisplayPageUrlInfoFieldValues(
+		AssetCategory assetCategory) {
+
+		List<InfoFieldValue<Object>> assetCategoryFieldValues =
+			new ArrayList<>();
+
+		ThemeDisplay themeDisplay = _getThemeDisplay();
+
+		if (themeDisplay != null) {
+			try {
+				assetCategoryFieldValues.add(
+					new InfoFieldValue<>(
+						CategoryInfoItemFields.displayPageUrlInfoField,
+						_getDisplayPageURL(assetCategory)));
+			}
+			catch (PortalException portalException) {
+				throw new RuntimeException(portalException);
+			}
+		}
+
+		return assetCategoryFieldValues;
+	}
+
+	private ThemeDisplay _getThemeDisplay() {
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if (serviceContext != null) {
+			return serviceContext.getThemeDisplay();
+		}
+
+		return null;
+	}
+
+	@Reference
+	private AssetDisplayPageFriendlyURLProvider
+		_assetDisplayPageFriendlyURLProvider;
 
 	@Reference
 	private AssetVocabularyLocalService _assetVocabularyLocalService;

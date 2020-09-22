@@ -19,6 +19,7 @@ import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
 import com.liferay.info.item.provider.InfoItemFormProvider;
+import com.liferay.info.localized.InfoLocalizedValue;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -38,10 +39,15 @@ public class AssetCategoryInfoItemFormProvider
 		).infoFieldSetEntry(
 			CategoryInfoItemFields.descriptionInfoField
 		).infoFieldSetEntry(
+			CategoryInfoItemFields.displayPageUrlInfoField
+		).infoFieldSetEntry(
 			CategoryInfoItemFields.vocabularyInfoField
 		).infoFieldSetEntry(
 			_infoItemFieldReaderFieldSetProvider.getInfoFieldSet(
 				AssetCategory.class.getName())
+		).labelInfoLocalizedValue(
+			InfoLocalizedValue.localize(
+				AssetCategoryInfoItemFormProvider.class, "asset-category")
 		).name(
 			AssetCategory.class.getName()
 		).build();
