@@ -306,12 +306,9 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 				layoutDisplayPageObjectProvider.getClassNameId(),
 				layoutDisplayPageObjectProvider.getClassPK());
 
-		if (assetDisplayPageEntry == null) {
-			return null;
-		}
-
-		if (assetDisplayPageEntry.getType() !=
-				AssetDisplayPageConstants.TYPE_DEFAULT) {
+		if ((assetDisplayPageEntry != null) &&
+			(assetDisplayPageEntry.getType() !=
+				AssetDisplayPageConstants.TYPE_DEFAULT)) {
 
 			return layoutLocalService.fetchLayout(
 				assetDisplayPageEntry.getPlid());
