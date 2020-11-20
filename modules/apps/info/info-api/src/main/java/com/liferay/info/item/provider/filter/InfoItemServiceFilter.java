@@ -12,29 +12,13 @@
  * details.
  */
 
-package com.liferay.info.item;
-
-import com.liferay.info.item.provider.filter.InfoItemServiceFilter;
-
-import java.util.Optional;
-
-import org.osgi.annotation.versioning.ProviderType;
+package com.liferay.info.item.provider.filter;
 
 /**
- * @author Jürgen Kappler
+ * @author Jorge Ferrer
  */
-@ProviderType
-public interface InfoItemIdentifier {
+public interface InfoItemServiceFilter {
 
-	public static final String VERSION_LATEST = "VERSION_LATEST";
-
-	public static final String VERSION_LATEST_APPROVED =
-		"VERSION_LATEST_APPROVED";
-
-	public InfoItemServiceFilter getInfoServiceFilter();
-
-	public Optional<String> getVersionOptional();
-
-	public void setVersion(String version);
+	public String getFilterString();
 
 }
