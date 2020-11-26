@@ -14,6 +14,7 @@
 
 package com.liferay.info.type;
 
+import com.liferay.info.item.ClassObjectInfoItemIdentifier;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -32,10 +33,13 @@ public class WebImage {
 		_url = url;
 	}
 
-	public WebImage(String url, long fileEntryId) {
+	public WebImage(
+		String url,
+		ClassObjectInfoItemIdentifier classObjectInfoItemIdentifier) {
+
 		this(url);
 
-		_fileEntryId = fileEntryId;
+		_classObjectInfoItemIdentifier = classObjectInfoItemIdentifier;
 	}
 
 	public String getAlt() {
@@ -52,8 +56,8 @@ public class WebImage {
 		return Optional.ofNullable(_altInfoLocalizedValue);
 	}
 
-	public long getFileEntryId() {
-		return _fileEntryId;
+	public ClassObjectInfoItemIdentifier getClassObjectInfoItemIdentifier() {
+		return _classObjectInfoItemIdentifier;
 	}
 
 	public String getUrl() {
@@ -85,8 +89,12 @@ public class WebImage {
 			jsonObject.put("alt", _altInfoLocalizedValue.getValue(locale));
 		}
 
-		if (_fileEntryId > 0) {
-			jsonObject.put("fileEntryId", _fileEntryId);
+		if (_classObjectInfoItemIdentifier != null) {
+			jsonObject.put(
+				"className", _classObjectInfoItemIdentifier.getClassName()
+			).put(
+				"classPK", _classObjectInfoItemIdentifier.getClassPK()
+			);
 		}
 
 		return jsonObject;
@@ -98,7 +106,7 @@ public class WebImage {
 	}
 
 	private InfoLocalizedValue<String> _altInfoLocalizedValue;
-	private long _fileEntryId;
+	private ClassObjectInfoItemIdentifier _classObjectInfoItemIdentifier;
 	private final String _url;
 
 }
