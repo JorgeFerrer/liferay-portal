@@ -17,6 +17,7 @@ package com.liferay.fragment.entry.processor.editable.internal.parser;
 import com.liferay.fragment.entry.processor.editable.EditableFragmentEntryProcessor;
 import com.liferay.fragment.entry.processor.editable.parser.EditableElementParser;
 import com.liferay.fragment.exception.FragmentEntryContentException;
+import com.liferay.info.item.ClassObjectInfoItemIdentifier;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.info.type.WebImage;
 import com.liferay.layout.responsive.ViewportSize;
@@ -29,6 +30,7 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Html;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -86,7 +88,17 @@ public class ImageEditableElementParser implements EditableElementParser {
 				alt = altJSONObject.getString(LocaleUtil.toLanguageId(locale));
 			}
 
-			fileEntryId = fieldValueJSONObject.getLong("fileEntryId");
+			if (fieldValueJSONObject.has("fileEntryId")) {
+				fileEntryId = fieldValueJSONObject.getLong("fileEntryId");
+			}
+			else if (fieldValueJSONObject.has("className") &&
+					 fieldValueJSONObject.has("classPK") &&
+					 Objects.equals(
+						 fieldValueJSONObject.getString("className"),
+						 FileEntry.class.getName())) {
+
+				fileEntryId = fieldValueJSONObject.getLong("classPK");
+			}
 		}
 		else if (fieldValue instanceof WebImage) {
 			WebImage webImage = (WebImage)fieldValue;
@@ -101,7 +113,16 @@ public class ImageEditableElementParser implements EditableElementParser {
 				alt = infoLocalizedValue.getValue(locale);
 			}
 
-			fileEntryId = webImage.getFileEntryId();
+			ClassObjectInfoItemIdentifier classObjectInfoItemIdentifier =
+				webImage.getClassObjectInfoItemIdentifier();
+
+			if ((classObjectInfoItemIdentifier != null) &&
+				Objects.equals(
+					classObjectInfoItemIdentifier.getClassName(),
+					FileEntry.class.getName())) {
+
+				fileEntryId = classObjectInfoItemIdentifier.getClassPK();
+			}
 		}
 
 		return JSONUtil.put(
