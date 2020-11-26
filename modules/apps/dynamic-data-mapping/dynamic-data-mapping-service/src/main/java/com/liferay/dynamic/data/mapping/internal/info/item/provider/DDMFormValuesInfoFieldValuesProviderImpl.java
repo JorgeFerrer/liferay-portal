@@ -26,6 +26,7 @@ import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
 import com.liferay.dynamic.data.mapping.storage.constants.FieldConstants;
 import com.liferay.dynamic.data.mapping.util.DDMBeanTranslator;
 import com.liferay.info.field.InfoFieldValue;
+import com.liferay.info.item.ClassObjectInfoItemIdentifier;
 import com.liferay.info.localized.InfoLocalizedValue;
 import com.liferay.info.type.WebImage;
 import com.liferay.petra.string.StringPool;
@@ -174,7 +175,8 @@ public class DDMFormValuesInfoFieldValuesProviderImpl
 				_dlURLHelper.getDownloadURL(
 					fileEntry, fileEntry.getFileVersion(), null,
 					StringPool.BLANK),
-				fileEntry.getFileEntryId());
+				new ClassObjectInfoItemIdentifier(
+					FileEntry.class.getName(), fileEntry.getFileEntryId()));
 
 			webImage.setAlt(jsonObject.getString("alt"));
 
