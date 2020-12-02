@@ -43,7 +43,15 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Eudaldo Alonso
  */
-@Component(immediate = true, service = InfoListProvider.class)
+@Component(
+	immediate = true,
+	property = {
+		"info.related.item.class-name=AssetEntry",
+		"info.related.item.form.variation=AssetEntry",
+		"info.related.directionality=unidirectional",
+	},
+	service = InfoListProvider.class
+)
 public class RelatedAssetsInfoListProvider
 	extends BaseAssetsInfoListProvider implements InfoListProvider<AssetEntry> {
 
