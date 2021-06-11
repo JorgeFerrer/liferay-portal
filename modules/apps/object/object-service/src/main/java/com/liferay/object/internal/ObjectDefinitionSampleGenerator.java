@@ -44,14 +44,12 @@ import org.osgi.service.component.annotations.Reference;
  * @author Marco Leo
  * @author Brian Wing Shun Chan
  */
-@Component(immediate = true, service = {})
+@Component(enabled = false, immediate = true, service = {})
 public class ObjectDefinitionSampleGenerator {
 
 	@Activate
 	protected void activate(BundleContext bundleContext) throws Exception {
-		if (false) {
-			_addSampleObjectDefinition();
-		}
+		_addSampleObjectDefinition();
 	}
 
 	private void _addSampleObjectDefinition() throws Exception {
