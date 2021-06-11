@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Marco Leo
  * @author Brian Wing Shun Chan
  */
-@Component(immediate = true, service = {}, enabled = false)
+@Component(enabled = false, immediate = true, service = {})
 public class ObjectDefinitionSampleGenerator {
 
 	@Activate
