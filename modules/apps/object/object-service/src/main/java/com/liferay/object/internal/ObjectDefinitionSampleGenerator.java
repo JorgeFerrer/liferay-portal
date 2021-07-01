@@ -43,6 +43,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Marco Leo
  * @author Brian Wing Shun Chan
+ *
+ * Execute by typying the following command on the Gogo Shell:
+ * scr:enable com.liferay.object.internal.ObjectDefinitionSampleGenerator
  */
 @Component(enabled = false, immediate = true, service = {})
 public class ObjectDefinitionSampleGenerator {
