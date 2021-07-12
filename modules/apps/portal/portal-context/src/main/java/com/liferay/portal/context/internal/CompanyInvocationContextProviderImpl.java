@@ -15,11 +15,9 @@
 package com.liferay.portal.context.internal;
 
 import com.liferay.portal.kernel.context.CompanyInvocationContextProvider;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.util.CompanyThreadLocal;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -33,11 +31,11 @@ public class CompanyInvocationContextProviderImpl
 
 	@Override
 	public Company getCurrent() {
-		if (!isPresent()) {
-			return null;
+		if (isPresent()) {
+			return _userLocalService.fetchCompany(getCompanyId());
 		}
 
-		return _userLocalService.fetchCompany(getCompanyId());
+		return null;
 	}
 
 	@Override

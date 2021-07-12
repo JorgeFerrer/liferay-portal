@@ -21,7 +21,4 @@ import com.liferay.portal.kernel.model.User;
  */
 public interface UserInvocationContextProvider
 	extends InvocationContextProvider<User> {
-
-	public User getCurrent();
-
 }
