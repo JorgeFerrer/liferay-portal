@@ -15,8 +15,8 @@
 package com.liferay.portal.context.internal;
 
 import com.liferay.portal.kernel.context.UserInvocationContextProvider;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
 
@@ -32,12 +32,26 @@ public class UserInvocationContextProviderImpl
 
 	@Override
 	public User getCurrent() {
-		try {
-			return _userLocalService.getUser(PrincipalThreadLocal.getUserId());
+		if (!isPresent()) {
+			return null;
 		}
-		catch (PortalException portalException) {
-			throw new RuntimeException(portalException);
+
+		return _userLocalService.fetchUser(getUserId());
+	}
+
+	@Override
+	public boolean isPresent() {
+		Long companyId = getUserId();
+
+		if ((companyId == null) || (companyId == 0)) {
+			return false;
 		}
+
+		return true;
+	}
+
+	protected Long getUserId() {
+		return PrincipalThreadLocal.getUserId();
 	}
 
 	@Reference
