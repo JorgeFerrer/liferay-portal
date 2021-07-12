@@ -21,6 +21,8 @@ public interface InvocationContextProvider<T> {
 
 	public T getCurrent();
 
+	public Class<T> getModelClass();
+
 	public boolean isPresent();
 
 }

@@ -39,6 +39,11 @@ public class CompanyInvocationContextProviderImpl
 	}
 
 	@Override
+	public Class<Company> getModelClass() {
+		return Company.class;
+	}
+
+	@Override
 	public boolean isPresent() {
 		Long companyId = getCompanyId();
 
