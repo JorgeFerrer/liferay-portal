@@ -14,6 +14,7 @@
 
 package com.liferay.portal.context.internal;
 
+import com.liferay.petra.lang.SafeCloseable;
 import com.liferay.portal.kernel.context.InvocationContextProvider;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
@@ -52,6 +53,21 @@ public class UserInvocationContextProviderImpl
 		}
 
 		return true;
+	}
+
+	@Override
+	public SafeCloseable setCurrent(User user) {
+		String name = null;
+
+		if (user != null) {
+			name = String.valueOf(user.getUserId());
+		}
+
+		String oldName = PrincipalThreadLocal.getName();
+
+		PrincipalThreadLocal.setName(name);
+
+		return () -> PrincipalThreadLocal.setName(oldName);
 	}
 
 	protected Long getUserId() {

@@ -14,6 +14,7 @@
 
 package com.liferay.portal.context.internal;
 
+import com.liferay.petra.lang.SafeCloseable;
 import com.liferay.portal.kernel.context.InvocationContextProvider;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -52,6 +53,21 @@ public class GroupInvocationContextProviderImpl
 		}
 
 		return true;
+	}
+
+	@Override
+	public SafeCloseable setCurrent(Group group) {
+		Long groupId = null;
+
+		if (group != null) {
+			groupId = group.getGroupId();
+		}
+
+		Long oldGroupId = GroupThreadLocal.getGroupId();
+
+		GroupThreadLocal.setGroupId(groupId);
+
+		return () -> GroupThreadLocal.setGroupId(oldGroupId);
 	}
 
 	protected Long getGroupId() {

@@ -14,6 +14,7 @@
 
 package com.liferay.portal.context.internal;
 
+import com.liferay.petra.lang.SafeCloseable;
 import com.liferay.portal.kernel.context.InvocationContextProvider;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
@@ -52,6 +53,17 @@ public class CompanyInvocationContextProviderImpl
 		}
 
 		return true;
+	}
+
+	@Override
+	public SafeCloseable setCurrent(Company company) {
+		Long companyId = null;
+
+		if (company != null) {
+			companyId = company.getCompanyId();
+		}
+
+		return CompanyThreadLocal.setWithSafeCloseable(companyId);
 	}
 
 	protected Long getCompanyId() {

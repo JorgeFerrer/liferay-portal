@@ -14,6 +14,8 @@
 
 package com.liferay.portal.kernel.context;
 
+import com.liferay.petra.lang.SafeCloseable;
+
 /**
  * @author Jorge Ferrer
  */
@@ -24,5 +26,7 @@ public interface InvocationContextProvider<T> {
 	public Class<T> getModelClass();
 
 	public boolean isPresent();
+
+	public SafeCloseable setCurrent(T model);
 
 }
