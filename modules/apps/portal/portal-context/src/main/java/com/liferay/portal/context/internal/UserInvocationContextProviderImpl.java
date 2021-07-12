@@ -14,7 +14,7 @@
 
 package com.liferay.portal.context.internal;
 
-import com.liferay.portal.kernel.context.UserInvocationContextProvider;
+import com.liferay.portal.kernel.context.InvocationContextProvider;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -25,9 +25,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jorge Ferrer
  */
-@Component(service = UserInvocationContextProvider.class)
+@Component(service = InvocationContextProvider.class)
 public class UserInvocationContextProviderImpl
-	implements UserInvocationContextProvider {
+	implements InvocationContextProvider<User> {
 
 	@Override
 	public User getCurrent() {

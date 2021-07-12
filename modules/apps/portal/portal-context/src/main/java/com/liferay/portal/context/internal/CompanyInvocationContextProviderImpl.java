@@ -14,7 +14,7 @@
 
 package com.liferay.portal.context.internal;
 
-import com.liferay.portal.kernel.context.CompanyInvocationContextProvider;
+import com.liferay.portal.kernel.context.InvocationContextProvider;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -25,9 +25,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jorge Ferrer
  */
-@Component(service = CompanyInvocationContextProvider.class)
+@Component(service = InvocationContextProvider.class)
 public class CompanyInvocationContextProviderImpl
-	implements CompanyInvocationContextProvider {
+	implements InvocationContextProvider<Company> {
 
 	@Override
 	public Company getCurrent() {

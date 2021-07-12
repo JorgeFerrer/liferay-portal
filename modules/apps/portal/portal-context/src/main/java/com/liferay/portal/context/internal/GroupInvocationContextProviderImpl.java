@@ -14,7 +14,7 @@
 
 package com.liferay.portal.context.internal;
 
-import com.liferay.portal.kernel.context.GroupInvocationContextProvider;
+import com.liferay.portal.kernel.context.InvocationContextProvider;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.GroupThreadLocal;
@@ -25,9 +25,9 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jorge Ferrer
  */
-@Component(service = GroupInvocationContextProvider.class)
+@Component(service = InvocationContextProvider.class)
 public class GroupInvocationContextProviderImpl
-	implements GroupInvocationContextProvider {
+	implements InvocationContextProvider<Group> {
 
 	@Override
 	public Group getCurrent() {
