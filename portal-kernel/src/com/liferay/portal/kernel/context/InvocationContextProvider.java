@@ -21,4 +21,6 @@ public interface InvocationContextProvider<T> {
 
 	public T getCurrent();
 
+	public boolean isPresent();
+
 }
