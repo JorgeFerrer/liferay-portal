@@ -32,19 +32,29 @@ public class GroupInvocationContextProviderImpl
 
 	@Override
 	public Group getCurrent() {
-		try {
-
-			// TODO: What is the best way to handle when the current invocation
-			//  is not happening in the context of a Group?
-
-			return _userLocalService.getGroup(GroupThreadLocal.getGroupId());
+		if (!isPresent()) {
+			return null;
 		}
-		catch (PortalException portalException) {
-			throw new RuntimeException(portalException);
+
+		return _groupLocalService.fetchGroup(getGroupId());
+	}
+
+	protected Long getGroupId() {
+		return GroupThreadLocal.getGroupId();
+	}
+
+	@Override
+	public boolean isPresent() {
+		Long groupId = getGroupId();
+
+		if ((groupId == null) || (groupId == 0)) {
+			return false;
 		}
+
+		return true;
 	}
 
 	@Reference
-	private GroupLocalService _userLocalService;
+	private GroupLocalService _groupLocalService;
 
 }

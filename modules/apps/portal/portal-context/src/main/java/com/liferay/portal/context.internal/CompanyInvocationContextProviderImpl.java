@@ -33,17 +33,26 @@ public class CompanyInvocationContextProviderImpl
 
 	@Override
 	public Company getCurrent() {
-		try {
-
-			// TODO: What is the best way to handle when the current invocation
-			//  is not happening in the context of a Company?
-
-			return _userLocalService.getCompany(
-				CompanyThreadLocal.getCompanyId());
+		if (!isPresent()) {
+			return null;
 		}
-		catch (PortalException portalException) {
-			throw new RuntimeException(portalException);
+
+		return _userLocalService.fetchCompany(getCompanyId());
+	}
+
+	@Override
+	public boolean isPresent() {
+		Long companyId = getCompanyId();
+
+		if ((companyId == null) || (companyId == 0)) {
+			return false;
 		}
+
+		return true;
+	}
+
+	protected Long getCompanyId() {
+		return CompanyThreadLocal.getCompanyId();
 	}
 
 	@Reference
