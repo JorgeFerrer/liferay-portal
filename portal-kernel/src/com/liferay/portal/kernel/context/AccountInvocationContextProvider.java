@@ -14,12 +14,11 @@
 
 package com.liferay.portal.kernel.context;
 
+import com.liferay.portal.kernel.model.Account;
+
 /**
  * @author Jorge Ferrer
  */
-public interface AccountInvocationContextProvider<Account>
-	extends InvocationContextProvider {
-
-	public Account getCurrentAccount();
-
+public interface AccountInvocationContextProvider
+	extends InvocationContextProvider<Account> {
 }

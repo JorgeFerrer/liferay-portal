@@ -21,7 +21,4 @@ import com.liferay.portal.kernel.model.Company;
  */
 public interface CompanyInvocationContextProvider
 	extends InvocationContextProvider<Company> {
-
-	public Company getCurrent();
-
 }

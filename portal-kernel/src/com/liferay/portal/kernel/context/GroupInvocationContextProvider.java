@@ -21,7 +21,4 @@ import com.liferay.portal.kernel.model.Group;
  */
 public interface GroupInvocationContextProvider
 	extends InvocationContextProvider<Group> {
-
-	public Group getCurrent();
-
 }

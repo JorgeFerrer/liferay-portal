@@ -21,7 +21,4 @@ import com.liferay.portal.kernel.model.Layout;
  */
 public interface LayoutInvocationContextProvider
 	extends InvocationContextProvider<Layout> {
-
-	public Layout getCurrent();
-
 }

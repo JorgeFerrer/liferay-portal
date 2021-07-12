@@ -15,7 +15,6 @@
 package com.liferay.portal.context.internal;
 
 import com.liferay.portal.kernel.context.GroupInvocationContextProvider;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.GroupThreadLocal;
@@ -32,15 +31,11 @@ public class GroupInvocationContextProviderImpl
 
 	@Override
 	public Group getCurrent() {
-		if (!isPresent()) {
-			return null;
+		if (isPresent()) {
+			return _groupLocalService.fetchGroup(getGroupId());
 		}
 
-		return _groupLocalService.fetchGroup(getGroupId());
-	}
-
-	protected Long getGroupId() {
-		return GroupThreadLocal.getGroupId();
+		return null;
 	}
 
 	@Override
@@ -52,6 +47,10 @@ public class GroupInvocationContextProviderImpl
 		}
 
 		return true;
+	}
+
+	protected Long getGroupId() {
+		return GroupThreadLocal.getGroupId();
 	}
 
 	@Reference
