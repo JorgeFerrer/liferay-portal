@@ -14,6 +14,8 @@
 
 package com.liferay.portal.kernel.context;
 
+import com.liferay.petra.reflect.GenericUtil;
+
 /**
  * @author Jorge Ferrer
  */
@@ -21,7 +23,9 @@ public interface InvocationContextProvider<T> {
 
 	public T getCurrent();
 
-	public Class<T> getModelClass();
+	public default Class<T> getModelClass() {
+		return (Class<T>)GenericUtil.getGenericClass(this);
+	}
 
 	public boolean isPresent();
 
