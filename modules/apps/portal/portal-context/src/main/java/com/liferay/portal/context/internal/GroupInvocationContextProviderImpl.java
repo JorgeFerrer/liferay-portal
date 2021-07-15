@@ -39,11 +39,6 @@ public class GroupInvocationContextProviderImpl
 	}
 
 	@Override
-	public Class<Group> getModelClass() {
-		return Group.class;
-	}
-
-	@Override
 	public boolean isPresent() {
 		Long groupId = getGroupId();
 
