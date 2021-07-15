@@ -20,6 +20,7 @@ import com.liferay.asset.kernel.service.persistence.AssetEntryQuery;
 import com.liferay.info.collection.provider.CollectionQuery;
 import com.liferay.info.collection.provider.InfoCollectionProvider;
 import com.liferay.info.pagination.InfoPage;
+import com.liferay.portal.kernel.context.SiteLayoutInvocationContextProvider;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -28,7 +29,6 @@ import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Collections;
@@ -84,17 +84,7 @@ public class RelatedAssetsInfoCollectionProvider
 
 	@Override
 	public boolean isAvailable() {
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		ThemeDisplay themeDisplay = serviceContext.getThemeDisplay();
-
-		Layout layout = themeDisplay.getLayout();
-
-		if (layout.isTypeControlPanel()) {
-			layout = _layoutLocalService.fetchLayout(
-				themeDisplay.getRefererPlid());
-		}
+		Layout layout = _siteLayoutInvocationContextProvider.getCurrent();
 
 		if ((layout != null) && layout.isTypeAssetDisplay()) {
 			return true;
@@ -128,5 +118,9 @@ public class RelatedAssetsInfoCollectionProvider
 
 	@Reference
 	private LayoutLocalService _layoutLocalService;
+
+	@Reference
+	private SiteLayoutInvocationContextProvider
+		_siteLayoutInvocationContextProvider;
 
 }
