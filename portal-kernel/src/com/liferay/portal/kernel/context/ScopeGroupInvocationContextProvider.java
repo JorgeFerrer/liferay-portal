@@ -19,6 +19,6 @@ import com.liferay.portal.kernel.model.Group;
 /**
  * @author Jorge Ferrer
  */
-public interface GroupInvocationContextProvider
+public interface ScopeGroupInvocationContextProvider
 	extends InvocationContextProvider<Group> {
 }

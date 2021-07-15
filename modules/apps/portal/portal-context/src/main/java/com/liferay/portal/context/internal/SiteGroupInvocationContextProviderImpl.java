@@ -14,10 +14,12 @@
 
 package com.liferay.portal.context.internal;
 
-import com.liferay.portal.kernel.context.GroupInvocationContextProvider;
+import com.liferay.portal.kernel.context.SiteGroupInvocationContextProvider;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.util.GroupThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -25,22 +27,27 @@ import org.osgi.service.component.annotations.Reference;
 /**
  * @author Jorge Ferrer
  */
-@Component(service = GroupInvocationContextProvider.class)
-public class GroupInvocationContextProviderImpl
-	implements GroupInvocationContextProvider {
+@Component(service = SiteGroupInvocationContextProvider.class)
+public class SiteGroupInvocationContextProviderImpl
+	implements SiteGroupInvocationContextProvider {
 
 	@Override
 	public Group getCurrent() {
 		if (isPresent()) {
-			return _groupLocalService.fetchGroup(getGroupId());
+			return _groupLocalService.fetchGroup(getSiteGroupId());
 		}
 
 		return null;
 	}
 
 	@Override
+	public Class<Group> getModelClass() {
+		return Group.class;
+	}
+
+	@Override
 	public boolean isPresent() {
-		Long groupId = getGroupId();
+		Long groupId = getSiteGroupId();
 
 		if ((groupId == null) || (groupId == 0)) {
 			return false;
@@ -49,8 +56,17 @@ public class GroupInvocationContextProviderImpl
 		return true;
 	}
 
-	protected Long getGroupId() {
-		return GroupThreadLocal.getGroupId();
+	protected Long getSiteGroupId() {
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if (serviceContext == null) {
+			return null;
+		}
+
+		ThemeDisplay themeDisplay = serviceContext.getThemeDisplay();
+
+		return themeDisplay.getSiteGroupId();
 	}
 
 	@Reference
