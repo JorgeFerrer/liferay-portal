@@ -17,11 +17,13 @@ package com.liferay.asset.internal.info.collection.provider;
 import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.service.persistence.AssetEntryQuery;
 import com.liferay.info.pagination.Pagination;
+import com.liferay.portal.kernel.context.CompanyInvocationContextProvider;
+import com.liferay.portal.kernel.context.ScopeGroupInvocationContextProvider;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Portal;
 
@@ -37,12 +39,11 @@ public abstract class BaseAssetsInfoCollectionProvider {
 
 		AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
 
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
+		Company company = _companyInvocationContextProvider.getCurrent();
 
 		long[] availableClassNameIds =
 			AssetRendererFactoryRegistryUtil.getClassNameIds(
-				serviceContext.getCompanyId(), true);
+				company.getCompanyId(), true);
 
 		availableClassNameIds = ArrayUtil.filter(
 			availableClassNameIds,
@@ -60,8 +61,12 @@ public abstract class BaseAssetsInfoCollectionProvider {
 		assetEntryQuery.setClassNameIds(availableClassNameIds);
 
 		assetEntryQuery.setEnablePermissions(true);
-		assetEntryQuery.setGroupIds(
-			new long[] {serviceContext.getScopeGroupId()});
+
+		if (scopeGroupInvocationContextProvider.isPresent()) {
+			Group scopeGroup = scopeGroupInvocationContextProvider.getCurrent();
+
+			assetEntryQuery.setGroupIds(new long[]{scopeGroup.getGroupId()});
+		}
 
 		if (pagination != null) {
 			assetEntryQuery.setStart(pagination.getStart());
@@ -78,6 +83,12 @@ public abstract class BaseAssetsInfoCollectionProvider {
 	}
 
 	@Reference
+	protected CompanyInvocationContextProvider _companyInvocationContextProvider;
+
+	@Reference
 	protected Portal portal;
+
+	@Reference
+	protected ScopeGroupInvocationContextProvider scopeGroupInvocationContextProvider;
 
 }

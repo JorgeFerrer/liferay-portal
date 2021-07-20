@@ -21,13 +21,13 @@ import com.liferay.adaptive.media.web.internal.constants.AMPortletKeys;
 import com.liferay.petra.portlet.url.builder.PortletURLBuilder;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskManager;
+import com.liferay.portal.kernel.context.CompanyInvocationContextProvider;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIcon;
 import com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIcon;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
 import com.liferay.portal.kernel.util.Portal;
@@ -57,12 +57,9 @@ public class OptimizeImagesPortletConfigurationIcon
 
 	@Override
 	public String getCssClass() {
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
+		Company company = _companyInvocationContextProvider.getCurrent();
 
-		ThemeDisplay themeDisplay = serviceContext.getThemeDisplay();
-
-		if (_isDisabled(themeDisplay.getCompanyId())) {
+		if (_isDisabled(company.getCompanyId())) {
 			return "disabled";
 		}
 
@@ -157,6 +154,9 @@ public class OptimizeImagesPortletConfigurationIcon
 
 	@Reference
 	private BackgroundTaskManager _backgroundTaskManager;
+
+	@Reference
+	CompanyInvocationContextProvider _companyInvocationContextProvider;
 
 	@Reference
 	private Portal _portal;

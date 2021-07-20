@@ -20,9 +20,15 @@ import com.liferay.asset.util.AssetHelper;
 import com.liferay.info.collection.provider.CollectionQuery;
 import com.liferay.info.collection.provider.InfoCollectionProvider;
 import com.liferay.info.pagination.InfoPage;
+import com.liferay.portal.kernel.context.ScopeGroupInvocationContextProvider;
+import com.liferay.portal.kernel.context.SiteLayoutInvocationContextProvider;
+import com.liferay.portal.kernel.context.UserInvocationContextProvider;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.resource.bundle.ResourceBundleLoader;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
@@ -30,9 +36,6 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchContextFactory;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -88,15 +91,14 @@ public class RecentContentInfoCollectionProvider
 	}
 
 	private SearchContext _getSearchContext() {
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		ThemeDisplay themeDisplay = serviceContext.getThemeDisplay();
+		Group scopeGroup = scopeGroupInvocationContextProvider.getCurrent();
+		Layout siteLayout = siteLayoutInvocationContextProvider.getCurrent();
+		User user = userInvocationContextProvider.getCurrent();
 
 		SearchContext searchContext = SearchContextFactory.getInstance(
 			new long[0], new String[0], new HashMap<>(),
-			serviceContext.getCompanyId(), null, themeDisplay.getLayout(), null,
-			serviceContext.getScopeGroupId(), null, serviceContext.getUserId());
+			scopeGroup.getCompanyId(), null, siteLayout, null,
+			scopeGroup.getGroupId(), null, user.getUserId());
 
 		searchContext.setSorts(
 			SortFactoryUtil.create(Field.MODIFIED_DATE, Sort.LONG_TYPE, true),
@@ -113,5 +115,17 @@ public class RecentContentInfoCollectionProvider
 
 	@Reference(target = "(bundle.symbolic.name=com.liferay.asset.service)")
 	private ResourceBundleLoader _resourceBundleLoader;
+
+	@Reference
+	protected ScopeGroupInvocationContextProvider
+		scopeGroupInvocationContextProvider;
+
+	@Reference
+	protected SiteLayoutInvocationContextProvider
+		siteLayoutInvocationContextProvider;
+
+	@Reference
+	protected UserInvocationContextProvider
+		userInvocationContextProvider;
 
 }
